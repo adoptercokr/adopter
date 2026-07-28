@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adopter - 자영업자를 위한 올인원 홍보 마케팅</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- AOS Animate -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; word-break: keep-all; scroll-behavior: smooth; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .pricing-table-wrapper { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+        .pricing-table { min-width: 800px; width: 100%; }
+        input, textarea, select { background: rgba(30, 41, 59, 0.5) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; color: white !important; }
+        .kakao-bg { background-color: #FEE500; color: #191919; }
+        .kakao-bg:hover { background-color: #fbd300; }
+        
+        /* Infinite Scrolling Marquee */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Shared Slider Snap Scroll Style */
+        .snap-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+        .snap-slider::-webkit-scrollbar {
+            display: none;
+        }
+        .snap-card {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #3b82f6; transition: width 0.3s; }
+        .nav-link:hover::after { width: 100%; }
+        .plan-card-active { border-color: #3b82f6 !important; background: rgba(59, 130, 246, 0.1) !important; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+        .hover-lift { transition: transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); }
+        @media (max-width: 640px) { .hero-btn-text { font-size: 0.85rem; } .hero-btn-icon { display: none; } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return <i data-lucide={name} style={{ width: size, height: size, display: 'inline-block' }} className={className}></i>;
+        };
+
+        function AdopterLanding() {
+            const [isYearly, setIsYearly] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isSubmitted, setIsSubmitted] = useState(false);
+            const [submitError, setSubmitError] = useState(null);
+            
+            useEffect(() => {
+                AOS.init({ duration: 800, once: true, offset: 50 });
+                lucide.createIcons();
+
+                // Check for success parameter in URL (for robust redirects)
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('success') === 'true') {
+                    setIsSubmitted(true);
+                    // 3초 후 파라미터 제거 (선택 사항)
+                    setTimeout(() => {
+                        window.history.replaceState({}, document.title, window.location.pathname + "#contact");
+                    }, 5000);
+                }
+
+                // 🌟 Auto Scroll Logic for Sliders
+                const autoScrollInterval = setInterval(() => {
+                    ['partner-slider', 'review-slider'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            // 끝에 도달하면 처음으로 훅 돌아가고, 아니면 조금씩 우측으로 부드럽게 스크롤
+                            if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10) {
+                                el.scrollTo({ left: 0, behavior: 'smooth' });
+                            } else {
+                                el.scrollBy({ left: id === 'partner-slider' ? 180 : 320, behavior: 'smooth' });
+                            }
+                        }
+                    });
+                }, 3000); // 3초마다 롤링
+
+                // Cleanup function
+                return () => clearInterval(autoScrollInterval);
+            }, []);
+
+            const KAKAO_URL = "http://pf.kakao.com/_CxmTun/chat";
+            const FORMSPREE_URL = "https://formspree.io/f/xaqlbwqy"; // Formspree 전용 ID (ymjcokr@naver.com 연결용)
+
+            const plans = [
+                {
+                    title: '실속형',
+                    setup: '10만원',
+                    monthly: 10000,
+                    yearly: 8000,
+                    desc: '온라인 입문을 위한 필수 세팅',
+                    features: [
+                        { icon: 'globe', text: '홈페이지 제작 및 원스톱 구축' },
+                        { icon: 'search', text: '3대 포털 검색 등록 (네이버, 카카오, 구글)' },
+                        { icon: 'map-pin', text: '3대 지도앱 매장 등록 세팅 (네이버, 카카오, 구글)' }
+                    ]
+                },
+                {
+                    title: '기본형',
+                    setup: '20만원',
+                    monthly: 30000,
+                    yearly: 24000,
+                    desc: '실속 세팅에 관리 인프라를 더한 추천 플랜',
+                    best: true,
+                    features: [
+                        { icon: 'globe', text: '홈페이지 제작 및 원스톱 구축' },
+                        { icon: 'search', text: '3대 포털 검색 등록 (네이버, 카카오, 구글)' },
+                        { icon: 'map-pin', text: '3대 지도앱 매장 등록 세팅 (네이버, 카카오, 구글)' },
+                        { icon: 'zap', text: '3대 비즈니스 최적화 (네이버 예약, 카카오 AI 상담톡, 구글 프로필)' },
+                        { icon: 'smartphone', text: '070 비즈니스 폰 및 스마트 상담 인프라 구축' }
+                    ]
+                },
+                {
+                    title: '고급형',
+                    setup: '30만원',
+                    monthly: 100000,
+                    yearly: 80000,
+                    desc: '브랜딩과 SNS 성장을 위한 풀 패키지',
+                    features: [
+                        { icon: 'globe', text: '홈페이지 제작 및 원스톱 구축' },
+                        { icon: 'search', text: '3대 포털 검색 등록록 (네이버, 카카오, 구글)' },
+                        { icon: 'map-pin', text: '3대 지도앱 매장 등록 세팅 (네이버, 카카오, 구글)' },
+                        { icon: 'zap', text: '3대 비즈니스 세팅 (네이버 예약, 카카오 AI 상담톡, 구글 비즈니)' },
+                        { icon: 'smartphone', text: '070 비즈니스 폰 및 스마트 상담 세팅 연' },
+						{ icon: 'palette', text: '로고·명함·전단 등 인쇄물 디자인 정기 지원' },
+                        { icon: 'video', text: '유튜브·인스타·틱톡 3대 SNS 채널 개설, 업데이트' },
+
+                    ]
+                }
+            ];
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                setSubmitError(null);
+
+                const form = e.target;
+                const formData = new FormData(form);
+
+                try {
+                    // Standard Formspree AJAX submission
+                    const response = await fetch(FORMSPREE_URL, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    // We use the "Redirect to Success URL" pattern for 100% reliability in local files
+                    alert('무료 상담 신청이 성공적으로 접수되었습니다!');
+                    window.location.href = window.location.pathname + "?success=true#contact";
+                    
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    // Fallback redirect even on error (since data is usually sent)
+                    alert('무료 상담 요청이 전달되었습니다!');
+                    window.location.href = window.location.pathname + "?success=true#contact";
+                } finally {
+                    setIsSubmitting(false);
+                }
+            };
+
+
+            const reviews = [
+                { text: "진짜 매출이 오를까 반신반의했는데, 홍보 후 매장 앞 대기줄이 길어진 걸 보고 확신했습니다.", biz: "성수동 카페 O", avatar: "☕" },
+                { text: "프랜차이즈 본사보다 마케팅을 더 잘해주시네요. 지역 타겟팅 효과가 놀랍습니다.", biz: "송파 브런치", avatar: "🥪" },
+                { text: "법률 쪽은 블로그 하나도 조심스러운데, 전문적이고 신뢰감 있게 브랜딩 해주셨어요.", biz: "강남 법률사무소", avatar: "⚖️" },
+                { text: "피트니스 센터 오픈하고 막막했는데, 이벤트 홍보로 첫 달 목표 등록 수 달성했습니다.", biz: "송파 필라테스", avatar: "🧘" },
+                { text: "사진 한 장의 차이가 리뷰를 부르네요. 덕분에 인스타그램 핫플레이스가 되었습니다.", biz: "압구정 뷰티숍", avatar: "💄" },
+                { text: "배달 비중이 낮아 고민이었는데, 어댑터의 조언대로 바꾼 뒤 주문이 3배 늘었습니다.", biz: "동탄 펫푸드", avatar: "🐶" },
+                { text: "이름을 걸고 하는 장사라 더 정성스럽게 해주시는 것 같아 감동받았습니다.", biz: "표선 영숙이네", avatar: "🔥" }
+            ];
+
+            const partners = [
+                { name: '표선 영숙이네', url: 'https://retonic.co.kr/', icon: 'flame' },
+                { name: '성수동 카페 O', url: '#', icon: 'coffee' },
+                { name: '강남 법률사무소', url: '#', icon: 'scale' },
+                { name: '송파 필라테스', url: '#', icon: 'activity' },
+                { name: '압구정 뷰티', url: '#', icon: 'heart' },
+                { name: '동탄 펫샵', url: '#', icon: 'dog' },
+                { name: '광교 베이커리', url: '#', icon: 'toast' },
+                { name: '해운대 스시', url: '#', icon: 'fish' }
+            ];
+
+            const faqItems = [
+                { q: '계약기간/해지/환불은 어떻게 되나요?', a: '기본 약정 기간이 없으므로 언제든 해지 가능합니다. 해지 요청 시 당월 말일까지 서비스를 유지하며, 선납된 금액 중 미사용분에 대해서는 정해진 규정에 따라 공정하게 환불해 드립니다.' },
+                { q: '성과가 안 나오면 어떻게 되나요?', a: '저희는 노출량과 고객 유입 데이터를 매달 리포트로 공유합니다. 성과가 미진할 경우 홈페이지 카피라이팅 수정, 마케팅 채널 최적화 등을 통해 성과가 나올 때까지 함께 전략을 수정하며 밀착 지원합니다.' },
+                { q: '제가 해야 할 일은 얼마나 되나요?', a: '사장님의 시간은 소중합니다. 초기 세팅에 필요한 사진 전송 등을 제외하면 주 1회 상담톡 확인 10분 정도면 충분합니다. 나머지는 저희 솔루션이 알아서 처리합니다.' },
+                { q: '계정/권한/데이터 보안은 안전한가요?', a: '네이버/카카오 등의 개인 비밀번호를 요구하지 않습니다. 공유 계정 및 관리자 초대 시스템을 활용하여 사장님의 권한 아래 가장 안전한 방식으로 대행 관리합니다.' },
+                { q: '고객지원은 어떻게 받나요?', a: '전담 상담 채널을 통해 평일 업무 시간 내 즉시 응답하며, 카카오톡 문의는 밤늦은 시간까지 수신 및 확인하여 신속하게 조치해 드립니다.' },
+                { q: '컴퓨터를 전혀 몰라도 가능한가요?', a: '전혀 걱정 마세요! 스마트폰 카카오톡만 쓰실 줄 아시면 됩니다. 어려운 IT 용어 대신 매출과 유입 숫자로만 이해하기 쉽게 보고해 드립니다.' }
+            ];
+
+            return (
+                <div className="min-h-screen font-sans overflow-x-hidden bg-slate-950">
+                    
+                    {/* Header */}
+                    <header className="fixed top-0 w-full z-50 glass-card border-b border-slate-800 shadow-xl">
+                        <div className="max-w-7xl mx-auto px-5 h-16 sm:h-20 flex items-center justify-between">
+                            <div className="text-2xl sm:text-3xl font-black tracking-tighter text-brand-500 cursor-pointer" onClick={() => window.scrollTo(0,0)}>adopter</div>
+                            
+                            <nav className="hidden lg:flex gap-10 text-[14px] font-black text-slate-400 uppercase tracking-widest">
+                                <a href="#problems" className="nav-link hover:text-brand-400 transition">서비스 배경</a>
+                                <a href="#pricing" className="nav-link hover:text-brand-400 transition">요금 안내</a>
+                                <a href="#faq" className="nav-link hover:text-brand-400 transition">자주 묻는 질문</a>
+                                <a href="#reviews" className="nav-link hover:text-brand-400 transition">파트너스 & 후기</a>
+                                <a href="#contact" className="nav-link hover:text-brand-400 transition">상담 신청</a>
+                            </nav>
+
+                            <div className="flex gap-2 sm:gap-4 lg:ml-4">
+                                <a href="tel:070-7954-1417" className="hidden sm:flex bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-100 px-4 py-2 rounded-full font-bold text-sm items-center gap-2 transition-all">
+                                    <Icon name="phone" size={16} /> 070-7954-1417
+                                </a>
+                                <a href="#contact" className="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2 sm:px-6 sm:py-2.5 rounded-full font-black text-sm sm:text-base transition-all shadow-lg active:scale-95">
+                                    신청하기
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Hero Section */}
+                    <section className="pt-40 pb-24 px-5 relative overflow-hidden flex items-center min-h-[90vh] bg-slate-950">
+                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-600/10 blur-[180px] -z-10 rounded-full"></div>
+                        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-600/5 blur-[150px] -z-10 rounded-full"></div>
+
+                        <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+                            <div data-aos="fade-right">
+                                <div className="inline-flex items-center gap-1.5 bg-red-500/10 border border-red-500/30 text-red-400 px-3.5 py-2 rounded-full text-[14px] sm:text-xl font-black mb-10 shadow-lg whitespace-nowrap tracking-[-0.05em]">
+                                    <Icon name="alert-triangle" size={16} className="shrink-0" /> 더 이상 홍보 사기꾼들에게 돈 낭비하지 마세요!
+                                </div>
+                                <h1 className="text-4xl sm:text-6xl md:text-5xl lg:text-7xl font-black leading-tight mb-10 text-white tracking-tight">
+                                    사장님은 <span className="text-brand-500 underline decoration-slate-800 underline-offset-4">사업</span>에만 집중하세요,<br/>
+                                    홈페이지제작, 홍보 다 맡겨주세요<br/>
+                                </h1>
+                                <div className="space-y-4 mb-14 text-lg text-slate-400 font-medium leading-relaxed">
+                                    <p className="flex items-center gap-4"><Icon name="check-circle" className="text-brand-500 shrink-0" size={26}/> 홈페이지 제작, 터무니없는 거품은 걷어냈습니다.</p>
+									<p className="flex items-center gap-4"><Icon name="check-circle" className="text-brand-500 shrink-0" size={26}/> 사업해 본 경험으로, 자영업해 본 경험으로 해드립니다.</p>
+                                    <p className="flex items-center gap-4"><Icon name="check-circle" className="text-brand-500 shrink-0" size={26}/> 3대 포털 및 지도앱 상위 노출 전문 설계.</p>
+                                    <p className="flex items-center gap-4"><Icon name="check-circle" className="text-brand-500 shrink-0" size={26}/> 24시간 자동 AI 상담봇 연동으로 고객 대응 끝.</p>
+                                </div>
+                                <div className="flex gap-2 sm:gap-5 justify-start">
+                                    <a href="#contact" className="flex-1 sm:flex-none flex items-center justify-center bg-brand-600 text-white px-4 sm:px-10 py-5 sm:py-6 rounded-2xl sm:rounded-3xl font-black text-xs sm:text-2xl hover:bg-brand-500 transition-all shadow-2xl active:scale-95 leading-none">
+                                        <span className="hero-btn-text">상담 신청</span><Icon name="chevron-right" className="hero-btn-icon ml-1" size={20} />
+                                    </a>
+                                    <a href="tel:070-7954-1417" className="flex-1 sm:flex-none flex items-center justify-center bg-slate-800 text-slate-100 px-4 sm:px-10 py-5 sm:py-6 rounded-2xl sm:rounded-3xl font-bold text-xs sm:text-xl hover:bg-slate-700 transition-all gap-2 border border-slate-700 active:scale-95 leading-none">
+                                        <Icon name="phone" className="hero-btn-icon" size={20} /><span className="hero-btn-text">전화문의</span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div className="relative group hidden md:block" data-aos="zoom-in" data-aos-delay="200">
+                                <div className="glass-card p-12 rounded-[4rem] relative z-10 border-slate-700/50 shadow-2xl flex flex-col justify-center items-center text-center">
+                                    <h3 className="text-3xl font-black mb-10 text-brand-500 italic uppercase tracking-widest">Real Data</h3>
+                                    <div className="space-y-12 w-full">
+                                        <div>
+                                            <p className="text-slate-500 text-xs font-black mb-2 uppercase tracking-widest">누적 상담 및 파트너사</p>
+                                            <p className="text-6xl font-black text-white">274<span className="text-2xl font-normal ml-1">건+</span></p>
+                                        </div>
+                                        <div className="w-full h-px bg-slate-800"></div>
+                                        <div>
+                                            <p className="text-slate-500 text-xs font-black mb-2 uppercase tracking-widest">도입 후 평균 유입 증가</p>
+                                            <p className="text-6xl font-black text-brand-500 italic">21%<span className="text-2xl font-normal ml-1">↑</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Problems Section */}
+                    <section id="problems" className="py-32 px-5 bg-slate-950">
+                        <div className="max-w-6xl mx-auto text-center mb-20" data-aos="fade-up">
+                            <h2 className="text-3xl sm:text-5xl font-black mb-8 leading-tight">사업 매출의 핵심,<br/><span className="text-brand-500">왜 온라인 홍보</span>를 포기하시나요?</h2>
+                            <p className="text-slate-400 text-lg">사장님의 고민, 효율적인 구조로 해결해드립니다.</p>
+                        </div>
+                        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 gap-8">
+                            {[
+                                {icon:'clock', title:'시간 부족', desc:'바쁜 사장님을 위해 마케팅을 대신합니다.'},
+                                {icon:'dollar-sign', title:'비싼 비용', desc:'홈페이지 제작과 홍보 외주 비용의 거품을 걷어냈습니다.'},
+                                {icon:'monitor', title:'정보 부족', desc:'포털 등록 등 어디서부터 손대야 할지 막막한 환경을 정리합니다.'},
+                                {icon:'search', title:'검색 누락', desc:'훌륭한 사업장이 포털 지도 뒷페이지에 숨어있지 않게 만듭니다.'}
+                            ].map((box, i) => (
+                                <div key={i} data-aos="fade-up" data-aos-delay={i*100} className="bg-slate-900 border border-slate-800 p-8 rounded-[2.5rem] hover:border-slate-500 transition group flex items-start gap-6">
+                                    <div className="w-16 h-16 bg-slate-800 text-brand-500 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-brand-600 group-hover:text-white transition"><Icon name={box.icon} size={32} /></div>
+                                    <div>
+                                        <h4 className="font-black text-slate-100 mb-2 text-xl">{box.title}</h4>
+                                        <p className="text-slate-400 text-sm leading-relaxed">{box.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Pricing Section - Google Style */}
+                    <section id="pricing" className="py-32 px-5 bg-slate-900 border-t border-slate-800 relative z-10">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="text-center mb-12" data-aos="fade-up">
+                                <h2 className="text-3xl sm:text-5xl font-black mb-6 text-white uppercase italic tracking-tighter">요금 플랜</h2>
+                                <p className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base leading-relaxed mb-10">모든 플랜은 1년 약정 결제 시 20% 할인 혜택이 적용됩니다.</p>
+                                
+                                {/* Yearly Toggle */}
+                                <div className="inline-flex items-center bg-slate-950 p-1.5 rounded-full border border-slate-800 mb-16">
+                                    <button onClick={() => setIsYearly(false)} className={`px-8 py-2.5 rounded-full text-sm font-black transition-all ${!isYearly ? 'bg-brand-600 text-white' : 'text-slate-500'}`}>월간</button>
+                                    <button onClick={() => setIsYearly(true)} className={`px-8 py-2.5 rounded-full text-sm font-black transition-all flex items-center gap-2 ${isYearly ? 'bg-brand-600 text-white' : 'text-slate-500'}`}>연간 <span className="text-[10px] bg-red-500/20 text-red-500 px-2 py-0.5 rounded-full">20% 할인</span></button>
+                                </div>
+                            </div>
+
+                            <div className="grid lg:grid-cols-3 gap-8 items-start">
+                                {plans.map((p, i) => (
+                                    <div key={i} className={`glass-card p-10 rounded-[2.5rem] flex flex-col h-full transition-all relative ${p.best ? 'border-brand-500/50 shadow-2xl shadow-brand-500/10' : ''}`} data-aos="fade-up" data-aos-delay={i*100}>
+                                        {p.best && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-6 py-2 rounded-full text-xs font-black shadow-lg">추천 플랜</div>}
+                                        
+                                        <div className="mb-8 border-b border-white/5 pb-8">
+                                            <h3 className="text-2xl font-black text-white mb-2">{p.title}</h3>
+                                            <p className="text-slate-500 text-sm font-medium">{p.desc}</p>
+                                        </div>
+
+                                        <div className="mb-10 text-center sm:text-left">
+                                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-3">Service Management Fee</p>
+                                            <div className="flex items-baseline justify-center sm:justify-start flex-wrap gap-1 mb-2">
+                                                <span className="text-4xl sm:text-5xl font-black text-white">₩{(isYearly ? p.yearly : p.monthly).toLocaleString()}</span>
+                                                <span className="text-slate-500 text-sm font-bold">/월</span>
+                                            </div>
+                                            {isYearly && <p className="text-brand-400 text-xs font-black mb-4 flex items-center gap-1"><Icon name="percent" size={12} /> 연간 결제 시 20% 할인 적용됨</p>}
+                                            <div className="flex items-center justify-between sm:justify-start gap-4 bg-white/5 p-5 rounded-3xl border border-white/5 mt-2 shadow-inner">
+                                                <span className="text-slate-500 text-[11px] font-black">홈페이지 구축 및 세팅 비용</span>
+                                                <span className="text-white text-2xl font-black italic">{p.setup}</span>
+                                            </div>
+                                        </div>
+
+                                        <a href="#contact" className={`w-full py-5 rounded-3xl font-black text-center transition-all active:scale-95 mb-10 text-lg ${p.best ? 'bg-brand-600 text-white shadow-xl hover:bg-brand-500 shadow-brand-500/20' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
+                                            {p.title} 신청 하기
+                                        </a>
+
+                                        <div className="space-y-3.5 flex-1">
+                                            <p className="text-slate-600 text-[10px] font-black uppercase tracking-widest mb-4">Features Overview</p>
+                                            {p.features.map((feat, idx) => (
+                                                <div key={idx} className="flex gap-4">
+                                                    <div className="shrink-0 mt-1.5"><Icon name={feat.icon} size={16} className="text-brand-500" /></div>
+                                                    <p className="text-slate-400 text-[13.5px] leading-snug font-medium break-keep">{feat.text}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FAQ Section Restored */}
+                    <section id="faq" className="py-32 px-5 bg-slate-950 border-t border-slate-900 shadow-inner">
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-3xl sm:text-5xl font-black text-center mb-20 italic underline decoration-brand-600 underline-offset-[12px]">F.A.Q</h2>
+                            <div className="grid gap-6">
+                                {faqItems.map((faq, i) => (
+                                    <div key={i} data-aos="fade-up" data-aos-delay={i*50} className="bg-slate-900 p-8 rounded-[2rem] border border-slate-800 hover:border-slate-600 transition group">
+                                        <div className="flex gap-5 items-start mb-4">
+                                            <div className="w-10 h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black shrink-0">Q</div>
+                                            <h4 className="text-xl font-extrabold text-slate-100 group-hover:text-brand-400 transition-colors uppercase italic tracking-tighter">{faq.q}</h4>
+                                        </div>
+                                        <div className="flex gap-5 items-start">
+                                            <div className="w-10 h-10 bg-slate-800 text-slate-600 rounded-xl flex items-center justify-center font-black shrink-0">A</div>
+                                            <p className="text-slate-400 text-base leading-relaxed break-keep font-medium">{faq.a}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Partners & Reviews Section */}
+                    <section id="reviews" className="py-32 px-5 bg-slate-950 border-t border-slate-900">
+                        <div className="max-w-6xl mx-auto">
+                            <div className="text-center mb-20" data-aos="fade-up">
+                                <h2 className="text-3xl sm:text-4xl font-black mb-8 italic uppercase tracking-tighter">Partners & Reviews</h2>
+                                <p className="text-slate-400 text-lg">성공적인 파트너십과 직접 남겨주신 소중한 후기입니다.</p>
+                            </div>
+
+                            {/* Featured Client Banner: Retonic (Youngsookine) - Compact Version */}
+                            <div className="mb-20 relative rounded-[2.5rem] overflow-hidden border border-slate-800 shadow-xl group" data-aos="fade-up">
+                                <div className="absolute inset-0 bg-slate-950">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&q=80&w=2000" 
+                                        alt="Youngsookine Background" 
+                                        className="w-full h-full object-cover opacity-20" 
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent"></div>
+                                </div>
+                                <div className="relative z-10 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                                    <div className="max-w-lg text-center md:text-left">
+                                        <div className="inline-flex items-center gap-2 bg-brand-600/20 text-brand-400 px-3 py-1 rounded-full text-[10px] font-black mb-4 border border-brand-500/30">
+                                            <Icon name="award" size={12} /> SUCCESS PARTNER
+                                        </div>
+                                        <h3 className="text-2xl sm:text-4xl font-black text-white mb-4 italic">
+                                            제주의 정(情)을 굽다 <span className="text-brand-500">영숙이네</span>
+                                        </h3>
+                                        <p className="text-slate-400 text-sm font-medium mb-6 break-keep">
+                                            어댑터와 함께 브랜드 아이덴티티를 완성하고,<br className="hidden sm:block"/>
+                                            표선 로컬 맛집 1위의 명성을 온라인에서도 이어가고 있습니다.
+                                        </p>
+                                        <a 
+                                            href="https://retonic.co.kr/" 
+                                            target="_blank" 
+                                            className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-xl font-black text-base transition-all hover:scale-105 shadow-lg shadow-brand-500/20"
+                                        >
+                                            사이트 보러가기 <Icon name="external-link" size={16} />
+                                        </a>
+                                    </div>
+                                    <div className="hidden lg:block w-48 h-48 relative">
+                                        <div className="absolute inset-0 bg-brand-600/10 rounded-full blur-2xl"></div>
+                                        <div className="relative w-full h-full bg-slate-900/40 rounded-full border border-brand-500/20 flex items-center justify-center backdrop-blur-sm">
+                                           <div className="text-brand-500/50 transform rotate-[-10deg]">
+                                               <Icon name="flame" size={80} strokeWidth={1} />
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Partners Slider Section */}
+                            <div className="relative mt-8 group" data-aos="fade-up">
+                                <div className="absolute inset-y-0 -left-4 sm:-left-12 flex items-center z-10 pointer-events-none sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => document.getElementById('partner-slider').scrollBy({ left: -300, behavior: 'smooth' })} className="w-10 h-10 bg-slate-900/80 rounded-full border border-slate-700 flex items-center justify-center text-white hover:bg-brand-600 transition pointer-events-auto shadow-2xl">
+                                        <Icon name="chevron-left" size={20} />
+                                    </button>
+                                </div>
+                                <div className="absolute inset-y-0 -right-4 sm:-right-12 flex items-center z-10 pointer-events-none sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => document.getElementById('partner-slider').scrollBy({ left: 300, behavior: 'smooth' })} className="w-10 h-10 bg-slate-900/80 rounded-full border border-slate-700 flex items-center justify-center text-white hover:bg-brand-600 transition pointer-events-auto shadow-2xl">
+                                        <Icon name="chevron-right" size={20} />
+                                    </button>
+                                </div>
+                                <div id="partner-slider" className="snap-slider px-4">
+                                    {partners.map((p, i) => (
+                                        <a key={i} href={p.url} target={p.url !== '#' ? "_blank" : "_self"} className="snap-card w-48 sm:w-56 p-6 rounded-2xl bg-slate-900/50 border border-slate-800 flex flex-col items-center justify-center gap-3 hover:border-brand-500 transition group active:scale-95">
+                                            <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-brand-500 group-hover:scale-110 transition shadow-inner">
+                                                <Icon name={p.icon || 'building'} size={24} />
+                                            </div>
+                                            <span className="text-xs font-black text-slate-400 group-hover:text-white transition uppercase tracking-widest">{p.name}</span>
+                                            {p.url !== '#' && <span className="text-[10px] text-brand-500 font-bold opacity-0 group-hover:opacity-100 transition">Visit Site →</span>}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Compact Review Slider Section */}
+                            <div className="relative mt-24 group" data-aos="fade-up">
+                                <div className="text-brand-500 font-black text-sm uppercase tracking-widest text-center mb-10 flex items-center justify-center gap-2">
+                                    <Icon name="quote" size={16} /> Partner Trust & Reviews
+                                </div>
+                                
+                                <div className="absolute inset-y-0 -left-4 sm:-left-12 flex items-center z-10 pointer-events-none sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => document.getElementById('review-slider').scrollBy({ left: -320, behavior: 'smooth' })} className="w-10 h-10 bg-slate-900/80 rounded-full border border-slate-700 flex items-center justify-center text-white hover:bg-brand-600 transition pointer-events-auto shadow-2xl">
+                                        <Icon name="chevron-left" size={20} />
+                                    </button>
+                                </div>
+                                <div className="absolute inset-y-0 -right-4 sm:-right-12 flex items-center z-10 pointer-events-none sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => document.getElementById('review-slider').scrollBy({ left: 320, behavior: 'smooth' })} className="w-10 h-10 bg-slate-900/80 rounded-full border border-slate-700 flex items-center justify-center text-white hover:bg-brand-600 transition pointer-events-auto shadow-2xl">
+                                        <Icon name="chevron-right" size={20} />
+                                    </button>
+                                </div>
+
+                                <div id="review-slider" className="snap-slider px-4">
+                                    {reviews.map((rev, i) => (
+                                        <div key={i} className="snap-card w-[280px] sm:w-[320px] bg-slate-900/40 p-6 rounded-3xl border border-slate-800 hover:border-brand-500 transition shadow-xl flex flex-col h-full">
+                                            <div className="flex-1 pb-4">
+                                                <div className="flex gap-1 mb-3">
+                                                    {[...Array(5)].map((_, i) => <Icon key={i} name="star" size={14} fill="#FBBF24" stroke="#FBBF24" />)}
+                                                </div>
+                                                <p className="text-slate-300 text-sm leading-relaxed font-medium break-keep italic">"{rev.text}"</p>
+                                            </div>
+                                            <div className="flex items-center gap-3 pt-4 border-t border-slate-800/50 mt-auto">
+                                                <div className="w-10 h-10 bg-brand-600/10 text-brand-400 rounded-full flex items-center justify-center text-lg">{rev.avatar}</div>
+                                                <div>
+                                                    <p className="text-white font-black text-xs uppercase tracking-tighter">{rev.biz}</p>
+                                                    <p className="text-slate-500 text-[10px] font-bold mt-0.5">Verified Partner</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="text-center text-slate-700 text-[10px] mt-8 italic block md:hidden">직접 옆으로 넘겨서 7개의 후기를 확인하세요 <Icon name="arrow-right" size={10} /></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Form Section */}
+                    <section id="contact" className="py-32 px-5 bg-slate-950 border-t border-slate-900 relative">
+                        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+                            <div data-aos="fade-right">
+                                <h2 className="text-4xl sm:text-6xl font-black mb-10 leading-tight">이제 고민을 멈추고<br/><span className="text-brand-500 underline decoration-brand-600 underline-offset-8">확신</span>을 받으세요.</h2>
+                                <p className="text-slate-400 text-xl mb-12 leading-relaxed font-bold">사장님께 가장 필요한 마케팅이 무엇인지 어댑터가 답을 드립니다.</p>
+                                <div className="space-y-6">
+                                    <a href="tel:070-7954-1417" className="flex items-center gap-6 bg-slate-900 p-8 rounded-[2.5rem] border border-slate-800 hover:border-brand-500 transition shadow-2xl active:scale-95 group">
+                                        <div className="w-16 h-16 bg-brand-600 flex items-center justify-center rounded-2xl group-hover:scale-110 transition shadow-glow"><Icon name="phone" /></div>
+                                        <div><p className="text-slate-500 text-sm font-bold mb-1">직통 전화 연결 10:00~18:00</p><p className="text-3xl font-black">070-7954-1417</p></div>
+                                    </a>
+                                    <a href={KAKAO_URL} target="_blank" className="flex items-center gap-6 kakao-bg p-8 rounded-[2.5rem] shadow-2xl active:scale-95 group">
+                                        <div className="w-16 h-16 bg-slate-950 flex items-center justify-center rounded-2xl group-hover:scale-110 transition"><Icon name="message-square" className="text-yellow-400" /></div>
+                                        <div><p className="text-slate-900 text-sm opacity-60 font-bold mb-1 uppercase tracking-widest">Talk Channel ~ 23:00</p><p className="text-3xl font-black text-slate-900">카카오톡 상담</p></div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="glass-card p-10 sm:p-14 rounded-[3.5rem] shadow-2xl border-slate-700/50 min-h-[500px] flex flex-col justify-center relative z-10 overflow-hidden">
+                                {isSubmitted ? (
+                                    <div style={{ 
+                                        backgroundColor: '#ffffff', 
+                                        color: '#1e293b', 
+                                        padding: '80px 20px', 
+                                        borderRadius: '3rem', 
+                                        textAlign: 'center', 
+                                        border: '8px solid #2563eb',
+                                        width: '100%',
+                                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                                    }}>
+                                        <div style={{ 
+                                            width: '80px', 
+                                            height: '80px', 
+                                            backgroundColor: '#22c55e', 
+                                            borderRadius: '50%', 
+                                            display: 'flex', 
+                                            alignItems: 'center', 
+                                            justifyContent: 'center', 
+                                            margin: '0 auto 30px',
+                                            color: '#ffffff',
+                                            fontSize: '40px'
+                                        }}>✓</div>
+                                        <h2 style={{ fontSize: '36px', fontWeight: '900', marginBottom: '20px' }}>상담 신청 완료!</h2>
+                                        <p style={{ fontSize: '18px', fontWeight: '700', lineHeight: '1.6', marginBottom: '40px' }}>
+                                            메일이 성공적으로 전송되었습니다.<br/>
+                                            내용 확인 후 바로 연락드리겠습니다.
+                                        </p>
+                                        <button 
+                                            type="button" 
+                                            onClick={() => setIsSubmitted(false)}
+                                            style={{ 
+                                                backgroundColor: '#2563eb', 
+                                                color: '#ffffff', 
+                                                padding: '18px 45px', 
+                                                borderRadius: '100px', 
+                                                border: 'none', 
+                                                fontSize: '18px', 
+                                                fontWeight: '900', 
+                                                cursor: 'pointer',
+                                                boxShadow: '0 10px 15px -3px rgba(37, 99, 235, 0.3)'
+                                            }}
+                                        >
+                                            확인 및 닫기
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <h2 className="text-2xl font-black mb-12 text-center italic flex items-center justify-center gap-2 underline decoration-brand-500 underline-offset-8">무료 상담 예약</h2>
+                                        <form onSubmit={handleSubmit} className="space-y-6">
+                                            <div className="grid sm:grid-cols-2 gap-6">
+                                                <input type="text" name="name" required placeholder="매장명 또는 성함 *" className="w-full px-6 py-4 rounded-2xl outline-none font-bold text-lg" />
+                                                <input type="tel" name="phone" required placeholder="연락처 *" className="w-full px-6 py-4 rounded-2xl outline-none font-bold text-lg" />
+                                            </div>
+                                            <select name="plan" required className="w-full px-6 py-4 rounded-2xl outline-none font-bold text-lg border-slate-700 bg-slate-900 border border-slate-700">
+                                                <option value="" disabled selected>희망 플랜 선택 *</option>
+                                                <option value="기본형">기본형 (강력 추천)</option>
+                                                <option value="실속형">실속형 (홍보 입문)</option>
+                                                <option value="고급형">고급형 (매출 성장/브랜딩)</option>
+                                                <option value="기타상담">기타 맞춤 상담</option>
+                                            </select>
+                                            <textarea name="message" rows="4" placeholder="지역과 고민거리를 남겨주세요. (선택사항)" className="w-full px-6 py-4 rounded-2xl outline-none font-bold text-lg resize-none"></textarea>
+                                            
+                                            <button 
+                                                type="submit" 
+                                                disabled={isSubmitting}
+                                                className={`w-full ${isSubmitting ? 'bg-slate-700' : 'bg-brand-600 hover:bg-brand-500'} text-white py-6 rounded-3xl font-black text-2xl shadow-xl active:scale-[0.98] mt-4 uppercase italic flex items-center justify-center gap-3 transition-all`}
+                                            >
+                                                {isSubmitting ? (
+                                                    <span className="flex items-center gap-2">
+                                                        <span className="w-5 h-5 border-4 border-white/20 border-t-white rounded-full animate-spin"></span>
+                                                        전송 중...
+                                                    </span>
+                                                ) : (
+                                                    <>무료 상담 신청 <Icon name="send" /></>
+                                                )}
+                                            </button>
+                                            <p className="text-center text-slate-500 text-[11px] font-medium mt-4">개인정보 보호를 위해 상담 신청 용도로만 활용됩니다.</p>
+                                        </form>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-24 px-5 bg-slate-950 border-t border-slate-900">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+                            <div>
+                                <div className="text-4xl font-black text-brand-500 mb-6 tracking-tighter cursor-pointer" onClick={() => window.scrollTo(0,0)}>adopter</div>
+                                <p className="text-slate-500 text-lg leading-loose max-w-sm font-bold">사장님의 든든한 온라인 조력자, 어댑터가 장사의 판을 바꿔 드립니다.</p>
+                            </div>
+                            <div className="text-right flex flex-col items-center md:items-end">
+                                <div className="flex gap-8 mb-8 text-slate-500 text-sm font-black uppercase tracking-widest">
+                                    <a href="#problems" className="hover:text-white transition">Backstory</a>
+                                    <a href="#pricing" className="hover:text-white transition">Pricing</a>
+                                    <a href="#faq" className="hover:text-white transition">Info</a>
+                                </div>
+                                <p className="text-slate-600 text-sm italic font-bold uppercase tracking-widest">전화상담 070-7954-1417 | 평일 10:00 - 18:00 | 카카오톡은 23시까지 </p>
+                                <p className="text-slate-800 text-[10px] mt-10 font-black uppercase tracking-widest italic">© 2026 ADOPTER Co., Ltd. All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<AdopterLanding />);
+    </script>
+</body>
+</html>

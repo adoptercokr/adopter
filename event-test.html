@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>추억의 뽑기판 이벤트</title>
+    <title>추억의 뽑기판 이벤트 (체험판)</title>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
@@ -314,12 +314,8 @@
         </div>
 
         <div class="action-area">
-            <div style="text-align:center; font-family:'Jua', sans-serif; font-size:1.1rem; color:#d9382e;">1단계: 발급받은 코드를 입력하고 확인하세요</div>
-            <div class="input-group">
-                <input type="text" id="access-code" placeholder="코드 입력" maxlength="5" style="text-transform: uppercase;">
-                <button class="primary-btn" onclick="verifyCodeBtn()">확인</button>
-            </div>
-            <div style="text-align:center; font-size:0.9rem; color:#666; margin-top:5px;">2단계: 코드가 확인되면 위의 뽑기판을 터치하세요!</div>
+            <div style="text-align:center; font-family:'Jua', sans-serif; font-size:1.3rem; color:#d9382e;">✨ 체험용 이벤트 페이지입니다 ✨</div>
+            <div style="text-align:center; font-size:1rem; color:#333; margin-top:5px; font-weight:bold;">코드 입력 없이 아무 뽑기판이나 자유롭게 터치해보세요!</div>
         </div>
 
         <div class="store-footer">
@@ -434,14 +430,12 @@
         }
 
         function initGame() {
-            // 버전 v4로 업그레이드 (구조 변경)
-            const savedState = localStorage.getItem('retroGachaState_v4');
+            // 체험판용 로컬스토리지
+            const savedState = localStorage.getItem('retroGachaState_test');
             if (savedState) {
                 state = JSON.parse(savedState);
-                // 혹시 prizeConfig가 없는 하위호환의 경우
                 if(!state.prizeConfig) state.prizeConfig = JSON.parse(JSON.stringify(DEFAULT_PRIZE_CONFIG));
             } else {
-                localStorage.removeItem('retroGachaState_v3'); 
                 createNewBoard();
             }
             renderDashboard();
@@ -477,7 +471,7 @@
         }
 
         function saveState() {
-            localStorage.setItem('retroGachaState_v4', JSON.stringify(state));
+            localStorage.setItem('retroGachaState_test', JSON.stringify(state));
         }
 
         function getPrizeStats() {
@@ -555,24 +549,9 @@
         function handleTicketClick(index, ticketData) {
             if(ticketData.opened) return;
 
-            const code = accessCodeInput.value.trim().toUpperCase();
-            if(!code) {
-                showToast('하단에 참여 코드를 먼저 입력해주세요!');
-                accessCodeInput.focus();
-                return;
-            }
-
-            if(!state.validCodes.includes(code)) {
-                showToast('유효하지 않은 코드입니다!');
-                return;
-            }
-
-            // 당첨 처리
-            state.validCodes = state.validCodes.filter(c => c !== code);
-            state.usedCodes.push(code);
+            // 체험판이므로 코드 검증 생략
             state.tickets[index].opened = true;
             
-            accessCodeInput.value = ''; 
             saveState();
             
             renderBoard();

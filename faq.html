@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>어댑터(adopter) - 자주 묻는 질문(FAQ)</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="어댑터 홈페이지 제작 및 마케팅 서비스에 대해 자주 묻는 질문들을 모았습니다. 비용, 기간, 관리 방법 등 궁금한 점을 확인하세요.">
+    <meta name="keywords" content="홈페이지제작FAQ, 웹사이트제작질문, 어댑터상담, 자영업자마케팅">
+    <link rel="canonical" href="https://adopter.co.kr/faq.html" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adopter.co.kr/faq.html">
+    <meta property="og:title" content="어댑터(adopter) - 자주 묻는 질문(FAQ)">
+    <meta property="og:description" content="홈페이지 제작부터 검색 등록까지, 어댑터 서비스에 대한 궁금증을 해결해 드립니다.">
+    <meta property="og:image" content="https://adopter.co.kr/img/adopter.jpg">
+    <meta property="og:site_name" content="어댑터(adopter)">
+
+    <!-- Structured Data (FAQ) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "계약기간/해지/환불은 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "기본 약정 기간이 없으므로 언제든 해지 가능합니다. 해지 요청 시 당월 말일까지 서비스를 유지하며, 선납된 금액 중 미사용분에 대해서는 정해진 규정에 따라 공정하게 환불해 드립니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "컴퓨터를 전혀 몰라도 가능한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전혀 걱정 마세요! 스마트폰 카카오톡만 쓰실 줄 아시면 됩니다. 어려운 IT 용어 대신 매출과 유입 숫자로만 이해하기 쉽게 보고해 드립니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "제가 해야 할 일은 얼마나 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "사장님의 시간은 소중합니다. 초기 세팅에 필요한 사진 전송 등을 제외하면 주 1회 상담톡 확인 10분 정도면 충분합니다. 나머지는 저희 솔루션이 알아서 처리합니다."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <link rel="icon" href="img/adopter-logo-150-150.jpg" />
+    <link rel="apple-touch-icon" href="img/adopter-logo-150-150.jpg" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; word-break: keep-all; scroll-behavior: smooth; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return <i data-lucide={name} style={{ width: size, height: size, display: 'inline-block' }} className={className}></i>;
+        };
+
+        function FAQPage() {
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+            
+            useEffect(() => {
+                lucide.createIcons();
+            }, []);
+
+            const faqItems = [
+                { q: '계약기간/해지/환불은 어떻게 되나요?', a: '기본 약정 기간이 없으므로 언제든 해지 가능합니다. 해지 요청 시 당월 말일까지 서비스를 유지하며, 선납된 금액 중 미사용분에 대해서는 정해진 규정에 따라 공정하게 환불해 드립니다.' },
+                { q: '컴퓨터를 전혀 몰라도 가능한가요?', a: '전혀 걱정 마세요! 스마트폰 카카오톡만 쓰실 줄 아시면 됩니다. 어려운 IT 용어 대신 매출과 유입 숫자로만 이해하기 쉽게 보고해 드립니다.' },
+                { q: '제가 해야 할 일은 얼마나 되나요?', a: '사장님의 시간은 소중합니다. 초기 세팅에 필요한 사진 전송 등을 제외하면 주 1회 상담톡 확인 10분 정도면 충분합니다. 나머지는 저희 솔루션이 알아서 처리합니다.' },
+                { q: '고객지원은 어떻게 받나요?', a: '전담 상담 채널을 통해 평일 업무 시간 내 즉시 응답하며, 카카오톡 문의는 밤늦은 시간까지 수신 및 확인하여 신속하게 조치해 드립니다.' },  
+                { q: '오타 하나 고치는 것도 복잡하고 돈 드나?', a: '오타 하나 수정하는데 몇만원씩 요구하거나, 절대 무리한 추가비용을 요청 하지 않습니다. 원만한 부분은 월 유지비에서 해결해 드립니다.' },
+                { q: '위약금이랑 도메인 등 추가금이 있나요?', a: '위약금도 다른 추가금도 일절 없습니다. 도메인은 사장님 구매하셔서 사장님 소유로 가지고 계시면 되십니다.' },
+                { q: '계정/권한/데이터 보안은 안전한가요?', a: '네이버/카카오 등의 개인 비밀번호를 요구하지 않습니다. 공유 계정 및 관리자 초대 시스템을 활용하여 사장님의 권한 아래 가장 안전한 방식으로 대행 관리합니다.' }
+            ];
+
+            return (
+                <div className="min-h-screen font-sans bg-slate-950 flex flex-col">
+                    
+                    {/* Header */}
+                    <header className="fixed top-0 w-full z-50 glass-card border-b border-slate-800 shadow-xl">
+                        <div className="max-w-7xl mx-auto px-5 h-16 sm:h-20 flex items-center justify-between">
+                            <a href="index.html" className="text-2xl sm:text-3xl font-black tracking-tighter text-brand-500 cursor-pointer">adopter</a>
+                            
+                            <nav className="hidden lg:flex gap-10 text-[14px] font-black text-slate-400 uppercase tracking-widest">
+                                <a href="index.html#problems" className="hover:text-brand-400 transition">서비스 배경</a>
+                                <a href="portfolio.html" className="hover:text-brand-400 transition">제작예시 및 금액</a>
+                                <a href="index.html#pricing" className="hover:text-brand-400 transition">요금 안내</a>
+                                <a href="faq.html" className="text-brand-400 transition">자주 묻는 질문</a>
+                            </nav>
+
+                            <div className="flex items-center gap-2 sm:gap-4 lg:ml-4">
+                                <a href="tel:070-7954-1417" className="hidden sm:flex bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-100 px-4 py-2 rounded-full font-bold text-sm items-center gap-2 transition-all">
+                                    <Icon name="phone" size={16} /> 070-7954-1417
+                                </a>
+                                <a href="index.html#contact" className="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-full font-black text-sm sm:text-base transition-all shadow-lg active:scale-95 whitespace-nowrap">
+                                    신청하기
+                                </a>
+                                <button className="lg:hidden text-white ml-1 p-1 w-9 h-9 relative focus:outline-none" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                    <span className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}><Icon name="menu" size={28} /></span>
+                                    <span className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}><Icon name="x" size={28} /></span>
+                                </button>
+                            </div>
+                        </div>
+                        {/* Mobile Nav */}
+                        {isMobileMenuOpen && (
+                            <nav className="lg:hidden bg-slate-900 border-b border-slate-800 px-5 py-4 flex flex-col gap-4 text-sm font-black text-slate-300 uppercase tracking-widest absolute w-full top-full left-0 shadow-2xl">
+                                <a href="index.html#problems" className="hover:text-brand-400 transition">서비스 배경</a>
+                                <a href="portfolio.html" className="hover:text-brand-400 transition">제작예시 및 금액</a>
+                                <a href="index.html#pricing" className="hover:text-brand-400 transition">요금 안내</a>
+                                <a href="faq.html" className="text-brand-400 transition">자주 묻는 질문</a>
+                            </nav>
+                        )}
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="flex-1 pt-32 pb-24 px-5">
+                        <div className="max-w-4xl mx-auto">
+                            <h1 className="text-3xl sm:text-5xl font-black text-center mb-6 italic underline decoration-brand-600 underline-offset-[12px] uppercase">F.A.Q</h1>
+                            <p className="text-center text-slate-400 mb-16 text-lg">어댑터 서비스 이용에 대해 자주 묻는 질문입니다.</p>
+                            
+                            <div className="grid gap-6">
+                                {faqItems.map((faq, i) => (
+                                    <div key={i} className="bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-800 hover:border-slate-600 transition group">
+                                        <div className="flex gap-4 sm:gap-5 items-start mb-4">
+                                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center font-black shrink-0 text-sm sm:text-base">Q</div>
+                                            <h4 className="text-lg sm:text-xl font-extrabold text-slate-100 group-hover:text-brand-400 transition-colors uppercase italic tracking-tighter pt-1">{faq.q}</h4>
+                                        </div>
+                                        <div className="flex gap-4 sm:gap-5 items-start">
+                                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-slate-800 text-slate-600 rounded-xl flex items-center justify-center font-black shrink-0 text-sm sm:text-base">A</div>
+                                            <p className="text-slate-400 text-sm sm:text-base leading-relaxed break-keep font-medium pt-1.5">{faq.a}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="py-12 px-5 bg-slate-950 border-t border-slate-900 mt-auto">
+                        <div className="max-w-7xl mx-auto text-center">
+                            <p className="text-slate-600 text-xs sm:text-sm italic font-bold uppercase tracking-widest leading-relaxed">
+                                전화상담 070-7954-1417 | 평일 10:00 - 18:00 | 카카오톡은 23시까지 <br/>
+                                상호명 : 안단테 | 대표자명 : 유명종<br/>
+                                이메일 : ymjcokr@naver.com<br/>
+                                <br/>
+                                &copy; 2026 adopter. All rights reserved.
+                            </p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<FAQPage />);
+    </script>
+</body>
+</html>

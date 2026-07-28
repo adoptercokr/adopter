@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사장님 비서 AI - 소상공인 통합 마케팅 솔루션</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animate On Scroll CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Babel (CDN) for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- React & ReactDOM (CDN) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; word-break: keep-all; }
+        html { scroll-behavior: smooth; }
+        .kakao-bg { background-color: #FEE500; color: #000000; }
+        .kakao-bg:hover { background-color: #FDD800; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 overflow-x-hidden">
+    <div id="root"></div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            return <i data-lucide={name} style={{ width: size, height: size, display: 'inline-block' }} className={className}></i>;
+        };
+
+        function LandingPage() {
+            const [openFaqIndex, setOpenFaqIndex] = useState(null);
+            
+            // 이메일 수신 주소 (회원가입 없이 이 주소로 곧바로 메일 전송이 됩니다!)
+            // 여기에 대표님의 실제 이메일(예: myboss123@naver.com)을 적어주세요.
+            const MY_EMAIL = "ymjcokr@naver.com"; 
+
+            useEffect(() => {
+                AOS.init({ duration: 800, offset: 50, once: false });
+                lucide.createIcons();
+            });
+
+            const toggleFaq = (index) => {
+                setOpenFaqIndex(openFaqIndex === index ? null : index);
+            };
+
+            const faqs = [ /* 생략(구조 동일) */
+                { q: "컴퓨터를 몰라도 되나요?", a: "카카오톡만 할 줄 아시면 됩니다. 영상 제작부터 노출 등 저희 AI가 알아서 해드립니다." },
+                { q: "약정이나 위약금이 있나요?", a: "위약금 없는 무약정 서비스로 언제든지 해지 가능합니다." },
+                { q: "영상 퀄리티는 어떤가요?", a: "최신 트렌드에 최적화된 화면/자막/음악을 자동 적용해 시선을 끕니다." },
+                { q: "지도 등록이나 예약 화면도 만들어 주시나요?", a: "네, 구축 패키지에 3대 포털 플레이스 세팅까지 모두 무상 포함됩니다." }
+            ];
+
+            return (
+                <div className="min-h-screen bg-slate-50 font-sans">
+                    {/* Header */}
+                    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all hidden md:block">
+                        <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
+                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+                                <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">A</div>
+                                <span className="text-xl font-extrabold tracking-tight text-slate-900">사장님 비서 AI</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <a href="http://pf.kakao.com/_CxmTun/chat" target="_blank" rel="noreferrer" className="kakao-bg flex px-4 py-2 rounded-full font-bold transition-all text-sm shadow-sm gap-1.5 items-center">
+                                    <Icon name="message-circle" size={16} /> 카카오톡 실시간 상담
+                                </a>
+                                <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-bold transition-all text-sm shadow-md">
+                                    무료 견적 신청
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Hero Section */}
+                    <section className="bg-gradient-to-b from-blue-50 to-white pt-24 md:pt-32 pb-20 px-5 text-center relative overflow-hidden">
+                        <div className="max-w-4xl mx-auto relative z-10" data-aos="fade-up">
+                            <div className="inline-block bg-white text-blue-600 px-4 py-1.5 rounded-full font-bold text-sm mb-6 border border-blue-100 shadow-sm">
+                                전국 온/오프라인 매장 전용 스마트 솔루션
+                            </div>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.3] mb-6 tracking-tight">
+                                사장님은 <span className="text-blue-600">요리</span>하세요,<br />
+                                손님은 <span className="text-blue-600">AI</span>가 모셔옵니다.
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                                지도 등록, 카톡 AI 챗봇 연결, 사진 한 장으로 알아서 올려주는 홍보 영상까지.<br className="hidden md:block"/>
+                                우리 매장을 꽉 채워줄 전담 비서 <strong className="text-slate-800 font-semibold">'사장님 비서 AI'</strong>를 만나보세요.
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1">
+                                    이메일로 간편히 신청하기
+                                </a>
+                                <a href="http://pf.kakao.com/_CxmTun/chat" target="_blank" rel="noreferrer" className="kakao-bg px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all hover:-translate-y-1 flex items-center justify-center gap-2 text-black">
+                                    <Icon name="message-circle" size={24} /> 1:1 카톡으로 빠른 문의
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Pain Points */}
+                    <section className="py-20 px-5 bg-white">
+                        <div className="max-w-5xl mx-auto">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">매장 운영만으로도 벅차지 않으신가요?</h2>
+                                <p className="text-slate-500 text-lg">마케팅 지식이 부족한 사장님들의 고충</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div data-aos="fade-up" data-aos-delay="0" className="bg-slate-50 border border-slate-100 p-8 rounded-2xl flex flex-col items-center text-center shadow-sm">
+                                    <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-6"><Icon name="clock" size={32} /></div>
+                                    <h3 className="text-xl font-bold mb-3 text-slate-900">시간 부족</h3>
+                                    <p className="text-slate-600 text-sm">요리, 서빙, 재고 관리에 치여 인스타 홍보할 여유가 없습니다.</p>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="100" className="bg-slate-50 border border-slate-100 p-8 rounded-2xl flex flex-col items-center text-center shadow-sm">
+                                    <div className="w-16 h-16 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mb-6"><Icon name="trending-down" size={32} /></div>
+                                    <h3 className="text-xl font-bold mb-3 text-slate-900">막막한 마케팅</h3>
+                                    <p className="text-slate-600 text-sm">숏폼, 릴스 영상이 대세라는데 촬영할 줄도 편집할 줄도 모릅니다.</p>
+                                </div>
+                                <div data-aos="fade-up" data-aos-delay="200" className="bg-slate-50 border border-slate-100 p-8 rounded-2xl flex flex-col items-center text-center shadow-sm">
+                                    <div className="w-16 h-16 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center mb-6"><Icon name="stop-circle" size={32} /></div>
+                                    <h3 className="text-xl font-bold mb-3 text-slate-900">비싼 대행 비용</h3>
+                                    <p className="text-slate-600 text-sm">불확실한 대행사에 월마다 수십만 원 내봤지만 효과 없이 돈만 낭비했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    {/* Features Outline */}
+                    <section className="py-24 px-5 bg-slate-900 text-white relative">
+                        <div className="max-w-5xl mx-auto">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <span className="text-blue-400 font-bold mb-2 block tracking-widest text-sm">제공 서비스</span>
+                                <h2 className="text-3xl md:text-4xl font-extrabold mb-4">온라인 세팅을 완벽하게 끝내드립니다.</h2>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div data-aos="fade-up" className="bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col sm:flex-row gap-6">
+                                    <div className="shrink-0 w-16 h-16 bg-blue-500/20 text-blue-400 rounded-2xl flex items-center justify-center"><Icon name="map-pin" size={32} /></div>
+                                    <div><h3 className="text-xl font-bold mb-3">3대 포털 완벽 세팅</h3><p className="text-slate-400">포털 예약 로직 및 플레이스 최적화를 구축합니다.</p></div>
+                                </div>
+                                <div data-aos="fade-up" className="bg-slate-800 p-8 rounded-3xl border-2 border-blue-500/50 flex flex-col sm:flex-row gap-6">
+                                    <div className="shrink-0 w-16 h-16 bg-blue-500 text-white rounded-2xl flex items-center justify-center"><Icon name="monitor-play" size={32} /></div>
+                                    <div><h3 className="text-xl font-bold mb-3 text-white">무한 AI 숏폼 영상 홍보</h3><p className="text-blue-100">원본 영상만 보내주시면 영상 배포를 완전 대행해 드립니다.</p></div>
+                                </div>
+                                <div data-aos="fade-up" className="bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col sm:flex-row gap-6">
+                                    <div className="shrink-0 w-16 h-16 bg-blue-500/20 text-blue-400 rounded-2xl flex items-center justify-center"><Icon name="message-circle" size={32} /></div>
+                                    <div><h3 className="text-xl font-bold mb-3">카카오톡 AI 스마트 상담</h3><p className="text-slate-400">바쁜 시간에 주차, 메뉴 문의를 24시간 자동 응대합니다.</p></div>
+                                </div>
+                                <div data-aos="fade-up" className="bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col sm:flex-row gap-6">
+                                    <div className="shrink-0 w-16 h-16 bg-blue-500/20 text-blue-400 rounded-2xl flex items-center justify-center"><Icon name="phone" size={32} /></div>
+                                    <div><h3 className="text-xl font-bold mb-3">비즈니스 폰 및 문자</h3><p className="text-slate-400">부재 시에도 고객에게 예약 링크를 포함한 안내 문자를 보냅니다.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FAQ */}
+                    <section className="py-24 px-5 bg-slate-50 border-t border-slate-200">
+                        <div className="max-w-3xl mx-auto">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">자주 묻는 질문</h2>
+                            </div>
+                            <div className="space-y-3">
+                                {faqs.map((faq, index) => (
+                                    <div key={index} data-aos="fade-up" data-aos-delay={index * 50} className="bg-white border text-left border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                                        <button onClick={() => toggleFaq(index)} className="w-full text-left p-5 font-bold text-lg text-slate-800 flex justify-between items-center transition-colors">
+                                            <span className="flex gap-4 pr-4"><span className="text-blue-500 shrink-0">Q.</span> <span>{faq.q}</span></span>
+                                            <Icon name="chevron-down" className={`transition-transform duration-300 shrink-0 ${openFaqIndex === index ? 'rotate-180 text-blue-500' : 'text-slate-400'}`} />
+                                        </button>
+                                        <div className={`px-6 pb-6 pt-0 text-slate-600 leading-relaxed md:pl-[4.5rem] transition-all ${openFaqIndex === index ? 'block' : 'hidden'}`}>
+                                            <div className="bg-slate-50 p-5 rounded-xl border border-slate-100 mt-2 text-[15px]">{faq.a}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact (Formsubmit for Email + KakaoTalk Direct Link) */}
+                    <section id="contact" className="py-24 px-5 bg-slate-900 text-white relative border-t-[8px] border-blue-600">
+                        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 text-center md:text-left relative z-10">
+                            
+                            <div className="md:w-1/2 flex flex-col justify-center" data-aos="fade-right">
+                                <h2 className="text-3xl md:text-5xl font-extrabold mb-6 leading-[1.2]">가장 편한 방법으로<br/>상담 문의를 남겨주세요</h2>
+                                <p className="text-slate-300 text-lg mb-10 leading-relaxed">
+                                    사장님께서 편하신 채널을 선택해 주세요.<br/> 전문 컨설턴트가 사업장을 직접 분석해 드립니다.
+                                </p>
+                                
+                                <div className="flex flex-col gap-4 mx-auto md:mx-0">
+                                    <a href="http://pf.kakao.com/_CxmTun/chat" target="_blank" rel="noreferrer" className="kakao-bg px-6 py-6 rounded-2xl flex items-center justify-center md:justify-start gap-5 w-fit transition-all shadow-xl text-black hover:-translate-y-1">
+                                        <div className="bg-black/10 p-4 rounded-xl"><Icon name="message-circle" size={32} /></div>
+                                        <div className="text-left font-sans">
+                                            <div className="font-bold text-sm mb-1 opacity-80">이름/전화번호 적기도 귀찮다면?</div>
+                                            <div className="font-extrabold text-2xl">가장 빠른 카카오톡 실시간 문의하기</div>
+                                        </div>
+                                    </a>
+
+                                    <a href="tel:070-7954-1417" className="bg-slate-800 border border-slate-700 hover:bg-slate-700 px-6 py-4 rounded-2xl flex items-center justify-center md:justify-start gap-4 transition-all w-fit">
+                                        <div className="bg-blue-600 p-2 rounded-xl"><Icon name="phone" className="text-white" size={20} /></div>
+                                        <div className="text-left font-sans">
+                                            <div className="text-blue-300 text-sm">직접 통화 상담 (평일 09:00 - 18:00)</div>
+                                            <div className="font-bold text-xl tracking-widest text-white">070-7954-1417</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="md:w-1/2 bg-white text-slate-800 p-8 md:p-10 rounded-[2rem] shadow-2xl relative" data-aos="fade-left">
+                                <h3 className="text-2xl md:text-3xl font-extrabold mb-8 text-slate-900 border-b pb-6 border-slate-100 flex items-center gap-3">
+                                    <Icon name="mail" size={28} className="text-blue-600" /> 이메일로 간단 상담 예약
+                                </h3>
+                                
+                                {/* Formsubmit.co 무료 이메일 전송 연동 폼 */}
+                                {/* _captcha=false: 보안 자동 동의 방지(필요시 삭제), _next: 전송후 이동될 페이지(현재는 자기자신) */}
+                                <form action={`https://formsubmit.co/${MY_EMAIL}`} method="POST" className="space-y-6 form-control">
+                                    <input type="hidden" name="_captcha" value="false" />
+                                    <input type="hidden" name="_subject" value="[사장님비서 AI] 새로운 웹사이트 상담신청 건입니다!" />
+                                    
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">매장명 (상호명)</label>
+                                        <input type="text" name="매장명" placeholder="예: 맛있는 국밥" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-lg" required />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">연락가능한 연락처</label>
+                                        <input type="tel" name="연락처" placeholder="예: 010-0000-0000" className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-lg" required />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">기타 문의사항 (선택)</label>
+                                        <textarea name="문의사항" placeholder="궁금하신 점을 남겨주세요." className="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans h-24"></textarea>
+                                    </div>
+                                    <button type="submit" className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl py-5 rounded-xl transition-all shadow-lg hover:-translate-y-1">
+                                        무료 상담 신청
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LandingPage />);
+    </script>
+</body>
+</html>

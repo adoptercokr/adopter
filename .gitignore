@@ -1,0 +1,7 @@
+*.zip
+adopter (*).zip
+*.log
+_tools/
+scratch/
+take_screenshots.py
+*.tmp

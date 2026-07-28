@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample 1 - Minimalist Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
+    <style>body { font-family: 'Pretendard', sans-serif; }</style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+    <header class="py-6 px-8 flex justify-between items-center border-b border-gray-100">
+        <div class="text-xl font-bold tracking-tighter">MINIMAL.</div>
+        <nav class="hidden md:flex gap-12 text-sm font-medium uppercase tracking-[0.2em]">
+            <a href="#" class="hover:text-gray-400 transition">About</a>
+            <a href="#" class="hover:text-gray-400 transition">Works</a>
+            <a href="#" class="hover:text-gray-400 transition">Services</a>
+            <a href="#" class="hover:text-gray-400 transition">Contact</a>
+        </nav>
+    </header>
+    <main class="max-w-6xl mx-auto px-8 py-24">
+        <h1 class="text-5xl md:text-7xl font-light tracking-tight mb-8 leading-tight">
+            Simplicity is the<br/> ultimate sophistication.
+        </h1>
+        <p class="text-xl text-gray-500 font-light max-w-2xl mb-16 leading-relaxed">
+            We are a digital design studio crafting beautiful, intuitive experiences that focus on what truly matters.
+        </p>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="group cursor-pointer">
+                <div class="aspect-[4/5] bg-gray-100 mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80" alt="Interior" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <h3 class="text-lg font-medium">The White House</h3>
+                <p class="text-gray-500 text-sm">Architecture / 2026</p>
+            </div>
+            <div class="group cursor-pointer md:mt-24">
+                <div class="aspect-[4/5] bg-gray-100 mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=800&q=80" alt="Workspace" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                </div>
+                <h3 class="text-lg font-medium">Silent Workspace</h3>
+                <p class="text-gray-500 text-sm">Interior / 2026</p>
+            </div>
+        </div>
+    </main>
+    <section class="bg-gray-50 py-32 px-8 mt-24">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl font-light tracking-tight mb-16">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-12 text-left">
+                <div>
+                    <div class="w-12 h-12 bg-gray-200 rounded-full mb-6"></div>
+                    <h3 class="text-xl font-medium mb-4">Architecture</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Creating spaces that inspire and function harmoniously with their surroundings, blending form and utility perfectly.</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 bg-gray-200 rounded-full mb-6"></div>
+                    <h3 class="text-xl font-medium mb-4">Interior Design</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Curating interior environments that reflect the personality and lifestyle of our clients with minimalism.</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 bg-gray-200 rounded-full mb-6"></div>
+                    <h3 class="text-xl font-medium mb-4">Product Design</h3>
+                    <p class="text-gray-500 font-light leading-relaxed">Developing everyday objects with a focus on simplicity, longevity, and sustainable materials.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-32 px-8 max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+        <div class="w-full md:w-1/2">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="About" class="w-full aspect-square object-cover grayscale">
+        </div>
+        <div class="w-full md:w-1/2">
+            <h2 class="text-4xl font-light mb-8">Less, but better.</h2>
+            <p class="text-xl text-gray-500 font-light leading-relaxed mb-8">
+                We believe that design should be invisible. It should solve problems without creating new ones. By stripping away the unnecessary, we reveal the essential core of every project.
+            </p>
+            <button class="border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition uppercase tracking-widest text-sm">Read Our Story</button>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-24 px-8 mt-24">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="col-span-2">
+                <div class="text-2xl font-bold tracking-tighter mb-6">MINIMAL.</div>
+                <p class="text-gray-400 font-light max-w-xs">Designing the future through the lens of simplicity and purpose.</p>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold tracking-widest uppercase mb-6 text-gray-500">Contact</h4>
+                <p class="text-gray-400 font-light mb-2">info@adopter.co.kr</p>
+                <p class="text-gray-400 font-light">+82-070-7954-1417</p>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold tracking-widest uppercase mb-6 text-gray-500">Social</h4>
+                <p class="text-gray-400 font-light mb-2 hover:text-white cursor-pointer">Instagram</p>
+                <p class="text-gray-400 font-light mb-2 hover:text-white cursor-pointer">Twitter</p>
+                <p class="text-gray-400 font-light hover:text-white cursor-pointer">LinkedIn</p>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto mt-24 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+            &copy; 2026 Adopter. All rights reserved. Made by Adopter.
+        </div>
+    </footer>
+</body>
+</html>
