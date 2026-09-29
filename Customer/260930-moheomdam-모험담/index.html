@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>모험담 (MOHEOMDAM) | 제주 구좌 감성 독채 풀빌라</title>
-  <meta name="description" content="제주의 숲과 돌담에 둘러싸여 온전히 쉼에 집중하는 프라이빗 독채 스테이, 모험담. 3개의 독립 객실, 넓은 전용 정원, 원형 벽난로, 노천 자쿠지, 야외 불멍.">
+  <meta name="description" content="제주의 숲과 돌담에 둘러싸여 온전히 쉼에 집중하는 프라이빗 독채 스테이, 모험담. 3개의 독립 객실, 넓은 전용 정원, 원형 벽난로, 노천 자쿠지, 실시간 예약 달력 및 견적.">
   <meta property="og:title" content="모험담 (MOHEOMDAM) | 제주 구좌 감성 독채 풀빌라">
   <meta property="og:description" content="제주의 숲과 돌담에 둘러싸여 온전히 쉼에 집중하는 프라이빗 독채 풀빌라, 모험담.">
   <meta property="og:image" content="./img/photo_1.jpg">
@@ -53,6 +53,34 @@
     .hero-gradient {
       background: linear-gradient(to bottom, rgba(15, 15, 15, 0.45) 0%, rgba(15, 15, 15, 0.25) 50%, rgba(15, 15, 15, 0.8) 100%);
     }
+    /* 달력 날짜 스타일 */
+    .cal-day {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .cal-day:hover:not(.disabled):not(.booked) {
+      background-color: #C4975A;
+      color: #fff;
+    }
+    .cal-day.selected {
+      background-color: #242320 !important;
+      color: #fff !important;
+      font-weight: 700;
+    }
+    .cal-day.range {
+      background-color: #EFECE6;
+      color: #242320;
+    }
+    .cal-day.booked {
+      background-color: #FEE2E2 !important;
+      color: #EF4444 !important;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    .cal-day.disabled {
+      color: #D1D5DB;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-brand-wood selection:text-white">
@@ -69,19 +97,18 @@
       <!-- 데스크탑 메뉴 -->
       <nav class="hidden md:flex items-center space-x-7 text-xs tracking-widest text-stone-200 uppercase font-light">
         <a href="#about" class="hover:text-brand-accent transition">소개</a>
-        <a href="#rooms" class="hover:text-brand-accent transition">객실 안내(3개동)</a>
+        <a href="#rooms" class="hover:text-brand-accent transition">객실 3개동</a>
+        <a href="#calendar-section" class="hover:text-brand-accent text-amber-200 font-medium transition">실시간 달력/견적</a>
         <a href="#gallery" class="hover:text-brand-accent transition">공간 갤러리</a>
-        <a href="#pricing" class="hover:text-brand-accent transition">이용요금</a>
         <a href="#location" class="hover:text-brand-accent transition">오시는 길</a>
       </nav>
 
-      <!-- 우측 문의 버튼 -->
+      <!-- 우측 버튼 -->
       <div class="flex items-center space-x-3">
         <a href="https://www.instagram.com/moheomdam" target="_blank" class="text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           <span class="hidden sm:inline">인스타그램</span>
         </a>
-        <!-- 네이버 실시간 예약 상단 버튼 -->
         <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="text-xs px-4 py-1.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-medium transition shadow-md flex items-center gap-1.5">
           <span class="font-bold">N</span>
           <span>네이버 예약</span>
@@ -90,7 +117,7 @@
     </div>
   </header>
 
-  <!-- 2. Hero Section (큰 네이버 예약 버튼 제거 -> 미니멀 감성 정돈) -->
+  <!-- 2. Hero Section (단정하고 감성적인 미니멀 히어로) -->
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
     <img src="./img/photo_1.jpg" alt="제주 모험담 전경" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out">
     <div class="absolute inset-0 hero-gradient"></div>
@@ -107,13 +134,12 @@
         넓은 전용 잔디정원과 원형 벽난로, 야외 불멍과 노천 자쿠지.<br class="hidden sm:inline">
         3개의 프라이빗 독채에서 오직 우리만의 고요한 쉼을 경험하세요.
       </p>
-      <!-- 미니멀하고 단정한 버튼 구성 -->
       <div class="flex items-center justify-center gap-4">
-        <a href="#rooms" class="px-7 py-3 rounded-full bg-brand-cream text-brand-stone font-medium text-xs tracking-wider uppercase hover:bg-white transition shadow-lg">
+        <a href="#rooms" class="px-7 py-3.5 rounded-full bg-brand-cream text-brand-stone font-medium text-xs tracking-wider uppercase hover:bg-white transition shadow-lg">
           객실 3개동 둘러보기
         </a>
-        <a href="#gallery" class="px-7 py-3 rounded-full bg-black/40 hover:bg-black/60 text-stone-200 border border-white/25 font-medium text-xs tracking-wider uppercase transition backdrop-blur-sm">
-          공간 갤러리
+        <a href="#calendar-section" class="px-7 py-3.5 rounded-full bg-black/50 hover:bg-black/70 text-amber-200 border border-amber-300/40 font-medium text-xs tracking-wider uppercase transition backdrop-blur-sm">
+          실시간 달력 & 견적 확인
         </a>
       </div>
     </div>
@@ -171,7 +197,7 @@
     </div>
   </section>
 
-  <!-- 4. Rooms Section (3개 객실 상세 사진 썸네일 & 클릭 시 상세 모달 오픈!) -->
+  <!-- 4. Rooms Section (3개 객실 상세 사진 썸네일 & 클릭 시 상세 모달) -->
   <section id="rooms" class="py-24 px-6 md:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
@@ -187,7 +213,6 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Room 1: 첫번째 모험 -->
         <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col cursor-pointer group" onclick="openRoomModal(1)">
-          <!-- 메인 대표 사진 -->
           <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_1.jpg" alt="첫번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
@@ -197,7 +222,6 @@
               사진 4장 보기 +
             </div>
           </div>
-          <!-- 서브 썸네일 3장 인라인 노출 (풍성한 사진) -->
           <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
             <img src="./img/photo_4.jpg" class="h-16 w-full object-cover rounded-sm" alt="다이닝">
             <img src="./img/photo_5.jpg" class="h-16 w-full object-cover rounded-sm" alt="침실">
@@ -234,7 +258,6 @@
           <div class="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-brand-accent text-[11px] text-white font-medium shadow-md">
             BEST 감성
           </div>
-          <!-- 메인 대표 사진 -->
           <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_3.jpg" alt="두번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
@@ -244,7 +267,6 @@
               사진 4장 보기 +
             </div>
           </div>
-          <!-- 서브 썸네일 3장 인라인 노출 -->
           <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
             <img src="./img/photo_2.jpg" class="h-16 w-full object-cover rounded-sm" alt="테라스">
             <img src="./img/photo_5.jpg" class="h-16 w-full object-cover rounded-sm" alt="침실">
@@ -278,7 +300,6 @@
 
         <!-- Room 3: 세번째 모험 -->
         <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col cursor-pointer group" onclick="openRoomModal(3)">
-          <!-- 메인 대표 사진 -->
           <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_7.jpg" alt="세번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
@@ -288,7 +309,6 @@
               사진 4장 보기 +
             </div>
           </div>
-          <!-- 서브 썸네일 3장 인라인 노출 -->
           <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
             <img src="./img/photo_8.jpg" class="h-16 w-full object-cover rounded-sm" alt="자쿠지">
             <img src="./img/photo_1.jpg" class="h-16 w-full object-cover rounded-sm" alt="정원">
@@ -323,8 +343,170 @@
     </div>
   </section>
 
-  <!-- 5. Space Gallery (롤오버 텍스트 완전 제거 -> 순수 사진 감성) -->
-  <section id="gallery" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
+  <!-- 5. 🌟 대화형 실시간 예약 달력 & 실시간 견적 산출기 & 관리자 모드 섹션 -->
+  <section id="calendar-section" class="py-24 px-6 md:px-12 bg-[#F3EFEA] border-t border-stone-200 relative">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- 상단 헤더 & 관리자 로그인 토글 버튼 -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-2">Live Availability & Price Calculator</span>
+          <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+            실시간 예약 현황 및 예상 견적 계산
+          </h2>
+        </div>
+        <div class="mt-4 sm:mt-0 flex items-center gap-3">
+          <!-- 관리자 버튼 -->
+          <button onclick="promptAdminLogin()" class="text-xs px-3.5 py-1.5 rounded-full bg-stone-800 hover:bg-black text-stone-300 hover:text-white transition flex items-center gap-1.5 shadow-sm">
+            <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span id="adminBtnText">호스트 관리자 모드</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 관리자 모드 알림 바 (평소엔 숨김) -->
+      <div id="adminBar" class="hidden mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-xs font-serif-kr text-amber-900 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-amber-700">🔒 호스트 관리자 모드 활성화:</span>
+          <span>달력의 날짜를 클릭하면 즉시 <strong>[예약 마감(빨강)]</strong> 또는 <strong>[예약 가능]</strong>으로 토글됩니다.</span>
+        </div>
+        <button onclick="logoutAdmin()" class="px-3 py-1 rounded bg-stone-800 text-white font-medium hover:bg-black">로그아웃</button>
+      </div>
+
+      <!-- 메인 2단 그리드 (좌측: 객실선택+달력, 우측: 견적 요약 카드) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 좌측: 달력 컨트롤러 (7칼럼) -->
+        <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-stone-200">
+          
+          <!-- 1단계: 객실 선택 탭 -->
+          <div class="mb-6">
+            <label class="block text-xs font-serif-kr text-stone-500 uppercase tracking-wider mb-2 font-bold">1. 객실 선택</label>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" onclick="selectRoomType(1)" id="roomTab1" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-brand-accent bg-brand-cream text-stone-900">
+                첫번째 모험<br><span class="text-[10px] font-normal text-stone-500">35만원/2인</span>
+              </button>
+              <button type="button" onclick="selectRoomType(2)" id="roomTab2" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
+                두번째 모험<br><span class="text-[10px] font-normal text-stone-500">38만원/4인</span>
+              </button>
+              <button type="button" onclick="selectRoomType(3)" id="roomTab3" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
+                세번째 모험<br><span class="text-[10px] font-normal text-stone-500">40만원/4인</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2단계: 달력 월 이동 컨트롤 -->
+          <div class="flex justify-between items-center mb-4 pb-3 border-b border-stone-100">
+            <button onclick="prevMonth()" class="p-2 rounded-full hover:bg-stone-100 text-stone-600 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <h4 class="font-serif-kr text-base sm:text-lg font-bold text-stone-900" id="calCurrentMonth">2026년 10월</h4>
+            <button onclick="nextMonth()" class="p-2 rounded-full hover:bg-stone-100 text-stone-600 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- 요일 헤더 -->
+          <div class="grid grid-cols-7 text-center text-xs font-bold font-serif-kr text-stone-400 mb-2">
+            <span class="text-rose-500">일</span>
+            <span>월</span>
+            <span>화</span>
+            <span>수</span>
+            <span>목</span>
+            <span>금</span>
+            <span class="text-sky-500">토</span>
+          </div>
+
+          <!-- 날짜 그리드 -->
+          <div class="grid grid-cols-7 gap-1.5 text-center text-xs font-sans font-medium" id="calGrid">
+            <!-- JS 동적 생성 -->
+          </div>
+
+          <!-- 범례 -->
+          <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap items-center justify-between text-[11px] font-serif-kr text-stone-500 gap-2">
+            <div class="flex items-center gap-4">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-stone-900 inline-block"></span> 선택일</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#EFECE6] inline-block"></span> 숙박 기간</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-200 inline-block"></span> 예약 마감</span>
+            </div>
+            <button onclick="resetDates()" class="text-stone-400 hover:text-stone-700 underline">날짜 초기화</button>
+          </div>
+        </div>
+
+        <!-- 우측: 실시간 견적 산출 카드 (5칼럼) -->
+        <div class="lg:col-span-5 bg-stone-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl sticky top-24">
+          <span class="text-[10px] tracking-[0.25em] uppercase text-brand-accent font-mono block mb-1">Estimate Summary</span>
+          <h3 class="font-serif-kr text-xl font-bold mb-6 text-white pb-4 border-b border-stone-800">
+            선택 조건 견적 산출기
+          </h3>
+
+          <div class="space-y-4 font-serif-kr text-xs text-stone-300 mb-8">
+            <!-- 선택 객실 -->
+            <div class="flex justify-between py-2 border-b border-stone-800">
+              <span class="text-stone-400">선택 객실</span>
+              <span class="font-bold text-white text-sm" id="calcRoomName">첫번째 모험</span>
+            </div>
+
+            <!-- 선택 일정 -->
+            <div class="flex justify-between py-2 border-b border-stone-800">
+              <span class="text-stone-400">일정</span>
+              <div class="text-right">
+                <span class="font-bold text-white" id="calcDates">달력에서 날짜를 선택하세요</span>
+                <span class="block text-[11px] text-brand-accent mt-0.5" id="calcNights">0박 0일</span>
+              </div>
+            </div>
+
+            <!-- 투숙 인원 컨트롤 -->
+            <div class="flex justify-between items-center py-2 border-b border-stone-800">
+              <div>
+                <span class="text-stone-400 block">투숙 인원</span>
+                <span class="text-[10px] text-stone-500" id="calcBaseGuests">기준 2인 / 최대 4인</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="changeGuest(-1)" class="w-7 h-7 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-sm font-bold transition">-</button>
+                <span class="font-bold text-white text-sm w-6 text-center" id="calcGuests">2</span>
+                <button type="button" onclick="changeGuest(1)" class="w-7 h-7 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-sm font-bold transition">+</button>
+              </div>
+            </div>
+
+            <!-- 요금 상세 내역 -->
+            <div class="pt-2 space-y-2 text-[11px]">
+              <div class="flex justify-between text-stone-400">
+                <span>기본 숙박 요금</span>
+                <span id="calcBasePrice">0원</span>
+              </div>
+              <div class="flex justify-between text-stone-400">
+                <span>추가 인원 요금 (1인 1박 2만원)</span>
+                <span id="calcExtraPrice">0원</span>
+              </div>
+            </div>
+
+            <!-- 최종 합계 -->
+            <div class="pt-4 border-t border-stone-700 flex justify-between items-baseline">
+              <span class="font-bold text-sm text-stone-200">총 예상 견적</span>
+              <div class="text-right">
+                <span class="font-serif-kr text-2xl font-bold text-brand-accent" id="calcTotalPrice">0원</span>
+                <span class="text-[10px] text-stone-400 block">부가세 포함</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 네이버 예약 연결 버튼 -->
+          <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-4 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
+            <span class="text-base">N</span>
+            <span>이 조건으로 네이버 실시간 예약하기</span>
+          </a>
+          <p class="text-[10px] text-center text-stone-500 mt-3 font-serif-kr">
+            * 실시간 잔여 객실 조회 및 최종 예약 확정은 네이버 예약에서 진행됩니다.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Space Gallery (롤오버 텍스트 없는 순수 사진 감성) -->
+  <section id="gallery" class="py-24 px-6 md:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
         <div>
@@ -338,7 +520,6 @@
         </p>
       </div>
 
-      <!-- 매거진 그리드 (텍스트 오버레이 제거, 은은한 줌 효과만 적용) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-[16/10]" onclick="openModal('./img/photo_1.jpg')">
           <img src="./img/photo_1.jpg" alt="모험담 공간 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
@@ -363,45 +544,6 @@
         </div>
         <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_8.jpg')">
           <img src="./img/photo_8.jpg" alt="모험담 공간 8" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Pricing & Reservation Section -->
-  <section id="pricing" class="py-24 px-6 md:px-12 bg-white">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-3">Reservation & Rates</span>
-        <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-          이용 요금 및 네이버 실시간 예약
-        </h2>
-      </div>
-
-      <div class="bg-[#F8F6F2] rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-sm">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10 pb-10 border-b border-stone-300">
-          <div>
-            <span class="text-xs font-serif-kr text-stone-500 uppercase tracking-widest block mb-2">숙박 요금 (1박 기준)</span>
-            <p class="font-serif-kr text-2xl sm:text-3xl font-bold text-brand-wood">350,000원 ~ 400,000원</p>
-            <p class="text-xs text-stone-600 mt-1.5">* 객실 타입(1st/2nd/3rd) 및 평일/주말/시즌별 상이</p>
-          </div>
-          <div>
-            <span class="text-xs font-serif-kr text-stone-500 uppercase tracking-widest block mb-2">이용 안내</span>
-            <p class="font-serif-kr text-base font-semibold text-stone-900">체크인 16:00 · 체크아웃 11:00</p>
-            <p class="text-xs text-stone-600 mt-1.5">실내 절대 금연 · 전용 주차공간 완비 · 바베큐 & 불멍 가능</p>
-          </div>
-        </div>
-
-        <div class="text-center space-y-4">
-          <p class="font-serif-kr text-sm text-stone-600">
-            모험담의 실시간 예약 현황과 날짜별 요금 확인은 **네이버 예약**을 통해 가장 빠르고 정확하게 진행하실 수 있습니다.
-          </p>
-          <div class="pt-2">
-            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="inline-flex items-center gap-2.5 px-9 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm transition shadow-lg hover:shadow-xl">
-              <span class="text-base">N</span>
-              <span>네이버로 실시간 예약하기</span>
-            </a>
-          </div>
         </div>
       </div>
     </div>
@@ -457,27 +599,19 @@
     <button class="absolute top-6 right-6 text-white text-3xl font-light hover:text-stone-300">&times;</button>
   </div>
 
-  <!-- 10. 🌟 객실 상세 전용 인터랙티브 모달 (사진 4장 슬라이더 + 세부 비품 안내) -->
+  <!-- 10. 객실 상세 모달 -->
   <div id="roomModal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 sm:p-6 backdrop-blur-md overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative my-auto animate-fade-in text-left">
+    <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative my-auto text-left">
       <button onclick="closeRoomModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center text-xl font-light transition">
         &times;
       </button>
-      
-      <!-- 모달 메인 큰 사진 -->
       <div class="relative aspect-[16/10] bg-stone-900 overflow-hidden">
         <img id="roomMainImg" src="" alt="객실 메인 사진" class="w-full h-full object-cover">
         <div class="absolute bottom-4 left-4 px-3.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-serif-kr text-xs font-medium" id="roomBadge">
           독채
         </div>
       </div>
-
-      <!-- 모달 서브 썸네일 리스트 -->
-      <div class="grid grid-cols-4 gap-1.5 p-2 bg-stone-100" id="roomThumbnails">
-        <!-- JS로 동적 삽입 -->
-      </div>
-
-      <!-- 모달 텍스트 상세 안내 -->
+      <div class="grid grid-cols-4 gap-1.5 p-2 bg-stone-100" id="roomThumbnails"></div>
       <div class="p-6 sm:p-8 space-y-6">
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 pb-4 border-b border-stone-200">
           <div>
@@ -489,88 +623,377 @@
             <span class="text-[11px] text-stone-400 block">/ 1박 기준</span>
           </div>
         </div>
-
-        <p class="font-serif-kr text-sm text-stone-600 leading-relaxed" id="roomDesc">
-          객실 설명글
-        </p>
-
-        <!-- 세부 비치 품목 -->
+        <p class="font-serif-kr text-sm text-stone-600 leading-relaxed" id="roomDesc">객실 설명글</p>
         <div class="bg-[#F9F8F6] p-5 rounded-2xl border border-stone-200 text-xs font-serif-kr text-stone-700 space-y-2">
           <h4 class="font-bold text-stone-900 mb-2">객실 구비 시설 및 어메니티</h4>
           <p id="roomAmenities">퀸베드, 호텔식 침구류, 냉장고, 식기류, 에어컨, 와이파이, 어메니티 등</p>
         </div>
-
         <div class="pt-2 flex gap-3">
-          <a id="roomBookingLink" href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="flex-1 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm text-center transition flex items-center justify-center gap-2 shadow-md">
+          <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="flex-1 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm text-center transition flex items-center justify-center gap-2 shadow-md">
             <span>N</span>
             <span>이 객실 네이버로 실시간 예약하기</span>
           </a>
-          <button onclick="closeRoomModal()" class="px-6 py-3.5 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold transition">
-            닫기
-          </button>
+          <button onclick="closeRoomModal()" class="px-6 py-3.5 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold transition">닫기</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    // 1. 단순 사진 확대 모달
-    function openModal(src) {
-      document.getElementById('modalImg').src = src;
-      const modal = document.getElementById('imgModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-    function closeModal() {
-      const modal = document.getElementById('imgModal');
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    }
+  <!-- 11. 관리자 비밀번호 입력 모달 -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 backdrop-blur-md">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4 text-stone-900">
+      <div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-700">
+        <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h3 class="font-serif-kr text-xl font-bold">호스트 관리자 로그인</h3>
+      <p class="font-serif-kr text-xs text-stone-500">예약 마감일을 직접 토글하고 관리할 수 있습니다.</p>
+      <input type="password" id="adminPwdInput" placeholder="관리자 비밀번호 (기본: 1316)" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-center font-mono text-sm focus:outline-none focus:border-brand-accent">
+      <div class="flex gap-2 pt-2">
+        <button onclick="checkAdminPassword()" class="flex-1 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs font-bold transition">확인</button>
+        <button onclick="closeAdminLoginModal()" class="px-5 py-3 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-bold transition">취소</button>
+      </div>
+    </div>
+  </div>
 
-    // 2. 객실 3개 전용 상세 데이터
-    const ROOM_DATA = {
+  <!-- 🌟 전체 JavaScript (달력 + 3개 객실 실시간 견적 + 관리자 마감일 토글) -->
+  <script>
+    // 1. 객실 메타데이터 (네이버 정가 기준)
+    const ROOMS = {
       1: {
+        name: "첫번째 모험",
         badge: "독채 1동 · 커플&소규모",
-        title: "첫번째 모험",
-        subtitle: "기준 2인 (최대 4인) · 침실 1, 욕실 1, 주방 및 다이닝, 전용 잔디 정원",
-        price: "350,000원 ~",
-        desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다. 포근한 프리미엄 퀸베드와 따스한 채광 속에서 조용히 독서와 사색을 즐기며 온전한 쉼을 누리실 수 있습니다.",
-        amenities: "✓ 퀸사이즈 침대 & 호텔식 순면 침구 · ✓ 풀옵션 주방 (인덕션, 냉장고, 전자레인지, 전기포트, 와인잔, 식기 일체) · ✓ 독립 욕실 및 프리미엄 샴푸/린스/바디워시/핸드워시 · ✓ 다이슨 드라이기 · ✓ 와이파이 · ✓ 개별 에어컨 및 난방 · ✓ 전용 주차공간",
+        baseGuests: 2,
+        maxGuests: 4,
+        weekdayPrice: 350000,
+        weekendPrice: 380000,
+        desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다.",
+        amenities: "✓ 퀸사이즈 침대 & 호텔식 순면 침구 · ✓ 풀옵션 주방 (인덕션, 냉장고, 전자레인지, 전기포트, 와인잔, 식기 일체) · ✓ 독립 욕실 및 프리미엄 어메니티 · ✓ 다이슨 드라이기 · ✓ 와이파이 · ✓ 개별 난방",
         images: ["./img/photo_1.jpg", "./img/photo_4.jpg", "./img/photo_5.jpg", "./img/photo_6.jpg"]
       },
       2: {
+        name: "두번째 모험",
         badge: "독채 2동 · 시그니처 감성",
-        title: "두번째 모험",
-        subtitle: "기준 4인 (최대 6인) · 넓은 패밀리 리빙룸, 원형 벽난로, 침실, 독립 테라스",
-        price: "380,000원 ~",
-        desc: "모험담의 가장 큰 시그니처인 원형 벽난로가 있는 넓은 패밀리 리빙룸입니다. 가족 또는 소중한 친구들과 둘러앉아 따뜻한 불멍을 즐길 수 있으며, 넓은 테라스와 창밖으로 펼쳐지는 제주의 돌담 풍경이 머무는 시간 내내 깊은 감동을 선사합니다.",
-        amenities: "✓ 시그니처 원형 벽난로 (불멍 키트 제공) · ✓ 패밀리 소파 및 대형 원목 테이블 · ✓ 퀸사이즈 베드룸 2개소 · ✓ 풀옵션 키친 & 네스프레소 커피머신 · ✓ 마샬 블루투스 스피커 · ✓ 욕실 어메니티 일체 · ✓ 독립 정원 테라스",
+        baseGuests: 4,
+        maxGuests: 6,
+        weekdayPrice: 380000,
+        weekendPrice: 420000,
+        desc: "모험담의 가장 큰 시그니처인 원형 벽난로가 있는 넓은 패밀리 리빙룸입니다. 가족 또는 소중한 친구들과 둘러앉아 따뜻한 불멍을 즐길 수 있습니다.",
+        amenities: "✓ 시그니처 원형 벽난로 (불멍 키트 제공) · ✓ 패밀리 소파 및 대형 원목 테이블 · ✓ 퀸베드 2개소 · ✓ 풀옵션 키친 & 네스프레소 커피머신 · ✓ 마샬 블루투스 스피커 · ✓ 독립 정원 테라스",
         images: ["./img/photo_3.jpg", "./img/photo_2.jpg", "./img/photo_5.jpg", "./img/photo_4.jpg"]
       },
       3: {
+        name: "세번째 모험",
         badge: "독채 3동 · 프리미엄 풀빌라",
-        title: "세번째 모험",
-        subtitle: "기준 4인 (최대 8인) · 대형 전용정원, 단독 개별 풀, 노천 온수 자쿠지, 야외 불멍 테라스",
-        price: "400,000원 ~",
-        desc: "모험담에서 가장 넓고 프라이빗한 최고급 독채입니다. 단독으로 누리는 야외 프라이빗 수영장과 돌담 아래 노천 온수 자쿠지, 그리고 밤하늘의 쏟아지는 별을 보며 즐기는 야외 모닥불 화로대까지 숙소 밖으로 나갈 필요가 없는 완벽한 휴식을 선사합니다.",
-        amenities: "✓ 단독 프라이빗 수영장 · ✓ 사계절 돌담 노천 온수 자쿠지 · ✓ 야외 전용 모닥불 화로대 (불멍 테라스) · ✓ 대형 잔디마당 및 야외 다이닝 테이블 · ✓ 퀸사이즈 베드룸 및 파우더룸 · ✓ 고급 바스 어메니티 · ✓ 세탁기 및 건조기 완비",
+        baseGuests: 4,
+        maxGuests: 8,
+        weekdayPrice: 400000,
+        weekendPrice: 450000,
+        desc: "모험담에서 가장 넓고 프라이빗한 최고급 독채입니다. 단독 프라이빗 수영장과 돌담 노천 온수 자쿠지, 야외 모닥불 화로대까지 완비되어 있습니다.",
+        amenities: "✓ 단독 프라이빗 수영장 · ✓ 사계절 돌담 노천 온수 자쿠지 · ✓ 야외 전용 모닥불 화로대 (불멍 테라스) · ✓ 대형 잔디마당 및 야외 다이닝 테이블 · ✓ 퀸사이즈 침실 2개 · ✓ 세탁기 및 건조기",
         images: ["./img/photo_7.jpg", "./img/photo_8.jpg", "./img/photo_1.jpg", "./img/photo_9.jpg"]
       }
     };
 
-    function openRoomModal(roomId) {
-      const data = ROOM_DATA[roomId];
-      if (!data) return;
+    // 상태 관리
+    let currentRoomId = 1;
+    let selectedStartDate = null;
+    let selectedEndDate = null;
+    let guestCount = 2;
+    let isAdmin = false;
+    let calYear = new Date().getFullYear();
+    let calMonth = new Date().getMonth(); // 0-indexed
 
+    // 로컬 스토리지 기반 마감일 관리 (객실별 분리)
+    function getBookedDates(roomId) {
+      try {
+        const stored = localStorage.getItem(`moheomdam_booked_room_${roomId}`);
+        return stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveBookedDates(roomId, dates) {
+      localStorage.setItem(`moheomdam_booked_room_${roomId}`, JSON.stringify(dates));
+    }
+
+    // 1. 객실 선택 변경
+    function selectRoomType(roomId) {
+      currentRoomId = roomId;
+      [1, 2, 3].forEach(id => {
+        const btn = document.getElementById(`roomTab${id}`);
+        if (id === roomId) {
+          btn.className = "py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-brand-accent bg-brand-cream text-stone-900";
+        } else {
+          btn.className = "py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400";
+        }
+      });
+      const room = ROOMS[roomId];
+      document.getElementById('calcRoomName').innerText = room.name;
+      document.getElementById('calcBaseGuests').innerText = `기준 ${room.baseGuests}인 / 최대 ${room.maxGuests}인`;
+      guestCount = room.baseGuests;
+      document.getElementById('calcGuests').innerText = guestCount;
+      renderCalendar();
+      updateCalculation();
+    }
+
+    // 2. 달력 렌더링
+    function renderCalendar() {
+      const grid = document.getElementById('calGrid');
+      grid.innerHTML = '';
+
+      const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+      document.getElementById('calCurrentMonth').innerText = `${calYear}년 ${monthNames[calMonth]}`;
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay();
+      const lastDate = new Date(calYear, calMonth + 1, 0).getDate();
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const bookedDates = getBookedDates(currentRoomId);
+
+      // 빈 날짜 채우기
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = "h-11";
+        grid.appendChild(empty);
+      }
+
+      for (let d = 1; d <= lastDate; d++) {
+        const thisDate = new Date(calYear, calMonth, d);
+        const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const isPast = thisDate < today;
+        const isBooked = bookedDates.includes(dateStr);
+
+        const dayEl = document.createElement('div');
+        dayEl.className = "cal-day h-11 flex items-center justify-center rounded-xl text-xs relative";
+        dayEl.innerText = d;
+
+        if (isPast) {
+          dayEl.classList.add('disabled');
+        } else if (isBooked) {
+          dayEl.classList.add('booked');
+          dayEl.title = "예약 마감";
+          if (isAdmin) {
+            dayEl.onclick = () => toggleAdminDate(dateStr);
+          }
+        } else {
+          // 날짜 범위 표시
+          if (selectedStartDate && dateStr === selectedStartDate) {
+            dayEl.classList.add('selected');
+          } else if (selectedEndDate && dateStr === selectedEndDate) {
+            dayEl.classList.add('selected');
+          } else if (selectedStartDate && selectedEndDate && dateStr > selectedStartDate && dateStr < selectedEndDate) {
+            dayEl.classList.add('range');
+          }
+
+          dayEl.onclick = () => {
+            if (isAdmin) {
+              toggleAdminDate(dateStr);
+            } else {
+              onSelectDate(dateStr);
+            }
+          };
+        }
+
+        grid.appendChild(dayEl);
+      }
+    }
+
+    // 3. 날짜 클릭 선택 (체크인/체크아웃)
+    function onSelectDate(dateStr) {
+      if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+        selectedStartDate = dateStr;
+        selectedEndDate = null;
+      } else if (selectedStartDate && !selectedEndDate) {
+        if (dateStr <= selectedStartDate) {
+          selectedStartDate = dateStr;
+          selectedEndDate = null;
+        } else {
+          // 중간에 마감된 날이 있는지 확인
+          const booked = getBookedDates(currentRoomId);
+          let hasBlocked = false;
+          let cur = new Date(selectedStartDate);
+          const end = new Date(dateStr);
+          while (cur < end) {
+            const checkStr = cur.toISOString().split('T')[0];
+            if (booked.includes(checkStr)) {
+              hasBlocked = true;
+              break;
+            }
+            cur.setDate(cur.getDate() + 1);
+          }
+          if (hasBlocked) {
+            alert('선택하신 기간 사이에 이미 마감된 날짜가 포함되어 있습니다.');
+            selectedStartDate = dateStr;
+            selectedEndDate = null;
+          } else {
+            selectedEndDate = dateStr;
+          }
+        }
+      }
+      renderCalendar();
+      updateCalculation();
+    }
+
+    function resetDates() {
+      selectedStartDate = null;
+      selectedEndDate = null;
+      renderCalendar();
+      updateCalculation();
+    }
+
+    // 4. 인원 변경
+    function changeGuest(delta) {
+      const room = ROOMS[currentRoomId];
+      const next = guestCount + delta;
+      if (next >= 1 && next <= room.maxGuests) {
+        guestCount = next;
+        document.getElementById('calcGuests').innerText = guestCount;
+        updateCalculation();
+      }
+    }
+
+    // 5. 견적 계산
+    function updateCalculation() {
+      const room = ROOMS[currentRoomId];
+      if (!selectedStartDate) {
+        document.getElementById('calcDates').innerText = "달력에서 날짜를 선택하세요";
+        document.getElementById('calcNights').innerText = "0박 0일";
+        document.getElementById('calcBasePrice').innerText = "0원";
+        document.getElementById('calcExtraPrice').innerText = "0원";
+        document.getElementById('calcTotalPrice').innerText = "0원";
+        return;
+      }
+
+      if (!selectedEndDate) {
+        document.getElementById('calcDates').innerText = `${selectedStartDate} (체크아웃 날짜 선택)`;
+        document.getElementById('calcNights').innerText = "체크아웃 날짜 클릭";
+        document.getElementById('calcBasePrice').innerText = "0원";
+        document.getElementById('calcExtraPrice').innerText = "0원";
+        document.getElementById('calcTotalPrice').innerText = "0원";
+        return;
+      }
+
+      const start = new Date(selectedStartDate);
+      const end = new Date(selectedEndDate);
+      const diffTime = Math.abs(end - start);
+      const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      document.getElementById('calcDates').innerText = `${selectedStartDate} ~ ${selectedEndDate}`;
+      document.getElementById('calcNights').innerText = `${nights}박 ${nights + 1}일`;
+
+      // 박수별 기본 요금 계산 (금, 토 주말 요금 적용)
+      let baseTotal = 0;
+      let cur = new Date(start);
+      for (let i = 0; i < nights; i++) {
+        const dayOfWeek = cur.getDay(); // 0(일)~6(토)
+        if (dayOfWeek === 5 || dayOfWeek === 6) {
+          baseTotal += room.weekendPrice;
+        } else {
+          baseTotal += room.weekdayPrice;
+        }
+        cur.setDate(cur.getDate() + 1);
+      }
+
+      // 추가 인원 요금 (1인 1박 20,000원)
+      let extraTotal = 0;
+      if (guestCount > room.baseGuests) {
+        const extraPersons = guestCount - room.baseGuests;
+        extraTotal = extraPersons * 20000 * nights;
+      }
+
+      const total = baseTotal + extraTotal;
+
+      document.getElementById('calcBasePrice').innerText = `${baseTotal.toLocaleString()}원`;
+      document.getElementById('calcExtraPrice').innerText = `${extraTotal.toLocaleString()}원`;
+      document.getElementById('calcTotalPrice').innerText = `${total.toLocaleString()}원`;
+    }
+
+    // 6. 월 이동
+    function prevMonth() {
+      calMonth--;
+      if (calMonth < 0) {
+        calMonth = 11;
+        calYear--;
+      }
+      renderCalendar();
+    }
+    function nextMonth() {
+      calMonth++;
+      if (calMonth > 11) {
+        calMonth = 0;
+        calYear++;
+      }
+      renderCalendar();
+    }
+
+    // 7. 관리자 기능 (비밀번호: 1316)
+    function promptAdminLogin() {
+      if (isAdmin) {
+        logoutAdmin();
+      } else {
+        document.getElementById('adminLoginModal').classList.remove('hidden');
+        document.getElementById('adminLoginModal').classList.add('flex');
+        document.getElementById('adminPwdInput').value = '';
+        document.getElementById('adminPwdInput').focus();
+      }
+    }
+    function closeAdminLoginModal() {
+      document.getElementById('adminLoginModal').classList.remove('flex');
+      document.getElementById('adminLoginModal').classList.add('hidden');
+    }
+    function checkAdminPassword() {
+      const pwd = document.getElementById('adminPwdInput').value;
+      if (pwd === "1316") {
+        isAdmin = true;
+        closeAdminLoginModal();
+        document.getElementById('adminBar').classList.remove('hidden');
+        document.getElementById('adminBtnText').innerText = "관리자 로그아웃";
+        renderCalendar();
+      } else {
+        alert("비밀번호가 올바르지 않습니다.");
+      }
+    }
+    function logoutAdmin() {
+      isAdmin = false;
+      document.getElementById('adminBar').classList.add('hidden');
+      document.getElementById('adminBtnText').innerText = "호스트 관리자 모드";
+      renderCalendar();
+    }
+    function toggleAdminDate(dateStr) {
+      let booked = getBookedDates(currentRoomId);
+      if (booked.includes(dateStr)) {
+        booked = booked.filter(d => d !== dateStr);
+      } else {
+        booked.push(dateStr);
+      }
+      saveBookedDates(currentRoomId, booked);
+      renderCalendar();
+    }
+
+    // 8. 단순 사진 모달 & 객실 상세 모달
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imgModal').classList.remove('hidden');
+      document.getElementById('imgModal').classList.add('flex');
+    }
+    function closeModal() {
+      document.getElementById('imgModal').classList.remove('flex');
+      document.getElementById('imgModal').classList.add('hidden');
+    }
+
+    function openRoomModal(roomId) {
+      const data = ROOMS[roomId];
+      if (!data) return;
       document.getElementById('roomBadge').innerText = data.badge;
-      document.getElementById('roomTitle').innerText = data.title;
-      document.getElementById('roomSubtitle').innerText = data.subtitle;
-      document.getElementById('roomPrice').innerText = data.price;
+      document.getElementById('roomTitle').innerText = data.name;
+      document.getElementById('roomSubtitle').innerText = `기준 ${data.baseGuests}인 (최대 ${data.maxGuests}인)`;
+      document.getElementById('roomPrice').innerText = `${data.weekdayPrice.toLocaleString()}원 ~`;
       document.getElementById('roomDesc').innerText = data.desc;
       document.getElementById('roomAmenities').innerText = data.amenities;
       document.getElementById('roomMainImg').src = data.images[0];
 
-      // 썸네일 생성
       const thumbBox = document.getElementById('roomThumbnails');
       thumbBox.innerHTML = '';
       data.images.forEach((imgSrc, idx) => {
@@ -585,16 +1008,18 @@
         thumbBox.appendChild(thumb);
       });
 
-      const modal = document.getElementById('roomModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      document.getElementById('roomModal').classList.remove('hidden');
+      document.getElementById('roomModal').classList.add('flex');
+    }
+    function closeRoomModal() {
+      document.getElementById('roomModal').classList.remove('flex');
+      document.getElementById('roomModal').classList.add('hidden');
     }
 
-    function closeRoomModal() {
-      const modal = document.getElementById('roomModal');
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    }
+    // 초기화
+    window.addEventListener('DOMContentLoaded', () => {
+      selectRoomType(1);
+    });
   </script>
 </body>
 </html>
