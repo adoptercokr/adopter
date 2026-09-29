@@ -1,0 +1,2029 @@
+{
+  "HouseBanner:https://maps-service.pstatic.net/maps-cms/568f3214-4368-46cc-9ce1-61c1d39aa97c.png": {
+    "__typename": "HouseBanner",
+    "id": "https://maps-service.pstatic.net/maps-cms/568f3214-4368-46cc-9ce1-61c1d39aa97c.png",
+    "slotIndex": 1,
+    "imageUrl": "https://maps-service.pstatic.net/maps-cms/568f3214-4368-46cc-9ce1-61c1d39aa97c.png",
+    "linkUrl": "https://booking.map.naver.com/promotions/home",
+    "bgColor": "#176CFF",
+    "altText": "놓치면 아까운 혜택! 네이버지도에서 예약하세요. "
+  },
+  "Panorama:Z92aW1DilYyzGj4hB2Vq0w==": {
+    "__typename": "Panorama",
+    "id": "Z92aW1DilYyzGj4hB2Vq0w==",
+    "pan": "-82.13",
+    "tilt": "10.00",
+    "lon": "126.8695887",
+    "lat": "33.5229198",
+    "fov": "120"
+  },
+  "PlaceDetailBase:1226740854": {
+    "__typename": "PlaceDetailBase",
+    "id": "1226740854",
+    "name": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+    "reviewSettings": {
+      "__typename": "ReviewSettings",
+      "keyword": null,
+      "blog": 1,
+      "cafe": 1,
+      "showVisitorReviewScore": true
+    },
+    "siteId": "sp_26bd1514f96290",
+    "road": "제주 동쪽 구좌 감성 숙소 <당근민박>\n\n1. 대중교통\n201번, 260번 버스\n하도리면수동 또는 해녀박물관에서 하차 후\n도보 5-10분\n\n2. 자차\n네이버 지도에서 당근민박’ 검색 후 방문하시면 더욱 편하게 찾아오실 수 있습니다.\n제주공항 1시간\n한라산 1시간\n월정리 해수욕장 18분\n성산일출봉 15분\n\n3. 도보\n세화해수욕장 10분\n해녀박물관 10분\n\n독채 펜션으로 프라이빗하게 머무르실 수 있으며,\n자쿠지와 사우나도 함께 준비되어 있습니다.\n\n당근밭과 오션뷰를 동시에 즐기며\n제주의 여유를 온전히 경험해보세요.",
+    "conveniences": [
+      "주차"
+    ],
+    "category": "펜션",
+    "categoryCode": "221947",
+    "categoryCodeList": [
+      "221941",
+      "221947"
+    ],
+    "defaultCategoryCodeList": [
+      "221941",
+      "221947"
+    ],
+    "categoryCount": 1,
+    "rcode": "1411025631",
+    "roadAddress": "제주 제주시 구좌읍 면수2길 15",
+    "address": "제주 제주시 구좌읍 하도리 3211-1",
+    "streetPanorama": {
+      "__ref": "Panorama:Z92aW1DilYyzGj4hB2Vq0w=="
+    },
+    "isKtis": null,
+    "visitorReviewsTotal": 95,
+    "visitorReviewsScore": 5,
+    "cafeBlogReviewsTotal": 113,
+    "missingInfo": {
+      "__typename": "MissingInfo",
+      "businessType": "accommodation",
+      "isBizHourMissing": true,
+      "isMenuImageMissing": true,
+      "isAccessorMissing": false,
+      "isDescriptionMissing": false,
+      "isConveniencesMissing": false,
+      "needLargeSuggestionBanner": true,
+      "isBoss": false
+    },
+    "hideBusinessHours": false,
+    "hidePrice": false,
+    "microReviews": [
+      "넓은 공간에서 즐기는 아름다운 풍경"
+    ],
+    "paymentInfo": null,
+    "openingHours": null,
+    "isGoodStore": false,
+    "coordinate": {
+      "__typename": "Coordinate",
+      "x": "126.8688631",
+      "y": "33.5230206",
+      "mapZoomLevel": 12
+    },
+    "poiInfo": null,
+    "routeUrl": "https://m.search.naver.com/search.naver?where=m&query=%EB%B9%A0%EB%A5%B8%EA%B8%B8%EC%B0%BE%EA%B8%B0&nso_path=placeType%5Eplace%3Bname%5E%3Baddress%5E%3Blatitude%5E%3Blongitude%5E%3Bcode%5E%7Ctype%5Eplace%3Bname%5E%EC%A0%9C%EC%A3%BC%EB%8F%84%20%EB%8F%99%EC%AA%BD%20%EC%84%B8%ED%99%94%20%EB%8F%85%EC%B1%84%ED%8E%9C%EC%85%98%20%EA%B0%90%EC%84%B1%EC%88%99%EC%86%8C%20%EB%8B%B9%EA%B7%BC%EB%AF%BC%EB%B0%95%3Baddress%5E%3Bcode%5E1226740854%3Blongitude%5E126.8688631%3Blatitude%5E33.5230206%7Cobjtype%5Epath%3Bby%5Epubtrans",
+    "virtualPhone": "0507-1438-3988",
+    "phone": null,
+    "hasMobilePhoneNumber": false,
+    "talktalkUrl": "http://talk.naver.com/w5tuwi?frm=mnmb",
+    "chatBotUrl": "",
+    "naverBlog": null,
+    "visitorReviewsTextReviewTotal": 88,
+    "beLocalWeek": null,
+    "indoorInfo": null
+  },
+  "FsasReview:blog_Helena's ordinary_223599183608_당근민박 / 제주 동쪽 숙소 아이랑 수영장 제주 수영장 펜션 다동 솔직후기": {
+    "__typename": "FsasReview",
+    "name": "Helena's ordinary",
+    "type": "blog",
+    "typeName": "블로그",
+    "url": "https://m.blog.naver.com/helenabonbon/223599183608",
+    "home": "https://m.blog.naver.com/helenabonbon",
+    "id": "blog_Helena's ordinary_223599183608_당근민박 / 제주 동쪽 숙소 아이랑 수영장 제주 수영장 펜션 다동 솔직후기",
+    "title": "당근민박 / 제주 동쪽 숙소 아이랑 수영장 제주 수영장 펜션 다동 솔직후기",
+    "rank": "1",
+    "contents": "기대하고 기대했던 제주동쪽숙소 당근민박에 드디어 왔어용! 제주도 구좌읍에 위치한 제주 독채 팬션 제주 수영장 펜션 제주 동쪽 숙소 당근민박 당근민박 제주 제주시 구좌읍 면수2길 15 0507-1438-3988 https://blog.naver.com/kse7908 제주 독채 팬션 제주 동쪽 숙소 당근민박은 가 , 나, 다동으로 이루어져있구용 저희는 다동에서 숙박했어요! 당근민박은 가동 2층집, 나동 단층집, 다동 복층집으로 3개의 동을 이룬 제주동쪽숙소 제주독채펜션 당근민박 제주동쪽숙소 제주자쿠지펜션 제주수영장펜션 당근민박은 네이버로도 예약이 가능해용 https://naver.me/GZsa4u2s 사장님께서 미리 문자로 보내주신 현관문 번호키 눌러 들어갔어용~ 제주동쪽숙소 당근민박 다동은 복층이였는데 1층에는 침대, 주방, 화장실이 있구용, 2층에는 잠을 잘 수 있는 공간으로만 만들어놓으셨더라구용~ (1층에는 침대고, 2층은 매트로 되어있는데 정말 푹신!!) 이렇게 넓고 좋은 독채펜션에서 매일 살고 싶더라구요^^^ 옷걸이, 드라이기, 청소기, 세탁기, 건조기까지! 그리고 그릇, 냄비, 식기류, 조리도구, 술잔들도 종류별로 다 있어서 분위기 내며 맛있께 먹을 수 있는 제주독채펜션 당근민박 커피머신, 발뮤다, 전기포트도 있어서 진짜 여기에 살고 싶었음!! 나의 로망,, 통유리로 멋진 뷰를 보며 요리할 수 있는 부엌,, 남편이 나 여기서 서있는 거보더니 여기서 맨날 커피만 타마실것 같다며^^^ 그리고 2층에는 이렇게 잠을 잘 수 있는 공간만 되어있어요, 엄청 넓어서 우리 세식구 완전 푹- 편하게 잤어용 ㅎ,ㅎ 드디어! 우래기가 넘 기달리던 제주수영장펜션 당근민박 여행오기 전부터 말해줬더니 당근민박은 언제가냐고 노래를 불렀는데 ㅋㅋ 우리집 치명적인 몸매소유자 토실이! ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 보면 웃음만 나는 ^,^ 찐으로 기쁜 표정이심! 이 날 우리 딸 어찌나 웃고 잘 놀던지~ 진짜 태어나서 젤 기쁜 날인줄^^^ 2살부터 여름마다 제주에 오고 있는데, 매 년 올때마다 아이도 많이 컸음을 느낀당 근데 기억력 좋은 해나인데,, 작년 제주도 온 거 기억 하나도 안나는 것 같아 속상^^^ 올 해 제주도여행은 기억에 많이 남겠지?ㅎ,ㅎ 해나가 좋아하는 물놀이도 원없이 하고 있는뒈,,, 제주 수영장 펜션 당근민박에는 수영장 내에 유아튜브, 어른튜브, 구명조끼, 공도 있어용 그리고 우리집 금쪽이 (=내남편) ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 커다란 튜브좀 가져다달라고 하길래 뭐하나 했더니 자기 타려고^,^; 아빠~ 내 손 잡아~~~ 하는 중! ㅋㅋㅋㅋㅋㅋㅋㅋ 우리 딸... ",
+    "bySmartEditor3": false,
+    "hasNaverReservation": false,
+    "thumbnailUrl": "http://blogfiles.naver.net/MjAyNDA5MjdfMTY1/MDAxNzI3MzYzMzM2OTEy.1a2ZixInO9wHtXovkDmlcSQf5x-8zkcdZkULEcmL3ekg.OEPSGnOLnNtMMhzNymLwBqnSmBe_A8s8oMTK3JCg0zkg.JPEG/IMG_0995.JPG#900x676",
+    "thumbnailUrlList": [
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTY1/MDAxNzI3MzYzMzM2OTEy.1a2ZixInO9wHtXovkDmlcSQf5x-8zkcdZkULEcmL3ekg.OEPSGnOLnNtMMhzNymLwBqnSmBe_A8s8oMTK3JCg0zkg.JPEG/IMG_0995.JPG#900x676",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTEw/MDAxNzI3MzYzMzM1NDI0.5vEX0QldZW2D4HIn6W2eZS9l2TLDYs3Slg0yQN4XwRog.hYRMDYTnaDGDRkYBmuhcdmjw_Kp5Vpg2HVkb2qD3JdQg.JPEG/IMG_0959.JPG#900x676",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTE1/MDAxNzI3MzYzMzM1ODA0.WLpsBccAvpRbOLIgZ7FUOqkLeMbdcY2v4tqSRbwcaJAg.DRVlNZ8U1Ex7v0q0REbjGjKuR3wBsW9z6Q0GFpTKOAYg.JPEG/IMG_0958.JPG#900x676",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMjc4/MDAxNzI3MzYzMzM1MjU4.j-05sObllxz-DII_KYhN0qY9cHAfCcvH2tcfpgtVRXEg.d7I8ASTt-3pPL71OUaKgtzLO5RzWxNXqZYu1EV8CaYkg.JPEG/IMG_0960.JPG#900x1200",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTc5/MDAxNzI3MzYzMzM0NTg1.xuezdJqJUWcXXQ1x2YlX1N3IIMNi8Xo2SDUpOAXPweMg.xlZUhr78sF7f6FlI1UUJmJSr9rjIJphbeT8t9oYDnp8g.JPEG/IMG_0968.JPG#900x1200",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfNjAg/MDAxNzI3MzYzMzM0NDYz.5EyvqpUgHmPfmEBynL3M3NT3YbHgywB1MAFf9TVzxCwg.s6Yzs-ytwn5ZFT8lPmsfrsFqRBxPa6grwk6y6xIFi9Qg.JPEG/IMG_0966.JPG#900x1200",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTM0/MDAxNzI3MzYzMzM1NTg0.zAV07Yckk0dq_5sU9Ba4CjqBnsUbQsUhVJ06T41pV7Yg._oDSWTWs89lWVtK57LaOGkVFFgK3JB8RhHigzi8geR4g.JPEG/IMG_0967.JPG#900x1200",
+      "http://blogfiles.naver.net/MjAyNDA5MjhfMjE5/MDAxNzI3NDU0NzkxMTAx.DGa19Ufl7I84FbPcu2ftgnk-jamZv9ThlzqaBOTlVzAg.3rs8QJo1a9xaoQNf8B_MgMH46oX6s9RQOSl_klKbBkIg.JPEG/Screenshot_2024-09-28_at_01.32.52.JPG#1328x1090",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMjkx/MDAxNzI3MzYzMzM0NDM5.WBfgIAa9DJm07xG_u9rNoDtrtp1Y_gbwPiYwXYkfrfgg.fWIXJ6H7F8La98S6O7x3BKmq0EkR4Wta_wORXAjz9PUg.JPEG/IMG_0970.JPG#900x676",
+      "http://blogfiles.naver.net/MjAyNDA5MjdfMTA2/MDAxNzI3MzYzMzM0NTg0.95naMBF7klxbxurgiru6jvJMmbZNcvT4uzqBL5zmPrAg.JHdF146Z2OBggGUrTFJVGnRPWCsz2zeCTIB_m4o_yuAg.JPEG/IMG_0971.JPG#900x1200"
+    ],
+    "thumbnailCount": "61",
+    "date": "2024.09.28.",
+    "isOfficial": false,
+    "isRepresentative": false,
+    "profileImageUrl": "http://blogpfthumb.phinf.naver.net/MjAyNTA2MDdfMTIy/MDAxNzQ5MzAwNjY0MzMz.L9m8_XvH1hgG0kOeQxarJ3kr_Tx-oBOGdvGhlpEq5Y0g.4n2z6w5K-lqFWvftDVnv2T1JOh4QBY4gKVND80vhPRkg.PNG/profileImage.png",
+    "isVideoThumbnail": false,
+    "reviewId": "223599183608",
+    "authorName": "헬레나 응댕",
+    "createdString": "24.9.28.토",
+    "bypassToken": null,
+    "buyWithMyMoneyType": null
+  },
+  "FsasReview:blog_지니의 세상여행_223274662018_세화해변 제주오션뷰펜션 제주도 구좌 독채숙소 하도리 당근민박": {
+    "__typename": "FsasReview",
+    "name": "지니의 세상여행",
+    "type": "blog",
+    "typeName": "블로그",
+    "url": "https://m.blog.naver.com/hjtopia7/223274662018",
+    "home": "https://m.blog.naver.com/hjtopia7",
+    "id": "blog_지니의 세상여행_223274662018_세화해변 제주오션뷰펜션 제주도 구좌 독채숙소 하도리 당근민박",
+    "title": "세화해변 제주오션뷰펜션 제주도 구좌 독채숙소 하도리 당근민박",
+    "rank": "2",
+    "contents": "세화해변 제주오션뷰펜션 구좌 독채숙소 하도리 당근민박 새화해변 제주오션뷰펜션인 하도리 당근민박 구좌 독채숙소에서 한적하고 여유로운 시간을 보내고 왔어요. 테라스에서 보는 바다뷰 당근밭뷰 제주 돌담 뷰 뭉게구름 제주 하늘까지도 너무 예뻤던 제주도 동쪽에 있는 감성숙소였어요. 시간대별로 달라지는 제주 하늘 풍경이 예뻐서 힐링타임도 갖았어요. 머물렀던 공간은 당근민박 나동(단층집)이에요. 정면과 후면의 반전 매력이 있는 제주오션뷰펜션 하도리 당근민박~ 제주 구좌 독채숙소 당근민박 제주도 제주시 구좌읍 하도리 3211-1 세화해수욕장 세화해변 740m 5일 10일 오일마다 열리는 제주 세화오일장 제주여행 스케줄과 맞는다면 방문해 보세요. 입실 16:00 퇴실 11:00 나동 단층집 독채 기준 2인(최대 4인) 풀빌라 실내/야외 자쿠지 편백 사우나 테라스 바베큐 가동 나동 다동 이층 단층 복층집의 총 3개의 동으로 운영 중이며 가족구성원과 취향의 따라 숙소를 정하면 돼요. 당근민박 가동 독채 기준 6인 (최대 8인) 당근민박 다동 독채 기준 4인(최대 6인) 나동은 침실 1 거실 주방 욕실 1단층으로 이루어져 있어요. 침실 1 머무는 모든 공간마다 넓은 창으로 채광이 좋고 푸릇푸릇한 자연뷰로 휴식하기 좋은 공간이에요. 4인 가족이 머물 수 있도록 퀸 침대와 온돌 바닥의 요 이불이 준비되어 있어요. 통창에 가득 담기는 세화해변 하도리 바다와 정원뷰 제주 돌담이 보이는 거실 소파에 앉아 식사할 수 있는 여유로운 크기의 테이블 있어요. 거실창을 열고 나가면 테라스가 나오는데요. 내부 호다닥 보고 얼른 나가자고요.^^ 고기 생선 냄새 많이 나는 음식 제외하고 객실 내에서 조리도 가능해요. 주방용품 조리도구 코웨이 정수기 냉장고 전자레인지 밥솥 마련되어 있거든요. 특히 브런치 식기류가 예뻐서 요리하고 싶은 마음이 드네요. 그래서 오늘은 외식 안하고 짝꿍님이 서프라이즈하게 저녁식사를 만들어 줬어요. 예쁜 접시에 플레이팅도 예쁘게 근사하게 담아서 말이죠. 크레마 듬뿍의 아메리카노까지 내려서 냠냠~ 행복한 맛이구나^^ 욕실 자연 냄새가 나는 샴푸 린스 바디워시 구비되어 있고 칫솔 치약은 준비하기 현관 입구 쪽에 넉넉한 수건 있어요. 요즘 같은 날씨에 하면 좋을 편백건식사우나 설정온도 65도 맞추어 이용하면 되고요. 중간에 돌에 물을 치익~ 끼얹어 주기 소리 들리나요? ㅎ 무료로 이용하는 사계절 온수풀 실내 자쿠지 공간 윈드블라인드가 있다면 좀 더 프라이빗할 거 같아요. 제주도 동쪽 세화해변... ",
+    "bySmartEditor3": false,
+    "hasNaverReservation": false,
+    "thumbnailUrl": "http://blogfiles.naver.net/MjAyMzExMjVfMjIx/MDAxNzAwODk3MzM2MDA4.tLcTM5Iv88EHJo1lKWGqjUPVlM0LVQvb6AdguqzgDs8g.DDW97EFEdjd8AYeKz-AEEyFhGO7dhdkdd8ZrjmSIvb8g.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.188.png#525x700",
+    "thumbnailUrlList": [
+      "http://blogfiles.naver.net/MjAyMzExMjVfMjIx/MDAxNzAwODk3MzM2MDA4.tLcTM5Iv88EHJo1lKWGqjUPVlM0LVQvb6AdguqzgDs8g.DDW97EFEdjd8AYeKz-AEEyFhGO7dhdkdd8ZrjmSIvb8g.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.188.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTgx/MDAxNzAwODk3MzMwMjIz.G_vXv0aAxGjxcoT-fjAd5vH59wv95X7x-u95RYbMNq8g.2RLexR6Ry09q607vBSJ_fziIrN0CvuZ6amLKE5PZemsg.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.088.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMjYz/MDAxNzAwODk3MzMyMTYz.rwBaadsM3V5ad4NQDm4rdsr0zkEUy5Yvxx1_i8grJE8g.BLcUiOsCiG2CsgKMCQ5dXWMP1NIllKfckDg6a745ricg.JPEG.hjtopia7/ECA09CECA3BCEAB5ACECA28CEC9D8DEC8899EC868C.jpg#700x525",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTkx/MDAxNzAwODk3MzMzODU5.j_ewozNHuJ3DJushXY_DC1t9muvO0TledVFQhEAv5QYg.uBs6QAX1reasTu0bU3qpzey3caFh_P212wrIGytiT6og.JPEG.hjtopia7/ECA09CECA3BC_EAB5ACECA28CEC9D8D_EC8899EC868C.jpg#700x679",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTM3/MDAxNzAwODk3MzMxMjU3.d0zFpKC2jg5oTGNDFmmWjiDrGRnzGBy_pZK2saGnT-gg.qO2jG7aZ-Eawz34SrIkDmkOz0cQdpaAgAjuV-HQKY9kg.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.097.png#700x525",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTE5/MDAxNzAwODk3MzM0OTYy.tnvI8I3YS2sOONhKp3m_32rDrvFhjBXi6BEJxQ-PU6Ag.kLB6T_D7frfbGEic_PP_xQgWAa3AzYHGtWumWI3aM0sg.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.003.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTg1/MDAxNzAwODk3MzI5MjIy.VG2NzMI7-nHFWwV8cyVNzmXdrlJ5C1jSfKwXe8HKG3sg.SNllLKDYdcZP1MCtWpof2Zpo1Nv6b-04VhuRT8DI0Lkg.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.013.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTIw/MDAxNzAwODk3NDQyMDk1.a0gadCUa96P_OqSBLISsO5XasyHDcct74Fd9Y6yOJD8g.OwOnLjYzdM9g6aTOcfMyBCYYZ4T5wR8XGMxdkqdWM_Ag.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.014.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMTEg/MDAxNzAwODk3NTI1NTEw.iziCKXywwVRrizQsMKDvk_X5xT6mbEmPg-RQ9GflRfcg.OQXDfWeU8WmTUSi5ecvjcW0IdREVZKXnWdIhdZN74s4g.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.052.png#525x700",
+      "http://blogfiles.naver.net/MjAyMzExMjVfMjEz/MDAxNzAwODk3NTI0NTAw.r1xVNAH470Q9p5mLskivbNLE78HpDcJowUOnNxDUc_8g.oxFmwbCt15vfk8LRCvhXWifqt5qq85FCqjxybeFjko0g.PNG.hjtopia7/ECA09CECA3BCEC98A4EC8598EBB7B0ED8E9CEC859820231122.015.png#700x525"
+    ],
+    "thumbnailCount": "54",
+    "date": "2023.11.25.",
+    "isOfficial": false,
+    "isRepresentative": false,
+    "profileImageUrl": "http://blogpfthumb.phinf.naver.net/MjAyMzA0MDdfMjEy/MDAxNjgwODY0NzA1ODMy.ho22twmuBdnoSFWSuguHEjjsX1IgE3pAP8yHEeJ63jog.BZLhMcTmUI7aLMlH6ch1nfYUsI8I5qVKshC8hw8e-kQg.JPEG.hjtopia7/profileImage.jpg",
+    "isVideoThumbnail": false,
+    "reviewId": "223274662018",
+    "authorName": "지니s",
+    "createdString": "23.11.25.토",
+    "bypassToken": null,
+    "buyWithMyMoneyType": null
+  },
+  "FsasReview:cafe_스테이감성 감성숙소 큐레이션 - 펜션, 민박, 호텔, 한달살기_2055_제주 구좌 감성숙소 당근민박 (자쿠지,수영장,정원) - 스테이감성": {
+    "__typename": "FsasReview",
+    "name": "스테이감성 감성숙소 큐레이션 - 펜션, 민박, 호텔, 한달살기",
+    "type": "cafe",
+    "typeName": "카페",
+    "url": "https://m.cafe.naver.com/modumoa111/2055?query=%EC%8A%A4%ED%85%8C%EC%9D%B4%EA%B0%90%EC%84%B1%20%EA%B0%90%EC%84%B1%EC%88%99%EC%86%8C%20%ED%81%90%EB%A0%88%EC%9D%B4%EC%85%98%20-%20%ED%8E%9C%EC%85%98%2C%20%EB%AF%BC%EB%B0%95%2C%20%ED%98%B8%ED%85%94%2C%20%ED%95%9C%EB%8B%AC%EC%82%B4%EA%B8%B0",
+    "home": "https://m.cafe.naver.com/modumoa111/2055?query=%EC%8A%A4%ED%85%8C%EC%9D%B4%EA%B0%90%EC%84%B1%20%EA%B0%90%EC%84%B1%EC%88%99%EC%86%8C%20%ED%81%90%EB%A0%88%EC%9D%B4%EC%85%98%20-%20%ED%8E%9C%EC%85%98%2C%20%EB%AF%BC%EB%B0%95%2C%20%ED%98%B8%ED%85%94%2C%20%ED%95%9C%EB%8B%AC%EC%82%B4%EA%B8%B0",
+    "id": "cafe_스테이감성 감성숙소 큐레이션 - 펜션, 민박, 호텔, 한달살기_2055_제주 구좌 감성숙소 당근민박 (자쿠지,수영장,정원) - 스테이감성",
+    "title": "제주 구좌 감성숙소 당근민박 (자쿠지,수영장,정원) - 스테이감성",
+    "rank": "1",
+    "contents": "자쿠지,수영장,정원이 있는 감성숙소 당근민박 가격은 25만원 부터 제주특별자치도 제주시 구좌읍 면수2길 15 https://www.instagram.com/carrot.stay.jeju 홈페이지 아래의 홈페이지에서는 더욱 쉽고 깔끔하게 1300여개 숙소를 만나볼 수 있습니다.",
+    "bySmartEditor3": false,
+    "hasNaverReservation": false,
+    "thumbnailUrl": "http://cafefiles.naver.net/MjAyMzA2MjhfMjc4/MDAxNjg3OTM5MTE0OTcy.zgE90Ozvcvhr9hxPik7UmlCM4cqaXlr4oJIa_ykRn-sg.FmGNS2n2GtDIX5EuLdai_brwmvjHBITvWuwG3xri0mUg.PNG/carrot.stay.jeju.png#518x324",
+    "thumbnailUrlList": [
+      "http://cafefiles.naver.net/MjAyMzA2MjhfMjc4/MDAxNjg3OTM5MTE0OTcy.zgE90Ozvcvhr9hxPik7UmlCM4cqaXlr4oJIa_ykRn-sg.FmGNS2n2GtDIX5EuLdai_brwmvjHBITvWuwG3xri0mUg.PNG/carrot.stay.jeju.png#518x324",
+      "http://cafefiles.naver.net/MjAyMzA2MjhfMTgx/MDAxNjg3OTM5MTUxODYw.WcS1YC3VwBkuSmKvUS7Ll3SFItK4zfUA4qh2UaCvW5wg.LK_CoEi5Pn37INcB077BjyK4CiuZhCGhx8zAQgGp0A4g.PNG/image.png#729x888"
+    ],
+    "thumbnailCount": "2",
+    "date": "2023.06.28.",
+    "isOfficial": false,
+    "isRepresentative": false,
+    "profileImageUrl": "http://cafefiles.naver.net/MjAyMzA4MjlfNjQg/MDAxNjkzMjkwNTcyNjA4.ZxUMUgFpMOoeJRLrU2FiDdT1FdZiYzQN4TYhs5iXVeAg.FfPCa4Q-o6WRS1XQ8Y_9pKn9meLQpMGGxt30v-mLzJ0g.PNG/Original.png",
+    "isVideoThumbnail": false,
+    "reviewId": "2055",
+    "authorName": "스테이감성",
+    "createdString": "23.6.28.수",
+    "bypassToken": "ZXh0ZXJuYWwtc2VydmljZS1wbGFjZS1zZWFyY2g=.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYWZlVHlwZSI6IkNBRkVfVVJMIiwiY2FmZVVybCI6Im1vZHVtb2ExMTEiLCJhcnRpY2xlSWQiOjIwNTUsImlzc3VlZEF0IjoxNzkwNjg4OTA3OTE5fQ.jq8xGuXRgsaZMezEN2BSjVTdNP4K_6oa2ZuZGbIIPfo",
+    "buyWithMyMoneyType": null
+  },
+  "InnerRoute:2171141": {
+    "__typename": "InnerRoute",
+    "id": "2171141",
+    "name": "201"
+  },
+  "InnerRoute:2171005": {
+    "__typename": "InnerRoute",
+    "id": "2171005",
+    "name": "711-2"
+  },
+  "BusStation:801225": {
+    "__typename": "BusStation",
+    "id": "801225",
+    "name": "하도리면수동[북]",
+    "displayCode": "405001301",
+    "lat": 33.5210091,
+    "lng": 126.8681478,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171141"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171005"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 5,
+    "walkingDistance": 272
+  },
+  "InnerRoute:2171143": {
+    "__typename": "InnerRoute",
+    "id": "2171143",
+    "name": "201"
+  },
+  "InnerRoute:2171006": {
+    "__typename": "InnerRoute",
+    "id": "2171006",
+    "name": "711-2"
+  },
+  "BusStation:801224": {
+    "__typename": "BusStation",
+    "id": "801224",
+    "name": "하도리면수동",
+    "displayCode": "405001300",
+    "lat": 33.5206876,
+    "lng": 126.8685975,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171143"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171006"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 5,
+    "walkingDistance": 304
+  },
+  "BusStation:800897": {
+    "__typename": "BusStation",
+    "id": "800897",
+    "name": "하도리 서문동입구[남]",
+    "displayCode": "405000973",
+    "lat": 33.5198936,
+    "lng": 126.8709276,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171143"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171006"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 9,
+    "walkingDistance": 530
+  },
+  "BusStation:802542": {
+    "__typename": "BusStation",
+    "id": "802542",
+    "name": "하도리 서문동입구",
+    "displayCode": "405001951",
+    "lat": 33.519938,
+    "lng": 126.8712874,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171141"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171005"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 9,
+    "walkingDistance": 548
+  },
+  "BusStation:801226": {
+    "__typename": "BusStation",
+    "id": "801226",
+    "name": "해녀박물관입구[북]",
+    "displayCode": "405001302",
+    "lat": 33.5211305,
+    "lng": 126.8635941,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171141"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171005"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 9,
+    "walkingDistance": 554
+  },
+  "BusStation:801227": {
+    "__typename": "BusStation",
+    "id": "801227",
+    "name": "해녀박물관입구[남]",
+    "displayCode": "405001303",
+    "lat": 33.5210062,
+    "lng": 126.8638438,
+    "innerRoutes": {
+      "__typename": "InnerRoutes",
+      "routeType": [
+        {
+          "__typename": "RouteType",
+          "type": "11",
+          "typeName": "간선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171143"
+            }
+          ]
+        },
+        {
+          "__typename": "RouteType",
+          "type": "12",
+          "typeName": "지선",
+          "innerRoute": [
+            {
+              "__ref": "InnerRoute:2171006"
+            }
+          ]
+        }
+      ]
+    },
+    "walkTime": 10,
+    "walkingDistance": 614
+  },
+  "VisitorReviewStatsResult:1226740854": {
+    "__typename": "VisitorReviewStatsResult",
+    "id": "1226740854",
+    "name": null,
+    "review": {
+      "__typename": "VisitorReviewStats",
+      "avgRating": 5,
+      "totalCount": 95,
+      "scores": [
+        {
+          "__typename": "VisitorReviewScore",
+          "count": 9,
+          "score": null
+        }
+      ],
+      "imageReviewCount": 70,
+      "authorCount": 9
+    },
+    "analysis": {
+      "__typename": "VisitorReviewStatsAnalysis",
+      "themes": [
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "total",
+          "label": "만족도",
+          "count": 83
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "equipment",
+          "label": "공연・전시공간",
+          "count": 19
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "pool",
+          "label": "수영장",
+          "count": 19
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "facilities",
+          "label": "편의시설",
+          "count": 18
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "service",
+          "label": "서비스",
+          "count": 18
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "location",
+          "label": "위치",
+          "count": 9
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "cleanliness",
+          "label": "청결도",
+          "count": 6
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "mood",
+          "label": "분위기",
+          "count": 6
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "amenity",
+          "label": "비품",
+          "count": 5
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "view",
+          "label": "전망",
+          "count": 3
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "naver",
+          "label": "예약",
+          "count": 2
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "price",
+          "label": "가격",
+          "count": 2
+        },
+        {
+          "__typename": "VisitorReviewStatsAnalysisThemes",
+          "code": "breakfast",
+          "label": "음식・조식",
+          "count": 1
+        }
+      ],
+      "menus": [],
+      "votedKeyword": {
+        "__typename": "VisitorReviewStatsAnalysisVoteKeyword",
+        "totalCount": 444,
+        "reviewCount": 94,
+        "userCount": 91,
+        "details": [
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "clean",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/sparkles20220119222028.png",
+            "iconCode": "sparkles",
+            "displayName": "깨끗해요",
+            "count": 67,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "healing",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+            "iconCode": "face_smiling",
+            "displayName": "조용히 쉬기 좋아요",
+            "count": 65,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "bedding_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/bed.png",
+            "iconCode": "bed",
+            "displayName": "침구가 좋아요",
+            "count": 56,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "interior_cool",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/couch_and_lamp20220119222025.png",
+            "iconCode": "couch_and_lamp",
+            "displayName": "인테리어가 멋져요",
+            "count": 36,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "view_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/framed_picture20220119222027.png",
+            "iconCode": "framed_picture",
+            "displayName": "뷰가 좋아요",
+            "count": 34,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "kind",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/beating_heart20220119222223.png",
+            "iconCode": "beating_heart",
+            "displayName": "친절해요",
+            "count": 30,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "waterplay_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/pool_tube20220119222252.png",
+            "iconCode": "pool_tube",
+            "displayName": "물놀이하기 좋아요",
+            "count": 26,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "temperature_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/cool_and_warm20220119222248.png",
+            "iconCode": "cool_and_warm",
+            "displayName": "냉난방이 잘돼요",
+            "count": 20,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "parking_easy",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/park_sign20220119222222.png",
+            "iconCode": "park_sign",
+            "displayName": "주차하기 편해요",
+            "count": 19,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "toilet_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/restroom20220119222222.png",
+            "iconCode": "restroom",
+            "displayName": "화장실이 잘 되어있어요",
+            "count": 19,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "warm_water",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/shower_head20220119222256.png",
+            "iconCode": "shower_head",
+            "displayName": "온수가 잘 나와요",
+            "count": 13,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "kid_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/baby_face20220119224307.png",
+            "iconCode": "baby_face",
+            "displayName": "아이와 가기 좋아요",
+            "count": 10,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "soundproof",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_shushing20220119222248.png",
+            "iconCode": "face_shushing",
+            "displayName": "방음이 잘돼요",
+            "count": 10,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "hocance_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_with_sunglasses20220119222235.png",
+            "iconCode": "face_with_sunglasses",
+            "displayName": "호캉스하기 좋아요",
+            "count": 9,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "entertainment_var",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_star_struck20220119222254.png",
+            "iconCode": "face_star_struck",
+            "displayName": "즐길 거리가 많아요",
+            "count": 5,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "photo_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/camera_with_flash20220119222227.png",
+            "iconCode": "camera_with_flash",
+            "displayName": "사진이 잘 나와요",
+            "count": 5,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "pool_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/pool20220119222255.png",
+            "iconCode": "pool",
+            "displayName": "수영장이 잘 되어있어요",
+            "count": 5,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "kitchen_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/pot20220119222252.png",
+            "iconCode": "pot",
+            "displayName": "취사시설이 잘 되어있어요",
+            "count": 3,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "near_var",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/map_pin_mark20220119222259.png",
+            "iconCode": "map_pin_mark",
+            "displayName": "근처에 갈 곳이 많아요",
+            "count": 2,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "no_bug",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/moth20220119222256.png",
+            "iconCode": "moth",
+            "displayName": "벌레 걱정 없어요",
+            "count": 2,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "play_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/busts_in_silhouette20220119222027.png",
+            "iconCode": "busts_in_silhouette",
+            "displayName": "어울려 놀기 좋아요",
+            "count": 2,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "price_worthy",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/gem_stone20220119222239.png",
+            "iconCode": "gem_stone",
+            "displayName": "비싼 만큼 가치있어요",
+            "count": 2,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "spa_good",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/steam20220325175453.png",
+            "iconCode": "steam",
+            "displayName": "스파하기 좋아요",
+            "count": 2,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "concept_unique",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/light_bulb20220119222315.png",
+            "iconCode": "light_bulb",
+            "displayName": "컨셉이 독특해요",
+            "count": 1,
+            "previousRank": null
+          },
+          {
+            "__typename": "VisitorReviewStatsAnalysisVoteKeywordDetail",
+            "category": null,
+            "code": "public_transport",
+            "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/bus_stop20220119222251.png",
+            "iconCode": "bus_stop",
+            "displayName": "대중교통이 편해요",
+            "count": 1,
+            "previousRank": null
+          }
+        ]
+      }
+    },
+    "visitorReviewsTotal": 95,
+    "ratingReviewsTotal": 6
+  },
+  "InformationFacilities:풀빌라": {
+    "__typename": "InformationFacilities",
+    "id": "풀빌라",
+    "name": "풀빌라",
+    "i18nName": "풀빌라"
+  },
+  "InformationFacilities:스파": {
+    "__typename": "InformationFacilities",
+    "id": "스파",
+    "name": "스파",
+    "i18nName": "스파"
+  },
+  "InformationFacilities:독채": {
+    "__typename": "InformationFacilities",
+    "id": "독채",
+    "name": "독채",
+    "i18nName": "독채"
+  },
+  "InformationFacilities:단체": {
+    "__typename": "InformationFacilities",
+    "id": "단체",
+    "name": "단체",
+    "i18nName": "단체"
+  },
+  "InformationFacilities:복층": {
+    "__typename": "InformationFacilities",
+    "id": "복층",
+    "name": "복층",
+    "i18nName": "복층"
+  },
+  "InformationFacilities:온돌방": {
+    "__typename": "InformationFacilities",
+    "id": "온돌방",
+    "name": "온돌방",
+    "i18nName": "온돌방"
+  },
+  "InformationFacilities:침대방": {
+    "__typename": "InformationFacilities",
+    "id": "침대방",
+    "name": "침대방",
+    "i18nName": "침대방"
+  },
+  "InformationFacilities:2인실": {
+    "__typename": "InformationFacilities",
+    "id": "2인실",
+    "name": "2인실",
+    "i18nName": "2인실"
+  },
+  "InformationFacilities:가족실": {
+    "__typename": "InformationFacilities",
+    "id": "가족실",
+    "name": "가족실",
+    "i18nName": "가족실"
+  },
+  "InformationFacilities:수영장": {
+    "__typename": "InformationFacilities",
+    "id": "수영장",
+    "name": "수영장",
+    "i18nName": "수영장"
+  },
+  "InformationFacilities:바비큐장": {
+    "__typename": "InformationFacilities",
+    "id": "바비큐장",
+    "name": "바비큐장",
+    "i18nName": "바비큐장"
+  },
+  "InformationFacilities:와이파이": {
+    "__typename": "InformationFacilities",
+    "id": "와이파이",
+    "name": "와이파이",
+    "i18nName": "와이파이"
+  },
+  "InformationFacilities:모던": {
+    "__typename": "InformationFacilities",
+    "id": "모던",
+    "name": "모던",
+    "i18nName": "모던"
+  },
+  "InformationFacilities:키즈테마": {
+    "__typename": "InformationFacilities",
+    "id": "키즈테마",
+    "name": "키즈테마",
+    "i18nName": "키즈테마"
+  },
+  "PlaceDetailTopPhotoItem:1226740854_business_1": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_business_1",
+    "viewId": "1226740854_business_1_1",
+    "title": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+    "width": 1249,
+    "height": 2048,
+    "linkUrl": null,
+    "date": null,
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__typename": "PhotoViewerItemAuthor",
+      "id": null,
+      "nickname": null,
+      "imageUrl": null,
+      "objectId": null,
+      "url": null,
+      "officialYn": null,
+      "followRequested": null
+    },
+    "originalUrl": "https://ldb-phinf.pstatic.net/20260327_86/17745726159430unKX_JPEG/KakaoTalk_20250427_190042063_02.jpg",
+    "thumbnailUrl": "https://ldb-phinf.pstatic.net/20260327_86/17745726159430unKX_JPEG/KakaoTalk_20250427_190042063_02.jpg",
+    "description": null,
+    "mediaFormat": "image",
+    "mediaSource": "business",
+    "filterId": "biz",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": null,
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_business_2": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_business_2",
+    "viewId": "1226740854_business_2_2",
+    "title": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+    "width": 1536,
+    "height": 2048,
+    "linkUrl": null,
+    "date": null,
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__typename": "PhotoViewerItemAuthor",
+      "id": null,
+      "nickname": null,
+      "imageUrl": null,
+      "objectId": null,
+      "url": null,
+      "officialYn": null,
+      "followRequested": null
+    },
+    "originalUrl": "https://ldb-phinf.pstatic.net/20260327_192/1774572621769b4GCd_JPEG/KakaoTalk_20250427_190042063_06.jpg",
+    "thumbnailUrl": "https://ldb-phinf.pstatic.net/20260327_192/1774572621769b4GCd_JPEG/KakaoTalk_20250427_190042063_06.jpg",
+    "description": null,
+    "mediaFormat": "image",
+    "mediaSource": "business",
+    "filterId": "biz",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": null,
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_video_1": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_video_1",
+    "viewId": "1226740854_video_1_3",
+    "title": null,
+    "width": null,
+    "height": null,
+    "linkUrl": null,
+    "date": "2026.09.21",
+    "isPopularStyle": null,
+    "price": null,
+    "video": {
+      "__typename": "VideoItemInfo",
+      "videoId": "823488158E0CDF01ADEE5CAA732847BA922E",
+      "videoUrl": "vod3://2040:V1253548b2fb5dcf95682d1138080fdb567f112fa0593be1048019f8da6a366f14dd9d1138080fdb567f1@823488158E0CDF01ADEE5CAA732847BA922E?env=real#track=720",
+      "trailerUrl": "https://a01-g-naver-vod.akamaized.net/place/c/read/v2/VOD_ALPHA/place/823488158E0CDF01ADEE5CAA732847BA922E/trailer/1789945667712/229419aa-b548-11f1-8b38-3c15fb5ce4d7.mp4?__gda__=1790718732_5e40a0a8f3f1680874dcfd475f719d8c"
+    },
+    "author": {
+      "__typename": "PhotoViewerItemAuthor",
+      "id": null,
+      "nickname": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+      "imageUrl": null,
+      "objectId": null,
+      "url": null,
+      "officialYn": null,
+      "followRequested": null
+    },
+    "originalUrl": "https://video-phinf.pstatic.net/20260921_156/1789945670781lNy3K_JPEG/KDDwicPBJo_05.jpg",
+    "thumbnailUrl": "https://video-phinf.pstatic.net/20260921_156/1789945670781lNy3K_JPEG/KDDwicPBJo_05.jpg",
+    "description": null,
+    "mediaFormat": "video",
+    "mediaSource": "cp0",
+    "filterId": null,
+    "subFilterId": null,
+    "sourceTitle": "소식",
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": null,
+    "originType": "cp0"
+  },
+  "PlaceDetailTopPhotoItem:1226740854_business_3": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_business_3",
+    "viewId": "1226740854_business_3_4",
+    "title": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+    "width": 2250,
+    "height": 3000,
+    "linkUrl": null,
+    "date": null,
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__typename": "PhotoViewerItemAuthor",
+      "id": null,
+      "nickname": null,
+      "imageUrl": null,
+      "objectId": null,
+      "url": null,
+      "officialYn": null,
+      "followRequested": null
+    },
+    "originalUrl": "https://ldb-phinf.pstatic.net/20260327_59/1774572611743FK6GQ_JPEG/20230428_124042.jpg",
+    "thumbnailUrl": "https://ldb-phinf.pstatic.net/20260327_59/1774572611743FK6GQ_JPEG/20230428_124042.jpg",
+    "description": null,
+    "mediaFormat": "image",
+    "mediaSource": "business",
+    "filterId": "biz",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": null,
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_business_4": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_business_4",
+    "viewId": "1226740854_business_4_5",
+    "title": "제주도 동쪽 세화 독채펜션 감성숙소 당근민박",
+    "width": 1536,
+    "height": 2048,
+    "linkUrl": null,
+    "date": null,
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__typename": "PhotoViewerItemAuthor",
+      "id": null,
+      "nickname": null,
+      "imageUrl": null,
+      "objectId": null,
+      "url": null,
+      "officialYn": null,
+      "followRequested": null
+    },
+    "originalUrl": "https://ldb-phinf.pstatic.net/20260327_38/17745726266552X4SU_JPEG/KakaoTalk_20250427_190042063_07.jpg",
+    "thumbnailUrl": "https://ldb-phinf.pstatic.net/20260327_38/17745726266552X4SU_JPEG/KakaoTalk_20250427_190042063_07.jpg",
+    "description": null,
+    "mediaFormat": "image",
+    "mediaSource": "business",
+    "filterId": "biz",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": null,
+    "originType": null
+  },
+  "PhotoViewerItemAuthor:3hqsf": {
+    "__typename": "PhotoViewerItemAuthor",
+    "id": "3hqsf",
+    "nickname": "사이좋아56",
+    "imageUrl": "https://phinf.pstatic.net/contact/20210727_172/16273639521098XSs3_JPEG/KakaoTalk_20210130_123726441.jpg",
+    "objectId": "5efdfd1a0765f4dd1bac16c7",
+    "url": "https://m.place.naver.com/my/5efdfd1a0765f4dd1bac16c7/review?v=2",
+    "officialYn": null,
+    "followRequested": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_video_2": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_video_2",
+    "viewId": "1226740854_video_2_6",
+    "title": "방문자리뷰",
+    "width": null,
+    "height": null,
+    "linkUrl": null,
+    "date": "2026.07.16",
+    "isPopularStyle": null,
+    "price": null,
+    "video": {
+      "__typename": "VideoItemInfo",
+      "videoId": "6D3C4A153766CD87CE2D6AC265F0176E6ECC",
+      "videoUrl": "vod3://2040:V1296e63b0d312a6ba744693fc12a4e395eb315db2520381dfdfadd4e3bd3424a5f59693fc12a4e395eb3@6D3C4A153766CD87CE2D6AC265F0176E6ECC?env=real#track=720",
+      "trailerUrl": "https://a02-g-smp-vod.akamaized.net/pup_review/c/read/v2/VOD_ALPHA/pup_review/6D3C4A153766CD87CE2D6AC265F0176E6ECC/trailer/1784521719278/7e022fbd-83f3-11f1-9fdf-a0369fff5798.mp4?hdnts=exp%3D1790718532%7Eacl%3D%2Fpup_review%2Fc%2Fread%2Fv2%2FVOD_ALPHA%2Fpup_review%2F6D3C4A153766CD87CE2D6AC265F0176E6ECC%2F*%7Ehmac%3Df7f06d04906c08bf8fbb7f5071f004d8ad814d2d0156e503b7e0588afafde36c"
+    },
+    "author": {
+      "__ref": "PhotoViewerItemAuthor:3hqsf"
+    },
+    "originalUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA3MjBfMzAg/MDAxNzg0NTIxNzE0MTQx.9NjWwDOY5NakRjsJdQw_m_vFFuhKEtY0YDZEhI9z_akg.wwi4f4NNLd1rLGIKuW1w4L42i-9I2u48QV0YAIWK8EYg.JPEG/03A5CBE4-0693-4082-AD33-8A3E8E3623A3.jpeg",
+    "thumbnailUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA3MjBfMzAg/MDAxNzg0NTIxNzE0MTQx.9NjWwDOY5NakRjsJdQw_m_vFFuhKEtY0YDZEhI9z_akg.wwi4f4NNLd1rLGIKuW1w4L42i-9I2u48QV0YAIWK8EYg.JPEG/03A5CBE4-0693-4082-AD33-8A3E8E3623A3.jpeg",
+    "description": "오랜만 제주여행!!!\n비예보가 있어 수영장펜션으로 알아보다가\n지인추천과 예약가능 날짜가 딱 맞아 예약한곳!!\n주차장 바로앞이라 너무 좋고\n아이들이 들어가자마자 너무 좋다고 함! 뿌듯\n복층 좁을까 걱정했는데\n위에 4명자기 충분하고 수영장이 커서 어른도 충분히 놀수 있음. \n주변 조용해서 좋고 새벽러닝하고 다 잘때 혼자 물멍하기 좋았음\n야외 테라스에서 고기도 구워먹고 2박 너무 편하게 쉬고 놀고 왔음!!\n사장님의 배려깊은 손글씨 안내사항도 넉넉한 수건도 감사했습니다.\n재방문 100000%",
+    "mediaFormat": "video",
+    "mediaSource": "placeReview",
+    "filterId": "placeReview",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": {
+      "__typename": "PhotoViewerVisitorReviewInfo",
+      "visitCount": null,
+      "visitCategories": null,
+      "votedKeywords": [
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "bedding_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/bed.png",
+          "iconCode": "bed",
+          "name": "침구가 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "healing",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+          "iconCode": "face_smiling",
+          "name": "조용히 쉬기 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "photo_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/camera_with_flash20220119222227.png",
+          "iconCode": "camera_with_flash",
+          "name": "사진이 잘 나와요"
+        }
+      ],
+      "isFollowing": null,
+      "rating": 5,
+      "reviewGroupId": "6a5da3f8c86e501a64487db8",
+      "reviewId": "6a5da3f8c86e501a64487dbe"
+    },
+    "originType": "visitor"
+  },
+  "PhotoViewerItemAuthor:1IJ2p": {
+    "__typename": "PhotoViewerItemAuthor",
+    "id": "1IJ2p",
+    "nickname": "우연히25",
+    "imageUrl": "https://phinf.pstatic.net/contact/profile/blog/79/83/snb3234.jpg",
+    "objectId": "5cf8e591061fef50827fa16f",
+    "url": "https://m.place.naver.com/my/5cf8e591061fef50827fa16f/review?v=2",
+    "officialYn": null,
+    "followRequested": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_visitor_1": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_visitor_1",
+    "viewId": "1226740854_visitor_1_7",
+    "title": "방문자리뷰",
+    "width": 3000,
+    "height": 3750,
+    "linkUrl": null,
+    "date": "2026.09.25",
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__ref": "PhotoViewerItemAuthor:1IJ2p"
+    },
+    "originalUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjgw/MDAxNzkwNTgwOTYwMjg4.GIEu0dOpmTMWEFX4KxMWTlvwuVQ3prnAMvl_m0gga9gg.YVhX0d_rMMwK6j-WaG6htwOJpat8sOBpGU7lTsFm3pAg.JPEG/1000036835.jpg.jpg",
+    "thumbnailUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjgw/MDAxNzkwNTgwOTYwMjg4.GIEu0dOpmTMWEFX4KxMWTlvwuVQ3prnAMvl_m0gga9gg.YVhX0d_rMMwK6j-WaG6htwOJpat8sOBpGU7lTsFm3pAg.JPEG/1000036835.jpg.jpg",
+    "description": "엄마 환갑이지만 고소공포증으로 신혼 이후 36년만에 제주도 온 아빠를 고려해서 고르고 고른 숙소에요~ 추석 명절 3박 4일 머무르면서 60대 부모님, 아이있는 부부, 아이없는 동생 부부 모두 숙소를 너무 만족해서 중간 중간 잘쉬어가며 여행했어요 특히 식탁, 침대, 야외테이블 포함 가구 하나 하나 이사갈 때 사고 싶은 고급스러운 우드 감성이었어요\n거실, 주방, 테라스 라인이 뷰도 너무 좋고 색감도 너무 예뻤어요 부모님은 내내 테라스에서 아침이고 밤이고 안들어오시더라구요\n바베큐 가능, 걸어서 해변, 넓은 거실과 식탁, 아이를 위한 수영장을 다 만족하면서 깨끗한 남편 취향까지 모두 맞춘 유일한 곳이었네요\n숙소 외에도 사장님이 이것 저것 배려해주셔서 많이 감사했습니다 추천해주신 맛집도 최고였습니다",
+    "mediaFormat": "image",
+    "mediaSource": "placeReview",
+    "filterId": "placeReview",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": {
+      "__typename": "PhotoViewerVisitorReviewInfo",
+      "visitCount": 1,
+      "visitCategories": null,
+      "votedKeywords": [
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "clean",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/sparkles20220119222028.png",
+          "iconCode": "sparkles",
+          "name": "깨끗해요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "no_bug",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/moth20220119222256.png",
+          "iconCode": "moth",
+          "name": "벌레 걱정 없어요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "healing",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+          "iconCode": "face_smiling",
+          "name": "조용히 쉬기 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "interior_cool",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/couch_and_lamp20220119222025.png",
+          "iconCode": "couch_and_lamp",
+          "name": "인테리어가 멋져요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "view_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/framed_picture20220119222027.png",
+          "iconCode": "framed_picture",
+          "name": "뷰가 좋아요"
+        }
+      ],
+      "isFollowing": null,
+      "rating": 5,
+      "reviewGroupId": "6aba18e23c2d1381ff8636fd",
+      "reviewId": null
+    },
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_visitor_2": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_visitor_2",
+    "viewId": "1226740854_visitor_2_8",
+    "title": "방문자리뷰",
+    "width": 3000,
+    "height": 3750,
+    "linkUrl": null,
+    "date": "2026.09.25",
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__ref": "PhotoViewerItemAuthor:1IJ2p"
+    },
+    "originalUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjg5/MDAxNzkwNTgwOTYwMTQy.9niKcwC9ReBxGlyyLSM_DABL6OEyvGWf5iHe3jZSjz0g.aPjH7lRTE-Kqw5ey2j_87loHW_xs0kIsX6EGMPrmSf8g.JPEG/1000037103.jpg.jpg",
+    "thumbnailUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjg5/MDAxNzkwNTgwOTYwMTQy.9niKcwC9ReBxGlyyLSM_DABL6OEyvGWf5iHe3jZSjz0g.aPjH7lRTE-Kqw5ey2j_87loHW_xs0kIsX6EGMPrmSf8g.JPEG/1000037103.jpg.jpg",
+    "description": "엄마 환갑이지만 고소공포증으로 신혼 이후 36년만에 제주도 온 아빠를 고려해서 고르고 고른 숙소에요~ 추석 명절 3박 4일 머무르면서 60대 부모님, 아이있는 부부, 아이없는 동생 부부 모두 숙소를 너무 만족해서 중간 중간 잘쉬어가며 여행했어요 특히 식탁, 침대, 야외테이블 포함 가구 하나 하나 이사갈 때 사고 싶은 고급스러운 우드 감성이었어요\n거실, 주방, 테라스 라인이 뷰도 너무 좋고 색감도 너무 예뻤어요 부모님은 내내 테라스에서 아침이고 밤이고 안들어오시더라구요\n바베큐 가능, 걸어서 해변, 넓은 거실과 식탁, 아이를 위한 수영장을 다 만족하면서 깨끗한 남편 취향까지 모두 맞춘 유일한 곳이었네요\n숙소 외에도 사장님이 이것 저것 배려해주셔서 많이 감사했습니다 추천해주신 맛집도 최고였습니다",
+    "mediaFormat": "image",
+    "mediaSource": "placeReview",
+    "filterId": "placeReview",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": {
+      "__typename": "PhotoViewerVisitorReviewInfo",
+      "visitCount": 1,
+      "visitCategories": null,
+      "votedKeywords": [
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "clean",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/sparkles20220119222028.png",
+          "iconCode": "sparkles",
+          "name": "깨끗해요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "no_bug",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/moth20220119222256.png",
+          "iconCode": "moth",
+          "name": "벌레 걱정 없어요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "healing",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+          "iconCode": "face_smiling",
+          "name": "조용히 쉬기 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "interior_cool",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/couch_and_lamp20220119222025.png",
+          "iconCode": "couch_and_lamp",
+          "name": "인테리어가 멋져요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "view_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/framed_picture20220119222027.png",
+          "iconCode": "framed_picture",
+          "name": "뷰가 좋아요"
+        }
+      ],
+      "isFollowing": null,
+      "rating": 5,
+      "reviewGroupId": "6aba18e23c2d1381ff8636fd",
+      "reviewId": null
+    },
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_visitor_3": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_visitor_3",
+    "viewId": "1226740854_visitor_3_9",
+    "title": "방문자리뷰",
+    "width": 3000,
+    "height": 3750,
+    "linkUrl": null,
+    "date": "2026.09.25",
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__ref": "PhotoViewerItemAuthor:1IJ2p"
+    },
+    "originalUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMiAg/MDAxNzkwNTgwOTYwMzA1.71zzLExy3NCQyZ_zr1zhdJq3joKW7YK70buB6pggalIg.gwqfrDsYlFy5GoOjmCGyfmsIpbke5JDBeXt5PlRl464g.JPEG/1000036671.jpg.jpg",
+    "thumbnailUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMiAg/MDAxNzkwNTgwOTYwMzA1.71zzLExy3NCQyZ_zr1zhdJq3joKW7YK70buB6pggalIg.gwqfrDsYlFy5GoOjmCGyfmsIpbke5JDBeXt5PlRl464g.JPEG/1000036671.jpg.jpg",
+    "description": "엄마 환갑이지만 고소공포증으로 신혼 이후 36년만에 제주도 온 아빠를 고려해서 고르고 고른 숙소에요~ 추석 명절 3박 4일 머무르면서 60대 부모님, 아이있는 부부, 아이없는 동생 부부 모두 숙소를 너무 만족해서 중간 중간 잘쉬어가며 여행했어요 특히 식탁, 침대, 야외테이블 포함 가구 하나 하나 이사갈 때 사고 싶은 고급스러운 우드 감성이었어요\n거실, 주방, 테라스 라인이 뷰도 너무 좋고 색감도 너무 예뻤어요 부모님은 내내 테라스에서 아침이고 밤이고 안들어오시더라구요\n바베큐 가능, 걸어서 해변, 넓은 거실과 식탁, 아이를 위한 수영장을 다 만족하면서 깨끗한 남편 취향까지 모두 맞춘 유일한 곳이었네요\n숙소 외에도 사장님이 이것 저것 배려해주셔서 많이 감사했습니다 추천해주신 맛집도 최고였습니다",
+    "mediaFormat": "image",
+    "mediaSource": "placeReview",
+    "filterId": "placeReview",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": {
+      "__typename": "PhotoViewerVisitorReviewInfo",
+      "visitCount": 1,
+      "visitCategories": null,
+      "votedKeywords": [
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "clean",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/sparkles20220119222028.png",
+          "iconCode": "sparkles",
+          "name": "깨끗해요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "no_bug",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/moth20220119222256.png",
+          "iconCode": "moth",
+          "name": "벌레 걱정 없어요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "healing",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+          "iconCode": "face_smiling",
+          "name": "조용히 쉬기 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "interior_cool",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/couch_and_lamp20220119222025.png",
+          "iconCode": "couch_and_lamp",
+          "name": "인테리어가 멋져요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "view_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/framed_picture20220119222027.png",
+          "iconCode": "framed_picture",
+          "name": "뷰가 좋아요"
+        }
+      ],
+      "isFollowing": null,
+      "rating": 5,
+      "reviewGroupId": "6aba18e23c2d1381ff8636fd",
+      "reviewId": null
+    },
+    "originType": null
+  },
+  "PlaceDetailTopPhotoItem:1226740854_visitor_4": {
+    "__typename": "PlaceDetailTopPhotoItem",
+    "id": "1226740854_visitor_4",
+    "viewId": "1226740854_visitor_4_10",
+    "title": "방문자리뷰",
+    "width": 3000,
+    "height": 3750,
+    "linkUrl": null,
+    "date": "2026.09.25",
+    "isPopularStyle": null,
+    "price": null,
+    "video": null,
+    "author": {
+      "__ref": "PhotoViewerItemAuthor:1IJ2p"
+    },
+    "originalUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjUz/MDAxNzkwNTgwOTU5OTkz.0Ycdlph1gvvQdwK1qUGfQO5UHK99UGB7hkwK78gF0xQg.VGOHNJ0Cpp-vQiF75C6EtmXDo6GQvXioOiCnP_aX2d4g.JPEG/1000036669.jpg.jpg",
+    "thumbnailUrl": "https://pup-review-phinf.pstatic.net/MjAyNjA5MjhfMjUz/MDAxNzkwNTgwOTU5OTkz.0Ycdlph1gvvQdwK1qUGfQO5UHK99UGB7hkwK78gF0xQg.VGOHNJ0Cpp-vQiF75C6EtmXDo6GQvXioOiCnP_aX2d4g.JPEG/1000036669.jpg.jpg",
+    "description": "엄마 환갑이지만 고소공포증으로 신혼 이후 36년만에 제주도 온 아빠를 고려해서 고르고 고른 숙소에요~ 추석 명절 3박 4일 머무르면서 60대 부모님, 아이있는 부부, 아이없는 동생 부부 모두 숙소를 너무 만족해서 중간 중간 잘쉬어가며 여행했어요 특히 식탁, 침대, 야외테이블 포함 가구 하나 하나 이사갈 때 사고 싶은 고급스러운 우드 감성이었어요\n거실, 주방, 테라스 라인이 뷰도 너무 좋고 색감도 너무 예뻤어요 부모님은 내내 테라스에서 아침이고 밤이고 안들어오시더라구요\n바베큐 가능, 걸어서 해변, 넓은 거실과 식탁, 아이를 위한 수영장을 다 만족하면서 깨끗한 남편 취향까지 모두 맞춘 유일한 곳이었네요\n숙소 외에도 사장님이 이것 저것 배려해주셔서 많이 감사했습니다 추천해주신 맛집도 최고였습니다",
+    "mediaFormat": "image",
+    "mediaSource": "placeReview",
+    "filterId": "placeReview",
+    "subFilterId": null,
+    "sourceTitle": null,
+    "externalLink": null,
+    "clip": null,
+    "option": null,
+    "visitorReview": {
+      "__typename": "PhotoViewerVisitorReviewInfo",
+      "visitCount": 1,
+      "visitCategories": null,
+      "votedKeywords": [
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "clean",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/sparkles20220119222028.png",
+          "iconCode": "sparkles",
+          "name": "깨끗해요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "no_bug",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/moth20220119222256.png",
+          "iconCode": "moth",
+          "name": "벌레 걱정 없어요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "healing",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/face_smiling20220119222244.png",
+          "iconCode": "face_smiling",
+          "name": "조용히 쉬기 좋아요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "interior_cool",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/couch_and_lamp20220119222025.png",
+          "iconCode": "couch_and_lamp",
+          "name": "인테리어가 멋져요"
+        },
+        {
+          "__typename": "VisitorReviewVotedKeyword",
+          "code": "view_good",
+          "iconUrl": "https://ssl.pstatic.net/static/pup/emoji/framed_picture20220119222027.png",
+          "iconCode": "framed_picture",
+          "name": "뷰가 좋아요"
+        }
+      ],
+      "isFollowing": null,
+      "rating": 5,
+      "reviewGroupId": "6aba18e23c2d1381ff8636fd",
+      "reviewId": null
+    },
+    "originType": null
+  },
+  "ROOT_QUERY": {
+    "__typename": "Query",
+    "placeDetail({\"input\":{\"deviceType\":\"mobile\",\"id\":\"1226740854\",\"isNx\":false}})": {
+      "__typename": "PlaceDetail",
+      "tabs": [
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "home",
+          "name": "홈",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "feed",
+          "name": "소식",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "room",
+          "name": "객실",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "review",
+          "name": "리뷰",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "photo",
+          "name": "사진",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "location",
+          "name": "지도",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "around",
+          "name": "주변",
+          "externalUrl": null
+        },
+        {
+          "__typename": "PlaceDetailTab",
+          "tabId": "information",
+          "name": "정보",
+          "externalUrl": null
+        }
+      ],
+      "houseBanners": [
+        {
+          "__ref": "HouseBanner:https://maps-service.pstatic.net/maps-cms/568f3214-4368-46cc-9ce1-61c1d39aa97c.png"
+        }
+      ],
+      "accessor": {
+        "__typename": "PlaceAccessor",
+        "accessor": "",
+        "hasAccessor": true,
+        "accessorBanner": []
+      },
+      "base": {
+        "__ref": "PlaceDetailBase:1226740854"
+      },
+      "buttons({\"input\":{\"deviceType\":\"mobile\",\"isNx\":false}})": [
+        {
+          "__typename": "PlaceButton",
+          "key": "booking",
+          "name": "객실예약",
+          "value": "/accommodation/1226740854/room"
+        },
+        {
+          "__typename": "PlaceButton",
+          "key": "route",
+          "name": "길찾기",
+          "value": "https://m.search.naver.com/search.naver?where=m&query=%EB%B9%A0%EB%A5%B8%EA%B8%B8%EC%B0%BE%EA%B8%B0&nso_path=placeType%5Eplace%3Bname%5E%3Baddress%5E%3Blatitude%5E%3Blongitude%5E%3Bcode%5E%7Ctype%5Eplace%3Bname%5E%EC%A0%9C%EC%A3%BC%EB%8F%84%20%EB%8F%99%EC%AA%BD%20%EC%84%B8%ED%99%94%20%EB%8F%85%EC%B1%84%ED%8E%9C%EC%85%98%20%EA%B0%90%EC%84%B1%EC%88%99%EC%86%8C%20%EB%8B%B9%EA%B7%BC%EB%AF%BC%EB%B0%95%3Baddress%5E%3Bcode%5E1226740854%3Blongitude%5E126.8688631%3Blatitude%5E33.5230206%7Cobjtype%5Epath%3Bby%5Epubtrans"
+        },
+        {
+          "__typename": "PlaceButton",
+          "key": "share",
+          "name": "공유",
+          "value": null
+        },
+        {
+          "__typename": "PlaceButton",
+          "key": "phone",
+          "name": "전화",
+          "value": "0507-1438-3988"
+        },
+        {
+          "__typename": "PlaceButton",
+          "key": "talktalk",
+          "name": "문의",
+          "value": "http://talk.naver.com/w5tuwi?frm=mnmb"
+        },
+        {
+          "__typename": "PlaceButton",
+          "key": "alarm",
+          "name": "알림받기",
+          "value": "false"
+        }
+      ],
+      "badge({\"input\":{\"deviceType\":\"mobile\",\"isNx\":false}})": [],
+      "visitorReviewPenalty": null,
+      "brandPromotion": null,
+      "fsasReviews": {
+        "__typename": "FsasReviewsResult",
+        "total": 113,
+        "maxItemCount": 101,
+        "items": [
+          {
+            "__ref": "FsasReview:blog_Helena's ordinary_223599183608_당근민박 / 제주 동쪽 숙소 아이랑 수영장 제주 수영장 펜션 다동 솔직후기"
+          },
+          {
+            "__ref": "FsasReview:blog_지니의 세상여행_223274662018_세화해변 제주오션뷰펜션 제주도 구좌 독채숙소 하도리 당근민박"
+          },
+          {
+            "__ref": "FsasReview:cafe_스테이감성 감성숙소 큐레이션 - 펜션, 민박, 호텔, 한달살기_2055_제주 구좌 감성숙소 당근민박 (자쿠지,수영장,정원) - 스테이감성"
+          }
+        ]
+      },
+      "subwayStations": [],
+      "busStations": [
+        {
+          "__ref": "BusStation:801225"
+        },
+        {
+          "__ref": "BusStation:801224"
+        },
+        {
+          "__ref": "BusStation:800897"
+        },
+        {
+          "__ref": "BusStation:802542"
+        },
+        {
+          "__ref": "BusStation:801226"
+        },
+        {
+          "__ref": "BusStation:801227"
+        }
+      ],
+      "hasCoupon": {
+        "__typename": "HasCoupon",
+        "count": 1
+      },
+      "hasFeed": {
+        "__typename": "HasFeed",
+        "blogExist": false,
+        "feedExist": true
+      },
+      "visitorReviewStats": {
+        "__ref": "VisitorReviewStatsResult:1226740854"
+      },
+      "menuImages": null,
+      "bookingAwards": null,
+      "excludeTargets": null,
+      "naverBooking": {
+        "__typename": "PlaceDetailNaverBooking",
+        "bookingBusinessId": "920360",
+        "businessTypeId": "3",
+        "naverBookingUrl": "https://m.booking.naver.com/booking/3/bizes/920360/search",
+        "bookingDisplayName": "방문",
+        "bookingButtonName": "예약",
+        "bookingHubButtonName": null,
+        "naverBookingHubUrl": null,
+        "naverBookingPromotion": null,
+        "promotionTitle": null,
+        "nPayPromotion": null,
+        "hasSmartOrder": null
+      },
+      "broadcastInfos": null,
+      "newOpening": false,
+      "newOpeningExcludeMenu": false,
+      "directories({\"input\":{\"display\":5}})": {
+        "__typename": "Directories",
+        "validTabs": null,
+        "total": 0,
+        "items": [],
+        "countDirectories": null
+      },
+      "gocamping": null,
+      "externalUrls": null,
+      "hotelBookingId": null,
+      "koreaquality": null,
+      "cesco": null,
+      "pension": {
+        "__typename": "PensionInfo",
+        "checkin": "16:00",
+        "checkout": "11:00",
+        "extraCharge": "- 추가인원 요금 안내 : 인원 추가 2만원 (24개월 미만 무료)",
+        "conveniences": [
+          "풀빌라",
+          "스파",
+          "독채",
+          "단체",
+          "복층",
+          "온돌방",
+          "침대방",
+          "2인실",
+          "가족실",
+          "수영장",
+          "바비큐장",
+          "와이파이",
+          "모던",
+          "키즈테마",
+          "해수욕장",
+          "바닷가"
+        ],
+        "surroundThemes": [
+          "해수욕장",
+          "바닷가"
+        ]
+      },
+      "hotel": null,
+      "motel": null,
+      "accommodationBookingDetails({\"size\":1})": {
+        "__typename": "AccommodationBookingDetails",
+        "roomTotal": 3,
+        "siteDesc": null,
+        "agencyName": null,
+        "images": [],
+        "businessTypeId": "3",
+        "rooms": [
+          {
+            "__typename": "Room",
+            "reprUrl": "https://naverbooking-phinf.pstatic.net/20250428_169/1745809326021zLvtM_JPEG/KakaoTalk_20250427_190042063_03.jpg",
+            "resrvUrl": "https://booking.naver.com/booking/3/bizes/920360/items/5109424",
+            "drtOptionList": [
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_villa",
+                "optionName": "풀빌라"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_ocean",
+                "optionName": "오션뷰"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_kitchen",
+                "optionName": "취사가능"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_terrace",
+                "optionName": "테라스"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_mixed",
+                "optionName": "남녀공용"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_wifi",
+                "optionName": "와이파이"
+              },
+              {
+                "__typename": "DrtOption",
+                "iconName": "icon_dog_pool",
+                "optionName": "자쿠지"
+              }
+            ],
+            "isBookable": true,
+            "isMatching": false,
+            "bookingType": null,
+            "resocId": 5109424,
+            "resocName": "당근민박 가동(이층집)",
+            "resocDesc": "1층 주방 거실, 편백사우나, 화장실, 세탁실이 있으며, 2층에는 방 2개와 내부 온수자쿠지, 화장실이 있습니다. 가족숙소로 부모님을 모시고 여행오시거나 두가족이 사용할 수 있습니다.",
+            "cond2Val": "6",
+            "cond3Val": "8",
+            "subImage": [
+              "https://naverbooking-phinf.pstatic.net/20250428_11/1745809327651Sbs8N_JPEG/KakaoTalk_20250427_190042063_22.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_253/1745809328130DyXQe_JPEG/KakaoTalk_20250427_190042063_24.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_86/1745809327189t7JpC_JPEG/KakaoTalk_20250427_190042063_20.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_98/1745809326290NSUL1_JPEG/KakaoTalk_20250427_190042063_15.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_70/1745809327883OaAS9_JPEG/KakaoTalk_20250427_190042063_23.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_174/1745809326121ALB2A_JPEG/KakaoTalk_20250427_190042063_14.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_23/1745809326756eY2XP_JPEG/KakaoTalk_20250427_190042063_18.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_27/1745809327426YdxEE_JPEG/KakaoTalk_20250427_190042063_21.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_156/1745809326955o3cBS_JPEG/KakaoTalk_20250427_190042063_19.jpg",
+              "https://naverbooking-phinf.pstatic.net/20250428_165/1745809326521qqNnh_JPEG/KakaoTalk_20250427_190042063_16.jpg",
+              "https://naverbooking-phinf.pstatic.net/20231003_96/1696334498269nkX9d_JPEG/AC3U0103.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_276/1696334635429jKK8M_JPEG/AC3U0122.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_39/169633476368815ge9_JPEG/AC3U0135.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_296/1696334499870sJgda_JPEG/AC3U0107.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_282/1696334497755dUH5n_JPEG/AC3U0141.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_226/169633449872892HQs_JPEG/AC3U0104.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_164/1696334501134w3OCG_JPEG/AC3U0110.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_268/1696334501789KFlei_JPEG/AC3U0114.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_121/1696334994884mz1Ex_JPEG/AC3U0115.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_197/1696334502455gJOrQ_JPEG/AC3U0121.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_220/1696334502854ifj2M_JPEG/AC3U0122.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_174/1696334500549O493Y_JPEG/AC3U0109.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_148/1696334633589VbYQN_JPEG/AC3U0133.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_108/1696334634977EIiJb_JPEG/AC3U0130.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_92/1696334499305dzjgz_JPEG/AC3U0106.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_10/16963347640932JQm6_JPEG/AC3U0137.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_81/1696334856811qRzKH_JPEG/AC3U0098.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_58/1696334993834J3lLA_JPEG/AC3U0117.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_242/1696334994254CSXTp_JPEG/AC3U0113.JPG",
+              "https://naverbooking-phinf.pstatic.net/20231003_281/1696334995836WO3y3_JPEG/AC3U0124.JPG"
+            ],
+            "excptMsg": "1. 입실은 오후 4시, 퇴실은 오전 11시입니다.\n\n2. 사전에 예약된 인원만 사용 가능합니다.\n\n3. 애완동물은 출입을 제한합니다.\n\n4. 실내에서 생선 및 고기 굽기 등 냄새나는 조리는 제한하고 있습니다.\n\n5. 영유아 동반시 특히 외부 수영장, 실내외 자쿠지 등 부주의로 인한 안전사고책임은 이용자에 있으며, 사고예방에 각별한 주의를 부탁드립니다.\n\n6. 비치된 집기 및 시설물 파손, 분실시 변상해야 하니 주의를 부탁드립니다.\n\n7. 퇴실시, 쓰레기 분리수거와 사용한 그릇이나 도구는 깨끗이 설거지이 하여 정리 부탁드립니다.\n\n8. 예약 전 객실 소개글을 읽고 내용을 반드시 확인해 주시기 바라며, 특히 환불규정 등 읽어보지 않고 생긴 불이익은 책임지지 않습니다.\n\n< 예약취소 환불 규정 알림>\n* 이용 11일 전까지 : 결제금액의 취소 수수료 없음\n* 이용 10일 전   : 결제금액의 50%  차감 후 환불\n* 이용 9~7일 전 : 결제금액의 70%  차감 후 환불\n* 이용 6~5일 전 : 결제금액의 90%  차감 후 환불\n* 이용 4일전~이용당일 : 결제금액의 100% 차감",
+            "minPrice": "350,000",
+            "maxPrice": "380,000",
+            "index": 0,
+            "todayDealRate": 0,
+            "discountText": "2박 이상 예약 시 추가 1박 당 20,000원 할인",
+            "priceInfo": null,
+            "isNPayUsed": true,
+            "nPayRegStatusCode": "PA01",
+            "bizItemSubType": "ACCOMMODATION_NIGHT",
+            "minBookingTime": 1,
+            "accommodationAdditionalProperty": {
+              "__typename": "AccommodationAdditionalProperty",
+              "checkInTime": "16:00",
+              "checkOutTime": "11:00",
+              "isFixedRoomComposition": true,
+              "roomCompositions": [
+                {
+                  "__typename": "RoomComposition",
+                  "name": "객실",
+                  "bedroomCompositions": [
+                    {
+                      "__typename": "BedroomComposition",
+                      "name": "침실 1",
+                      "type": "BED",
+                      "bunkBed": 0,
+                      "kingBed": 2,
+                      "queenBed": 0,
+                      "doubleBed": 0,
+                      "singleBed": 0,
+                      "beddingSet": 0,
+                      "familyBed": 0,
+                      "sofaBed": 0,
+                      "isStudioRoom": false
+                    },
+                    {
+                      "__typename": "BedroomComposition",
+                      "name": "침실 2",
+                      "type": "FLOOR_HEATING",
+                      "bunkBed": 0,
+                      "kingBed": 0,
+                      "queenBed": 0,
+                      "doubleBed": 0,
+                      "singleBed": 0,
+                      "beddingSet": 2,
+                      "familyBed": 0,
+                      "sofaBed": 0,
+                      "isStudioRoom": false
+                    }
+                  ],
+                  "bathroomCompositions": [
+                    {
+                      "__typename": "BathroomComposition",
+                      "name": "욕실",
+                      "isPrivate": true
+                    },
+                    {
+                      "__typename": "BathroomComposition",
+                      "name": "욕실",
+                      "isPrivate": true
+                    }
+                  ],
+                  "campingSiteCompositions": null
+                }
+              ],
+              "roomType": "PRIVATE_HOUSE"
+            }
+          }
+        ]
+      },
+      "festivalPerformance": {
+        "__typename": "FestivalPerformance",
+        "headInfo": "",
+        "festivalSectionHeadInfo": "",
+        "festivalsTotal": 0,
+        "festivals": [],
+        "performancesTotal": 0,
+        "performances": []
+      },
+      "kinQna": {
+        "__typename": "KinQna",
+        "answerCount": null,
+        "answerList": null,
+        "profileUrl": null
+      },
+      "informationTab": {
+        "__typename": "InformationTab",
+        "parkingInfo": {
+          "__typename": "InformationParking",
+          "description": null,
+          "basicParking": {
+            "__typename": "InformationBasicParking",
+            "isFree": true,
+            "normalFeeDescription": null,
+            "extraFeeDescription": null
+          },
+          "valetParking": null
+        },
+        "facilities": [
+          {
+            "__ref": "InformationFacilities:풀빌라"
+          },
+          {
+            "__ref": "InformationFacilities:스파"
+          },
+          {
+            "__ref": "InformationFacilities:독채"
+          },
+          {
+            "__ref": "InformationFacilities:단체"
+          },
+          {
+            "__ref": "InformationFacilities:복층"
+          },
+          {
+            "__ref": "InformationFacilities:온돌방"
+          },
+          {
+            "__ref": "InformationFacilities:침대방"
+          },
+          {
+            "__ref": "InformationFacilities:2인실"
+          },
+          {
+            "__ref": "InformationFacilities:가족실"
+          },
+          {
+            "__ref": "InformationFacilities:수영장"
+          },
+          {
+            "__ref": "InformationFacilities:바비큐장"
+          },
+          {
+            "__ref": "InformationFacilities:와이파이"
+          },
+          {
+            "__ref": "InformationFacilities:모던"
+          },
+          {
+            "__ref": "InformationFacilities:키즈테마"
+          }
+        ],
+        "pet": null,
+        "noKidsZone": null,
+        "keywordList": [
+          "제주도풀빌라",
+          "제주동쪽숙소",
+          "제주숙소",
+          "제주펜션",
+          "제주"
+        ],
+        "nearbyParking": null
+      },
+      "staticMapUrl": "https://simg.pstatic.net/static.map/v2/map/staticmap.bin?center=126.8688631%2C33.5230206&level=16&dataversion=179.07&caller=naver_mstore&markers=pos%3A126.8688631%2033.5230206%7Ctype%3Ac%7Ccolor%3Ablue%7Clabel%3Aaccommodation",
+      "menus": null,
+      "homepages": {
+        "__typename": "Homepage",
+        "etc": [
+          {
+            "__typename": "HomepageRepr",
+            "url": "https://www.instagram.com/carrot.stay.jeju",
+            "landingUrl": "https://www.instagram.com/carrot.stay.jeju",
+            "isDeadUrl": false,
+            "type": "인스타그램",
+            "typeI18n": "인스타그램",
+            "order": 1,
+            "isRep": null
+          }
+        ],
+        "repr": {
+          "__typename": "HomepageRepr",
+          "url": "https://blog.naver.com/kse7908",
+          "landingUrl": "https://blog.naver.com/kse7908",
+          "isDeadUrl": false,
+          "type": "블로그",
+          "typeI18n": "블로그",
+          "order": 0,
+          "isRep": null
+        },
+        "subLinks": null,
+        "isSiteData": null
+      },
+      "sites": {
+        "__typename": "Sites",
+        "subLinks": null,
+        "etc": null,
+        "url": null,
+        "landingUrl": null,
+        "gdid": null
+      },
+      "goodPrice": null,
+      "safetravels": false,
+      "is100YearCertified": false,
+      "is100YearSmallManufacturer": false,
+      "isNFASafetyCertified": false,
+      "isAntiqueStore": false,
+      "description": "- 제주도 동쪽 세화해변 근처 독채 펜션입니다. 주변에 바다와 오름이 있어 자연과 함께 조용하게 힐링할 수 있고, 이층집, 단층집, 복층집이 개별 단독으로 있어서 프라이빗하게 숙소를 이용할 수 있습니다.\n\n - 가동은 2층 독채로 2인기준 4인실로 친구 연인 이용하기에 좋습니다. 내부 온수자쿠지, 화장실 1개, 세탁실, 방이 두개 있습니다.\n\n- 나동은 1층 독채로 4인기준이며, 방 1개, 거실 주방, 편백사우나, 실내 온수자쿠지, 실외 자쿠지가 있으며, 한 가족이 편안하게 쉴 수 있는 곳입니다. 전면에 하도리 바다와 당근밭 뷰가 한눈에 볼 수 있는 곳입니다.\n\n- 다동은 다락층이 있는 독채로 거실 앞 대형 온수풀 수영장이 있어서 항시 물놀이를 즐길수 있습니다. 야외 수영장이라서 답답하지 않고 자연과 하나되는 기분을 느낄수 있는 감성숙소 입니다.\n\n< 예약취소 환불 규정 알림>\n* 이용 11일 전 : 결제금액의 취소 수수료 없음\n* 이용 10일 전 : 결제금액의 50% 차감 후 환불\n* 이용 9~7일 전 : 결제금액의 70% 차감 후 환불\n* 이용 6~5일 전 : 결제금액의 90% 차감 후 환불\n* 이용 4일전~이용당일 : 결제금액의 100% 차감",
+      "visitorReviewMediasTotal": 415,
+      "isKoreaGrandSale": false,
+      "hasAroundItems": true,
+      "hasAiBriefing": true,
+      "acceptsCultureDeductionCoupon": false,
+      "relatedPopupstore": [],
+      "exp": {
+        "__typename": "EventSearchBusinessResult",
+        "total": 0,
+        "isNaverPlusMembership": null,
+        "items": [],
+        "queryString": null,
+        "searchParam": null
+      },
+      "panoramaThumbnail": {
+        "__typename": "PanoramaThumbnailResult",
+        "url": "https://apis.naver.com/place/panorama/thumbnail/1226740854/0?width=800&height=400&msgpad=1790688907874&md=MHfmty5ZToaToK150GqlPMIOqm4%3D"
+      },
+      "images": {
+        "__typename": "PlaceDetailImages",
+        "images": [
+          {
+            "__typename": "Image",
+            "origin": "https://ldb-phinf.pstatic.net/20260327_86/17745726159430unKX_JPEG/KakaoTalk_20250427_190042063_02.jpg",
+            "number": null,
+            "infoTitle": null,
+            "url": null,
+            "desc": null,
+            "width": 1249,
+            "height": 2048,
+            "source": null
+          }
+        ],
+        "totalImages": 62
+      },
+      "topPhotos": {
+        "__typename": "PlaceDetailTopPhotos",
+        "total": 100,
+        "items": [
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_business_1"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_business_2"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_video_1"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_business_3"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_business_4"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_video_2"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_visitor_1"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_visitor_2"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_visitor_3"
+          },
+          {
+            "__ref": "PlaceDetailTopPhotoItem:1226740854_visitor_4"
+          }
+        ]
+      },
+      "phoneInfo": {
+        "__typename": "PlacePhoneInfo",
+        "phone": "0507-1438-3988",
+        "isVirtualPhone": true,
+        "isPrivatePhone": false,
+        "hasMobilePhoneNumber": false
+      }
+    }
+  }
+}
