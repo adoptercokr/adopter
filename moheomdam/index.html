@@ -350,9 +350,9 @@
       <!-- 상단 헤더 & 관리자 로그인 토글 버튼 -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12">
         <div>
-          <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-2">Live Availability & Price Calculator</span>
+          <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-2">Reservation & Price</span>
           <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-            실시간 예약 현황 및 예상 견적 계산
+            예약 및 견적 확인
           </h2>
         </div>
         <div class="mt-4 sm:mt-0 flex items-center gap-3">
@@ -364,13 +364,36 @@
         </div>
       </div>
 
-      <!-- 관리자 모드 알림 바 (평소엔 숨김) -->
-      <div id="adminBar" class="hidden mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-xs font-serif-kr text-amber-900 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <span class="font-bold text-amber-700">🔒 호스트 관리자 모드 활성화:</span>
-          <span>달력의 날짜를 클릭하면 즉시 <strong>[예약 마감(빨강)]</strong> 또는 <strong>[예약 가능]</strong>으로 토글됩니다.</span>
+      <!-- 관리자 모드 상태 바 (로그인 시 노출) -->
+      <div id="adminBar" class="hidden mb-6 p-4 bg-stone-900 text-white rounded-2xl border border-stone-700 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+        <div class="flex flex-wrap items-center gap-2.5">
+          <span class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="font-bold text-xs text-amber-200">🛠️ 관리자 편집 모드</span>
+          <span class="text-xs text-stone-300 bg-stone-800 px-2.5 py-1 rounded-md border border-stone-700">
+            마감 일정: <strong id="adminBookedCount" class="text-amber-300 font-bold">0</strong>개
+          </span>
+          <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>달력 날짜 클릭 시 마감/해제 즉시 저장</span>
+          </span>
         </div>
-        <button onclick="logoutAdmin()" class="px-3 py-1 rounded bg-stone-800 text-white font-medium hover:bg-black">로그아웃</button>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openPriceSettingModal()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm">
+            <span>⚙️ 요금·성수기 설정</span>
+          </button>
+          <button onclick="openHolidaySettingModal()" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm">
+            <span>📅 공휴일 관리</span>
+          </button>
+          <button onclick="copyBookedDates()" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 text-stone-200 hover:text-white rounded-lg text-xs transition" title="현재 마감 목록 복사">
+            📋 마감일 복사
+          </button>
+          <button onclick="promptImportBookedDates()" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 text-stone-200 hover:text-white rounded-lg text-xs transition" title="마감 목록 붙여넣기">
+            📥 불러오기
+          </button>
+          <button onclick="logoutAdmin()" class="px-3 py-1.5 bg-red-900 hover:bg-red-800 text-white rounded-lg text-xs font-medium transition">
+            종료
+          </button>
+        </div>
       </div>
 
       <!-- 메인 2단 그리드 (좌측: 객실선택+달력, 우측: 견적 요약 카드) -->
@@ -435,16 +458,11 @@
 
         <!-- 우측: 실시간 견적 산출 카드 (5칼럼 - 화이트 테마) -->
         <div class="lg:col-span-5 bg-white text-stone-900 border border-stone-200/90 p-6 sm:p-8 rounded-3xl shadow-xl sticky top-24">
-          <div class="flex items-center justify-between pb-4 border-b border-stone-100 mb-6">
-            <div>
-              <span class="text-[10px] tracking-[0.25em] uppercase text-brand-wood font-mono block mb-1">Estimate Summary</span>
-              <h3 class="font-serif-kr text-xl font-bold text-stone-900">
-                선택 조건 견적 산출기
-              </h3>
-            </div>
-            <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 실시간 계산
-            </span>
+          <div class="pb-4 border-b border-stone-100 mb-6">
+            <span class="text-[10px] tracking-[0.25em] uppercase text-brand-wood font-mono block mb-1">Price Estimate</span>
+            <h3 class="font-serif-kr text-xl font-bold text-stone-900">
+              요금 산출
+            </h3>
           </div>
 
           <div class="space-y-4 font-serif-kr text-xs text-stone-600 mb-8">
@@ -486,7 +504,7 @@
                 <span>추가 인원 요금 (기준 초과 1인 1박 2만원)</span>
                 <span class="font-bold text-stone-800" id="calcExtraPrice">0원</span>
               </div>
-              <div class="text-[10px] text-stone-400 pt-1 border-t border-stone-200/50">
+              <div class="text-[10px] text-stone-400 pt-1 border-t border-stone-200/50" id="calcNoticeRate">
                 * 평일(월~목) 350,000원 / 주말(금·토·일 및 공휴일) 400,000원
               </div>
             </div>
@@ -504,7 +522,7 @@
           <!-- 네이버 예약 연결 버튼 -->
           <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-4 rounded-2xl bg-[#03C75A] hover:bg-[#02b350] text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.99]">
             <span class="font-black text-base">N</span>
-            <span>이 조건으로 네이버 실시간 예약하기</span>
+            <span>네이버 예약하기</span>
           </a>
           <p class="text-[11px] text-center text-stone-400 mt-3 font-serif-kr">
             * 실시간 잔여 객실 조회 및 최종 예약 확정은 네이버 예약에서 진행됩니다.
@@ -656,7 +674,7 @@
         <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
       </div>
       <h3 class="font-serif-kr text-xl font-bold">호스트 관리자 로그인</h3>
-      <p class="font-serif-kr text-xs text-stone-500">예약 마감일을 직접 토글하고 관리할 수 있습니다.</p>
+      <p class="font-serif-kr text-xs text-stone-500">예약 마감일 토글, 요금 및 성수기 설정을 관리할 수 있습니다.</p>
       <input type="password" id="adminPwdInput" placeholder="관리자 비밀번호 (기본: 1316)" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-center font-mono text-sm focus:outline-none focus:border-brand-accent">
       <div class="flex gap-2 pt-2">
         <button onclick="checkAdminPassword()" class="flex-1 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs font-bold transition">확인</button>
@@ -665,10 +683,130 @@
     </div>
   </div>
 
-  <!-- 🌟 전체 JavaScript (달력 + 3개 객실 실시간 견적 + 관리자 마감일 토글) -->
+  <!-- 12. 관리자 요금 및 성수기 설정 모달 -->
+  <div id="priceSettingModal" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4 backdrop-blur-md overflow-y-auto">
+    <div class="bg-stone-900 border border-stone-700 text-white p-6 sm:p-8 rounded-3xl max-w-lg w-full shadow-2xl my-8">
+      <div class="flex justify-between items-center mb-5 pb-3 border-b border-stone-800">
+        <div>
+          <h3 class="font-serif-kr text-base sm:text-lg font-bold text-amber-200 flex items-center gap-2">
+            <span>⚙️</span> <span>객실별 요금 및 성수기 설정</span>
+          </h3>
+          <p class="text-[11px] text-stone-400 mt-0.5">객실별 평일/주말 요금, 성수기 할증료 및 투숙 인원 요금을 설정합니다.</p>
+        </div>
+        <button onclick="closePriceSettingModal()" class="text-stone-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- 객실 선택 탭 -->
+      <div class="grid grid-cols-3 gap-2 mb-5">
+        <button type="button" onclick="switchPriceModalRoom(1)" id="priceTab1" class="py-2.5 rounded-xl text-xs font-bold transition bg-amber-500 text-stone-900">첫번째 모험</button>
+        <button type="button" onclick="switchPriceModalRoom(2)" id="priceTab2" class="py-2.5 rounded-xl text-xs font-bold transition bg-stone-800 text-stone-300 hover:bg-stone-700">두번째 모험</button>
+        <button type="button" onclick="switchPriceModalRoom(3)" id="priceTab3" class="py-2.5 rounded-xl text-xs font-bold transition bg-stone-800 text-stone-300 hover:bg-stone-700">세번째 모험</button>
+      </div>
+
+      <div class="space-y-4 text-xs font-serif-kr">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-stone-300 font-semibold mb-1">평일 요금 (월~목 1박)</label>
+            <div class="relative">
+              <input type="number" id="cfgWeekday" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-3 py-2 text-white pr-7 focus:outline-none focus:border-amber-400">
+              <span class="absolute right-3 top-2 text-stone-400">원</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-stone-300 font-semibold mb-1">주말 요금 (금·토·일 1박)</label>
+            <div class="relative">
+              <input type="number" id="cfgWeekend" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-3 py-2 text-white pr-7 focus:outline-none focus:border-amber-400">
+              <span class="absolute right-3 top-2 text-stone-400">원</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-stone-300 font-semibold mb-1">성수기 1박 할증료 (7·8월 및 공휴일)</label>
+          <div class="relative">
+            <input type="number" id="cfgPeak" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-3 py-2 text-white pr-7 focus:outline-none focus:border-amber-400">
+            <span class="absolute right-3 top-2 text-stone-400">원</span>
+          </div>
+          <p class="text-[10px] text-stone-400 mt-1">* 7월·8월 여름 성수기 및 등록된 공휴일 투숙 시 1박당 자동 가산됩니다. (미적용 시 0원)</p>
+        </div>
+
+        <div class="pt-3 border-t border-stone-800 grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-stone-400 text-[10px] mb-1">기준 인원</label>
+            <input type="number" id="cfgBaseGuests" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-2.5 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-stone-400 text-[10px] mb-1">최대 인원</label>
+            <input type="number" id="cfgMaxGuests" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-2.5 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-stone-400 text-[10px] mb-1">초과 1인 1박</label>
+            <input type="number" id="cfgExtraGuestFee" class="w-full bg-stone-800 border border-stone-700 rounded-xl px-2.5 py-2 text-white">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 mt-6 pt-4 border-t border-stone-800">
+        <button onclick="resetDefaultConfig()" class="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-400 text-xs rounded-xl transition">기본값 복원</button>
+        <button onclick="savePriceConfig()" class="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl transition shadow">설정 저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. 관리자 공휴일 및 성수기 관리 모달 -->
+  <div id="holidaySettingModal" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4 backdrop-blur-md overflow-y-auto">
+    <div class="bg-stone-900 border border-stone-700 text-white p-6 sm:p-8 rounded-3xl max-w-lg w-full shadow-2xl my-8">
+      <div class="flex justify-between items-center mb-4 pb-3 border-b border-stone-800">
+        <div>
+          <h3 class="font-serif-kr text-base sm:text-lg font-bold text-rose-300 flex items-center gap-2">
+            <span>📅</span> <span>공휴일 및 성수기 연휴 관리</span>
+          </h3>
+          <p class="text-[11px] text-stone-400 mt-0.5">등록된 공휴일은 달력에 빨간색으로 표기되며 주말/성수기 요율이 적용됩니다.</p>
+        </div>
+        <button onclick="closeHolidaySettingModal()" class="text-stone-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- 연도별 빠른 동기화 버튼 -->
+      <div class="mb-4 p-3.5 bg-stone-800/80 rounded-2xl border border-stone-700">
+        <span class="text-xs font-bold text-amber-200 block mb-2">⚡ 네이버 공식 공휴일 원클릭 업데이트</span>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="syncHolidaysByYear(2025)" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 rounded-lg text-xs font-semibold transition">2025년</button>
+          <button onclick="syncHolidaysByYear(2026)" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-xs font-bold transition">2026년 (추천)</button>
+          <button onclick="syncHolidaysByYear(2027)" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 rounded-lg text-xs font-semibold transition">2027년</button>
+          <button onclick="syncHolidaysByYear(2028)" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 rounded-lg text-xs font-semibold transition">2028년</button>
+          <button onclick="syncAllHolidaysPreset()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition">전체 동기화</button>
+        </div>
+      </div>
+
+      <!-- 직접 공휴일/성수기 추가 -->
+      <div class="mb-4 p-3.5 bg-stone-800/50 rounded-2xl border border-stone-700/80">
+        <span class="text-xs font-bold text-stone-200 block mb-2">➕ 공휴일 직접 추가</span>
+        <div class="flex gap-2">
+          <input type="date" id="newHolidayDate" class="bg-stone-800 border border-stone-600 text-white text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-rose-400">
+          <input type="text" id="newHolidayName" placeholder="예: 황금연휴, 성수기특정일" class="flex-1 bg-stone-800 border border-stone-600 text-white text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-rose-400">
+          <button onclick="addNewHoliday()" class="px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white text-xs font-bold rounded-xl transition">추가</button>
+        </div>
+      </div>
+
+      <!-- 등록된 목록 -->
+      <div class="mb-4">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs font-bold text-stone-300">현재 등록 목록 (<span id="holidayCountText">0</span>개)</span>
+          <button onclick="clearAllHolidays()" class="text-[11px] text-red-400 hover:underline">전체 비우기</button>
+        </div>
+        <div id="holidayListContainer" class="max-h-40 overflow-y-auto space-y-1.5 pr-1 text-xs"></div>
+      </div>
+
+      <div class="flex justify-end pt-3 border-t border-stone-800">
+        <button onclick="closeHolidaySettingModal()" class="px-5 py-2.5 bg-stone-700 hover:bg-stone-600 text-white text-xs font-semibold rounded-xl transition">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🌟 전체 JavaScript (달력 + 3개 객실 실시간 견적 + 관리자 요금/성수기/공휴일/마감일 설정) -->
   <script>
-    // 1. 객실 메타데이터 (네이버 정가 기준)
-    const ROOMS = {
+    // 1. 객실 기본 메타데이터
+    const DEFAULT_ROOMS = {
       1: {
         name: "첫번째 모험",
         badge: "독채 1동 · 커플&소규모",
@@ -676,6 +814,8 @@
         maxGuests: 4,
         weekdayPrice: 350000,
         weekendPrice: 400000,
+        peakSurcharge: 50000,
+        extraGuestFee: 20000,
         desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다.",
         amenities: "✓ 퀸사이즈 침대 & 호텔식 순면 침구 · ✓ 풀옵션 주방 (인덕션, 냉장고, 전자레인지, 전기포트, 와인잔, 식기 일체) · ✓ 독립 욕실 및 프리미엄 어메니티 · ✓ 다이슨 드라이기 · ✓ 와이파이 · ✓ 개별 난방",
         images: ["./img/photo_1.jpg", "./img/photo_4.jpg", "./img/photo_5.jpg", "./img/photo_6.jpg"]
@@ -687,6 +827,8 @@
         maxGuests: 6,
         weekdayPrice: 380000,
         weekendPrice: 420000,
+        peakSurcharge: 50000,
+        extraGuestFee: 20000,
         desc: "모험담의 가장 큰 시그니처인 원형 벽난로가 있는 넓은 패밀리 리빙룸입니다. 가족 또는 소중한 친구들과 둘러앉아 따뜻한 불멍을 즐길 수 있습니다.",
         amenities: "✓ 시그니처 원형 벽난로 (불멍 키트 제공) · ✓ 패밀리 소파 및 대형 원목 테이블 · ✓ 퀸베드 2개소 · ✓ 풀옵션 키친 & 네스프레소 커피머신 · ✓ 마샬 블루투스 스피커 · ✓ 독립 정원 테라스",
         images: ["./img/photo_3.jpg", "./img/photo_2.jpg", "./img/photo_5.jpg", "./img/photo_4.jpg"]
@@ -698,14 +840,125 @@
         maxGuests: 8,
         weekdayPrice: 400000,
         weekendPrice: 450000,
+        peakSurcharge: 50000,
+        extraGuestFee: 20000,
         desc: "모험담에서 가장 넓고 프라이빗한 최고급 독채입니다. 단독 프라이빗 수영장과 돌담 노천 온수 자쿠지, 야외 모닥불 화로대까지 완비되어 있습니다.",
         amenities: "✓ 단독 프라이빗 수영장 · ✓ 사계절 돌담 노천 온수 자쿠지 · ✓ 야외 전용 모닥불 화로대 (불멍 테라스) · ✓ 대형 잔디마당 및 야외 다이닝 테이블 · ✓ 퀸사이즈 침실 2개 · ✓ 세탁기 및 건조기",
         images: ["./img/photo_7.jpg", "./img/photo_8.jpg", "./img/photo_1.jpg", "./img/photo_9.jpg"]
       }
     };
 
+    // 로컬 저장된 요금 설정 불러오기
+    function loadRoomsConfig() {
+      try {
+        const saved = localStorage.getItem('moheomdam_custom_rooms');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            1: Object.assign({}, DEFAULT_ROOMS[1], parsed[1] || {}),
+            2: Object.assign({}, DEFAULT_ROOMS[2], parsed[2] || {}),
+            3: Object.assign({}, DEFAULT_ROOMS[3], parsed[3] || {})
+          };
+        }
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(DEFAULT_ROOMS));
+    }
+
+    let ROOMS = loadRoomsConfig();
+
+    // 2. 대한민국 공식 공휴일 프리셋 (2025~2028년)
+    const HOLIDAYS_PRESETS = {
+      "2025-01-01": "신정",
+      "2025-01-27": "설날(대체)",
+      "2025-01-28": "설날",
+      "2025-01-29": "설날",
+      "2025-01-30": "설날",
+      "2025-03-01": "삼일절",
+      "2025-03-03": "대체공휴일",
+      "2025-05-05": "어린이날/부처님오신날",
+      "2025-05-06": "대체공휴일",
+      "2025-06-06": "현충일",
+      "2025-08-15": "광복절",
+      "2025-10-03": "개천절",
+      "2025-10-05": "추석",
+      "2025-10-06": "추석",
+      "2025-10-07": "추석",
+      "2025-10-08": "대체공휴일",
+      "2025-10-09": "한글날",
+      "2025-12-25": "성탄절",
+
+      "2026-01-01": "신정",
+      "2026-02-16": "설날",
+      "2026-02-17": "설날",
+      "2026-02-18": "설날",
+      "2026-03-01": "삼일절",
+      "2026-03-02": "대체공휴일",
+      "2026-05-05": "어린이날",
+      "2026-05-24": "부처님오신날",
+      "2026-05-25": "대체공휴일",
+      "2026-06-06": "현충일",
+      "2026-08-15": "광복절",
+      "2026-08-17": "대체공휴일",
+      "2026-09-24": "추석",
+      "2026-09-25": "추석",
+      "2026-09-26": "추석",
+      "2026-10-03": "개천절",
+      "2026-10-05": "대체공휴일",
+      "2026-10-09": "한글날",
+      "2026-12-25": "성탄절",
+
+      "2027-01-01": "신정",
+      "2027-02-06": "설날",
+      "2027-02-07": "설날",
+      "2027-02-08": "설날",
+      "2027-02-09": "대체공휴일",
+      "2027-03-01": "삼일절",
+      "2027-05-05": "어린이날",
+      "2027-05-13": "부처님오신날",
+      "2027-06-06": "현충일",
+      "2027-06-07": "대체공휴일",
+      "2027-08-15": "광복절",
+      "2027-08-16": "대체공휴일",
+      "2027-09-14": "추석",
+      "2027-09-15": "추석",
+      "2027-09-16": "추석",
+      "2027-10-03": "개천절",
+      "2027-10-04": "대체공휴일",
+      "2027-10-09": "한글날",
+      "2027-10-11": "대체공휴일",
+      "2027-12-25": "성탄절",
+
+      "2028-01-01": "신정",
+      "2028-01-26": "설날",
+      "2028-01-27": "설날",
+      "2028-01-28": "설날",
+      "2028-03-01": "삼일절",
+      "2028-05-02": "부처님오신날",
+      "2028-05-05": "어린이날",
+      "2028-06-06": "현충일",
+      "2028-08-15": "광복절",
+      "2028-10-02": "추석",
+      "2028-10-03": "개천절/추석",
+      "2028-10-04": "추석",
+      "2028-10-05": "대체공휴일",
+      "2028-10-09": "한글날",
+      "2028-12-25": "성탄절"
+    };
+
+    function loadHolidays() {
+      try {
+        const saved = localStorage.getItem('moheomdam_holidays');
+        return saved ? JSON.parse(saved) : Object.assign({}, HOLIDAYS_PRESETS);
+      } catch (e) {
+        return Object.assign({}, HOLIDAYS_PRESETS);
+      }
+    }
+
+    let holidays = loadHolidays();
+
     // 상태 관리
     let currentRoomId = 1;
+    let activePriceRoomId = 1;
     let selectedStartDate = null;
     let selectedEndDate = null;
     let guestCount = 2;
@@ -732,17 +985,27 @@
       currentRoomId = roomId;
       [1, 2, 3].forEach(id => {
         const btn = document.getElementById(`roomTab${id}`);
+        const r = ROOMS[id];
         if (id === roomId) {
           btn.className = "py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-brand-accent bg-brand-cream text-stone-900";
         } else {
           btn.className = "py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400";
         }
+        btn.innerHTML = `${r.name}<br><span class="text-[10px] font-normal text-stone-500">${(r.weekdayPrice/10000)}만원/${r.baseGuests}인</span>`;
       });
+
       const room = ROOMS[roomId];
       document.getElementById('calcRoomName').innerText = room.name;
       document.getElementById('calcBaseGuests').innerText = `기준 ${room.baseGuests}인 / 최대 ${room.maxGuests}인`;
       guestCount = room.baseGuests;
       document.getElementById('calcGuests').innerText = guestCount;
+      
+      const notice = document.getElementById('calcNoticeRate');
+      if (notice) {
+        const peakText = (room.peakSurcharge && room.peakSurcharge > 0) ? ` · 성수기 할증 +${(room.peakSurcharge/10000)}만` : '';
+        notice.innerText = `* 평일(월~목) ${room.weekdayPrice.toLocaleString()}원 / 주말·공휴일 ${room.weekendPrice.toLocaleString()}원${peakText}`;
+      }
+
       renderCalendar();
       updateCalculation();
     }
@@ -761,6 +1024,10 @@
       today.setHours(0, 0, 0, 0);
 
       const bookedDates = getBookedDates(currentRoomId);
+      if (isAdmin) {
+        const countEl = document.getElementById('adminBookedCount');
+        if (countEl) countEl.innerText = bookedDates.length;
+      }
 
       // 빈 날짜 채우기
       for (let i = 0; i < firstDay; i++) {
@@ -774,16 +1041,29 @@
         const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
         const isPast = thisDate < today;
         const isBooked = bookedDates.includes(dateStr);
+        const isHoliday = !!holidays[dateStr];
+        const dayOfWeek = thisDate.getDay();
 
         const dayEl = document.createElement('div');
-        dayEl.className = "cal-day h-11 flex items-center justify-center rounded-xl text-xs relative";
-        dayEl.innerText = d;
+        dayEl.className = "cal-day h-11 flex flex-col items-center justify-center rounded-xl text-xs relative cursor-pointer";
+        
+        // 날짜 텍스트
+        let dayHtml = `<span>${d}</span>`;
+        if (isHoliday) {
+          dayHtml = `<span class="text-rose-600 font-bold">${d}</span><span class="text-[9px] text-rose-500 scale-90 leading-none truncate max-w-[40px]">${holidays[dateStr]}</span>`;
+          dayEl.title = `공휴일: ${holidays[dateStr]}`;
+        } else if (dayOfWeek === 0) {
+          dayHtml = `<span class="text-rose-500 font-bold">${d}</span>`;
+        } else if (dayOfWeek === 6) {
+          dayHtml = `<span class="text-sky-600 font-bold">${d}</span>`;
+        }
+        dayEl.innerHTML = dayHtml;
 
         if (isPast) {
           dayEl.classList.add('disabled');
         } else if (isBooked) {
           dayEl.classList.add('booked');
-          dayEl.title = "예약 마감";
+          dayEl.title = isHoliday ? `[예약마감] 공휴일: ${holidays[dateStr]}` : "예약 마감";
           if (isAdmin) {
             dayEl.onclick = () => toggleAdminDate(dateStr);
           }
@@ -864,7 +1144,7 @@
       }
     }
 
-    // 5. 견적 계산
+    // 5. 견적 계산 (금·토·일 + 공휴일 + 성수기 할증 자동 합산)
     function updateCalculation() {
       const room = ROOMS[currentRoomId];
       if (!selectedStartDate) {
@@ -893,24 +1173,37 @@
       document.getElementById('calcDates').innerText = `${selectedStartDate} ~ ${selectedEndDate}`;
       document.getElementById('calcNights').innerText = `${nights}박 ${nights + 1}일`;
 
-      // 박수별 기본 요금 계산 (금, 토, 일 주말 및 공휴일 요금 적용)
+      // 박수별 기본 요금 계산 (금, 토, 일 주말 및 공휴일 + 7·8월 성수기 할증)
       let baseTotal = 0;
       let cur = new Date(start);
       for (let i = 0; i < nights; i++) {
+        const curStr = cur.toISOString().split('T')[0];
         const dayOfWeek = cur.getDay(); // 0(일)~6(토)
-        if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
-          baseTotal += room.weekendPrice;
+        const isHoliday = !!holidays[curStr];
+        const isPeakMonth = (cur.getMonth() === 6 || cur.getMonth() === 7); // 7월, 8월
+
+        let nightFee = 0;
+        if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6 || isHoliday) {
+          nightFee = room.weekendPrice;
         } else {
-          baseTotal += room.weekdayPrice;
+          nightFee = room.weekdayPrice;
         }
+
+        // 성수기 할증료 적용 (7·8월 또는 공휴일)
+        if ((isPeakMonth || isHoliday) && room.peakSurcharge) {
+          nightFee += room.peakSurcharge;
+        }
+
+        baseTotal += nightFee;
         cur.setDate(cur.getDate() + 1);
       }
 
-      // 추가 인원 요금 (1인 1박 20,000원)
+      // 추가 인원 요금
       let extraTotal = 0;
+      const extraFeePerPerson = room.extraGuestFee || 20000;
       if (guestCount > room.baseGuests) {
         const extraPersons = guestCount - room.baseGuests;
-        extraTotal = extraPersons * 20000 * nights;
+        extraTotal = extraPersons * extraFeePerPerson * nights;
       }
 
       const total = baseTotal + extraTotal;
@@ -982,7 +1275,179 @@
       renderCalendar();
     }
 
-    // 8. 단순 사진 모달 & 객실 상세 모달
+    // 8. 관리자 요금 및 성수기 설정 모달 제어
+    function openPriceSettingModal() {
+      switchPriceModalRoom(currentRoomId);
+      document.getElementById('priceSettingModal').classList.remove('hidden');
+      document.getElementById('priceSettingModal').classList.add('flex');
+    }
+    function closePriceSettingModal() {
+      document.getElementById('priceSettingModal').classList.remove('flex');
+      document.getElementById('priceSettingModal').classList.add('hidden');
+    }
+    function switchPriceModalRoom(roomId) {
+      activePriceRoomId = roomId;
+      [1, 2, 3].forEach(id => {
+        const tab = document.getElementById(`priceTab${id}`);
+        if (id === roomId) {
+          tab.className = "py-2.5 rounded-xl text-xs font-bold transition bg-amber-500 text-stone-900 shadow";
+        } else {
+          tab.className = "py-2.5 rounded-xl text-xs font-bold transition bg-stone-800 text-stone-300 hover:bg-stone-700";
+        }
+      });
+      const room = ROOMS[roomId];
+      document.getElementById('cfgWeekday').value = room.weekdayPrice;
+      document.getElementById('cfgWeekend').value = room.weekendPrice;
+      document.getElementById('cfgPeak').value = room.peakSurcharge || 0;
+      document.getElementById('cfgBaseGuests').value = room.baseGuests;
+      document.getElementById('cfgMaxGuests').value = room.maxGuests;
+      document.getElementById('cfgExtraGuestFee').value = room.extraGuestFee || 20000;
+    }
+    function savePriceConfig() {
+      const room = ROOMS[activePriceRoomId];
+      room.weekdayPrice = parseInt(document.getElementById('cfgWeekday').value) || room.weekdayPrice;
+      room.weekendPrice = parseInt(document.getElementById('cfgWeekend').value) || room.weekendPrice;
+      room.peakSurcharge = parseInt(document.getElementById('cfgPeak').value) || 0;
+      room.baseGuests = parseInt(document.getElementById('cfgBaseGuests').value) || room.baseGuests;
+      room.maxGuests = parseInt(document.getElementById('cfgMaxGuests').value) || room.maxGuests;
+      room.extraGuestFee = parseInt(document.getElementById('cfgExtraGuestFee').value) || 20000;
+
+      localStorage.setItem('moheomdam_custom_rooms', JSON.stringify(ROOMS));
+      selectRoomType(currentRoomId);
+      closePriceSettingModal();
+      alert(`[${room.name}] 요금 및 성수기 설정이 성공적으로 저장되었습니다!`);
+    }
+    function resetDefaultConfig() {
+      if (confirm('모든 객실의 요금 설정을 초기 기본값으로 복원하시겠습니까?')) {
+        localStorage.removeItem('moheomdam_custom_rooms');
+        ROOMS = JSON.parse(JSON.stringify(DEFAULT_ROOMS));
+        switchPriceModalRoom(activePriceRoomId);
+        selectRoomType(currentRoomId);
+        alert('기본값으로 복원되었습니다.');
+      }
+    }
+
+    // 9. 관리자 공휴일 및 성수기 관리
+    function openHolidaySettingModal() {
+      renderHolidayList();
+      document.getElementById('holidaySettingModal').classList.remove('hidden');
+      document.getElementById('holidaySettingModal').classList.add('flex');
+    }
+    function closeHolidaySettingModal() {
+      document.getElementById('holidaySettingModal').classList.remove('flex');
+      document.getElementById('holidaySettingModal').classList.add('hidden');
+    }
+    function renderHolidayList() {
+      const box = document.getElementById('holidayListContainer');
+      box.innerHTML = '';
+      const keys = Object.keys(holidays).sort();
+      document.getElementById('holidayCountText').innerText = keys.length;
+
+      keys.forEach(dateStr => {
+        const row = document.createElement('div');
+        row.className = "flex justify-between items-center bg-stone-800/80 px-3 py-2 rounded-xl border border-stone-700/60";
+        row.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-amber-300 font-bold">${dateStr}</span>
+            <span class="text-stone-300">${holidays[dateStr]}</span>
+          </div>
+          <button onclick="deleteHoliday('${dateStr}')" class="text-stone-500 hover:text-red-400 transition text-xs">삭제</button>
+        `;
+        box.appendChild(row);
+      });
+    }
+    function syncHolidaysByYear(year) {
+      let count = 0;
+      Object.keys(HOLIDAYS_PRESETS).forEach(dateStr => {
+        if (dateStr.startsWith(String(year))) {
+          holidays[dateStr] = HOLIDAYS_PRESETS[dateStr];
+          count++;
+        }
+      });
+      localStorage.setItem('moheomdam_holidays', JSON.stringify(holidays));
+      renderHolidayList();
+      renderCalendar();
+      updateCalculation();
+      alert(`${year}년 공식 공휴일 ${count}개가 달력에 업데이트되었습니다!`);
+    }
+    function syncAllHolidaysPreset() {
+      if (confirm('2025~2028년 전체 네이버 공식 공휴일을 동기화하시겠습니까?')) {
+        holidays = Object.assign({}, HOLIDAYS_PRESETS);
+        localStorage.setItem('moheomdam_holidays', JSON.stringify(holidays));
+        renderHolidayList();
+        renderCalendar();
+        updateCalculation();
+        alert('전체 연도 공휴일이 완벽히 동기화되었습니다!');
+      }
+    }
+    function addNewHoliday() {
+      const date = document.getElementById('newHolidayDate').value;
+      const name = document.getElementById('newHolidayName').value.trim();
+      if (!date || !name) {
+        alert('날짜와 공휴일 명칭을 모두 입력해 주세요.');
+        return;
+      }
+      holidays[date] = name;
+      localStorage.setItem('moheomdam_holidays', JSON.stringify(holidays));
+      document.getElementById('newHolidayDate').value = '';
+      document.getElementById('newHolidayName').value = '';
+      renderHolidayList();
+      renderCalendar();
+      updateCalculation();
+      alert(`[${date} ${name}] 공휴일이 추가되었습니다.`);
+    }
+    function deleteHoliday(dateStr) {
+      delete holidays[dateStr];
+      localStorage.setItem('moheomdam_holidays', JSON.stringify(holidays));
+      renderHolidayList();
+      renderCalendar();
+      updateCalculation();
+    }
+    function clearAllHolidays() {
+      if (confirm('등록된 모든 공휴일을 삭제하시겠습니까?')) {
+        holidays = {};
+        localStorage.setItem('moheomdam_holidays', JSON.stringify(holidays));
+        renderHolidayList();
+        renderCalendar();
+        updateCalculation();
+      }
+    }
+
+    // 10. 마감일정 복사 & 불러오기
+    function copyBookedDates() {
+      const booked = getBookedDates(currentRoomId);
+      if (booked.length === 0) {
+        alert(`현재 [${ROOMS[currentRoomId].name}]에 등록된 마감 일정이 없습니다.`);
+        return;
+      }
+      navigator.clipboard.writeText(booked.join(', ')).then(() => {
+        alert(`[${ROOMS[currentRoomId].name}] 마감 일정 총 ${booked.length}개가 클립보드에 복사되었습니다!`);
+      }).catch(() => {
+        prompt('마감 일정 목록을 복사하세요:', booked.join(', '));
+      });
+    }
+    function promptImportBookedDates() {
+      const input = prompt(`[${ROOMS[currentRoomId].name}]에 추가할 마감 날짜들을 붙여넣어 주세요:\n(형식: 2026-10-05, 2026-10-06 등)`);
+      if (!input) return;
+      const matches = input.match(/\d{4}-\d{2}-\d{2}/g);
+      if (!matches || matches.length === 0) {
+        alert('유효한 날짜(YYYY-MM-DD) 형식을 찾을 수 없습니다.');
+        return;
+      }
+      let booked = getBookedDates(currentRoomId);
+      let added = 0;
+      matches.forEach(d => {
+        if (!booked.includes(d)) {
+          booked.push(d);
+          added++;
+        }
+      });
+      saveBookedDates(currentRoomId, booked);
+      renderCalendar();
+      alert(`총 ${added}개의 마감 날짜가 달력에 추가 반영되었습니다!`);
+    }
+
+    // 11. 단순 사진 모달 & 객실 상세 모달
     function openModal(src) {
       document.getElementById('modalImg').src = src;
       document.getElementById('imgModal').classList.remove('hidden');
