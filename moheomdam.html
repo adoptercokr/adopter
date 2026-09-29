@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모험담 (MOHEOMDAM) | 제주 구좌 감성 독채 풀빌라</title>
+  <meta name="description" content="제주의 숲과 돌담에 둘러싸여 온전히 쉼에 집중하는 프라이빗 독채 풀빌라, 모험담. 넓은 전용 정원과 개별 풀, 원형 벽난로가 있는 감성 숙소.">
+  <meta property="og:title" content="모험담 (MOHEOMDAM) | 제주 구좌 감성 독채 풀빌라">
+  <meta property="og:description" content="제주의 숲과 돌담에 둘러싸여 온전히 쉼에 집중하는 프라이빗 독채 풀빌라, 모험담.">
+  <meta property="og:image" content="moheomdam/img/photo_1.jpg">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Serif KR & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif KR"', 'serif'],
+            sans: ['"Montserrat"', '"Pretendard"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              cream: '#F9F8F6',
+              stone: '#2C2B29',
+              wood: '#8C7A6B',
+              olive: '#4A5340',
+              accent: '#C4975A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F9F8F6;
+      color: #2C2B29;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .font-serif-kr {
+      font-family: 'Noto Serif KR', serif;
+    }
+    .hero-gradient {
+      background: linear-gradient(to bottom, rgba(20, 20, 20, 0.45) 0%, rgba(20, 20, 20, 0.2) 50%, rgba(20, 20, 20, 0.75) 100%);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-wood selection:text-white">
+
+  <!-- 1. Header (초슬림 감성 헤더) -->
+  <header class="fixed top-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 bg-black/40 backdrop-blur-md border-b border-white/10" id="mainHeader">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <!-- 로고 -->
+      <a href="#" class="text-white flex items-baseline gap-2 group">
+        <span class="font-serif-kr text-xl md:text-2xl font-bold tracking-widest text-brand-cream group-hover:text-brand-accent transition">모험담</span>
+        <span class="text-[10px] tracking-[0.25em] uppercase font-light text-stone-300">MOHEOMDAM</span>
+      </a>
+
+      <!-- 데스크탑 메뉴 -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs tracking-widest text-stone-200 uppercase font-light">
+        <a href="#about" class="hover:text-brand-accent transition">소개</a>
+        <a href="#gallery" class="hover:text-brand-accent transition">공간 갤러리</a>
+        <a href="#features" class="hover:text-brand-accent transition">특징</a>
+        <a href="#pricing" class="hover:text-brand-accent transition">이용안내</a>
+        <a href="#location" class="hover:text-brand-accent transition">위치/문의</a>
+      </nav>
+
+      <!-- 우측 문의 버튼 -->
+      <div class="flex items-center space-x-3">
+        <a href="https://www.instagram.com/moheomdam" target="_blank" class="text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="hidden sm:inline">인스타그램</span>
+        </a>
+        <a href="tel:0507-1347-3972" class="text-xs px-4 py-1.5 rounded-full bg-brand-accent hover:bg-brand-wood text-white font-medium transition shadow-md">
+          예약 문의
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Hero Section (모험담 실제 고화질 대표 사진 배경) -->
+  <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <img src="moheomdam/img/photo_1.jpg" alt="제주 모험담 외관" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out">
+    <div class="absolute inset-0 hero-gradient"></div>
+
+    <div class="relative z-10 text-center text-white px-6 max-w-4xl mx-auto pt-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs text-brand-cream tracking-widest uppercase mb-6">
+        <span>Jeju Gujwa Private Stay</span>
+      </div>
+      <h1 class="font-serif-kr text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight drop-shadow-lg">
+        제주의 숲과 돌담에 둘러싸여<br>
+        온전히 머무는 곳, <span class="text-brand-accent">모험담</span>
+      </h1>
+      <p class="font-serif-kr text-base sm:text-lg text-stone-200 font-light max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow">
+        넓은 전용 정원과 프라이빗 풀, 아늑한 원형 벽난로가 있는 감성 독채.<br class="hidden sm:inline">
+        숙소 밖으로 나가지 않고도 온전한 하루의 쉼을 누릴 수 있습니다.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#gallery" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-cream text-brand-stone font-medium text-sm hover:bg-white transition shadow-xl">
+          공간 둘러보기
+        </a>
+        <a href="https://m.place.naver.com/accommodation/1716272359/home" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-black/50 hover:bg-black/70 text-white border border-white/30 font-medium text-sm transition backdrop-blur-sm">
+          네이버 플레이스 보기
+        </a>
+      </div>
+    </div>
+
+    <!-- 스크롤 인디케이터 -->
+    <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 hover:text-white flex flex-col items-center gap-2 text-[11px] tracking-widest uppercase">
+      <span>Scroll</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </a>
+  </section>
+
+  <!-- 3. About Section (실제 모험담의 스토리) -->
+  <section id="about" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-3">About Moheomdam</span>
+        <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+          독특한 건축물과 고요한 정원의 조화
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl group aspect-[4/3]">
+          <img src="moheomdam/img/photo_2.jpg" alt="모험담 정원과 공간" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+        </div>
+        <div class="space-y-6 text-stone-700 leading-relaxed font-serif-kr">
+          <p class="text-lg text-stone-900 font-medium">
+            "제주의 숲과 돌담에 둘러싸여 조용히 쉬기 좋은 공간"
+          </p>
+          <p class="text-sm sm:text-base text-stone-600">
+            모험담은 제주 동쪽 구좌읍의 자연 속에 자리잡은 프라이빗 감성 스테이입니다.
+            넓은 전용 잔디 정원과 개별 풀, 그리고 아늑함을 더해주는 원형 벽난로까지 갖추어져 있어 
+            머무는 것만으로도 완벽한 힐링이 됩니다.
+          </p>
+          <p class="text-sm sm:text-base text-stone-600">
+            주방용품과 기본 조미료, 세탁기 등 여행자에게 필요한 모든 물품이 세심하게 구비되어 있으며,
+            아이와 함께하는 가족 여행, 연인과의 특별한 기념일 모두에게 가장 따뜻한 추억을 선물합니다.
+          </p>
+          <div class="pt-4 border-t border-stone-300/80 flex items-center gap-8 text-xs text-stone-500 font-sans uppercase tracking-wider">
+            <div>
+              <span class="block font-bold text-base text-stone-900 font-serif-kr">구좌읍 덕행로</span>
+              <span>위치</span>
+            </div>
+            <div>
+              <span class="block font-bold text-base text-stone-900 font-serif-kr">단독 독채</span>
+              <span>프라이빗 렌탈</span>
+            </div>
+            <div>
+              <span class="block font-bold text-base text-stone-900 font-serif-kr">전용 수영장 & 정원</span>
+              <span>부대시설</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Space Gallery (모험담의 실제 고화질 사진 9장 그리드) -->
+  <section id="gallery" class="py-24 px-6 md:px-12 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+        <div>
+          <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-3">Gallery Tour</span>
+          <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+            모험담의 공간을 마주하다
+          </h2>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-500 font-serif-kr mt-4 md:mt-0">
+          * 사진을 클릭하시면 더 큰 화면으로 감상하실 수 있습니다.
+        </p>
+      </div>
+
+      <!-- 반응형 매거진 그리드 (9장 실사진) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Photo 1 (Featured) -->
+        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-[16/10]" onclick="openModal('moheomdam/img/photo_1.jpg')">
+          <img src="moheomdam/img/photo_1.jpg" alt="모험담 전경" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-base">모험담 독채 외관 및 정원</span>
+          </div>
+        </div>
+        <!-- Photo 2 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_2.jpg')">
+          <img src="moheomdam/img/photo_2.jpg" alt="모험담 공간" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">프라이빗 가든 뷰</span>
+          </div>
+        </div>
+        <!-- Photo 3 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_3.jpg')">
+          <img src="moheomdam/img/photo_3.jpg" alt="모험담 리빙" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">원형 벽난로 & 리빙룸</span>
+          </div>
+        </div>
+        <!-- Photo 4 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_4.jpg')">
+          <img src="moheomdam/img/photo_4.jpg" alt="모험담 키친" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">감성 다이닝 & 키친</span>
+          </div>
+        </div>
+        <!-- Photo 5 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_5.jpg')">
+          <img src="moheomdam/img/photo_5.jpg" alt="모험담 베드룸" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">아늑한 침실 공간</span>
+          </div>
+        </div>
+        <!-- Photo 6 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_6.jpg')">
+          <img src="moheomdam/img/photo_6.jpg" alt="모험담 욕실" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">청결한 욕실 & 어메니티</span>
+          </div>
+        </div>
+        <!-- Photo 7 -->
+        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-[16/10]" onclick="openModal('moheomdam/img/photo_7.jpg')">
+          <img src="moheomdam/img/photo_7.jpg" alt="모험담 개별 풀" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-base">개별 프라이빗 수영장</span>
+          </div>
+        </div>
+        <!-- Photo 8 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('moheomdam/img/photo_8.jpg')">
+          <img src="moheomdam/img/photo_8.jpg" alt="모험담 디테일" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+            <span class="text-white font-serif-kr text-sm">감성 오브제 & 휴식</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Features Section (모험담의 실제 매력 3가지) -->
+  <section id="features" class="py-24 px-6 md:px-12 bg-brand-cream border-t border-stone-200">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-3">Special Moments</span>
+        <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+          모험담에서 누리는 특별한 시간
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200/80 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#EBE7DF] text-brand-wood flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          </div>
+          <h3 class="font-serif-kr text-lg font-bold text-stone-900 mb-3">단독 정원 & 개별 풀</h3>
+          <p class="font-serif-kr text-sm text-stone-600 leading-relaxed">
+            제주의 푸른 하늘과 돌담 아래 오직 우리 일행만을 위한 넓은 잔디 정원과 개별 수영장에서 프라이빗한 물놀이를 즐기실 수 있습니다.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200/80 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#EBE7DF] text-brand-wood flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343a7.975 7.975 0 012.344 5.657c0 2.122-.858 4.156-2.343 5.657z"/></svg>
+          </div>
+          <h3 class="font-serif-kr text-lg font-bold text-stone-900 mb-3">감성 원형 벽난로</h3>
+          <p class="font-serif-kr text-sm text-stone-600 leading-relaxed">
+            거실 한켠을 낭만으로 채워주는 시그니처 원형 벽난로. 따스한 불멍과 함께 차 한 잔을 나누며 여행의 피로를 녹여보세요.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200/80 hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-[#EBE7DF] text-brand-wood flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="font-serif-kr text-lg font-bold text-stone-900 mb-3">풀옵션 키친 & 세심한 배려</h3>
+          <p class="font-serif-kr text-sm text-stone-600 leading-relaxed">
+            식기류와 조리도구, 세탁기 등 장기 숙박에도 불편함이 없도록 정성껏 구비된 물품들로 내 집처럼 편안하게 머무실 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Pricing & Policy Section -->
+  <section id="pricing" class="py-24 px-6 md:px-12 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-xs tracking-[0.3em] uppercase text-brand-wood font-medium block mb-3">Reservation & Rates</span>
+        <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+          이용 요금 및 안내
+        </h2>
+      </div>
+
+      <div class="bg-[#F8F6F2] rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10 pb-10 border-b border-stone-300">
+          <div>
+            <span class="text-xs font-serif-kr text-stone-500 uppercase tracking-widest block mb-2">기준 인원 / 구조</span>
+            <p class="font-serif-kr text-xl font-bold text-stone-900">기준 4인 (최대 8인)</p>
+            <p class="text-xs text-stone-600 mt-1">거실, 침실, 주방, 전용 욕실, 프라이빗 풀, 정원</p>
+          </div>
+          <div>
+            <span class="text-xs font-serif-kr text-stone-500 uppercase tracking-widest block mb-2">숙박 요금 (1박 기준)</span>
+            <p class="font-serif-kr text-2xl font-bold text-brand-wood">320,000원 ~</p>
+            <p class="text-xs text-stone-600 mt-1">* 주말, 공휴일 및 성수기 변동 요금 적용</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm font-serif-kr text-stone-700">
+          <div class="space-y-3">
+            <h4 class="font-bold text-stone-900">입·퇴실 시간</h4>
+            <p class="text-stone-600">· 체크인: 오후 4시 (16:00)</p>
+            <p class="text-stone-600">· 체크아웃: 오전 11시 (11:00)</p>
+          </div>
+          <div class="space-y-3">
+            <h4 class="font-bold text-stone-900">유의 사항</h4>
+            <p class="text-stone-600">· 실내 절대 금연 구역입니다.</p>
+            <p class="text-stone-600">· 반려동물 동반 시 사전 문의 부탁드립니다.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-8 border-t border-stone-300 text-center">
+          <a href="tel:0507-1347-3972" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm transition shadow-lg">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1zM19 12h2c0-4.9-4.1-9-9-9v2c3.9 0 7 3.1 7 7zm-4 0h2c0-2.8-2.2-5-5-5v2c1.7 0 3 1.3 3 3z"/></svg>
+            <span>전화로 실시간 예약 문의하기</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Location & Contact Section -->
+  <section id="location" class="py-24 px-6 md:px-12 bg-stone-900 text-white">
+    <div class="max-w-5xl mx-auto text-center">
+      <span class="text-xs tracking-[0.3em] uppercase text-brand-accent font-medium block mb-3">Location & Inquiry</span>
+      <h2 class="font-serif-kr text-2xl sm:text-4xl font-bold tracking-tight mb-6">
+        오시는 길 및 안내
+      </h2>
+      <p class="font-serif-kr text-stone-300 text-base sm:text-lg mb-10">
+        제주특별자치도 제주시 구좌읍 덕행로 377-3 (행원리 2980)
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <a href="https://m.place.naver.com/accommodation/1716272359/home" target="_blank" class="px-6 py-3 rounded-full bg-[#03C75A] hover:bg-[#02b351] text-white font-medium text-xs transition flex items-center gap-2 shadow-lg">
+          <span class="font-bold">N</span>
+          <span>네이버 지도에서 길찾기</span>
+        </a>
+        <a href="https://www.instagram.com/moheomdam" target="_blank" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium text-xs transition flex items-center gap-2">
+          <span>인스타그램 @moheomdam</span>
+        </a>
+        <a href="tel:0507-1347-3972" class="px-6 py-3 rounded-full bg-brand-accent hover:bg-brand-wood text-white font-medium text-xs transition">
+          TEL. 0507-1347-3972
+        </a>
+      </div>
+
+      <!-- 지도 임베드 안내 박스 -->
+      <div class="bg-stone-800/80 border border-stone-700 rounded-2xl p-8 max-w-2xl mx-auto text-left font-serif-kr text-sm text-stone-300 space-y-3">
+        <p class="text-white font-bold flex items-center gap-2">
+          <svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          네비게이션 이용 안내
+        </p>
+        <p class="leading-relaxed">
+          네이버 내비게이션, T맵, 카카오내비에 <strong>'모험담'</strong> 또는 주소(구좌읍 덕행로 377-3)를 검색하시면 편리하게 진입로까지 안내받으실 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Footer -->
+  <footer class="py-8 px-6 bg-black text-stone-500 text-xs text-center border-t border-stone-800">
+    <div class="max-w-5xl mx-auto space-y-2">
+      <p class="font-serif-kr text-stone-400">모험담 (MOHEOMDAM) · 대표 호스트 · 제주 제주시 구좌읍 덕행로 377-3</p>
+      <p>© 2026 MOHEOMDAM. All rights reserved. Designed & Hosted by <a href="https://adopter.co.kr" target="_blank" class="text-stone-300 hover:text-white underline">Adopter Web Studio</a></p>
+    </div>
+  </footer>
+
+  <!-- 이미지 모달 -->
+  <div id="imgModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm cursor-pointer" onclick="closeModal()">
+    <img id="modalImg" src="" alt="상세 사진" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl">
+    <button class="absolute top-6 right-6 text-white text-3xl font-light hover:text-stone-300">&times;</button>
+  </div>
+
+  <script>
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      const modal = document.getElementById('imgModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeModal() {
+      const modal = document.getElementById('imgModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
