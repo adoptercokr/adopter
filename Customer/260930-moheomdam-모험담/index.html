@@ -81,7 +81,7 @@
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           <span class="hidden sm:inline">인스타그램</span>
         </a>
-        <!-- 네이버 실시간 예약 버튼 -->
+        <!-- 네이버 실시간 예약 상단 버튼 -->
         <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="text-xs px-4 py-1.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-medium transition shadow-md flex items-center gap-1.5">
           <span class="font-bold">N</span>
           <span>네이버 예약</span>
@@ -90,7 +90,7 @@
     </div>
   </header>
 
-  <!-- 2. Hero Section -->
+  <!-- 2. Hero Section (큰 네이버 예약 버튼 제거 -> 미니멀 감성 정돈) -->
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
     <img src="./img/photo_1.jpg" alt="제주 모험담 전경" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out">
     <div class="absolute inset-0 hero-gradient"></div>
@@ -105,15 +105,15 @@
       </h1>
       <p class="font-serif-kr text-base sm:text-lg text-stone-200 font-light max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow">
         넓은 전용 잔디정원과 원형 벽난로, 야외 불멍과 노천 자쿠지.<br class="hidden sm:inline">
-        3개의 프라이빗 독채에서 오직 우리만의 고요한 모험을 시작하세요.
+        3개의 프라이빗 독채에서 오직 우리만의 고요한 쉼을 경험하세요.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-semibold text-sm transition shadow-xl flex items-center justify-center gap-2">
-          <span class="font-bold">N</span>
-          <span>네이버로 실시간 예약하기 (350,000원~)</span>
+      <!-- 미니멀하고 단정한 버튼 구성 -->
+      <div class="flex items-center justify-center gap-4">
+        <a href="#rooms" class="px-7 py-3 rounded-full bg-brand-cream text-brand-stone font-medium text-xs tracking-wider uppercase hover:bg-white transition shadow-lg">
+          객실 3개동 둘러보기
         </a>
-        <a href="#rooms" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-black/50 hover:bg-black/70 text-white border border-white/30 font-medium text-sm transition backdrop-blur-sm">
-          3개 객실 둘러보기
+        <a href="#gallery" class="px-7 py-3 rounded-full bg-black/40 hover:bg-black/60 text-stone-200 border border-white/25 font-medium text-xs tracking-wider uppercase transition backdrop-blur-sm">
+          공간 갤러리
         </a>
       </div>
     </div>
@@ -171,7 +171,7 @@
     </div>
   </section>
 
-  <!-- 4. Rooms Section (3개 독채 객실 완벽 구현!) -->
+  <!-- 4. Rooms Section (3개 객실 상세 사진 썸네일 & 클릭 시 상세 모달 오픈!) -->
   <section id="rooms" class="py-24 px-6 md:px-12 bg-white">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
@@ -180,27 +180,37 @@
           모험담의 3가지 독채 객실 안내
         </h2>
         <p class="font-serif-kr text-sm text-stone-500 mt-4 max-w-xl mx-auto">
-          각각의 고유한 테마와 구조를 가진 3개의 프라이빗 독채. 목적과 인원에 맞는 최적의 휴식을 선택하세요.
+          각 객실 카드를 클릭하시면 여러 장의 상세 사진과 비품 정보를 자세히 확인하실 수 있습니다.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Room 1: 첫번째 모험 -->
-        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col">
-          <div class="relative aspect-[16/11] overflow-hidden group cursor-pointer" onclick="openModal('./img/photo_1.jpg')">
+        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col cursor-pointer group" onclick="openRoomModal(1)">
+          <!-- 메인 대표 사진 -->
+          <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_1.jpg" alt="첫번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
               독채 1동
             </div>
+            <div class="absolute bottom-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] text-stone-200">
+              사진 4장 보기 +
+            </div>
+          </div>
+          <!-- 서브 썸네일 3장 인라인 노출 (풍성한 사진) -->
+          <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
+            <img src="./img/photo_4.jpg" class="h-16 w-full object-cover rounded-sm" alt="다이닝">
+            <img src="./img/photo_5.jpg" class="h-16 w-full object-cover rounded-sm" alt="침실">
+            <img src="./img/photo_6.jpg" class="h-16 w-full object-cover rounded-sm" alt="욕실">
           </div>
           <div class="p-8 flex-1 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-baseline mb-3">
-                <h3 class="font-serif-kr text-xl font-bold text-stone-900">첫번째 모험</h3>
+                <h3 class="font-serif-kr text-xl font-bold text-stone-900 group-hover:text-brand-accent transition">첫번째 모험</h3>
                 <span class="font-serif-kr text-sm font-bold text-brand-wood">350,000원 ~</span>
               </div>
               <p class="font-serif-kr text-xs text-stone-500 mb-6">
-                기준 2인 (최대 4인) · 침실 1, 욕실 1, 주방 및 다이닝, 전용 잔디 정원
+                기준 2인 (최대 4인) · 프라이빗 잔디 정원, 감성 다이닝 키친, 퀸베드 침실
               </p>
               <ul class="font-serif-kr text-xs text-stone-600 space-y-2 mb-8 border-t border-stone-200 pt-4">
                 <li class="flex items-center gap-2">✓ 돌담으로 둘러싸인 프라이빗 전용 정원</li>
@@ -208,32 +218,46 @@
                 <li class="flex items-center gap-2">✓ 포근한 프리미엄 퀸베드 침실</li>
               </ul>
             </div>
-            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-3 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5">
-              <span class="text-brand-naver font-bold">N</span>
-              <span>첫번째 모험 예약하기</span>
-            </a>
+            <div class="flex gap-2">
+              <button type="button" class="flex-1 py-3 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold text-center transition">
+                상세 정보 보기
+              </button>
+              <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" onclick="event.stopPropagation();" class="px-5 py-3 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white text-xs font-semibold flex items-center justify-center gap-1">
+                <span class="font-bold">N</span> 예약
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- Room 2: 두번째 모험 -->
-        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-brand-accent/40 shadow-md hover:shadow-xl transition duration-500 flex flex-col relative">
+        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-brand-accent/50 shadow-md hover:shadow-xl transition duration-500 flex flex-col cursor-pointer group relative" onclick="openRoomModal(2)">
           <div class="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-brand-accent text-[11px] text-white font-medium shadow-md">
             BEST 감성
           </div>
-          <div class="relative aspect-[16/11] overflow-hidden group cursor-pointer" onclick="openModal('./img/photo_3.jpg')">
+          <!-- 메인 대표 사진 -->
+          <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_3.jpg" alt="두번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
               독채 2동
             </div>
+            <div class="absolute bottom-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] text-stone-200">
+              사진 4장 보기 +
+            </div>
+          </div>
+          <!-- 서브 썸네일 3장 인라인 노출 -->
+          <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
+            <img src="./img/photo_2.jpg" class="h-16 w-full object-cover rounded-sm" alt="테라스">
+            <img src="./img/photo_5.jpg" class="h-16 w-full object-cover rounded-sm" alt="침실">
+            <img src="./img/photo_4.jpg" class="h-16 w-full object-cover rounded-sm" alt="다이닝">
           </div>
           <div class="p-8 flex-1 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-baseline mb-3">
-                <h3 class="font-serif-kr text-xl font-bold text-stone-900">두번째 모험</h3>
+                <h3 class="font-serif-kr text-xl font-bold text-stone-900 group-hover:text-brand-accent transition">두번째 모험</h3>
                 <span class="font-serif-kr text-sm font-bold text-brand-wood">380,000원 ~</span>
               </div>
               <p class="font-serif-kr text-xs text-stone-500 mb-6">
-                기준 4인 (최대 6인) · 넓은 패밀리 거실, 원형 벽난로, 침실, 전용 테라스
+                기준 4인 (최대 6인) · 넓은 패밀리 거실, 원형 벽난로, 침실, 독립 테라스
               </p>
               <ul class="font-serif-kr text-xs text-stone-600 space-y-2 mb-8 border-t border-stone-200 pt-4">
                 <li class="flex items-center gap-2">✓ 시그니처 원형 벽난로와 불멍 리빙룸</li>
@@ -241,25 +265,39 @@
                 <li class="flex items-center gap-2">✓ 독립 테라스 및 야외 휴식 벤치</li>
               </ul>
             </div>
-            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-3 rounded-full bg-brand-accent hover:bg-brand-wood text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5 shadow-md">
-              <span class="font-bold">N</span>
-              <span>두번째 모험 예약하기</span>
-            </a>
+            <div class="flex gap-2">
+              <button type="button" class="flex-1 py-3 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold text-center transition">
+                상세 정보 보기
+              </button>
+              <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" onclick="event.stopPropagation();" class="px-5 py-3 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white text-xs font-semibold flex items-center justify-center gap-1">
+                <span class="font-bold">N</span> 예약
+              </a>
+            </div>
           </div>
         </div>
 
         <!-- Room 3: 세번째 모험 -->
-        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col">
-          <div class="relative aspect-[16/11] overflow-hidden group cursor-pointer" onclick="openModal('./img/photo_7.jpg')">
+        <div class="bg-[#F9F8F6] rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-xl transition duration-500 flex flex-col cursor-pointer group" onclick="openRoomModal(3)">
+          <!-- 메인 대표 사진 -->
+          <div class="relative aspect-[16/11] overflow-hidden">
             <img src="./img/photo_7.jpg" alt="세번째 모험" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
             <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] text-white font-medium">
-              독채 3동
+              독채 3동 · 시그니처
             </div>
+            <div class="absolute bottom-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] text-stone-200">
+              사진 4장 보기 +
+            </div>
+          </div>
+          <!-- 서브 썸네일 3장 인라인 노출 -->
+          <div class="grid grid-cols-3 gap-1 p-1 bg-stone-200/60">
+            <img src="./img/photo_8.jpg" class="h-16 w-full object-cover rounded-sm" alt="자쿠지">
+            <img src="./img/photo_1.jpg" class="h-16 w-full object-cover rounded-sm" alt="정원">
+            <img src="./img/photo_9.jpg" class="h-16 w-full object-cover rounded-sm" alt="자연뷰">
           </div>
           <div class="p-8 flex-1 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-baseline mb-3">
-                <h3 class="font-serif-kr text-xl font-bold text-stone-900">세번째 모험</h3>
+                <h3 class="font-serif-kr text-xl font-bold text-stone-900 group-hover:text-brand-accent transition">세번째 모험</h3>
                 <span class="font-serif-kr text-sm font-bold text-brand-wood">400,000원 ~</span>
               </div>
               <p class="font-serif-kr text-xs text-stone-500 mb-6">
@@ -271,17 +309,21 @@
                 <li class="flex items-center gap-2">✓ 모험담에서 가장 넓고 프라이빗한 프리미엄 독채</li>
               </ul>
             </div>
-            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-3 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5">
-              <span class="text-brand-naver font-bold">N</span>
-              <span>세번째 모험 예약하기</span>
-            </a>
+            <div class="flex gap-2">
+              <button type="button" class="flex-1 py-3 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold text-center transition">
+                상세 정보 보기
+              </button>
+              <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" onclick="event.stopPropagation();" class="px-5 py-3 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white text-xs font-semibold flex items-center justify-center gap-1">
+                <span class="font-bold">N</span> 예약
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. Space Gallery (사진 9장 롤오버 캡션 100% 팩트 교정 완료!) -->
+  <!-- 5. Space Gallery (롤오버 텍스트 완전 제거 -> 순수 사진 감성) -->
   <section id="gallery" class="py-24 px-6 md:px-12 bg-[#F5F3EF]">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
@@ -296,105 +338,31 @@
         </p>
       </div>
 
-      <!-- 매거진 그리드 (9장 실사진 & 100% 팩트 캡션) -->
+      <!-- 매거진 그리드 (텍스트 오버레이 제거, 은은한 줌 효과만 적용) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Photo 1: 외관 -->
-        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-[16/10]" onclick="openModal('./img/photo_1.jpg')">
-          <img src="./img/photo_1.jpg" alt="모험담 외관" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Exterior</span>
-              <span class="text-white font-serif-kr text-base font-medium">제주 돌담과 어우러진 모험담 독채 외관</span>
-            </div>
-          </div>
+        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-[16/10]" onclick="openModal('./img/photo_1.jpg')">
+          <img src="./img/photo_1.jpg" alt="모험담 공간 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 2: 정원 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_2.jpg')">
-          <img src="./img/photo_2.jpg" alt="모험담 전용 정원" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Garden</span>
-              <span class="text-white font-serif-kr text-sm font-medium">푸른 잔디 정원 & 프라이빗 테라스</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_2.jpg')">
+          <img src="./img/photo_2.jpg" alt="모험담 공간 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 3: 벽난로 거실 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_3.jpg')">
-          <img src="./img/photo_3.jpg" alt="원형 벽난로 거실" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Living Room</span>
-              <span class="text-white font-serif-kr text-sm font-medium">시그니처 원형 벽난로 & 아늑한 리빙룸</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_3.jpg')">
+          <img src="./img/photo_3.jpg" alt="모험담 공간 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 4: 키친 다이닝 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_4.jpg')">
-          <img src="./img/photo_4.jpg" alt="감성 다이닝" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Dining & Kitchen</span>
-              <span class="text-white font-serif-kr text-sm font-medium">원목 다이닝 식탁 & 풀옵션 감성 주방</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_4.jpg')">
+          <img src="./img/photo_4.jpg" alt="모험담 공간 4" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 5: 침실 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_5.jpg')">
-          <img src="./img/photo_5.jpg" alt="포근한 침실" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Bedroom</span>
-              <span class="text-white font-serif-kr text-sm font-medium">자연 채광이 드는 포근한 힐링 침실</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_5.jpg')">
+          <img src="./img/photo_5.jpg" alt="모험담 공간 5" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 6: 욕실 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_6.jpg')">
-          <img src="./img/photo_6.jpg" alt="독립 욕실" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Bathroom</span>
-              <span class="text-white font-serif-kr text-sm font-medium">청결한 독립 욕실 & 세심한 어메니티</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_6.jpg')">
+          <img src="./img/photo_6.jpg" alt="모험담 공간 6" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 7: 야외 모닥불 불멍 (팩트 교정 완료!) -->
-        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-[16/10]" onclick="openModal('./img/photo_7.jpg')">
-          <img src="./img/photo_7.jpg" alt="야외 모닥불 화로대 불멍" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Bonfire Terrace</span>
-              <span class="text-white font-serif-kr text-base font-medium">야외 모닥불 화로대 & 별빛 아래 감성 불멍 테라스</span>
-            </div>
-          </div>
+        <div class="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-[16/10]" onclick="openModal('./img/photo_7.jpg')">
+          <img src="./img/photo_7.jpg" alt="모험담 공간 7" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
-
-        <!-- Photo 8: 노천 온수 자쿠지 (팩트 교정 완료!) -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_8.jpg')">
-          <img src="./img/photo_8.jpg" alt="노천 온수 자쿠지" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Outdoor Jacuzzi</span>
-              <span class="text-white font-serif-kr text-sm font-medium">돌담 아래 프라이빗 노천 온수 자쿠지</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Photo 9: 숲속 힐링 공간 -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer aspect-square" onclick="openModal('./img/photo_9.jpg')">
-          <img src="./img/photo_9.jpg" alt="모험담 휴식 공간" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-            <div>
-              <span class="text-brand-accent text-xs font-mono uppercase tracking-wider block mb-1">Nature & Rest</span>
-              <span class="text-white font-serif-kr text-sm font-medium">제주 자연 속 고요한 힐링 스팟</span>
-            </div>
-          </div>
+        <div class="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer aspect-square" onclick="openModal('./img/photo_8.jpg')">
+          <img src="./img/photo_8.jpg" alt="모험담 공간 8" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
       </div>
     </div>
@@ -429,8 +397,8 @@
             모험담의 실시간 예약 현황과 날짜별 요금 확인은 **네이버 예약**을 통해 가장 빠르고 정확하게 진행하실 수 있습니다.
           </p>
           <div class="pt-2">
-            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-base transition shadow-xl hover:shadow-2xl">
-              <span class="text-lg">N</span>
+            <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="inline-flex items-center gap-2.5 px-9 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm transition shadow-lg hover:shadow-xl">
+              <span class="text-base">N</span>
               <span>네이버로 실시간 예약하기</span>
             </a>
           </div>
@@ -483,13 +451,70 @@
     </div>
   </footer>
 
-  <!-- 이미지 풀스크린 모달 -->
+  <!-- 9. 단순 사진 풀스크린 모달 -->
   <div id="imgModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm cursor-pointer" onclick="closeModal()">
     <img id="modalImg" src="" alt="상세 사진" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl">
     <button class="absolute top-6 right-6 text-white text-3xl font-light hover:text-stone-300">&times;</button>
   </div>
 
+  <!-- 10. 🌟 객실 상세 전용 인터랙티브 모달 (사진 4장 슬라이더 + 세부 비품 안내) -->
+  <div id="roomModal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 sm:p-6 backdrop-blur-md overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative my-auto animate-fade-in text-left">
+      <button onclick="closeRoomModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center text-xl font-light transition">
+        &times;
+      </button>
+      
+      <!-- 모달 메인 큰 사진 -->
+      <div class="relative aspect-[16/10] bg-stone-900 overflow-hidden">
+        <img id="roomMainImg" src="" alt="객실 메인 사진" class="w-full h-full object-cover">
+        <div class="absolute bottom-4 left-4 px-3.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-serif-kr text-xs font-medium" id="roomBadge">
+          독채
+        </div>
+      </div>
+
+      <!-- 모달 서브 썸네일 리스트 -->
+      <div class="grid grid-cols-4 gap-1.5 p-2 bg-stone-100" id="roomThumbnails">
+        <!-- JS로 동적 삽입 -->
+      </div>
+
+      <!-- 모달 텍스트 상세 안내 -->
+      <div class="p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 pb-4 border-b border-stone-200">
+          <div>
+            <h3 class="font-serif-kr text-2xl font-bold text-stone-900" id="roomTitle">객실명</h3>
+            <p class="font-serif-kr text-xs text-stone-500 mt-1" id="roomSubtitle">기준 인원 및 구성</p>
+          </div>
+          <div class="text-right">
+            <span class="font-serif-kr text-xl font-bold text-brand-wood" id="roomPrice">350,000원 ~</span>
+            <span class="text-[11px] text-stone-400 block">/ 1박 기준</span>
+          </div>
+        </div>
+
+        <p class="font-serif-kr text-sm text-stone-600 leading-relaxed" id="roomDesc">
+          객실 설명글
+        </p>
+
+        <!-- 세부 비치 품목 -->
+        <div class="bg-[#F9F8F6] p-5 rounded-2xl border border-stone-200 text-xs font-serif-kr text-stone-700 space-y-2">
+          <h4 class="font-bold text-stone-900 mb-2">객실 구비 시설 및 어메니티</h4>
+          <p id="roomAmenities">퀸베드, 호텔식 침구류, 냉장고, 식기류, 에어컨, 와이파이, 어메니티 등</p>
+        </div>
+
+        <div class="pt-2 flex gap-3">
+          <a id="roomBookingLink" href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="flex-1 py-3.5 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm text-center transition flex items-center justify-center gap-2 shadow-md">
+            <span>N</span>
+            <span>이 객실 네이버로 실시간 예약하기</span>
+          </a>
+          <button onclick="closeRoomModal()" class="px-6 py-3.5 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold transition">
+            닫기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // 1. 단순 사진 확대 모달
     function openModal(src) {
       document.getElementById('modalImg').src = src;
       const modal = document.getElementById('imgModal');
@@ -498,6 +523,75 @@
     }
     function closeModal() {
       const modal = document.getElementById('imgModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    // 2. 객실 3개 전용 상세 데이터
+    const ROOM_DATA = {
+      1: {
+        badge: "독채 1동 · 커플&소규모",
+        title: "첫번째 모험",
+        subtitle: "기준 2인 (최대 4인) · 침실 1, 욕실 1, 주방 및 다이닝, 전용 잔디 정원",
+        price: "350,000원 ~",
+        desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다. 포근한 프리미엄 퀸베드와 따스한 채광 속에서 조용히 독서와 사색을 즐기며 온전한 쉼을 누리실 수 있습니다.",
+        amenities: "✓ 퀸사이즈 침대 & 호텔식 순면 침구 · ✓ 풀옵션 주방 (인덕션, 냉장고, 전자레인지, 전기포트, 와인잔, 식기 일체) · ✓ 독립 욕실 및 프리미엄 샴푸/린스/바디워시/핸드워시 · ✓ 다이슨 드라이기 · ✓ 와이파이 · ✓ 개별 에어컨 및 난방 · ✓ 전용 주차공간",
+        images: ["./img/photo_1.jpg", "./img/photo_4.jpg", "./img/photo_5.jpg", "./img/photo_6.jpg"]
+      },
+      2: {
+        badge: "독채 2동 · 시그니처 감성",
+        title: "두번째 모험",
+        subtitle: "기준 4인 (최대 6인) · 넓은 패밀리 리빙룸, 원형 벽난로, 침실, 독립 테라스",
+        price: "380,000원 ~",
+        desc: "모험담의 가장 큰 시그니처인 원형 벽난로가 있는 넓은 패밀리 리빙룸입니다. 가족 또는 소중한 친구들과 둘러앉아 따뜻한 불멍을 즐길 수 있으며, 넓은 테라스와 창밖으로 펼쳐지는 제주의 돌담 풍경이 머무는 시간 내내 깊은 감동을 선사합니다.",
+        amenities: "✓ 시그니처 원형 벽난로 (불멍 키트 제공) · ✓ 패밀리 소파 및 대형 원목 테이블 · ✓ 퀸사이즈 베드룸 2개소 · ✓ 풀옵션 키친 & 네스프레소 커피머신 · ✓ 마샬 블루투스 스피커 · ✓ 욕실 어메니티 일체 · ✓ 독립 정원 테라스",
+        images: ["./img/photo_3.jpg", "./img/photo_2.jpg", "./img/photo_5.jpg", "./img/photo_4.jpg"]
+      },
+      3: {
+        badge: "독채 3동 · 프리미엄 풀빌라",
+        title: "세번째 모험",
+        subtitle: "기준 4인 (최대 8인) · 대형 전용정원, 단독 개별 풀, 노천 온수 자쿠지, 야외 불멍 테라스",
+        price: "400,000원 ~",
+        desc: "모험담에서 가장 넓고 프라이빗한 최고급 독채입니다. 단독으로 누리는 야외 프라이빗 수영장과 돌담 아래 노천 온수 자쿠지, 그리고 밤하늘의 쏟아지는 별을 보며 즐기는 야외 모닥불 화로대까지 숙소 밖으로 나갈 필요가 없는 완벽한 휴식을 선사합니다.",
+        amenities: "✓ 단독 프라이빗 수영장 · ✓ 사계절 돌담 노천 온수 자쿠지 · ✓ 야외 전용 모닥불 화로대 (불멍 테라스) · ✓ 대형 잔디마당 및 야외 다이닝 테이블 · ✓ 퀸사이즈 베드룸 및 파우더룸 · ✓ 고급 바스 어메니티 · ✓ 세탁기 및 건조기 완비",
+        images: ["./img/photo_7.jpg", "./img/photo_8.jpg", "./img/photo_1.jpg", "./img/photo_9.jpg"]
+      }
+    };
+
+    function openRoomModal(roomId) {
+      const data = ROOM_DATA[roomId];
+      if (!data) return;
+
+      document.getElementById('roomBadge').innerText = data.badge;
+      document.getElementById('roomTitle').innerText = data.title;
+      document.getElementById('roomSubtitle').innerText = data.subtitle;
+      document.getElementById('roomPrice').innerText = data.price;
+      document.getElementById('roomDesc').innerText = data.desc;
+      document.getElementById('roomAmenities').innerText = data.amenities;
+      document.getElementById('roomMainImg').src = data.images[0];
+
+      // 썸네일 생성
+      const thumbBox = document.getElementById('roomThumbnails');
+      thumbBox.innerHTML = '';
+      data.images.forEach((imgSrc, idx) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.className = `h-16 w-full object-cover rounded cursor-pointer border-2 transition ${idx === 0 ? 'border-brand-accent' : 'border-transparent hover:opacity-80'}`;
+        thumb.onclick = () => {
+          document.getElementById('roomMainImg').src = imgSrc;
+          Array.from(thumbBox.children).forEach(c => c.className = c.className.replace('border-brand-accent', 'border-transparent'));
+          thumb.className = thumb.className.replace('border-transparent', 'border-brand-accent');
+        };
+        thumbBox.appendChild(thumb);
+      });
+
+      const modal = document.getElementById('roomModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeRoomModal() {
+      const modal = document.getElementById('roomModal');
       modal.classList.remove('flex');
       modal.classList.add('hidden');
     }

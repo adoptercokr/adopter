@@ -31,7 +31,7 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 ADOPTER_DIR = os.path.dirname(CURRENT_DIR)
 TEMPLATE_DIR = os.path.join(ADOPTER_DIR, "templates", "01-stay")
 CUSTOMER_DIR = os.path.join(ADOPTER_DIR, "Customer")
-APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwesXD_ySLB1sE-hyY11UaXohKuyct4YIHF6mLLUrqSSfForgdtKm2lvJkm8MhiiHVSKQ/exec"
+APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_Gy2SSKIZk0KDz2Jh9vMLL7JV2gtfGyaYMge6Spj9ldhIXJRtAl186V7WPNO7mQILNQ/exec"
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
