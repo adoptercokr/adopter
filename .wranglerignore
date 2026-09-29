@@ -1,0 +1,7 @@
+_zips/
+_tools/
+tools/
+.git/
+*.zip
+*.docx
+*.bat

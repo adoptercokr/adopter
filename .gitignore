@@ -5,3 +5,6 @@ _tools/
 scratch/
 take_screenshots.py
 *.tmp
+.env*
+cloudflare_secrets.json
+.wrangler/

@@ -433,70 +433,80 @@
           </div>
         </div>
 
-        <!-- 우측: 실시간 견적 산출 카드 (5칼럼) -->
-        <div class="lg:col-span-5 bg-stone-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl sticky top-24">
-          <span class="text-[10px] tracking-[0.25em] uppercase text-brand-accent font-mono block mb-1">Estimate Summary</span>
-          <h3 class="font-serif-kr text-xl font-bold mb-6 text-white pb-4 border-b border-stone-800">
-            선택 조건 견적 산출기
-          </h3>
+        <!-- 우측: 실시간 견적 산출 카드 (5칼럼 - 화이트 테마) -->
+        <div class="lg:col-span-5 bg-white text-stone-900 border border-stone-200/90 p-6 sm:p-8 rounded-3xl shadow-xl sticky top-24">
+          <div class="flex items-center justify-between pb-4 border-b border-stone-100 mb-6">
+            <div>
+              <span class="text-[10px] tracking-[0.25em] uppercase text-brand-wood font-mono block mb-1">Estimate Summary</span>
+              <h3 class="font-serif-kr text-xl font-bold text-stone-900">
+                선택 조건 견적 산출기
+              </h3>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 실시간 계산
+            </span>
+          </div>
 
-          <div class="space-y-4 font-serif-kr text-xs text-stone-300 mb-8">
+          <div class="space-y-4 font-serif-kr text-xs text-stone-600 mb-8">
             <!-- 선택 객실 -->
-            <div class="flex justify-between py-2 border-b border-stone-800">
-              <span class="text-stone-400">선택 객실</span>
-              <span class="font-bold text-white text-sm" id="calcRoomName">첫번째 모험</span>
+            <div class="flex justify-between items-center py-2.5 border-b border-stone-100">
+              <span class="text-stone-500 font-medium">선택 객실</span>
+              <span class="font-bold text-stone-900 text-sm" id="calcRoomName">첫번째 모험</span>
             </div>
 
             <!-- 선택 일정 -->
-            <div class="flex justify-between py-2 border-b border-stone-800">
-              <span class="text-stone-400">일정</span>
+            <div class="flex justify-between items-center py-2.5 border-b border-stone-100">
+              <span class="text-stone-500 font-medium">숙박 일정</span>
               <div class="text-right">
-                <span class="font-bold text-white" id="calcDates">달력에서 날짜를 선택하세요</span>
-                <span class="block text-[11px] text-brand-accent mt-0.5" id="calcNights">0박 0일</span>
+                <span class="font-bold text-stone-900 text-sm" id="calcDates">달력에서 날짜를 선택하세요</span>
+                <span class="block text-[11px] text-brand-wood font-bold mt-0.5" id="calcNights">0박 0일</span>
               </div>
             </div>
 
             <!-- 투숙 인원 컨트롤 -->
-            <div class="flex justify-between items-center py-2 border-b border-stone-800">
+            <div class="flex justify-between items-center py-2.5 border-b border-stone-100">
               <div>
-                <span class="text-stone-400 block">투숙 인원</span>
-                <span class="text-[10px] text-stone-500" id="calcBaseGuests">기준 2인 / 최대 4인</span>
+                <span class="text-stone-500 font-medium block">투숙 인원</span>
+                <span class="text-[10px] text-stone-400" id="calcBaseGuests">기준 2인 / 최대 4인</span>
               </div>
               <div class="flex items-center gap-3">
-                <button type="button" onclick="changeGuest(-1)" class="w-7 h-7 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-sm font-bold transition">-</button>
-                <span class="font-bold text-white text-sm w-6 text-center" id="calcGuests">2</span>
-                <button type="button" onclick="changeGuest(1)" class="w-7 h-7 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-sm font-bold transition">+</button>
+                <button type="button" onclick="changeGuest(-1)" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 active:scale-95 flex items-center justify-center text-sm font-bold text-stone-700 transition border border-stone-200">-</button>
+                <span class="font-bold text-stone-900 text-sm w-6 text-center" id="calcGuests">2</span>
+                <button type="button" onclick="changeGuest(1)" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 active:scale-95 flex items-center justify-center text-sm font-bold text-stone-700 transition border border-stone-200">+</button>
               </div>
             </div>
 
             <!-- 요금 상세 내역 -->
-            <div class="pt-2 space-y-2 text-[11px]">
-              <div class="flex justify-between text-stone-400">
+            <div class="pt-2 space-y-2 text-[11px] bg-stone-50/80 p-3.5 rounded-2xl border border-stone-100">
+              <div class="flex justify-between text-stone-600">
                 <span>기본 숙박 요금</span>
-                <span id="calcBasePrice">0원</span>
+                <span class="font-bold text-stone-800" id="calcBasePrice">0원</span>
               </div>
-              <div class="flex justify-between text-stone-400">
-                <span>추가 인원 요금 (1인 1박 2만원)</span>
-                <span id="calcExtraPrice">0원</span>
+              <div class="flex justify-between text-stone-600">
+                <span>추가 인원 요금 (기준 초과 1인 1박 2만원)</span>
+                <span class="font-bold text-stone-800" id="calcExtraPrice">0원</span>
+              </div>
+              <div class="text-[10px] text-stone-400 pt-1 border-t border-stone-200/50">
+                * 평일(월~목) 350,000원 / 주말(금·토·일 및 공휴일) 400,000원
               </div>
             </div>
 
             <!-- 최종 합계 -->
-            <div class="pt-4 border-t border-stone-700 flex justify-between items-baseline">
-              <span class="font-bold text-sm text-stone-200">총 예상 견적</span>
+            <div class="pt-4 border-t border-stone-200 flex justify-between items-baseline">
+              <span class="font-bold text-sm text-stone-800">총 예상 견적</span>
               <div class="text-right">
-                <span class="font-serif-kr text-2xl font-bold text-brand-accent" id="calcTotalPrice">0원</span>
-                <span class="text-[10px] text-stone-400 block">부가세 포함</span>
+                <span class="font-serif-kr text-2xl sm:text-3xl font-bold text-stone-900" id="calcTotalPrice">0원</span>
+                <span class="text-[10px] text-stone-400 block mt-0.5">부가세 포함 · 현장 결제 옵션 제외</span>
               </div>
             </div>
           </div>
 
           <!-- 네이버 예약 연결 버튼 -->
-          <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-4 rounded-full bg-brand-naver hover:bg-brand-naverHover text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg hover:shadow-xl">
-            <span class="text-base">N</span>
+          <a href="https://m.place.naver.com/accommodation/1716272359/booking" target="_blank" class="w-full py-4 rounded-2xl bg-[#03C75A] hover:bg-[#02b350] text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.99]">
+            <span class="font-black text-base">N</span>
             <span>이 조건으로 네이버 실시간 예약하기</span>
           </a>
-          <p class="text-[10px] text-center text-stone-500 mt-3 font-serif-kr">
+          <p class="text-[11px] text-center text-stone-400 mt-3 font-serif-kr">
             * 실시간 잔여 객실 조회 및 최종 예약 확정은 네이버 예약에서 진행됩니다.
           </p>
         </div>
@@ -665,7 +675,7 @@
         baseGuests: 2,
         maxGuests: 4,
         weekdayPrice: 350000,
-        weekendPrice: 380000,
+        weekendPrice: 400000,
         desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다.",
         amenities: "✓ 퀸사이즈 침대 & 호텔식 순면 침구 · ✓ 풀옵션 주방 (인덕션, 냉장고, 전자레인지, 전기포트, 와인잔, 식기 일체) · ✓ 독립 욕실 및 프리미엄 어메니티 · ✓ 다이슨 드라이기 · ✓ 와이파이 · ✓ 개별 난방",
         images: ["./img/photo_1.jpg", "./img/photo_4.jpg", "./img/photo_5.jpg", "./img/photo_6.jpg"]
@@ -883,12 +893,12 @@
       document.getElementById('calcDates').innerText = `${selectedStartDate} ~ ${selectedEndDate}`;
       document.getElementById('calcNights').innerText = `${nights}박 ${nights + 1}일`;
 
-      // 박수별 기본 요금 계산 (금, 토 주말 요금 적용)
+      // 박수별 기본 요금 계산 (금, 토, 일 주말 및 공휴일 요금 적용)
       let baseTotal = 0;
       let cur = new Date(start);
       for (let i = 0; i < nights; i++) {
         const dayOfWeek = cur.getDay(); // 0(일)~6(토)
-        if (dayOfWeek === 5 || dayOfWeek === 6) {
+        if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
           baseTotal += room.weekendPrice;
         } else {
           baseTotal += room.weekdayPrice;
