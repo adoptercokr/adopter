@@ -13,9 +13,9 @@ export async function onRequest(context) {
 
     let targetPath = url.pathname;
     if (targetPath === '/' || targetPath === '') {
-      targetPath = //index.html;
-    } else if (!targetPath.startsWith(//)) {
-      targetPath = /;
+      targetPath = `/${mappedFolder}/index.html`;
+    } else if (!targetPath.startsWith(`/${mappedFolder}/`)) {
+      targetPath = `/${mappedFolder}${targetPath}`;
     }
 
     const rewriteUrl = new URL(targetPath, request.url);
