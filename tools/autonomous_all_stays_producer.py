@@ -140,13 +140,42 @@ def build_stay_website(target, slug):
     os.makedirs(img_dir, exist_ok=True)
     os.makedirs(root_img_dir, exist_ok=True)
 
-    # 1. 템플릿 복사 (파비콘 제외, 깨끗한 에셋만)
-    files_to_copy = ["index.html", ".gitignore", "robots.txt", "sitemap.xml"]
+    # 1. 템플릿 복사 및 HTML 내부 텍스트/이미지 경로 치환
+    files_to_copy = [".gitignore", "robots.txt", "sitemap.xml"]
     for f in files_to_copy:
         src = os.path.join(TEMPLATE_DIR, f)
         if os.path.exists(src):
             shutil.copy2(src, os.path.join(dest_dir, f))
             shutil.copy2(src, os.path.join(root_slug_dir, f))
+
+    # index.html 치환
+    index_src = os.path.join(TEMPLATE_DIR, "index.html")
+    if os.path.exists(index_src):
+        with open(index_src, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        # 텍스트 치환
+        html_content = html_content.replace("희스테이", clean_name)
+        html_content = html_content.replace("HEESTAY", slug.upper())
+        html_content = html_content.replace("jejuheestay.co.kr", f"{slug}.adopter.co.kr")
+        
+        # 이미지 경로 치환 (photo_1.jpg ~ photo_10.jpg 반복)
+        import urllib.parse
+        img_paths = re.findall(r'(\./img/[^"\'\s]+\.jpg|/img/[^"\'\s]+\.jpg|img/[^"\'\s]+\.jpg)', html_content)
+        unique_imgs = list(set(img_paths))
+        for idx, old_img in enumerate(unique_imgs):
+            new_img = old_img.replace(old_img.split('/')[-1], f"photo_{(idx % 10) + 1}.jpg")
+            html_content = html_content.replace(old_img, new_img)
+            # URL 인코딩된 경로도 치환 (og:image 등에 사용됨)
+            encoded_old = urllib.parse.quote(old_img)
+            if "%" in encoded_old:
+                encoded_new = urllib.parse.quote(new_img)
+                html_content = html_content.replace(encoded_old, encoded_new)
+                
+        with open(os.path.join(dest_dir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html_content)
+        with open(os.path.join(root_slug_dir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html_content)
 
     # 2. 사진 다운로드
     photos = fetch_photos(target['pid'])
