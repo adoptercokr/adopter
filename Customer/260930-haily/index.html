@@ -78,6 +78,36 @@
     .calendar-day:hover { background: #F9F8F6; color: #A68A64; }
     .calendar-day.selected { background: #111; color: #fff; }
     .calendar-day.disabled { color: #ccc; cursor: not-allowed; text-decoration: line-through; }
+  
+    /* Calendar Specific Styles */
+    .cal-day {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .cal-day:hover:not(.disabled):not(.booked) {
+      background-color: #C4975A;
+      color: #fff;
+    }
+    .cal-day.selected {
+      background-color: #242320 !important;
+      color: #fff !important;
+      font-weight: 700;
+    }
+    .cal-day.range {
+      background-color: #EFECE6;
+      color: #242320;
+    }
+    .cal-day.booked {
+      background-color: #FEE2E2 !important;
+      color: #EF4444 !important;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    .cal-day.disabled {
+      color: #D1D5DB;
+      cursor: not-allowed;
+    }
+
   </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-white">
