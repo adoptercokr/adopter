@@ -81,24 +81,37 @@
       color: #D1D5DB;
       cursor: not-allowed;
     }
-  </style>
+  
+    /* Iteration 2: Polish */
+    #gallery .grid > div:hover { filter: invert(1); }
+    h2 { font-size: 2rem !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>
 
-<style id="industrial-theme">
 
-    body { background-color: #D3D3D3 !important; color: #1C1C1C !important; font-family: 'Helvetica Neue', Helvetica, sans-serif !important; }
-    h1, h2, h3 { text-transform: uppercase !important; font-weight: 900 !important; letter-spacing: -1px; }
-    img { filter: grayscale(20%) contrast(1.1); }
-
-
-    /* Industrial Radical Changes */
-    #header { background: #000 !important; color: #0f0 !important; font-family: monospace !important; }
-    #header a { color: #0f0 !important; }
-    #header svg { stroke: #0f0 !important; }
-    .hero-slider { filter: invert(1); }
-    section { border: 4px solid #000; margin: 1rem; }
-
-</style>
-</head>
+\n<style id="09-industrial-chic-theme">\n
+    body { background: #FFFFFF !important; color: #000000 !important; font-family: 'Space Mono', monospace !important; border-left: 1px solid #000 !important; border-right: 1px solid #000 !important; max-width: 1440px !important; margin: 0 auto !important; }
+    #mainHeader { background: #FFF !important; color: #000 !important; border-bottom: 1px solid #000 !important; position: sticky !important; }
+    #mainHeader a { color: #000 !important; }
+    #mainHeader svg { stroke: #000 !important; }
+    section { padding: 5rem 2rem !important; border-bottom: 1px solid #000 !important; }
+    h2 { font-weight: bold !important; text-transform: uppercase !important; border-bottom: 1px solid #000 !important; padding-bottom: 1rem !important; margin-bottom: 3rem !important; }
+    .hero-slider { height: 75vh !important; border: 1px solid #000 !important; border-radius: 0 !important; margin-top: 2rem !important; }
+    #rooms .grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0 !important; border-top: 1px solid #000 !important; border-left: 1px solid #000 !important; }
+    #rooms .grid > div { border-right: 1px solid #000 !important; border-bottom: 1px solid #000 !important; border-radius: 0 !important; box-shadow: none !important; background: transparent !important; }
+    #rooms .grid > div > div:first-child { border-radius: 0 !important; border-bottom: 1px solid #000 !important; height: 350px !important; }
+    #gallery .grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 0 !important; border-top: 1px solid #000 !important; border-left: 1px solid #000 !important; }
+    #gallery .grid > div { border-right: 1px solid #000 !important; border-bottom: 1px solid #000 !important; border-radius: 0 !important; height: 250px !important; }
+\n
+    /* Iteration 2: Polish */
+    #gallery .grid > div:hover { filter: invert(1); }
+    h2 { font-size: 2rem !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>\n</head>
 <body class="antialiased selection:bg-brand-wood selection:text-white">
 
   <!-- 1. Header (초슬림 감성 헤더) -->

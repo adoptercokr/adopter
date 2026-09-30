@@ -81,23 +81,36 @@
       color: #D1D5DB;
       cursor: not-allowed;
     }
-  </style>
+  
+    /* Iteration 2: Polish */
+    .hero-slider { box-shadow: inset 0 0 0 1px #3A352F !important; }
+    #about p { text-align: justify !important; text-align-last: center !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>
 
-<style id="hanok-theme">
 
-    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
-    body { background-color: #F5F0E6 !important; color: #3D2B1F !important; font-family: 'Gowun Batang', serif !important; }
-    h1, h2, h3 { color: #2C1E16 !important; }
-    .hero-slider { border: 8px solid #4A3525 !important; margin: 1rem !important; width: calc(100% - 2rem) !important; }
-
-
-    /* Hanok Radical Changes */
-    #about p { writing-mode: vertical-rl; text-orientation: upright; height: 300px; margin: 0 auto; line-height: 2.5; }
-    .hero-slider { border: double 12px #4A3525 !important; }
-    #header { background: #F5F0E6 !important; }
-
-</style>
-</head>
+\n<style id="07-hanok-heritage-theme">\n
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap');
+    body { background: #E8E4D9 !important; color: #3A352F !important; font-family: 'Cormorant Garamond', serif !important; }
+    h1, h2, h3, h4 { font-style: italic !important; font-weight: 400 !important; letter-spacing: 0.05em !important; }
+    #mainHeader { background: rgba(232,228,217,0.9) !important; border-bottom: 1px solid #D1CBBF !important; color: #3A352F !important; }
+    #mainHeader a { color: #3A352F !important; }
+    #mainHeader svg { stroke: #3A352F !important; }
+    .hero-slider { border: 24px solid #F2EFE8 !important; box-shadow: 0 0 0 1px #D1CBBF !important; height: 90vh !important; border-radius: 0 !important; width: 100% !important; margin: 0 !important; }
+    #gallery .grid { display: block !important; column-count: 3 !important; column-gap: 2rem !important; }
+    #gallery .grid > div { break-inside: avoid !important; margin-bottom: 2rem !important; border-radius: 0 !important; overflow: hidden !important; height: auto !important; position: relative !important; }
+    #gallery .grid > div img { height: auto !important; position: static !important; }
+    #rooms .grid > div { background: #F2EFE8 !important; border: 1px solid #D1CBBF !important; border-radius: 0 !important; }
+\n
+    /* Iteration 2: Polish */
+    .hero-slider { box-shadow: inset 0 0 0 1px #3A352F !important; }
+    #about p { text-align: justify !important; text-align-last: center !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>\n</head>
 <body class="antialiased selection:bg-brand-wood selection:text-white">
 
   <!-- 1. Header (초슬림 감성 헤더) -->

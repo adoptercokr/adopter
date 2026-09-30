@@ -81,23 +81,35 @@
       color: #D1D5DB;
       cursor: not-allowed;
     }
-  </style>
+  
+    /* Iteration 2: Polish */
+    #rooms .grid > div:hover { background: #fff !important; transform: translateY(-10px); transition: 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important; }
+    h2 { letter-spacing: 0.5em !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>
 
-<style id="coastal-theme">
 
-    body { background-color: #F2F7F9 !important; color: #2B4C5E !important; }
-    h1, h2 { color: #1A3645 !important; }
-    img { border-radius: 20px !important; }
-    .hero-slider { border-bottom-left-radius: 50px !important; border-bottom-right-radius: 50px !important; }
-
-
-    /* Coastal Radical Changes */
-    section { margin: 2rem !important; border-radius: 40px !important; background: white; padding: 4rem !important; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    body { background: #E0F2F1 !important; }
-    .hero-slider { border-radius: 40px !important; margin: 2rem !important; width: calc(100% - 4rem) !important; }
-
-</style>
-</head>
+\n<style id="08-coastal-breeze-theme">\n
+    body { background: #FAFAFA !important; color: #222 !important; font-family: 'Inter', sans-serif !important; font-weight: 300 !important; }
+    #mainHeader { background: transparent !important; border-bottom: 1px solid rgba(0,0,0,0.1) !important; color: #222 !important; }
+    #mainHeader a { color: #222 !important; font-weight: 300 !important; letter-spacing: 0.1em; text-transform: uppercase; }
+    #mainHeader svg { stroke: #222 !important; }
+    section { padding: 10rem 4rem !important; border-bottom: 1px solid #EEE !important; }
+    h2 { font-size: 2.5rem !important; font-weight: 200 !important; text-transform: uppercase !important; letter-spacing: 0.3em !important; text-align: center !important; margin-bottom: 5rem !important; }
+    #rooms .grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 3rem !important; }
+    #rooms .grid > div { background: transparent !important; box-shadow: none !important; border: 1px solid #EEE !important; border-radius: 0 !important; }
+    #rooms .grid > div > div:first-child { border-radius: 0 !important; height: 450px !important; }
+    .hero-slider { height: 100vh !important; border-radius: 0 !important; }
+\n
+    /* Iteration 2: Polish */
+    #rooms .grid > div:hover { background: #fff !important; transform: translateY(-10px); transition: 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important; }
+    h2 { letter-spacing: 0.5em !important; }
+\n
+    /* Iteration 3 */
+    html { scroll-behavior: smooth; }
+\n</style>\n</head>
 <body class="antialiased selection:bg-brand-wood selection:text-white">
 
   <!-- 1. Header (초슬림 감성 헤더) -->
