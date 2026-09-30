@@ -1,0 +1,227 @@
+<!-- 카페24 상품 상세설명 HTML 탭에 아래 코드를 전체 복사해서 붙여넣기 하세요 -->
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+.adp-wrap {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    max-width: 860px;
+    margin: 0 auto;
+    color: #1f2937;
+    line-height: 1.6;
+    box-sizing: border-box;
+    background: #fff;
+    word-break: keep-all;
+}
+.adp-wrap * { box-sizing: border-box; }
+
+.adp-hero {
+    position: relative;
+    background-color: #0f172a;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80');
+    background-size: cover;
+    background-position: center;
+}
+.adp-hero-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.85);
+}
+.adp-hero-content { position: relative; z-index: 10; }
+.adp-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: rgba(59, 130, 246, 0.2);
+    color: #dbeafe;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    letter-spacing: 1px;
+}
+.adp-title { font-size: 42px; font-weight: 700; margin-bottom: 20px; line-height: 1.3; margin-top: 0; color: #fff; letter-spacing: -1px; }
+.adp-title span { color: #3b82f6; }
+.adp-desc { font-size: 18px; color: #cbd5e1; max-width: 500px; margin: 0 auto; }
+
+.adp-section { padding: 80px 20px; text-align: center; }
+.adp-section-bg { background-color: #eff6ff; }
+.adp-h2 { font-size: 28px; font-weight: 700; margin-bottom: 40px; margin-top: 0; color: #111827; letter-spacing: -0.5px; }
+
+.adp-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+.adp-card { flex: 1; min-width: 250px; background: #f9fafb; padding: 30px 20px; border-radius: 16px; text-align: center; }
+.adp-card-icon { width: 50px; height: 50px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 16px auto; }
+.adp-card h3 { font-size: 18px; font-weight: 700; margin-top:0; margin-bottom: 8px; color: #111827; }
+.adp-card p { font-size: 14px; color: #6b7280; margin:0; }
+
+.adp-pricing-container { display: flex; flex-wrap: wrap; gap: 24px; max-width: 760px; margin: 0 auto; align-items: stretch;}
+.adp-price-card { flex: 1; min-width: 300px; background: #fff; border-radius: 24px; padding: 40px 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid #e5e7eb; text-align: left; position: relative; }
+.adp-price-card.premium { background: #0f172a; border-color: #1e293b; color: #fff; transform: translateY(-12px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.adp-price-card h3 { font-size: 22px; font-weight: 700; margin-top:0; margin-bottom: 8px; color: #111827; }
+.adp-price-card.premium h3 { color: #fff; }
+.adp-price-sub { font-size: 14px; color: #6b7280; margin-bottom: 24px; margin-top: 0; }
+.adp-price-card.premium .adp-price-sub { color: #94a3b8; }
+.adp-price-amount { margin-bottom: 30px; border-bottom: 1px solid #f3f4f6; padding-bottom: 24px; }
+.adp-price-card.premium .adp-price-amount { border-bottom-color: #1e293b; }
+.adp-price-amount strong { font-size: 38px; font-weight: 700; color: #111827; }
+.adp-price-card.premium .adp-price-amount strong { color: #fff; }
+.adp-price-amount span { font-size: 16px; color: #6b7280; }
+
+.adp-list { list-style: none; padding: 0; margin: 0; }
+.adp-list li { display: flex; align-items: flex-start; margin-bottom: 16px; font-size: 14.5px; color: #4b5563; }
+.adp-price-card.premium .adp-list li { color: #cbd5e1; }
+.adp-list li svg { width: 20px; height: 20px; margin-right: 10px; flex-shrink: 0; }
+.adp-list li.disabled { opacity: 0.4; text-decoration: line-through; }
+
+.adp-badge-best { position: absolute; top: -14px; right: 30px; background: #3b82f6; color: #fff; font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 20px; }
+
+.adp-step { display: flex; align-items: center; max-width: 500px; margin: 0 auto 32px auto; text-align: left; }
+.adp-step-num { width: 44px; height: 44px; border-radius: 50%; background: #eff6ff; color: #2563eb; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0; font-size: 18px; }
+.adp-step h4 { margin: 0 0 6px 0; font-size: 18px; font-weight: 700; color: #111827; }
+.adp-step p { margin: 0; font-size: 15px; color: #6b7280; }
+
+.adp-footer { background: #111827; color: #fff; text-align: center; padding: 60px 20px; }
+.adp-footer h2 { margin: 0 0 16px 0; font-size: 24px; font-weight: 700; }
+.adp-footer p { margin: 0; color: #9ca3af; font-size: 14px; }
+
+@media (max-width: 768px) {
+    .adp-title { font-size: 32px; }
+    .adp-price-card.premium { transform: translateY(0); margin-top: 10px; }
+    .adp-grid { flex-direction: column; }
+}
+</style>
+
+<div class="adp-wrap">
+    
+    <!-- Hero Section -->
+    <div class="adp-hero">
+        <div class="adp-hero-overlay"></div>
+        <div class="adp-hero-content">
+            <div class="adp-badge">ADOPTER MONTHLY CARE</div>
+            <h1 class="adp-title">홈페이지 관리,<br>이제 <span>어댑터</span>에 맡기세요</h1>
+            <p class="adp-desc">대표님은 본업에만 집중하세요. 골치 아픈 웹사이트 수정과 유지보수는 저희가 전부 알아서 관리해 드립니다.</p>
+        </div>
+    </div>
+
+    <!-- Pain Point Section -->
+    <div class="adp-section">
+        <h2 class="adp-h2">혹시 이런 고민 하고 계신가요?</h2>
+        <div class="adp-grid">
+            <div class="adp-card">
+                <div class="adp-card-icon" style="background:#fee2e2; color:#ef4444;">😥</div>
+                <h3>시간 부족</h3>
+                <p>영업하기도 바쁜데 홈페이지 문구 하나 바꾸는 것도 벅차요.</p>
+            </div>
+            <div class="adp-card">
+                <div class="adp-card-icon" style="background:#fef3c7; color:#f59e0b;">💸</div>
+                <h3>비싼 외주 비용</h3>
+                <p>건당 수정 요청할 때마다 부르는 게 값이라 너무 부담돼요.</p>
+            </div>
+            <div class="adp-card">
+                <div class="adp-card-icon" style="background:#e0e7ff; color:#6366f1;">📉</div>
+                <h3>방치된 사이트</h3>
+                <p>만들어 놓고 관리를 안 해서 사이트가 멈춰 있는 것 같아요.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solution Section -->
+    <div class="adp-section adp-section-bg">
+        <h2 class="adp-h2">커피 한 잔 값으로 누리는<br><span style="color:#2563eb;">전문가의 밀착 관리</span></h2>
+        <p style="color:#4b5563; margin-bottom: 50px;">어댑터의 월 구독 서비스로 365일 든든한 웹 에이전시를 고용하세요.</p>
+
+        <div class="adp-pricing-container">
+            
+            <!-- Basic Plan -->
+            <div class="adp-price-card">
+                <h3>베이직 관리 (Basic)</h3>
+                <p class="adp-price-sub">최소한의 필수 유지보수</p>
+                <div class="adp-price-amount">
+                    <strong>2,000</strong> <span>원 / 월</span>
+                </div>
+                <ul class="adp-list">
+                    <li>
+                        <svg fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        월 1회 텍스트 무상 수정 (공지사항 등)
+                    </li>
+                    <li>
+                        <svg fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        서버 접속 및 에러 모니터링
+                    </li>
+                    <li>
+                        <svg fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        도메인 및 호스팅 만료 사전 안내
+                    </li>
+                    <li class="disabled">
+                        <svg fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        이미지/배너 변경
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="adp-price-card premium">
+                <div class="adp-badge-best">BEST 추천</div>
+                <h3>프리미엄 관리 (Premium)</h3>
+                <p class="adp-price-sub">비즈니스 맞춤형 풀케어</p>
+                <div class="adp-price-amount">
+                    <strong>10,000</strong> <span style="color:#9ca3af;">원 / 월</span>
+                </div>
+                <ul class="adp-list">
+                    <li>
+                        <svg fill="none" stroke="#60a5fa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        베이직 관리 혜택 모두 포함
+                    </li>
+                    <li>
+                        <svg fill="none" stroke="#60a5fa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        월 3회 텍스트/이미지/배너 무상 교체
+                    </li>
+                    <li>
+                        <svg fill="none" stroke="#60a5fa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        팝업창 등록 및 일정 세팅 지원
+                    </li>
+                    <li>
+                        <svg fill="none" stroke="#60a5fa" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        최우선(Priority) 작업 처리 배정
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Features / Process -->
+    <div class="adp-section" style="border-top: 1px solid #f3f4f6;">
+        <h2 class="adp-h2">이용 방법은 아주 간단합니다</h2>
+        
+        <div class="adp-step">
+            <div class="adp-step-num">1</div>
+            <div>
+                <h4>구독 결제</h4>
+                <p>쇼핑몰에서 원하시는 플랜을 선택하고 결제를 진행합니다.</p>
+            </div>
+        </div>
+        <div class="adp-step">
+            <div class="adp-step-num">2</div>
+            <div>
+                <h4>어댑터 카카오톡 채널 추가</h4>
+                <p>결제 후 '어댑터' 카카오톡 채널로 주문자명을 남겨주세요.</p>
+            </div>
+        </div>
+        <div class="adp-step" style="margin-bottom:0;">
+            <div class="adp-step-num">3</div>
+            <div>
+                <h4>수정 사항 전달 및 즉각 반영</h4>
+                <p>필요할 때마다 카카오톡으로 편하게 수정 요청을 보내주시면 끝!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Footer -->
+    <div class="adp-footer">
+        <h2>지금 바로 구독하고,<br>디지털 스트레스에서 벗어나세요!</h2>
+        <p>월 정기결제로 언제든지 해지가 가능합니다.</p>
+    </div>
+
+</div>

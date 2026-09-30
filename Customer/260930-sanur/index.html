@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="stay_config.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -48,122 +49,107 @@
       <h1 class="lux-heading text-2xl tracking-widest uppercase font-semibold" id="brand-name">STAY</h1>
       <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
         <a href="#about" class="hover:text-brand-accent transition-colors">About</a>
-        <a href="#spaces" class="hover:text-brand-accent transition-colors">Spaces</a>
+        <a href="#gallery" class="hover:text-brand-accent transition-colors">Gallery</a>
+        <a href="#rules" class="hover:text-brand-accent transition-colors">Guide</a>
         <a href="#reservation" class="hover:text-brand-accent transition-colors">Reservation</a>
       </nav>
-      <button class="md:hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </button>
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-2xl">☰</button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero-bg flex items-center justify-center text-center" id="hero-section">
+  <!-- Hero Section -->
+  <section class="hero-bg flex items-center justify-center text-white" id="hero-section">
     <div class="hero-overlay"></div>
-    <div class="relative z-10 text-white px-6 mt-16 fade-up">
+    <div class="relative z-10 text-center px-6 fade-up">
       <p class="text-sm tracking-[0.3em] uppercase mb-6" id="hero-subtitle">Premium Private Stay</p>
       <h2 class="lux-heading text-5xl md:text-7xl font-medium mb-8 leading-tight" id="hero-title">STAY</h2>
       <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto" id="hero-desc">머묾, 그 자체가 온전한 쉼이 되는 공간</p>
     </div>
   </section>
 
-  <!-- About / Benefits -->
-  <section id="about" class="py-32 px-6 bg-brand-sand">
-    <div class="max-w-7xl mx-auto">
+  <!-- Space Gallery (Magazine Style) -->
+  <section id="gallery" class="py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-24 fade-up">
-        <h3 class="lux-heading text-4xl mb-4">Philosophy</h3>
-        <div class="w-10 h-[1px] bg-brand-accent mx-auto"></div>
+        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">Space Gallery</h3>
+        <p class="text-brand-muted font-light">머무시는 동안 누릴 수 있는 특별한 공간들</p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12" id="benefits-grid">
-        <!-- Rendered by JS -->
+      
+      <div id="spaces-container" class="space-y-32">
+        <!-- Dynamically injected -->
       </div>
     </div>
   </section>
 
-  <!-- Space Gallery (16:9 alternating layout) -->
-  <section id="spaces" class="py-32 bg-brand-bg">
-    <div class="max-w-7xl mx-auto px-6 mb-24 text-center fade-up">
-      <h3 class="lux-heading text-4xl mb-4">Space Gallery</h3>
-      <div class="w-10 h-[1px] bg-brand-accent mx-auto"></div>
-    </div>
-    
-    <div id="spaces-container" class="flex flex-col gap-32">
-      <!-- Rendered by JS -->
-    </div>
-  </section>
+  <!-- Reservation Section -->
+  <section id="reservation" class="py-32 bg-brand-sand">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-20 fade-up">
+        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">예약 및 요금 안내</h3>
+        <p class="text-brand-muted font-light">실시간 요금을 확인하시고 편리하게 예약하세요.</p>
+      </div>
+      
+      <div class="bg-white p-10 md:p-16 shadow-[0_20px_50px_rgba(0,0,0,0.05)] fade-up">
+        <h4 class="text-xl font-medium mb-8 border-b pb-4">기본 요금</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div class="text-center p-6 bg-brand-sand/50">
+            <p class="text-sm text-brand-muted mb-2">주중 (일~목)</p>
+            <p class="text-2xl font-medium"><span id="price-weekday">200,000</span><span class="text-sm font-light">원</span></p>
+          </div>
+          <div class="text-center p-6 bg-brand-sand/50">
+            <p class="text-sm text-brand-muted mb-2">주말 (금,토)</p>
+            <p class="text-2xl font-medium"><span id="price-weekend">250,000</span><span class="text-sm font-light">원</span></p>
+          </div>
+          <div class="text-center p-6 bg-brand-sand/50">
+            <p class="text-sm text-brand-muted mb-2">성수기</p>
+            <p class="text-2xl font-medium"><span id="price-peak">250,000</span><span class="text-sm font-light">원</span></p>
+          </div>
+        </div>
 
-  <!-- Facilities & Rules -->
-  <section class="py-32 bg-brand-sand border-t border-brand-border">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24 fade-up">
-      <div>
-        <h3 class="lux-heading text-3xl mb-12">Facilities</h3>
-        <div class="grid grid-cols-2 gap-6 text-brand-muted" id="facilities-grid">
-          <!-- Rendered by JS -->
+        <div class="text-center pt-8 border-t">
+          <p class="mb-6 text-brand-muted text-sm">실시간 예약 상황과 정확한 요금은 네이버 예약에서 확인 가능합니다.</p>
+          <a href="#" class="inline-block bg-brand-dark text-white px-12 py-4 tracking-widest text-sm uppercase hover:bg-black transition-colors">
+            네이버 예약하기
+          </a>
         </div>
       </div>
-      <div>
-        <h3 class="lux-heading text-3xl mb-12">Information & Rules</h3>
-        <ul class="space-y-4 text-brand-muted font-light" id="rules-list">
-          <!-- Rendered by JS -->
-        </ul>
-      </div>
     </div>
   </section>
 
-  <!-- Reservation (Calendar & Calculator UI per MJ rules) -->
-  <section id="reservation" class="py-32 px-6 bg-white">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16 fade-up">
-        <h3 class="lux-heading text-4xl mb-4">예약 및 견적 확인</h3>
-        <div class="w-10 h-[1px] bg-brand-accent mx-auto mb-8"></div>
-        <p class="text-brand-muted">원하시는 날짜를 선택하시면 예상 요금을 확인하실 수 있습니다.</p>
-      </div>
-
-      <div class="bg-white border border-brand-border p-8 md:p-12 fade-up shadow-sm">
-        <div class="mb-8">
-          <label class="block text-sm font-medium mb-3 text-brand-dark">체크인 - 체크아웃</label>
-          <input type="text" placeholder="날짜 선택" class="w-full p-4 border border-brand-border focus:border-brand-accent focus:ring-0 outline-none text-center text-lg bg-brand-sand" readonly>
+  <!-- Rules & Facilities -->
+  <section id="rules" class="py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+        <div class="fade-up">
+          <h3 class="lux-heading text-3xl font-medium mb-10">Facilities</h3>
+          <div id="facilities-grid" class="grid grid-cols-2 gap-y-6 gap-x-4">
+            <!-- Dynamically injected -->
+          </div>
         </div>
         
-        <div class="border-t border-brand-border pt-8 mb-8" id="quote-area">
-          <div class="flex justify-between items-center mb-4 text-lg">
-            <span>객실 요금</span>
-            <span class="font-medium" id="calc-price">₩0</span>
-          </div>
-          <div class="flex justify-between items-center text-xl font-medium mt-6 pt-6 border-t border-brand-border">
-            <span>총 예상 결제 금액</span>
-            <span class="text-2xl text-brand-accent" id="total-price">₩0</span>
-          </div>
+        <div class="fade-up">
+          <h3 class="lux-heading text-3xl font-medium mb-10">Stay Guide</h3>
+          <ul id="rules-list" class="space-y-4 font-light text-brand-muted">
+            <!-- Dynamically injected -->
+          </ul>
         </div>
-
-        <button class="w-full bg-[#03C75A] text-white py-5 text-lg font-medium hover:bg-[#02b351] transition-colors flex items-center justify-center gap-2">
-          네이버 예약하기
-        </button>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-brand-dark text-white py-20 px-6">
-    <div class="max-w-7xl mx-auto text-center md:text-left grid md:grid-cols-2 gap-12 opacity-80">
-      <div>
-        <h2 class="lux-heading text-2xl mb-6 uppercase" id="footer-brand">STAY</h2>
-        <p class="font-light text-sm text-gray-400">Premium Private Stay</p>
-      </div>
-      <div class="md:text-right font-light text-sm text-gray-400 space-y-2">
-        <p>사업자등록번호: 준비중</p>
-        <p>Copyright © <span id="footer-year">2024</span>. All rights reserved.</p>
-      </div>
-    </div>
+  <footer class="bg-brand-dark text-white/50 py-16 text-center text-sm font-light">
+    <p class="uppercase tracking-widest mb-4" id="footer-brand">STAY</p>
+    <p>&copy; <span id="footer-year"></span> All rights reserved.</p>
   </footer>
 
-  <script src="./stay_config.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if(typeof STAY_CONFIG === 'undefined') return;
       const c = STAY_CONFIG;
-      
-      // Basic Info
+
+      // Basic Text Setup
       document.title = c.name + " | Premium Stay";
       document.getElementById('site-title').innerText = c.name + " | Premium Stay";
       document.getElementById('site-desc').content = c.description;
@@ -176,67 +162,64 @@
       
       // Hero Image
       if(c.spaces && c.spaces.length > 0) {
-        document.getElementById('hero-section').style.backgroundImage = url('');
-      }
-
-      // Benefits
-      const bGrid = document.getElementById('benefits-grid');
-      if(c.benefits && c.benefits.length > 0) {
-        c.benefits.forEach((b, idx) => {
-          bGrid.innerHTML += 
-            <div class="fade-up text-center" style="transition-delay: ms">
-              <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-brand-accent bg-white rounded-full shadow-sm">
-                
-              </div>
-              <h4 class="text-xl mb-3 font-medium"></h4>
-              <p class="text-brand-muted text-sm font-light leading-relaxed"></p>
-            </div>
-          ;
-        });
-      } else {
-        document.getElementById('about').style.display = 'none';
+        document.getElementById('hero-section').style.backgroundImage = `url('${c.spaces[0].mainImage}')`;
       }
 
       // Space Gallery (Alternating Magazine Style)
       const sCont = document.getElementById('spaces-container');
       if(c.spaces && c.spaces.length > 0) {
+        let galleryHtml = '';
         c.spaces.forEach((s, i) => {
           const isReverse = i % 2 !== 0;
           let imagesHtml = '';
           if(s.images && s.images.length > 0) {
-             imagesHtml = s.images.slice(0, 3).map(img => <img src="" class="img-16-9 mb-4" alt="">).join('');
+             imagesHtml = s.images.slice(0, 3).map(img => `<img src="${img}" class="img-16-9 mb-4" alt="공간 이미지">`).join('');
           }
-          sCont.innerHTML += 
-            <div class="flex flex-col  gap-12 items-center fade-up px-6 md:px-0">
+          galleryHtml += `
+            <div class="flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center fade-up px-6 md:px-0">
               <div class="w-full md:w-1/2">
-                <img src="" class="img-3-4" alt="">
+                <img src="${s.mainImage}" class="img-3-4" alt="${s.title}">
               </div>
-              <div class="w-full md:w-1/2 px-0 md:px-12 text-center ">
-                <p class="lux-heading text-brand-accent text-xl mb-2 tracking-widest uppercase"></p>
-                <h4 class="text-4xl font-medium mb-8"></h4>
+              <div class="w-full md:w-1/2 px-0 md:px-12 text-center ${isReverse ? 'md:text-right' : 'md:text-left'}">
+                <p class="lux-heading text-brand-accent text-xl mb-2 tracking-widest uppercase">${s.subtitle || ''}</p>
+                <h4 class="text-4xl font-medium mb-8">${s.title}</h4>
                 <div class="space-y-4">
-                  
+                  ${imagesHtml}
                 </div>
               </div>
             </div>
-          ;
+          `;
         });
+        sCont.innerHTML = galleryHtml;
+      } else {
+        document.getElementById('gallery').style.display = 'none';
       }
 
       // Facilities
       const fGrid = document.getElementById('facilities-grid');
       if(c.facilities && c.facilities.length > 0) {
+        let facHtml = '';
         c.facilities.forEach(f => {
-          fGrid.innerHTML += <div class="flex items-center gap-3"><span class="w-1 h-1 bg-brand-accent rounded-full"></span></div>;
+          facHtml += `<div class="flex items-center gap-3"><span class="w-1 h-1 bg-brand-accent rounded-full"></span><span class="font-light">${f.name}</span></div>`;
         });
+        fGrid.innerHTML = facHtml;
       }
 
       // Rules
       const rList = document.getElementById('rules-list');
       if(c.rules && c.rules.length > 0) {
+        let ruleHtml = '';
         c.rules.forEach(r => {
-          rList.innerHTML += <li class="flex gap-3"><span class="text-brand-accent mt-1">✔</span><span></span></li>;
+          ruleHtml += `<li class="flex gap-3"><span class="text-brand-accent mt-1">∙</span><span>${r}</span></li>`;
         });
+        rList.innerHTML = ruleHtml;
+      }
+
+      // Rates
+      if(c.rates) {
+        if(c.rates.weekday) document.getElementById('price-weekday').innerText = c.rates.weekday;
+        if(c.rates.weekend) document.getElementById('price-weekend').innerText = c.rates.weekend;
+        if(c.rates.peak) document.getElementById('price-peak').innerText = c.rates.peak;
       }
 
       // Scroll Animation Observer
