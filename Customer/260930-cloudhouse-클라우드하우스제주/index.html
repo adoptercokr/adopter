@@ -199,14 +199,14 @@
           <!-- 1단계: 객실 선택 탭 -->
           <div class="mb-6">
             <label class="block text-xs font-serif-kr text-stone-500 uppercase tracking-wider mb-2 font-bold">1. 객실 선택</label>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-1 gap-2">
               <button type="button" onclick="selectRoomType(1)" id="roomTab1" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-brand-accent bg-brand-cream text-stone-900">
                 첫번째 모험<br><span class="text-[10px] font-normal text-stone-500">35만원/2인</span>
               </button>
-              <button type="button" onclick="selectRoomType(2)" id="roomTab2" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
+              <button type="button" onclick="selectRoomType(2)" id="roomTab2" style="display:none;" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
                 두번째 모험<br><span class="text-[10px] font-normal text-stone-500">38만원/4인</span>
               </button>
-              <button type="button" onclick="selectRoomType(3)" id="roomTab3" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
+              <button type="button" onclick="selectRoomType(3)" id="roomTab3" style="display:none;" class="py-2.5 px-2 rounded-xl text-xs font-serif-kr font-bold transition border-2 border-stone-200 bg-white text-stone-600 hover:border-stone-400">
                 세번째 모험<br><span class="text-[10px] font-normal text-stone-500">40만원/4인</span>
               </button>
             </div>
@@ -371,7 +371,7 @@
       document.getElementById('footer-brand').innerText = c.name;
       document.getElementById('footer-year').innerText = new Date().getFullYear();
       
-      if(c.naverLink) document.getElementById('naver-link').href = c.naverLink;
+      if(c.naverLink && document.getElementById('naver-link')) document.getElementById('naver-link').href = c.naverLink;
       if(c.phone) {
         const fab = document.getElementById('fab-phone');
         fab.href = `tel:${c.phone}`;
@@ -513,7 +513,9 @@
         metaRooms: "공간",
         metaTime: "입실 15:00 · 퇴실 11:00",
         desc: "", guide: "", config: [], amenities: []
-      }
+      },
+      2: { name: "Room 2", baseGuests: 2, weekdayPrice: 0 },
+      3: { name: "Room 3", baseGuests: 2, weekdayPrice: 0 }
     };
 
 
@@ -652,7 +654,7 @@
     // 1. 객실 선택 변경
     function selectRoomType(roomId) {
       currentRoomId = roomId;
-      [1, 2, 3].forEach(id => {
+      [1].forEach(id => {
         const btn = document.getElementById(`roomTab${id}`);
         const r = ROOMS[id];
         if (id === roomId) {
@@ -956,7 +958,7 @@
     }
     function switchPriceModalRoom(roomId) {
       activePriceRoomId = roomId;
-      [1, 2, 3].forEach(id => {
+      [1].forEach(id => {
         const tab = document.getElementById(`priceTab${id}`);
         if (id === roomId) {
           tab.className = "py-2.5 rounded-xl text-xs font-bold transition bg-amber-500 text-stone-900 shadow";
