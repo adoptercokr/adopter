@@ -12,9 +12,8 @@ export async function onRequest(context) {
 
     let targetPath = url.pathname;
     if (targetPath === '/' || targetPath === '') {
-      targetPath = '/Customer/' + mappedFolder + '/index.html';
+      targetPath = '/Customer/' + mappedFolder + '/';
     } else if (!targetPath.startsWith('/Customer/' + mappedFolder + '/')) {
-      // Allow assets like /img/photo_1.jpg to map to /Customer/260930-aewolrowa/img/photo_1.jpg
       targetPath = '/Customer/' + mappedFolder + targetPath;
     }
 
