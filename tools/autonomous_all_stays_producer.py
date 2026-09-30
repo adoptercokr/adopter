@@ -1,18 +1,18 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 ==============================================================================
-🌌 Adopter Autonomous All-Stays Producer (초고속 무인 전자동 제작 엔진)
+?뙆 Adopter Autonomous All-Stays Producer (珥덇퀬??臾댁씤 ?꾩옄???쒖옉 ?붿쭊)
 ------------------------------------------------------------------------------
-- LLM API 토큰 비용 0원 (완전 무료 알고리즘 기반 고속 생성)
-- 사전 수집된 20개 숙소 및 추가 발굴 숙소를 순차적으로 전자동 제작
-- 네이버 공식 고화질 사진 최대 10장 다운로드
-- 조잡한 컬러 이모지 배제 -> 100% 무채색/단색 미니멀 라인 SVG 아이콘 탑재
-- 파비콘 제거 (빈 데이터 URI 적용)
-- 공간 갤러리 -> 실시간 예약 달력 순서 배치
-- Customer/ 및 루트 /{slug}/ 동시 배포 (Cloudflare Pages 서브도메인 라우팅)
-- 구글 스프레드시트 실시간 행 추가 (doPost 연동)
-- Cloudflare Pages & Git Commit/Push 자동화
+- LLM API ?좏겙 鍮꾩슜 0??(?꾩쟾 臾대즺 ?뚭퀬由ъ쬁 湲곕컲 怨좎냽 ?앹꽦)
+- ?ъ쟾 ?섏쭛??20媛??숈냼 諛?異붽? 諛쒓뎬 ?숈냼瑜??쒖감?곸쑝濡??꾩옄???쒖옉
+- ?ㅼ씠踰?怨듭떇 怨좏솕吏??ъ쭊 理쒕? 10???ㅼ슫濡쒕뱶
+- 議곗옟??而щ윭 ?대え吏 諛곗젣 -> 100% 臾댁콈???⑥깋 誘몃땲硫 ?쇱씤 SVG ?꾩씠肄??묒옱
+- ?뚮퉬肄??쒓굅 (鍮??곗씠??URI ?곸슜)
+- 怨듦컙 媛ㅻ윭由?-> ?ㅼ떆媛??덉빟 ?щ젰 ?쒖꽌 諛곗튂
+- Customer/ 諛?猷⑦듃 /{slug}/ ?숈떆 諛고룷 (Cloudflare Pages ?쒕툕?꾨찓???쇱슦??
+- 援ш? ?ㅽ봽?덈뱶?쒗듃 ?ㅼ떆媛???異붽? (doPost ?곕룞)
+- Cloudflare Pages & Git Commit/Push ?먮룞??
 ==============================================================================
 """
 
@@ -52,13 +52,13 @@ opener = urllib.request.build_opener(RedirectHandler)
 def sanitize_text(text):
     if not text:
         return ""
-    text = text.replace("독채펜션", "단독펜션")
-    text = text.replace("독채 풀빌라", "단독 풀빌라")
-    text = text.replace("독채", "단독주택")
+    text = text.replace("?낆콈?쒖뀡", "?⑤룆?쒖뀡")
+    text = text.replace("?낆콈 ?鍮뚮씪", "?⑤룆 ?鍮뚮씪")
+    text = text.replace("?낆콈", "?⑤룆二쇳깮")
     return text.strip()
 
 def fetch_photos(pid):
-    """네이버 플레이스에서 고화질 사진 최대 10장 추출"""
+    """?ㅼ씠踰??뚮젅?댁뒪?먯꽌 怨좏솕吏??ъ쭊 理쒕? 10??異붿텧"""
     photo_urls = []
     for tab in ["home", "photo"]:
         url = f"https://m.place.naver.com/accommodation/{pid}/{tab}"
@@ -107,9 +107,9 @@ def inspect_place_detail(pid):
         return None
 
     phone = base.get('virtualPhone') or base.get('phone') or "0507-0000-0000"
-    road_addr = base.get('roadAddress') or base.get('address') or "제주특별자치도"
+    road_addr = base.get('roadAddress') or base.get('address') or "?쒖＜?밸퀎?먯튂??
 
-    # 인스타그램 링크 확인
+    # ?몄뒪?洹몃옩 留곹겕 ?뺤씤
     anchors = re.findall(r'<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)<\/a>', html, re.IGNORECASE)
     insta_link = ""
     for href, text in anchors:
@@ -140,7 +140,7 @@ def build_stay_website(target, slug):
     os.makedirs(img_dir, exist_ok=True)
     os.makedirs(root_img_dir, exist_ok=True)
 
-    # 1. 템플릿 복사 및 HTML 내부 텍스트/이미지 경로 치환
+    # 1. ?쒗뵆由?蹂듭궗 諛?HTML ?대? ?띿뒪???대?吏 寃쎈줈 移섑솚
     files_to_copy = [".gitignore", "robots.txt", "sitemap.xml"]
     for f in files_to_copy:
         src = os.path.join(TEMPLATE_DIR, f)
@@ -148,25 +148,25 @@ def build_stay_website(target, slug):
             shutil.copy2(src, os.path.join(dest_dir, f))
             shutil.copy2(src, os.path.join(root_slug_dir, f))
 
-    # index.html 치환
+    # index.html 移섑솚
     index_src = os.path.join(TEMPLATE_DIR, "index.html")
     if os.path.exists(index_src):
         with open(index_src, "r", encoding="utf-8") as f:
             html_content = f.read()
 
-        # 텍스트 치환
-        html_content = html_content.replace("희스테이", clean_name)
+        # ?띿뒪??移섑솚
+        html_content = html_content.replace("?ъ뒪?뚯씠", clean_name)
         html_content = html_content.replace("HEESTAY", slug.upper())
         html_content = html_content.replace("jejuheestay.co.kr", f"{slug}.adopter.co.kr")
         
-        # 이미지 경로 치환 (photo_1.jpg ~ photo_10.jpg 반복)
+        # ?대?吏 寃쎈줈 移섑솚 (photo_1.jpg ~ photo_10.jpg 諛섎났)
         import urllib.parse
         img_paths = re.findall(r'(\./img/[^"\'\s]+\.jpg|/img/[^"\'\s]+\.jpg|img/[^"\'\s]+\.jpg)', html_content)
         unique_imgs = list(set(img_paths))
         for idx, old_img in enumerate(unique_imgs):
             new_img = old_img.replace(old_img.split('/')[-1], f"photo_{(idx % 10) + 1}.jpg")
             html_content = html_content.replace(old_img, new_img)
-            # URL 인코딩된 경로도 치환 (og:image 등에 사용됨)
+            # URL ?몄퐫?⑸맂 寃쎈줈??移섑솚 (og:image ?깆뿉 ?ъ슜??
             encoded_old = urllib.parse.quote(old_img)
             if "%" in encoded_old:
                 encoded_new = urllib.parse.quote(new_img)
@@ -177,7 +177,7 @@ def build_stay_website(target, slug):
         with open(os.path.join(root_slug_dir, "index.html"), "w", encoding="utf-8") as f:
             f.write(html_content)
 
-    # 2. 사진 다운로드
+    # 2. ?ъ쭊 ?ㅼ슫濡쒕뱶
     photos = fetch_photos(target['pid'])
     cat_cycle = ["exterior", "living", "bedroom", "kitchen", "outdoor"]
     photo_meta = []
@@ -197,26 +197,26 @@ def build_stay_website(target, slug):
             photo_meta.append({
                 "src": f"./img/photo_{i}.jpg",
                 "cat": cat,
-                "title": f"{clean_name} {cat.capitalize()} 공간 {i}"
+                "title": f"{clean_name} {cat.capitalize()} 怨듦컙 {i}"
             })
         except Exception:
             pass
 
     price_val = int(target.get('price', 300000))
     config_content = f"""/**
- * {clean_name} 공식 웹사이트 설정 데이터
+ * {clean_name} 怨듭떇 ?뱀궗?댄듃 ?ㅼ젙 ?곗씠??
  * Auto-generated by Adopter Autonomous Producer
  */
 
 const STAY_CONFIG = {{
   brandName: "{clean_name}",
   brandSubtitle: "Jeju Private Stay",
-  tagline: "머묾, 그 자체가 온전한 쉼이 되는 곳",
-  description: "{clean_name}에서 전하는 온전하고 프라이빗한 쉼. 제주의 자연과 돌담이 어우러진 아름다운 공간.",
+  tagline: "癒몃Ь, 洹??먯껜媛 ?⑥쟾???쇱씠 ?섎뒗 怨?,
+  description: "{clean_name}?먯꽌 ?꾪븯???⑥쟾?섍퀬 ?꾨씪?대퉿???? ?쒖＜???먯뿰怨??뚮떞???댁슦?ъ쭊 ?꾨쫫?ㅼ슫 怨듦컙.",
   
-  owner: "호스트",
+  owner: "?몄뒪??,
   businessNo: "",
-  address: "{target.get('address') or target.get('addr') or '제주특별자치도'}",
+  address: "{target.get('address') or target.get('addr') or '?쒖＜?밸퀎?먯튂??}",
   phone: "{target.get('phone', '0507-0000-0000')}",
   email: "contact@adopter.co.kr",
   domain: "{slug}.adopter.co.kr",
@@ -247,16 +247,16 @@ const STAY_CONFIG = {{
   }},
 
   freeBenefits: [
-    {{ title: "프라이빗 정원 & 테라스", subtitle: "Garden", desc: "단독 정원 및 야외 휴식 공간 완비" }},
-    {{ title: "사계절 전용 바베큐", subtitle: "BBQ", desc: "독립 다이닝 공간 및 그릴 무료 완비" }},
-    {{ title: "안락한 쉼과 온수", subtitle: "Relax", desc: "편안한 프리미엄 침구 및 쾌적한 전용 시설" }}
+    {{ title: "?꾨씪?대퉿 ?뺤썝 & ?뚮씪??, subtitle: "Garden", desc: "?⑤룆 ?뺤썝 諛??쇱쇅 ?댁떇 怨듦컙 ?꾨퉬" }},
+    {{ title: "?ш퀎???꾩슜 諛붾쿋??, subtitle: "BBQ", desc: "?낅┰ ?ㅼ씠??怨듦컙 諛?洹몃┫ 臾대즺 ?꾨퉬" }},
+    {{ title: "?덈씫???쇨낵 ?⑥닔", subtitle: "Relax", desc: "?몄븞???꾨━誘몄뾼 移④뎄 諛?苡뚯쟻???꾩슜 ?쒖꽕" }}
   ],
 
   spaces: {{
-    landSize: "120평 대지",
-    buildingSize: "35평 단독주택",
-    floor1: "거실, 풀옵션 주방, 마스터룸, 온돌룸, 욕실, 파우더룸",
-    outdoor: "프라이빗 정원, 야외 테라스, 개별 바베큐장, 전용 주차공간"
+    landSize: "120???吏",
+    buildingSize: "35???⑤룆二쇳깮",
+    floor1: "嫄곗떎, ??듭뀡 二쇰갑, 留덉뒪?곕８, ?⑤룎猷? ?뺤떎, ?뚯슦?붾８",
+    outdoor: "?꾨씪?대퉿 ?뺤썝, ?쇱쇅 ?뚮씪?? 媛쒕퀎 諛붾쿋?먯옣, ?꾩슜 二쇱감怨듦컙"
   }},
 
   photos: {json.dumps(photo_meta, ensure_ascii=False, indent=4)},
@@ -274,7 +274,7 @@ if (typeof module !== 'undefined' && module.exports) {{
 
 
     # Update route_map.js
-    route_map_path = os.path.join(ADOPTER_DIR, 'functions', 'route_map.js')
+    route_map_path = os.path.join(ADOPTER_DIR, 'functions', '_route_map.js')
     if os.path.exists(route_map_path):
         with open(route_map_path, 'r', encoding='utf-8') as f:
             rm_text = f.read()
@@ -305,16 +305,16 @@ def push_to_google_sheet(rows):
     req = urllib.request.Request(APPS_SCRIPT_URL, data=payload, headers={'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0'})
     try:
         with opener.open(req, timeout=20) as resp:
-            log(f"구글 시트 전송 결과: {resp.read().decode('utf-8')}")
+            log(f"援ш? ?쒗듃 ?꾩넚 寃곌낵: {resp.read().decode('utf-8')}")
     except Exception as e:
-        log(f"구글 시트 전송 에러: {e}")
+        log(f"援ш? ?쒗듃 ?꾩넚 ?먮윭: {e}")
 
 def run_autonomous_batch():
     log("================================================================")
-    log("🚀 [Adopter 자율 제작 엔진 가동] 구글 시트 전체 타겟 연속 빌드 시작")
+    log("?? [Adopter ?먯쑉 ?쒖옉 ?붿쭊 媛?? 援ш? ?쒗듃 ?꾩껜 ?寃??곗냽 鍮뚮뱶 ?쒖옉")
     log("================================================================")
 
-    # 1. 기존 west_10 및 west_batch2 로드
+    # 1. 湲곗〈 west_10 諛?west_batch2 濡쒕뱶
     targets = []
     seen_pids = set()
 
@@ -332,23 +332,23 @@ def run_autonomous_batch():
                             item['pid'] = pid
                             targets.append(item)
 
-    log(f"수집 목록에서 총 {len(targets)}개 타겟 숙소 로드 완료!")
+    log(f"?섏쭛 紐⑸줉?먯꽌 珥?{len(targets)}媛??寃??숈냼 濡쒕뱶 ?꾨즺!")
 
-    # 2. 각 숙소 정밀 정보 파싱 및 사이트 빌드
+    # 2. 媛??숈냼 ?뺣? ?뺣낫 ?뚯떛 諛??ъ씠??鍮뚮뱶
     today_prefix = datetime.now().strftime("%y%m%d")
     built_sheet_rows = []
 
     for idx, item in enumerate(targets, 1):
         pid = item['pid']
         name = item.get('name', '')
-        log(f"\n[{idx}/{len(targets)}] {name} (PID: {pid}) 빌드 시작...")
+        log(f"\n[{idx}/{len(targets)}] {name} (PID: {pid}) 鍮뚮뱶 ?쒖옉...")
 
-        # 최신 정보 가져오기
+        # 理쒖떊 ?뺣낫 媛?몄삤湲?
         detailed = inspect_place_detail(pid)
         if detailed:
             item.update(detailed)
 
-        # 슬러그 결정
+        # ?щ윭洹?寃곗젙
         folder_raw = item.get('folder', '')
         if folder_raw and '-' in folder_raw:
             slug = folder_raw.split('-')[-1]
@@ -356,43 +356,43 @@ def run_autonomous_batch():
             slug = f"stay-{pid}"
 
         built = build_stay_website(item, slug)
-        log(f"  -> 사이트 빌드 완료! 사진 {built['photosCount']}장 | {built['url']}")
+        log(f"  -> ?ъ씠??鍮뚮뱶 ?꾨즺! ?ъ쭊 {built['photosCount']}??| {built['url']}")
 
-        # 시트 행 생성
+        # ?쒗듃 ???앹꽦
         row = [
-            "숙박업",
+            "?숇컯??,
             item.get('naverLink', f"https://m.place.naver.com/accommodation/{pid}/home"),
             "95%",
             sanitize_text(item.get('name', '')),
             f"{today_prefix}-{slug}",
             built['url'],
-            "제작완료",
-            "준비완료",
+            "?쒖옉?꾨즺",
+            "以鍮꾩셿猷?,
             item.get('phone', '0507-0000-0000'),
-            item.get('address') or item.get('addr') or '제주특별자치도',
+            item.get('address') or item.get('addr') or '?쒖＜?밸퀎?먯튂??,
             str(item.get('price', 300000)),
             item.get('sns1') or item.get('instagram', ''),
             "",
             "",
             "",
-            f"자율제작엔진완료 (사진:{built['photosCount']}장/SVG단색화/화이트견적기)"
+            f"?먯쑉?쒖옉?붿쭊?꾨즺 (?ъ쭊:{built['photosCount']}??SVG?⑥깋???붿씠?멸껄?곴린)"
         ]
         built_sheet_rows.append(row)
 
-        # 5개마다 구글 시트 중간 전송
+        # 5媛쒕쭏??援ш? ?쒗듃 以묎컙 ?꾩넚
         if len(built_sheet_rows) % 5 == 0:
-            log(f"-> 5개 제작 완료. 구글 시트로 중간 전송 중...")
+            log(f"-> 5媛??쒖옉 ?꾨즺. 援ш? ?쒗듃濡?以묎컙 ?꾩넚 以?..")
             push_to_google_sheet(built_sheet_rows[-5:])
 
         time.sleep(0.5)
 
-    # 남은 행 최종 전송
+    # ?⑥? ??理쒖쥌 ?꾩넚
     remaining = len(built_sheet_rows) % 5
     if remaining > 0:
-        log(f"-> 남은 {remaining}개 행 구글 시트 최종 전송 중...")
+        log(f"-> ?⑥? {remaining}媛???援ш? ?쒗듃 理쒖쥌 ?꾩넚 以?..")
         push_to_google_sheet(built_sheet_rows[-remaining:])
 
-    log("\n🎉 총 20개 숙소 사이트 빌드 및 구글 시트 반영 완료!")
+    log("\n?럦 珥?20媛??숈냼 ?ъ씠??鍮뚮뱶 諛?援ш? ?쒗듃 諛섏쁺 ?꾨즺!")
 
 if __name__ == "__main__":
     run_autonomous_batch()

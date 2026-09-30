@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 ==============================================================================
-🔍 Adopter Dynamic Search & Continuous Producer (심야 무인 추가 발굴 및 제작)
+?뵇 Adopter Dynamic Search & Continuous Producer (?ъ빞 臾댁씤 異붽? 諛쒓뎬 諛??쒖옉)
 ------------------------------------------------------------------------------
-- 조천, 구좌, 성산, 표선, 남원, 서귀포, 안덕 등 제주 전역의 감성 숙소를 추가 발굴
-- Apollo State 및 앵커를 검사하여 외부 독립 홈페이지가 0개인 곳만 엄선
-- 사진 최대 10장 다운로드 및 맞춤형 사이트 빌드 (무채색 SVG 아이콘, 화이트 견적기)
-- 구글 시트로 신규 제작 행 실시간 전송
+- 議곗쿇, 援ъ쥖, ?깆궛, ?쒖꽑, ?⑥썝, ?쒓??? ?덈뜒 ???쒖＜ ?꾩뿭??媛먯꽦 ?숈냼瑜?異붽? 諛쒓뎬
+- Apollo State 諛??듭빱瑜?寃?ы븯???몃? ?낅┰ ?덊럹?댁?媛 0媛쒖씤 怨노쭔 ?꾩꽑
+- ?ъ쭊 理쒕? 10???ㅼ슫濡쒕뱶 諛?留욎땄???ъ씠??鍮뚮뱶 (臾댁콈??SVG ?꾩씠肄? ?붿씠??寃ъ쟻湲?
+- 援ш? ?쒗듃濡??좉퇋 ?쒖옉 ???ㅼ떆媛??꾩넚
 ==============================================================================
 """
 
@@ -47,13 +47,13 @@ opener = urllib.request.build_opener(RedirectHandler)
 def sanitize_text(text):
     if not text:
         return ""
-    text = text.replace("독채펜션", "단독펜션")
-    text = text.replace("독채 풀빌라", "단독 풀빌라")
-    text = text.replace("독채", "단독주택")
+    text = text.replace("?낆콈?쒖뀡", "?⑤룆?쒖뀡")
+    text = text.replace("?낆콈 ?鍮뚮씪", "?⑤룆 ?鍮뚮씪")
+    text = text.replace("?낆콈", "?⑤룆二쇳깮")
     return text.strip()
 
 def inspect_place_strictly(pid):
-    """외부 홈페이지가 0개인 곳만 선별"""
+    """?몃? ?덊럹?댁?媛 0媛쒖씤 怨노쭔 ?좊퀎"""
     url = f"https://m.place.naver.com/accommodation/{pid}/home"
     try:
         req = urllib.request.Request(url, headers=HEADERS)
@@ -62,7 +62,7 @@ def inspect_place_strictly(pid):
     except Exception:
         return None
 
-    # 홈페이지 존재 여부 검사
+    # ?덊럹?댁? 議댁옱 ?щ? 寃??
     state_match = re.search(r'__APOLLO_STATE__\s*=\s*(\{.*?\});\s*<\/script>', html, re.DOTALL)
     if not state_match:
         return None
@@ -72,13 +72,13 @@ def inspect_place_strictly(pid):
     except Exception:
         return None
 
-    # 홈페이지 링크 체크
+    # ?덊럹?댁? 留곹겕 泥댄겕
     anchors = re.findall(r'<a\s+[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)<\/a>', html, re.IGNORECASE)
     for href, text in anchors:
         if any(h in href.lower() for h in ['instagram.com', 'naver.com', 'daum.net', 'kakao.com', 'tel:']):
             continue
         if href.startswith('http') and not any(p in href for p in ['map.naver', 'm.place.naver', 'booking.naver']):
-            return None # 독립 홈페이지 보유 -> 제외
+            return None # ?낅┰ ?덊럹?댁? 蹂댁쑀 -> ?쒖쇅
 
     detail_keys = [k for k in state.keys() if k.startswith('PlaceDetailBase:')]
     if not detail_keys:
@@ -89,16 +89,16 @@ def inspect_place_strictly(pid):
     if not name:
         return None
 
-    # 홈페이지 URL 필드 체크
+    # ?덊럹?댁? URL ?꾨뱶 泥댄겕
     for k in ['homepage', 'url', 'site']:
         val = base.get(k)
         if val and isinstance(val, str) and val.startswith('http') and not any(p in val for p in ['instagram.com', 'naver.com']):
             return None
 
     phone = base.get('virtualPhone') or base.get('phone') or "0507-0000-0000"
-    road_addr = base.get('roadAddress') or base.get('address') or "제주특별자치도"
+    road_addr = base.get('roadAddress') or base.get('address') or "?쒖＜?밸퀎?먯튂??
 
-    # 인스타그램
+    # ?몄뒪?洹몃옩
     insta_link = ""
     for href, text in anchors:
         if 'instagram.com' in href.lower():
@@ -140,7 +140,7 @@ def build_stay_website(target, slug):
     clean_name = sanitize_text(target['name'])
     folder_name = f"{today_prefix}-{slug}-{clean_name.replace(' ', '')}"
     dest_dir = os.path.join(CUSTOMER_DIR, folder_name)
-    root_slug_dir = os.path.join(ADOPTER_DIR, slug)
+    root_slug_dir = os.path.join(ADOPTER_DIR, f"{today_prefix}-{slug}")
 
     os.makedirs(dest_dir, exist_ok=True)
     os.makedirs(root_slug_dir, exist_ok=True)
@@ -149,12 +149,42 @@ def build_stay_website(target, slug):
     os.makedirs(img_dir, exist_ok=True)
     os.makedirs(root_img_dir, exist_ok=True)
 
-    files_to_copy = ["index.html", ".gitignore", "robots.txt", "sitemap.xml"]
+# 1. ?쒗뵆由?蹂듭궗 諛?HTML ?대? ?띿뒪???대?吏 寃쎈줈 移섑솚
+    files_to_copy = [".gitignore", "robots.txt", "sitemap.xml"]
     for f in files_to_copy:
         src = os.path.join(TEMPLATE_DIR, f)
         if os.path.exists(src):
             shutil.copy2(src, os.path.join(dest_dir, f))
             shutil.copy2(src, os.path.join(root_slug_dir, f))
+
+    # index.html 移섑솚
+    index_src = os.path.join(TEMPLATE_DIR, "index.html")
+    if os.path.exists(index_src):
+        with open(index_src, "r", encoding="utf-8") as f:
+            html_content = f.read()
+
+        # ?띿뒪??移섑솚
+        html_content = html_content.replace("?ъ뒪?뚯씠", clean_name)
+        html_content = html_content.replace("HEESTAY", slug.upper())
+        html_content = html_content.replace("jejuheestay.co.kr", f"{slug}.adopter.co.kr")
+        
+        # ?대?吏 寃쎈줈 移섑솚 (photo_1.jpg ~ photo_10.jpg 諛섎났)
+        import urllib.parse
+        img_paths = re.findall(r'(\./img/[^"\'\s]+\.jpg|/img/[^"\'\s]+\.jpg|img/[^"\'\s]+\.jpg)', html_content)
+        unique_imgs = list(set(img_paths))
+        for idx, old_img in enumerate(unique_imgs):
+            new_img = old_img.replace(old_img.split('/')[-1], f"photo_{(idx % 10) + 1}.jpg")
+            html_content = html_content.replace(old_img, new_img)
+            # URL ?몄퐫?⑸맂 寃쎈줈??移섑솚
+            encoded_old = urllib.parse.quote(old_img)
+            if "%" in encoded_old:
+                encoded_new = urllib.parse.quote(new_img)
+                html_content = html_content.replace(encoded_old, encoded_new)
+                
+        with open(os.path.join(dest_dir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html_content)
+        with open(os.path.join(root_slug_dir, "index.html"), "w", encoding="utf-8") as f:
+            f.write(html_content)
 
     photos = fetch_photos(target['pid'])
     cat_cycle = ["exterior", "living", "bedroom", "kitchen", "outdoor"]
@@ -175,24 +205,24 @@ def build_stay_website(target, slug):
             photo_meta.append({
                 "src": f"./img/photo_{i}.jpg",
                 "cat": cat,
-                "title": f"{clean_name} {cat.capitalize()} 공간 {i}"
+                "title": f"{clean_name} {cat.capitalize()} 怨듦컙 {i}"
             })
         except Exception:
             pass
 
     price_val = 320000
     config_content = f"""/**
- * {clean_name} 공식 웹사이트 설정 데이터
+ * {clean_name} 怨듭떇 ?뱀궗?댄듃 ?ㅼ젙 ?곗씠??
  * Auto-generated by Adopter Continuous Search Engine
  */
 
 const STAY_CONFIG = {{
   brandName: "{clean_name}",
   brandSubtitle: "Jeju Private Stay",
-  tagline: "머묾, 그 자체가 온전한 쉼이 되는 곳",
-  description: "{clean_name}에서 전하는 온전하고 프라이빗한 쉼. 제주의 자연과 돌담이 어우러진 아름다운 공간.",
+  tagline: "癒몃Ь, 洹??먯껜媛 ?⑥쟾???쇱씠 ?섎뒗 怨?,
+  description: "{clean_name}?먯꽌 ?꾪븯???⑥쟾?섍퀬 ?꾨씪?대퉿???? ?쒖＜???먯뿰怨??뚮떞???댁슦?ъ쭊 ?꾨쫫?ㅼ슫 怨듦컙.",
   
-  owner: "호스트",
+  owner: "?몄뒪??,
   businessNo: "",
   address: "{target['address']}",
   phone: "{target['phone']}",
@@ -225,16 +255,16 @@ const STAY_CONFIG = {{
   }},
 
   freeBenefits: [
-    {{ title: "프라이빗 정원 & 테라스", subtitle: "Garden", desc: "단독 정원 및 야외 휴식 공간 완비" }},
-    {{ title: "사계절 전용 바베큐", subtitle: "BBQ", desc: "독립 다이닝 공간 및 그릴 무료 완비" }},
-    {{ title: "안락한 쉼과 온수", subtitle: "Relax", desc: "편안한 프리미엄 침구 및 쾌적한 전용 시설" }}
+    {{ title: "?꾨씪?대퉿 ?뺤썝 & ?뚮씪??, subtitle: "Garden", desc: "?⑤룆 ?뺤썝 諛??쇱쇅 ?댁떇 怨듦컙 ?꾨퉬" }},
+    {{ title: "?ш퀎???꾩슜 諛붾쿋??, subtitle: "BBQ", desc: "?낅┰ ?ㅼ씠??怨듦컙 諛?洹몃┫ 臾대즺 ?꾨퉬" }},
+    {{ title: "?덈씫???쇨낵 ?⑥닔", subtitle: "Relax", desc: "?몄븞???꾨━誘몄뾼 移④뎄 諛?苡뚯쟻???꾩슜 ?쒖꽕" }}
   ],
 
   spaces: {{
-    landSize: "120평 대지",
-    buildingSize: "35평 단독주택",
-    floor1: "거실, 풀옵션 주방, 마스터룸, 온돌룸, 욕실, 파우더룸",
-    outdoor: "프라이빗 정원, 야외 테라스, 개별 바베큐장, 전용 주차공간"
+    landSize: "120???吏",
+    buildingSize: "35???⑤룆二쇳깮",
+    floor1: "嫄곗떎, ??듭뀡 二쇰갑, 留덉뒪?곕８, ?⑤룎猷? ?뺤떎, ?뚯슦?붾８",
+    outdoor: "?꾨씪?대퉿 ?뺤썝, ?쇱쇅 ?뚮씪?? 媛쒕퀎 諛붾쿋?먯옣, ?꾩슜 二쇱감怨듦컙"
   }},
 
   photos: {json.dumps(photo_meta, ensure_ascii=False, indent=4)},
@@ -250,6 +280,25 @@ if (typeof module !== 'undefined' && module.exports) {{
     with open(os.path.join(root_slug_dir, "stay_config.js"), "w", encoding="utf-8") as f_cfg2:
         f_cfg2.write(config_content)
 
+
+    # Update route_map.js
+    route_map_path = os.path.join(ADOPTER_DIR, 'functions', '_route_map.js')
+    if os.path.exists(route_map_path):
+        with open(route_map_path, 'r', encoding='utf-8') as f:
+            rm_text = f.read()
+        import ast
+        try:
+            dict_str = rm_text.split('=', 1)[1].strip().rstrip(';')
+            route_map = ast.literal_eval(dict_str)
+        except:
+            route_map = {}
+    else:
+        route_map = {}
+        
+    route_map[slug] = f"{today_prefix}-{slug}"
+    with open(route_map_path, 'w', encoding='utf-8') as f:
+        f.write(f"export const routeMap = {repr(route_map)};\n")
+
     return {
         "slug": slug,
         "folder": folder_name,
@@ -264,16 +313,16 @@ def push_to_google_sheet(rows):
     req = urllib.request.Request(APPS_SCRIPT_URL, data=payload, headers={'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0'})
     try:
         with opener.open(req, timeout=20) as resp:
-            log(f"구글 시트 전송 결과: {resp.read().decode('utf-8')}")
+            log(f"援ш? ?쒗듃 ?꾩넚 寃곌낵: {resp.read().decode('utf-8')}")
     except Exception as e:
-        log(f"구글 시트 전송 에러: {e}")
+        log(f"援ш? ?쒗듃 ?꾩넚 ?먮윭: {e}")
 
 def run_continuous_producer():
     log("================================================================")
-    log("🔎 [Adopter 지속 발굴 & 제작 엔진 가동] 제주 미보유 숙소 추가 탐색")
+    log("?뵊 [Adopter 吏??諛쒓뎬 & ?쒖옉 ?붿쭊 媛?? ?쒖＜ 誘몃낫???숈냼 異붽? ?먯깋")
     log("================================================================")
 
-    # 기존 생성된 PID 목록 로드 (중복 생성 방지)
+    # 湲곗〈 ?앹꽦??PID 紐⑸줉 濡쒕뱶 (以묐났 ?앹꽦 諛⑹?)
     existing_folders = os.listdir(CUSTOMER_DIR)
     known_pids = set()
     for f in existing_folders:
@@ -282,15 +331,15 @@ def run_continuous_producer():
             known_pids.add(match.group(1))
 
     search_queries = [
-        "제주 조천 감성숙소", "제주 조천 풀빌라", "제주 구좌 감성숙소",
-        "제주 평대리 펜션", "제주 세화 풀빌라", "제주 성산 독채펜션",
-        "제주 표선 감성숙소", "제주 남원 펜션", "제주 위미 감성숙소",
-        "제주 안덕 감성숙소", "제주 대정 풀빌라", "제주 한경면 펜션"
+        "?쒖＜ 議곗쿇 媛먯꽦?숈냼", "?쒖＜ 議곗쿇 ?鍮뚮씪", "?쒖＜ 援ъ쥖 媛먯꽦?숈냼",
+        "?쒖＜ ?됰?由??쒖뀡", "?쒖＜ ?명솕 ?鍮뚮씪", "?쒖＜ ?깆궛 ?낆콈?쒖뀡",
+        "?쒖＜ ?쒖꽑 媛먯꽦?숈냼", "?쒖＜ ?⑥썝 ?쒖뀡", "?쒖＜ ?꾨? 媛먯꽦?숈냼",
+        "?쒖＜ ?덈뜒 媛먯꽦?숈냼", "?쒖＜ ????鍮뚮씪", "?쒖＜ ?쒓꼍硫??쒖뀡"
     ]
 
     discovered_candidates = []
     for q in search_queries:
-        log(f"검색 쿼리 실행 중: '{q}'...")
+        log(f"寃??荑쇰━ ?ㅽ뻾 以? '{q}'...")
         try:
             url = f"https://m.search.naver.com/search.naver?query={urllib.parse.quote(q)}"
             req = urllib.request.Request(url, headers=HEADERS)
@@ -306,36 +355,36 @@ def run_continuous_producer():
         if len(discovered_candidates) >= 20:
             break
 
-    log(f"총 {len(discovered_candidates)}개 신규 후보 발굴. 홈페이지 부재 여부 정밀 심사 시작...")
+    log(f"珥?{len(discovered_candidates)}媛??좉퇋 ?꾨낫 諛쒓뎬. ?덊럹?댁? 遺???щ? ?뺣? ?ъ궗 ?쒖옉...")
 
     qualified_targets = []
     for pid in discovered_candidates:
         info = inspect_place_strictly(pid)
         if info:
-            log(f"  ✨ [합격! 외부 홈페이지 없음] {info['name']} (PID: {pid})")
+            log(f"  ??[?⑷꺽! ?몃? ?덊럹?댁? ?놁쓬] {info['name']} (PID: {pid})")
             qualified_targets.append(info)
             if len(qualified_targets) >= 10:
                 break
         time.sleep(0.3)
 
-    log(f"\n최종 엄선된 {len(qualified_targets)}개 신규 숙소 자동 빌드 시작...")
+    log(f"\n理쒖쥌 ?꾩꽑??{len(qualified_targets)}媛??좉퇋 ?숈냼 ?먮룞 鍮뚮뱶 ?쒖옉...")
     today_prefix = datetime.now().strftime("%y%m%d")
     sheet_rows = []
 
     for idx, target in enumerate(qualified_targets, 1):
         slug = f"stay-{target['pid']}"
         built = build_stay_website(target, slug)
-        log(f"  [{idx}/{len(qualified_targets)}] {target['name']} -> {built['url']} (사진 {built['photosCount']}장)")
+        log(f"  [{idx}/{len(qualified_targets)}] {target['name']} -> {built['url']} (?ъ쭊 {built['photosCount']}??")
 
         row = [
-            "숙박업",
+            "?숇컯??,
             target['naverLink'],
             "95%",
             sanitize_text(target['name']),
             f"{today_prefix}-{slug}",
             built['url'],
-            "제작완료",
-            "준비완료",
+            "?쒖옉?꾨즺",
+            "以鍮꾩셿猷?,
             target['phone'],
             target['address'],
             "320000",
@@ -343,16 +392,16 @@ def run_continuous_producer():
             "",
             "",
             "",
-            f"자동발굴제작완료 (사진:{built['photosCount']}장/SVG단색화/화이트견적기)"
+            f"?먮룞諛쒓뎬?쒖옉?꾨즺 (?ъ쭊:{built['photosCount']}??SVG?⑥깋???붿씠?멸껄?곴린)"
         ]
         sheet_rows.append(row)
 
     if sheet_rows:
-        log("\n구글 시트로 신규 발굴 제작 데이터 전송 중...")
+        log("\n援ш? ?쒗듃濡??좉퇋 諛쒓뎬 ?쒖옉 ?곗씠???꾩넚 以?..")
         push_to_google_sheet(sheet_rows)
-        log("🎉 신규 발굴 10개 구글 시트 전송 완료!")
+        log("?럦 ?좉퇋 諛쒓뎬 10媛?援ш? ?쒗듃 ?꾩넚 ?꾨즺!")
     else:
-        log("신규 추가 발굴 완료!")
+        log("?좉퇋 異붽? 諛쒓뎬 ?꾨즺!")
 
 if __name__ == "__main__":
     run_continuous_producer()
