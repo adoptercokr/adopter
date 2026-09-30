@@ -1,99 +1,84 @@
+/**
+ * 제주 희스테이 (JEJU HEESTAY) 샘플 데이터 설정 파일
+ * 숙박업 웹사이트 마스터 템플릿 (templates/01-stay) 데이터 예시
+ */
+
 const STAY_CONFIG = {
-  variant: 1,
-  naverLink: "https://m.place.naver.com/accommodation/1647416345/home",
-  name: "희스테이 (HEESTAY)",
-  subtitle: "Jeju Private Poolvilla",
-  description: "머묾, 그 자체가 온전한 쉼이 되는 곳",
-  benefits: [
+  // 1. 브랜드 및 숙소 기본 정보
+  brandName: "제주 희스테이",
+  brandSubtitle: "Jeju Private Poolvilla",
+  tagline: "머묾, 그 자체가 온전한 쉼이 되는 곳",
+  description: "제주 성산 온평리 130평 대지 위 40평 2층 단독 풀빌라 희스테이. 야외 단독 수영장, 노천 온수 자쿠지, 사계절 바베큐 썬룸 추가비용 0원 무료. 투명한 공과금 실비 정산.",
+  
+  // 2. 호스트 및 사업자 정보
+  owner: "지희철",
+  businessNo: "526-40-00959",
+  address: "제주특별자치도 서귀포시 성산읍 온평서로 28-7",
+  phone: "070-7954-1417",
+  email: "jejuheestay@gmail.com",
+  domain: "jejuheestay.co.kr",
+  
+  // 3. 외부 연동 링크
+  kakaoChatUrl: "http://pf.kakao.com/_HCTxiX/chat",
+  naverMapUrl: "https://map.naver.com/v5/search/%EC%A0%9C%EC%A3%BC%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%84%9C%EA%B7%80%ED%8F%AC%EC%8B%9C%20%EC%84%B1%EC%82%B0%EC%9D%8D%20%EC%98%A8%ED%8F%89%EC%84%9C%EB%A1%9C%2028-7",
+  naverReservationUrl: "", // 네이버 예약 링크가 있을 경우 기입
+  
+  // 4. 유튜브 고화질 스트리밍 연동 (쇼츠 ID)
+  youtubeIntroId: "f09Xfn1fHm8", // 메인 100vh 비디오 배경 쇼츠
+  youtubeTourId: "JG92-0fSScQ",  // 공간 전체 둘러보기 모달 영상 쇼츠
+  
+  // 5. 숙박 요금 및 연박 할인 정책
+  pricing: {
+    weekday: 190000,              // 평일 1박 기본 요금
+    weekend: 210000,              // 주말 및 공휴일(공휴일 전날 포함) 1박 요금
+    peakSurcharge: 20000,         // 성수기(7, 8월, 명절 연휴) 1박 추가금
+    baseGuests: 4,                // 기본 기준 인원
+    maxGuests: 9,                 // 최대 수용 인원
+    extraGuestFee: 10000,         // 4인 초과 시 1인 1박당 추가금
+    minNights: 3,                 // 최소 숙박일 (기본 3박 이상)
+    discounts: {
+      days7: 10,                  // 7박 이상 10% 특별 할인
+      days14: 15,                 // 14박 이상 15% 보름 살기 할인
+      days28: 20                  // 28박 이상 20% 한달 살기 할인
+    },
+    depositLessThan7: 200000,     // 7박 미만 보증금
+    depositMoreThan7: 300000,     // 7박 이상 보증금
+    depositMoreThan28: 500000     // 28박 이상 보증금
+  },
+
+  // 6. 3대 무료 혜택 (시설 추가금 제로)
+  freeBenefits: [
     {
-      id: "pool",
-      icon: `<svg class="w-6 h-6 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 6 1M3 21c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 6 1M16 8a2 2 0 100-4 2 2 0 000 4zM7 9l4 4 4-2-1.5-3"/></svg>`,
-      title: "야외 온수 수영장 무료",
-      description: "돌담 아래 프라이빗 풀장. 타 숙소의 비싼 수영장 이용료 없이 온수 이용 가능합니다.",
-      detail: "공과금 실비: 수도·온수가스비는 마진 없이 계량기 실비로만 보증금에서 투명하게 정산됩니다."
+      title: "단독 야외 수영장",
+      subtitle: "Pool 0원",
+      desc: "온수 추가비 0원 / 프라이빗 단독 이용"
     },
     {
-      id: "jacuzzi",
-      icon: `<svg class="w-6 h-6 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"/></svg>`,
-      title: "야외 노천 자쿠지 무료",
-      description: "성산의 밤하늘 별을 보며 즐기는 사계절 야외 온수 스파. 시설 이용료 없이 자유롭게 힐링하세요.",
-      detail: "공과금 실비: 온수 공급에 사용된 실제 수도·가스 실비만 보증금에서 차감됩니다."
+      title: "프라이빗 노천 자쿠지",
+      subtitle: "Jacuzzi 0원",
+      desc: "사계절 온수 무료 / 돌담 힐링 스파"
     },
     {
-      id: "bbq",
-      icon: `<svg class="w-6 h-6 stroke-current" fill="none" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M8 4l2 3M16 4l-2 3M5 11h14a7 7 0 01-14 0zM7 16l-2 5M17 16l2 5M12 16v5"/></svg>`,
-      title: "사계절 바베큐 썬룸 무료",
-      description: "비바람 걱정 없는 독립 썬룸과 웨버 바베큐 그릴 장비 대여비가 전액 무료로 제공됩니다.",
-      detail: "안내: 일회용 석쇠망·숯은 개별 준비해 주시고, 이용 후 그릴 세척·정리 부탁드립니다."
+      title: "사계절 독립 바베큐장",
+      subtitle: "BBQ 0원",
+      desc: "그릴 및 썬룸 대여 0원 / 쾌적한 환기 완비"
     }
   ],
-  spaces: [
-    {
-      id: "space1",
-      title: "야외 풀장 & 노천 자쿠지",
-      subtitle: "온수 가능",
-      mainImage: "./img/수영장1.jpg",
-      images: ["./img/수영장2.jpg", "./img/자쿠지1.jpg", "./img/수영장테라스1.jpg"],
-      totalPhotos: 8
-    },
-    {
-      id: "space2",
-      title: "사계절 바베큐 썬룸",
-      subtitle: "웨버 그릴",
-      mainImage: "./img/썬룸1.jpg",
-      images: ["./img/썬룸1.jpg", "./img/썬룸2.jpg"],
-      totalPhotos: 2
-    },
-    {
-      id: "space3",
-      title: "1층 패밀리 거실",
-      subtitle: "마당 통창뷰",
-      mainImage: "./img/거실2.jpg",
-      images: ["./img/거실3.jpg", "./img/창1.jpg", "./img/스피커.jpg"],
-      totalPhotos: 5
-    },
-    {
-      id: "space4",
-      title: "풀옵션 주방 & 원목 식탁",
-      subtitle: "6인용",
-      mainImage: "./img/주방1.jpg",
-      images: ["./img/주방2.jpg", "./img/주방6.jpg", "./img/식탁2.jpg"],
-      totalPhotos: 6
-    },
-    {
-      id: "space5",
-      title: "침실 3개 (총 4베드)",
-      subtitle: "1·2층 분리",
-      mainImage: "./img/방1.jpg",
-      images: ["./img/방1화장대.jpg", "./img/방2.jpg", "./img/방3.jpg"],
-      totalPhotos: 4
-    },
-    {
-      id: "space6",
-      title: "2층 야외 전망 테라스",
-      subtitle: "성산 힐링뷰",
-      mainImage: "./img/2층테라스1.jpg",
-      images: ["./img/2층테라스2.jpg", "./img/2층테라스3.jpg", "./img/2층테라스4.jpg"],
-      totalPhotos: 4
-    }
-  ],
-  facilities: [
-    { name: "야외 수영장", icon: "수영장아이콘" },
-    { name: "노천 자쿠지", icon: "자쿠지아이콘" },
-    { name: "바베큐 썬룸", icon: "바베큐아이콘" },
-    { name: "무료 와이파이", icon: "와이파이아이콘" },
-    { name: "세탁기/건조기", icon: "세탁기아이콘" },
-    { name: "풀옵션 주방", icon: "주방아이콘" }
-  ],
-  rules: [
-    "실내 절대 금연",
-    "반려동물 동반 불가",
-    "밤 10시 이후 고성방가 자제",
-    "이용 후 주방기구 및 그릴 세척"
-  ],
-  rates: {
-    weekday: "190,000",
-    weekend: "210,000",
-    peak: "250,000"
-  }
+
+  // 7. 공간 구성 안내
+  spaces: {
+    landSize: "130평 대지",
+    buildingSize: "40평 2층 단독주택",
+    floor1: "거실, 풀옵션 주방, 세탁실, 방2개(각 퀸베드), 욕실1개, 6인 식탁",
+    floor2: "마스터룸(퀸+슈퍼싱글), 파우더룸, 욕실1개, 야외 전망 테라스",
+    outdoor: "단독 야외 수영장, 온수 자쿠지, 독립 썬룸 바베큐장, 프라이빗 잔디마당"
+  },
+
+  // 8. 관리자 비밀번호
+  adminPassword: "1316"
 };
+
+// 브라우저 및 Node 환경 호환
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = STAY_CONFIG;
+}
