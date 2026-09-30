@@ -1,4 +1,4 @@
-﻿import { routeMap } from './route_map.js';
+﻿import { routeMap } from './_route_map.js';
 
 export async function onRequest(context) {
   const { request, env } = context;
