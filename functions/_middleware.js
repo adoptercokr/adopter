@@ -1,3 +1,5 @@
+﻿import { routeMap } from './route_map.js';
+
 export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -7,12 +9,13 @@ export async function onRequest(context) {
   const parts = hostname.split('.');
   if (parts.length >= 3 && !['www', 'adopter', 'api'].includes(parts[0])) {
     const sub = parts[0];
+    const mappedFolder = routeMap[sub] || sub;
 
     let targetPath = url.pathname;
     if (targetPath === '/' || targetPath === '') {
-      targetPath = `/${sub}/index.html`;
-    } else if (!targetPath.startsWith(`/${sub}/`)) {
-      targetPath = `/${sub}${targetPath}`;
+      targetPath = //index.html;
+    } else if (!targetPath.startsWith(//)) {
+      targetPath = /;
     }
 
     const rewriteUrl = new URL(targetPath, request.url);

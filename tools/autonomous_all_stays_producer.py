@@ -131,7 +131,7 @@ def build_stay_website(target, slug):
     clean_name = sanitize_text(target['name'])
     folder_name = f"{today_prefix}-{slug}-{clean_name.replace(' ', '')}"
     dest_dir = os.path.join(CUSTOMER_DIR, folder_name)
-    root_slug_dir = os.path.join(ADOPTER_DIR, slug)
+    root_slug_dir = os.path.join(ADOPTER_DIR, f"{today_prefix}-{slug}")
 
     os.makedirs(dest_dir, exist_ok=True)
     os.makedirs(root_slug_dir, exist_ok=True)
@@ -271,6 +271,25 @@ if (typeof module !== 'undefined' && module.exports) {{
         f_cfg.write(config_content)
     with open(os.path.join(root_slug_dir, "stay_config.js"), "w", encoding="utf-8") as f_cfg2:
         f_cfg2.write(config_content)
+
+
+    # Update route_map.js
+    route_map_path = os.path.join(ADOPTER_DIR, 'functions', 'route_map.js')
+    if os.path.exists(route_map_path):
+        with open(route_map_path, 'r', encoding='utf-8') as f:
+            rm_text = f.read()
+        import ast
+        try:
+            dict_str = rm_text.split('=', 1)[1].strip().rstrip(';')
+            route_map = ast.literal_eval(dict_str)
+        except:
+            route_map = {}
+    else:
+        route_map = {}
+        
+    route_map[slug] = f"{today_prefix}-{slug}"
+    with open(route_map_path, 'w', encoding='utf-8') as f:
+        f.write(f"export const routeMap = {repr(route_map)};\n")
 
     return {
         "slug": slug,
