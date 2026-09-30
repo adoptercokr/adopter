@@ -1,19 +1,22 @@
-import urllib.request
+﻿import asyncio
+from playwright.async_api import async_playwright
 
-req = urllib.request.Request('https://moheomdam.adopter.co.kr/', headers={'User-Agent': 'Mozilla/5.0'})
-c = urllib.request.urlopen(req).read().decode('utf-8')
-gal_pos = c.find('id="gallery"')
-cal_pos = c.find('id="calendar-section"')
+async def main():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
+        
+        page.on('console', lambda msg: print(f"CONSOLE: {msg.type}: {msg.text}"))
+        page.on('pageerror', lambda err: print(f"PAGE ERROR: {err.stack}"))
+        
+        await page.goto('https://aewolrowa.adopter.co.kr/')
+        await page.wait_for_timeout(3000)
+        
+        # Check if spaces-container has images
+        html = await page.evaluate("document.getElementById('spaces-container') ? document.getElementById('spaces-container').innerHTML : 'NO_CONTAINER'")
+        print("SPACES CONTAINER HTML:\n", html[:500])
+        
+        await browser.close()
 
-print('--- Live moheomdam.adopter.co.kr Status ---')
-print('1. Gallery pos:', gal_pos, ', Calendar pos:', cal_pos)
-print('   -> Gallery before Calendar?:', gal_pos < cal_pos)
-print('2. Has favicon.svg?:', 'favicon.svg' in c)
-print('   -> Empty icon data:,?:', 'href="data:,"' in c)
-print('3. Has room1_1 to room1_10?:', all(f'room1_{i}.jpg' in c for i in range(1, 11)))
-print('   Has room2_1 to room2_10?:', all(f'room2_{i}.jpg' in c for i in range(1, 11)))
-print('   Has room3_1 to room3_10?:', all(f'room3_{i}.jpg' in c for i in range(1, 11)))
-print('4. Has roomAmenitiesGrid?:', 'id="roomAmenitiesGrid"' in c)
-print('   Has roomConfigCards?:', 'id="roomConfigCards"' in c)
-print('   Has roomPhotoIndex/Total?:', 'id="roomPhotoIndex"' in c and 'id="roomPhotoTotal"' in c)
-print('-------------------------------------------')
+if __name__ == '__main__':
+    asyncio.run(main())
