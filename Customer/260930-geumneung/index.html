@@ -68,6 +68,15 @@
     </div>
   </section>
 
+  <!-- Benefits Section -->
+  <section id="about" class="py-32 bg-brand-sand">
+    <div class="max-w-7xl mx-auto px-6">
+      <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+        <!-- Dynamically injected -->
+      </div>
+    </div>
+  </section>
+
   <!-- Space Gallery (Magazine Style) -->
   <section id="gallery" class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6">
@@ -163,6 +172,26 @@
       // Hero Image
       if(c.spaces && c.spaces.length > 0) {
         document.getElementById('hero-section').style.backgroundImage = `url('${c.spaces[0].mainImage}')`;
+      }
+
+      // Benefits
+      const bGrid = document.getElementById('benefits-grid');
+      if(c.benefits && c.benefits.length > 0) {
+        let bHtml = '';
+        c.benefits.forEach((b, idx) => {
+          bHtml += `
+            <div class="fade-up text-center" style="transition-delay: ${idx * 150}ms">
+              <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-brand-accent bg-white rounded-full shadow-sm">
+                ${b.icon}
+              </div>
+              <h4 class="text-xl mb-3 font-medium">${b.title}</h4>
+              <p class="text-brand-muted text-sm font-light leading-relaxed">${b.description}</p>
+            </div>
+          `;
+        });
+        bGrid.innerHTML = bHtml;
+      } else {
+        document.getElementById('about').style.display = 'none';
       }
 
       // Space Gallery (Alternating Magazine Style)
