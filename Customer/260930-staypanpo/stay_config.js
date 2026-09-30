@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "판포포구 스테이판포",
+  variant: 1,
+  naverLink: "https://m.place.naver.com/accommodation/1900000000/home", name: "판포포구 스테이판포",
   subtitle: "Premium Stay",
   description: "머묾, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [
@@ -21,8 +22,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

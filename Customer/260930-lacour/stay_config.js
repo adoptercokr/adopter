@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "흰수염고래리조트",
+  variant: 1,
+  naverLink: "https://m.place.naver.com/accommodation/37550280/home", name: "흰수염고래리조트",
   subtitle: "Premium Stay",
   description: "제주에서 아이와 함께 머물 숙소를 찾는다면 🐋💙 흰수염고래리조트 추천하고 싶어요! 아이와 여행할 때는 숙소 안에서도 아이들이 신나게 놀 수 있는지가 중요한데, 여기는 수영장과...",
   benefits: [
@@ -19,8 +20,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

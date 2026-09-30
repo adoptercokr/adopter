@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "보아비양",
+  variant: 3,
+  naverLink: "https://m.place.naver.com/accommodation/1631444549/home", name: "보아비양",
   subtitle: "Premium Stay",
   description: "#6월여행지 #클립챌린저 #오늘클립챌린지 제주에서 마주한 가장 완벽한 순간 🧡 비양도가 손에 잡힐 듯 가까운 이곳에서 하늘이 붉게 물드는 과정을 가만히 바라보고 있으면 세상의...",
   benefits: [
@@ -21,8 +22,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

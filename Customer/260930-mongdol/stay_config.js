@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "한림 몽돌하우스",
+  variant: 4,
+  naverLink: "https://m.place.naver.com/accommodation/2576795/home", name: "한림 몽돌하우스",
   subtitle: "Premium Stay",
   description: "머묾, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [
@@ -21,8 +22,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

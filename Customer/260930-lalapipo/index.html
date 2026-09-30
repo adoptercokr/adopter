@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="site-title">Premium Stay</title>
-  <meta name="description" id="site-desc" content="머묾, 그 자체가 온전한 쉼이 되는 공간">
+  <meta name="description" id="site-desc" content="Premium Private Stay">
   <link rel="icon" href="data:,">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Swiper JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
   <script src="stay_config.js"></script>
   <script>
     tailwind.config = {
@@ -33,12 +38,25 @@
     .lux-heading { font-family: 'Cormorant Garamond', 'Noto Serif KR', serif; letter-spacing: 0.05em; }
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .hero-bg { background-size: cover; background-position: center; position: relative; height: 100vh; }
-    .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)); position: absolute; inset: 0; }
     
-    /* 16:9 Magazine Style Image Containers */
-    .img-16-9 { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .img-3-4 { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .hero-slider { width: 100%; height: 100vh; position: relative; }
+    .hero-slide-img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; inset: 0; z-index: 10; pointer-events: none;}
+    .hero-content { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff;}
+    
+    /* Layout Variants */
+    .gallery-masonry { column-count: 2; column-gap: 1rem; }
+    @media (min-width: 768px) { .gallery-masonry { column-count: 3; } }
+    .gallery-masonry img { width: 100%; margin-bottom: 1rem; break-inside: avoid; object-fit: cover; }
+    
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 768px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+    .gallery-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    
+    .gallery-strip { display: flex; flex-direction: column; gap: 2rem; }
+    .gallery-strip img { width: 100%; height: auto; object-fit: cover; }
+    
+    .gallery-slider .swiper-slide img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
   </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-white">
@@ -53,40 +71,42 @@
         <a href="#rules" class="hover:text-brand-accent transition-colors">Guide</a>
         <a href="#reservation" class="hover:text-brand-accent transition-colors">Reservation</a>
       </nav>
-      <!-- Mobile Menu Button -->
       <button class="md:hidden text-2xl">☰</button>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-bg flex items-center justify-center text-white" id="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="relative z-10 text-center px-6 fade-up">
-      <p class="text-sm tracking-[0.3em] uppercase mb-6" id="hero-subtitle">Premium Private Stay</p>
-      <h2 class="lux-heading text-5xl md:text-7xl font-medium mb-8 leading-tight" id="hero-title">STAY</h2>
-      <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto" id="hero-desc">머묾, 그 자체가 온전한 쉼이 되는 공간</p>
+  <!-- Hero Section with Swiper -->
+  <section class="hero-slider swiper" id="heroSwiper">
+    <div class="swiper-wrapper" id="hero-wrapper">
+      <!-- Dynamically injected -->
     </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content px-6 fade-up">
+      <p class="text-sm tracking-[0.3em] uppercase mb-6 drop-shadow-md" id="hero-subtitle">Premium Private Stay</p>
+      <h2 class="lux-heading text-5xl md:text-7xl font-medium mb-8 leading-tight drop-shadow-lg" id="hero-title">STAY</h2>
+      <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto drop-shadow-md" id="hero-desc"></p>
+    </div>
+    <div class="swiper-pagination"></div>
   </section>
 
   <!-- Benefits Section -->
   <section id="about" class="py-32 bg-brand-sand">
     <div class="max-w-7xl mx-auto px-6">
-      <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
         <!-- Dynamically injected -->
       </div>
     </div>
   </section>
 
-  <!-- Space Gallery (Magazine Style) -->
+  <!-- Space Gallery (Pure Images, No Korean Text) -->
   <section id="gallery" class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-24 fade-up">
+      <div class="text-center mb-20 fade-up">
         <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">Space Gallery</h3>
-        <p class="text-brand-muted font-light">머무시는 동안 누릴 수 있는 특별한 공간들</p>
       </div>
       
-      <div id="spaces-container" class="space-y-32">
-        <!-- Dynamically injected -->
+      <div id="spaces-container" class="fade-up">
+        <!-- Dynamically injected based on variant -->
       </div>
     </div>
   </section>
@@ -95,30 +115,29 @@
   <section id="reservation" class="py-32 bg-brand-sand">
     <div class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-20 fade-up">
-        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">예약 및 요금 안내</h3>
-        <p class="text-brand-muted font-light">실시간 요금을 확인하시고 편리하게 예약하세요.</p>
+        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">Reservation</h3>
       </div>
       
       <div class="bg-white p-10 md:p-16 shadow-[0_20px_50px_rgba(0,0,0,0.05)] fade-up">
-        <h4 class="text-xl font-medium mb-8 border-b pb-4">기본 요금</h4>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        
+        <div id="price-block" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div class="text-center p-6 bg-brand-sand/50">
             <p class="text-sm text-brand-muted mb-2">주중 (일~목)</p>
-            <p class="text-2xl font-medium"><span id="price-weekday">200,000</span><span class="text-sm font-light">원</span></p>
+            <p class="text-2xl font-medium"><span id="price-weekday">-</span></p>
           </div>
           <div class="text-center p-6 bg-brand-sand/50">
             <p class="text-sm text-brand-muted mb-2">주말 (금,토)</p>
-            <p class="text-2xl font-medium"><span id="price-weekend">250,000</span><span class="text-sm font-light">원</span></p>
+            <p class="text-2xl font-medium"><span id="price-weekend">-</span></p>
           </div>
           <div class="text-center p-6 bg-brand-sand/50">
             <p class="text-sm text-brand-muted mb-2">성수기</p>
-            <p class="text-2xl font-medium"><span id="price-peak">250,000</span><span class="text-sm font-light">원</span></p>
+            <p class="text-2xl font-medium"><span id="price-peak">-</span></p>
           </div>
         </div>
 
         <div class="text-center pt-8 border-t">
-          <p class="mb-6 text-brand-muted text-sm">실시간 예약 상황과 정확한 요금은 네이버 예약에서 확인 가능합니다.</p>
-          <a href="#" class="inline-block bg-brand-dark text-white px-12 py-4 tracking-widest text-sm uppercase hover:bg-black transition-colors">
+          <p class="mb-6 text-brand-muted text-sm">자세한 객실 정보와 실시간 요금은 네이버 예약에서 확인 가능합니다.</p>
+          <a id="naver-link" href="#" target="_blank" class="inline-block bg-brand-dark text-white px-12 py-4 tracking-widest text-sm uppercase hover:bg-black transition-colors">
             네이버 예약하기
           </a>
         </div>
@@ -157,6 +176,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       if(typeof STAY_CONFIG === 'undefined') return;
       const c = STAY_CONFIG;
+      const variant = c.variant || 1; // Layout variant 1 to 4
 
       // Basic Text Setup
       document.title = c.name + " | Premium Stay";
@@ -169,10 +189,31 @@
       document.getElementById('footer-brand').innerText = c.name;
       document.getElementById('footer-year').innerText = new Date().getFullYear();
       
-      // Hero Image
-      if(c.spaces && c.spaces.length > 0) {
-        document.getElementById('hero-section').style.backgroundImage = `url('${c.spaces[0].mainImage}')`;
+      if(c.naverLink) document.getElementById('naver-link').href = c.naverLink;
+
+      // Combine all images from config for global use
+      let allImages = [];
+      if(c.spaces) {
+        c.spaces.forEach(s => {
+          if(s.mainImage && !allImages.includes(s.mainImage)) allImages.push(s.mainImage);
+          if(s.images) {
+            s.images.forEach(img => { if(!allImages.includes(img)) allImages.push(img); });
+          }
+        });
       }
+      // If we don't have enough images in config, generate fallbacks (photo_1 to photo_10)
+      if(allImages.length < 3) {
+        allImages = Array.from({length: 10}, (_, i) => `./img/photo_${i+1}.jpg`);
+      }
+
+      // Hero Slider Setup
+      const hWrapper = document.getElementById('hero-wrapper');
+      allImages.slice(0, 4).forEach(img => {
+        hWrapper.innerHTML += `<div class="swiper-slide"><img src="${img}" class="hero-slide-img" onerror="this.style.display='none'"></div>`;
+      });
+      new Swiper('#heroSwiper', {
+        loop: true, effect: 'fade', autoplay: { delay: 4000, disableOnInteraction: false }, speed: 1500
+      });
 
       // Benefits
       const bGrid = document.getElementById('benefits-grid');
@@ -190,38 +231,37 @@
           `;
         });
         bGrid.innerHTML = bHtml;
-      } else {
-        document.getElementById('about').style.display = 'none';
       }
 
-      // Space Gallery (Alternating Magazine Style)
+      // Space Gallery Based on Variant
       const sCont = document.getElementById('spaces-container');
-      if(c.spaces && c.spaces.length > 0) {
-        let galleryHtml = '';
-        c.spaces.forEach((s, i) => {
-          const isReverse = i % 2 !== 0;
-          let imagesHtml = '';
-          if(s.images && s.images.length > 0) {
-             imagesHtml = s.images.slice(0, 3).map(img => `<img src="${img}" class="img-16-9 mb-4" alt="공간 이미지">`).join('');
-          }
-          galleryHtml += `
-            <div class="flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center fade-up px-6 md:px-0">
-              <div class="w-full md:w-1/2">
-                <img src="${s.mainImage}" class="img-3-4" alt="${s.title}">
-              </div>
-              <div class="w-full md:w-1/2 px-0 md:px-12 text-center ${isReverse ? 'md:text-right' : 'md:text-left'}">
-                <p class="lux-heading text-brand-accent text-xl mb-2 tracking-widest uppercase">${s.subtitle || ''}</p>
-                <h4 class="text-4xl font-medium mb-8">${s.title}</h4>
-                <div class="space-y-4">
-                  ${imagesHtml}
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        sCont.innerHTML = galleryHtml;
+      const galImages = allImages.slice(1, 9); // Use up to 8 images for gallery
+      
+      if (variant === 1) {
+        // Variant 1: Masonry
+        sCont.className = 'gallery-masonry';
+        sCont.innerHTML = galImages.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
+      } else if (variant === 2) {
+        // Variant 2: Grid
+        sCont.className = 'gallery-grid';
+        sCont.innerHTML = galImages.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
+      } else if (variant === 3) {
+        // Variant 3: Strip (Full width staggered)
+        sCont.className = 'gallery-strip max-w-4xl mx-auto';
+        sCont.innerHTML = galImages.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
       } else {
-        document.getElementById('gallery').style.display = 'none';
+        // Variant 4: Carousel Slider
+        sCont.innerHTML = `
+          <div class="swiper gallery-slider" id="galSwiper">
+            <div class="swiper-wrapper">
+              ${galImages.map(img => `<div class="swiper-slide"><img src="${img}" onerror="this.style.display='none'"></div>`).join('')}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        `;
+        setTimeout(() => {
+          new Swiper('#galSwiper', { slidesPerView: 1.2, spaceBetween: 20, loop: true, breakpoints: { 768: { slidesPerView: 2.5 } } });
+        }, 100);
       }
 
       // Facilities
@@ -246,22 +286,21 @@
 
       // Rates
       if(c.rates) {
-        if(c.rates.weekday) document.getElementById('price-weekday').innerText = c.rates.weekday;
-        if(c.rates.weekend) document.getElementById('price-weekend').innerText = c.rates.weekend;
-        if(c.rates.peak) document.getElementById('price-peak').innerText = c.rates.peak;
+        if(c.rates.weekday === "0" || !c.rates.weekday) {
+          document.getElementById('price-block').style.display = 'none'; // Hide prices if not found
+        } else {
+          if(c.rates.weekday) document.getElementById('price-weekday').innerText = c.rates.weekday + '원';
+          if(c.rates.weekend) document.getElementById('price-weekend').innerText = c.rates.weekend + '원';
+          if(c.rates.peak) document.getElementById('price-peak').innerText = c.rates.peak + '원';
+        }
       }
 
-      // Scroll Animation Observer
+      // Observers
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
       }, { threshold: 0.1 });
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
       
-      // Header Scroll Effect
       window.addEventListener('scroll', () => {
         const header = document.getElementById('header');
         if (window.scrollY > 50) {

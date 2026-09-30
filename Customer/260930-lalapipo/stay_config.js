@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "라라피포 제주",
+  variant: 2,
+  naverLink: "https://m.place.naver.com/accommodation/1061012161/home", name: "라라피포 제주",
   subtitle: "Premium Stay",
   description: "마당(사진)도 너무 예쁘고 강아지와 묵기 너무 좋은 숙소였습니다ㅎㅎ 식구들이랑 갔다왔는데 어른들도 다들  너무 마음에 들어하셨어요~관리도 정말 깔끔히 잘 되어 있었고 벌레가 ...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

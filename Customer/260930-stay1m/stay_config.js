@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "스테이1미터",
+  variant: 4,
+  naverLink: "https://m.place.naver.com/accommodation/1730925405/home", name: "스테이1미터",
   subtitle: "Premium Stay",
   description: "제주의 서쪽, 용수리 마을에 위치한 스테이1미터(STAY1METER)는 초록 들판 사이로 바다와 차귀도 섬을 마주한 집입니다. 멀리서 보면 주변의 억새와 밀밭 사이에 낮게 떠...",
   benefits: [
@@ -21,8 +22,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

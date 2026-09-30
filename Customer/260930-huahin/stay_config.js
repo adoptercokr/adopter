@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "후아힌협재 풀빌라",
+  variant: 2,
+  naverLink: "https://m.place.naver.com/accommodation/1293795324/home", name: "후아힌협재 풀빌라",
   subtitle: "Premium Stay",
   description: "[공항에서 버스로 오시는 길] - 제주국제공항 4 탑승 > 한림고등학교[서] 하차 > 도보 15분 거리 위치 [렌트카 및 자차 이동 시] - 제주 제주시 명재로 61-13 혹...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

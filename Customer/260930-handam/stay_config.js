@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "스테이한담",
+  variant: 4,
+  naverLink: "https://m.place.naver.com/accommodation/1299722517/home", name: "스테이한담",
   subtitle: "Premium Stay",
   description: "<<찾아오는길 안내>>  자차 이용 시  내비게이션에 제주시 애월읍 납읍리 1683-1 또는 스테이한담(한담스테이X) 입력  대중교통 이용 시  1. 제주국제공항 도착 후 제...",
   benefits: [
@@ -20,8 +21,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

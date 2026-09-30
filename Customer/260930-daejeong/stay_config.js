@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "대정프라방",
+  variant: 2,
+  naverLink: "https://m.place.naver.com/accommodation/1124644686/home", name: "대정프라방",
   subtitle: "Premium Stay",
   description: "#대정프라방 #제주도단체펜션 #서귀포단체펜션 #제주가족펜션 #제주가족여행 #제주단체여행 #산방산 제주도 독채 단체 펜션 대정프라방 가는 길에 보이는 산방산과 푸른 하늘🩵💙",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

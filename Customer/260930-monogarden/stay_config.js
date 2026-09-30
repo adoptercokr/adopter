@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "모노가든",
+  variant: 3,
+  naverLink: "https://m.place.naver.com/accommodation/1185001387/home", name: "모노가든",
   subtitle: "Premium Stay",
   description: "[차로 오실 경우]  네비게이션에 모노가든 주소 [제주 제주시 애월읍 금성리 469] 를 검색해 주세요.  제주국제공항에서 약 22km, 50분 거리입니다.  [대중교통으로 ...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

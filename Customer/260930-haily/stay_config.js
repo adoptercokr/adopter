@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "하일리제주",
+  variant: 3,
+  naverLink: "https://m.place.naver.com/accommodation/1831033368/home", name: "하일리제주",
   subtitle: "Premium Stay",
   description: "독채,수영장 감성숙소 하일리제주 가격은 50만원 부터 제주특별자치도 제주시 애월읍 수산8길 6 https://www.instagram.com/highly_jeju/ 더 많은 ...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

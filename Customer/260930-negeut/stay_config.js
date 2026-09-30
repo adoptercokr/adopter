@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "스테이느긋",
+  variant: 4,
+  naverLink: "https://m.place.naver.com/accommodation/1266911405/home", name: "스테이느긋",
   subtitle: "Premium Stay",
   description: "찾아오시는 길  네비게이션에서 '스테이느긋'을 검색하시면 편하게 찾아오실 수 있습니다.  주소 제주특별자치도 제주시 애월읍 오당빌레길 30 (하가리 804-5)  제주공항에서...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

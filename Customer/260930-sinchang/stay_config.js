@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "모티브하우스",
+  variant: 1,
+  naverLink: "https://m.place.naver.com/accommodation/1188489877/home", name: "모티브하우스",
   subtitle: "Premium Stay",
   description: "저희 모티브하우스는 반려 동물 동반 입장이 불가합니다.  실내에서는 반드시 금연을 지켜주시고, 실내 고기구이,생선요리는  불가하오니 양해해 주시기 바랍니다. 그리고 정기적으로...",
   benefits: [
@@ -21,8 +22,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

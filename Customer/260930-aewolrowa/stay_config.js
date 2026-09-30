@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "하루를품다",
+  variant: 3,
+  naverLink: "https://m.place.naver.com/accommodation/160795798/home", name: "하루를품다",
   subtitle: "Premium Stay",
   description: "1. 제주공항 출발 시: 평화로(1135번 도로)를 타고 서귀포 방향으로 약 35분 직진 후 동광교차로에서 안덕 중문 방면 우측 진입, 동광본동로 표지판을 따라 오시면 됩니다...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

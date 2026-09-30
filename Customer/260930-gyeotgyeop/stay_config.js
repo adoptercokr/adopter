@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "곁겹",
+  variant: 3,
+  naverLink: "https://m.place.naver.com/accommodation/1076531080/home", name: "곁겹",
   subtitle: "Premium Stay",
   description: "사진으로 보고 예뻐서 선택했는데, 실제로 보니 분위기가 훨씬 더 좋았어요. 하얀 건물과 야자수, 수영장까지 어우러져 있어서 제주가 아니라 해외 휴양지에 온 것 같은 느낌✨  ...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

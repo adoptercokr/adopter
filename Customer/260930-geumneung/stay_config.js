@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "금능여관",
+  variant: 2,
+  naverLink: "https://m.place.naver.com/accommodation/2000699781/home", name: "금능여관",
   subtitle: "Premium Stay",
   description: "제주 금능해변 바로 앞 가성비 숙소 금능여관, 6살 아이랑 다녀온 솔직 후기",
   benefits: [
@@ -19,8 +20,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

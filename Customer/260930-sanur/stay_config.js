@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "사누르제주",
+  variant: 4,
+  naverLink: "https://m.place.naver.com/accommodation/2036409548/home", name: "사누르제주",
   subtitle: "Premium Stay",
   description: "여행 중에 정말 기대했던 숙소인데 기대 이상으로 너무 좋았고 완전 힐링했습니다!! 개인 풀빌라 숙소 가고 싶어서 선택했는데 수영장도 물놀이 하기 너무 좋았고 옆에 바로 자쿠지...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

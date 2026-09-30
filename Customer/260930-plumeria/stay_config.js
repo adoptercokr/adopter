@@ -1,5 +1,6 @@
 const STAY_CONFIG = {
-  name: "플루메리아 펜션",
+  variant: 2,
+  naverLink: "https://m.place.naver.com/accommodation/38729145/home", name: "플루메리아 펜션",
   subtitle: "Premium Stay",
   description: "[자차_렌터카 이용 시] 네이버 지도에 플루메리아 펜션 or 애월해안로 476 검색  [대중 교통이용] 1. 택시 : 제주공항에서 20분소요. 약 15,000원. 2. 버스 ...",
   benefits: [
@@ -24,8 +25,8 @@ const STAY_CONFIG = {
     "반려동물 동반 불가"
   ],
   rates: {
-    weekday: "200,000",
-    weekend: "250,000",
-    peak: "250,000"
+    weekday: "0",
+    weekend: "0",
+    peak: "0"
   }
 };

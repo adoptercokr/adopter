@@ -1,4 +1,6 @@
 const STAY_CONFIG = {
+  variant: 1,
+  naverLink: "https://m.place.naver.com/accommodation/1647416345/home",
   name: "희스테이 (HEESTAY)",
   subtitle: "Jeju Private Poolvilla",
   description: "머묾, 그 자체가 온전한 쉼이 되는 곳",
