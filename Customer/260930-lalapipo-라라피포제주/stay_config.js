@@ -1,5 +1,5 @@
 const STAY_CONFIG = {
-  name: "260930-lalapipo-라라피포제주",
+  name: "라라피포제주",
   subtitle: "Premium Stay",
   description: "머뮤, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [

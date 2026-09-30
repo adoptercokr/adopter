@@ -1,5 +1,5 @@
 const STAY_CONFIG = {
-  name: "260930-peaceofmind-평정심",
+  name: "평정심",
   subtitle: "Premium Stay",
   description: "머뮤, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [

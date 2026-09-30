@@ -1,5 +1,5 @@
 const STAY_CONFIG = {
-  name: "260930-staypanpo-판포포구스테이판포",
+  name: "판포포구스테이판포",
   subtitle: "Premium Stay",
   description: "머뮤, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [

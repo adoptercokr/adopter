@@ -1,5 +1,5 @@
 const STAY_CONFIG = {
-  name: "260930-wolla-월라",
+  name: "월라",
   subtitle: "Premium Stay",
   description: "머뮤, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [

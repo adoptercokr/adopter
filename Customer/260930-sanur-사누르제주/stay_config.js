@@ -1,5 +1,5 @@
 const STAY_CONFIG = {
-  name: "260930-sanur-사누르제주",
+  name: "사누르제주",
   subtitle: "Premium Stay",
   description: "머뮤, 그 자체가 온전한 쉼이 되는 공간",
   benefits: [
