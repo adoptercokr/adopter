@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="site-title">Premium Stay</title>
-  <meta name="description" id="site-desc" content="머묾, 그 자체가 온전한 쉼이 되는 공간">
+  <meta name="description" id="site-desc" content="Premium Private Stay">
   <link rel="icon" href="data:,">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Swiper JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+  <!-- GLightbox (For Image Enlarge) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+
   <script src="stay_config.js"></script>
   <script>
     tailwind.config = {
@@ -33,15 +42,50 @@
     .lux-heading { font-family: 'Cormorant Garamond', 'Noto Serif KR', serif; letter-spacing: 0.05em; }
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .hero-bg { background-size: cover; background-position: center; position: relative; height: 100vh; }
-    .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5)); position: absolute; inset: 0; }
     
-    /* 16:9 Magazine Style Image Containers */
-    .img-16-9 { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .img-3-4 { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .hero-slider { width: 100%; height: 100vh; position: relative; }
+    .hero-slide-img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); position: absolute; inset: 0; z-index: 10; pointer-events: none;}
+    .hero-content { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff;}
+    
+    /* Layout Variants (Made much bigger and cleaner) */
+    .gallery-masonry { column-count: 1; column-gap: 1.5rem; }
+    @media (min-width: 768px) { .gallery-masonry { column-count: 2; } }
+    .gallery-masonry img { width: 100%; margin-bottom: 1.5rem; break-inside: avoid; object-fit: cover; border-radius: 4px; cursor: pointer; transition: transform 0.5s ease; }
+    .gallery-masonry img:hover { transform: scale(1.02); }
+    
+    .gallery-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem; }
+    @media (min-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    .gallery-grid img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; cursor: pointer; transition: transform 0.5s ease; }
+    .gallery-grid img:hover { transform: scale(1.02); }
+    
+    .gallery-strip { display: flex; flex-direction: column; gap: 4rem; }
+    .gallery-strip img { width: 100%; height: auto; object-fit: cover; cursor: pointer; transition: transform 0.7s ease; }
+    .gallery-strip img:hover { transform: scale(1.03); }
+    
+    .gallery-slider .swiper-slide img { width: 100%; aspect-ratio: 16/9; object-fit: cover; cursor: pointer; border-radius: 8px; }
+
+    /* Floating Call Button */
+    .fab-call { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #111; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 9999; transition: transform 0.3s ease; }
+    .fab-call:hover { transform: scale(1.1); }
+
+    /* Calendar UI */
+    .calendar-container { background: #fff; border: 1px solid #EAE6E1; padding: 2rem; }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; text-align: center; }
+    .calendar-day-name { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .calendar-day { padding: 1rem 0; font-size: 1.1rem; cursor: pointer; transition: all 0.2s ease; border-radius: 4px; }
+    .calendar-day:hover { background: #F9F8F6; color: #A68A64; }
+    .calendar-day.selected { background: #111; color: #fff; }
+    .calendar-day.disabled { color: #ccc; cursor: not-allowed; text-decoration: line-through; }
   </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-white">
+
+  <!-- Floating Call Button -->
+  <a href="tel:" id="fab-phone" class="fab-call hidden">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+  </a>
 
   <!-- Header -->
   <header class="fixed w-full z-50 transition-all duration-500 bg-transparent text-white border-b border-transparent" id="header">
@@ -50,77 +94,111 @@
       <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
         <a href="#about" class="hover:text-brand-accent transition-colors">About</a>
         <a href="#gallery" class="hover:text-brand-accent transition-colors">Gallery</a>
-        <a href="#rules" class="hover:text-brand-accent transition-colors">Guide</a>
         <a href="#reservation" class="hover:text-brand-accent transition-colors">Reservation</a>
       </nav>
-      <!-- Mobile Menu Button -->
       <button class="md:hidden text-2xl">☰</button>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-bg flex items-center justify-center text-white" id="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="relative z-10 text-center px-6 fade-up">
-      <p class="text-sm tracking-[0.3em] uppercase mb-6" id="hero-subtitle">Premium Private Stay</p>
-      <h2 class="lux-heading text-5xl md:text-7xl font-medium mb-8 leading-tight" id="hero-title">STAY</h2>
-      <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto" id="hero-desc">머묾, 그 자체가 온전한 쉼이 되는 공간</p>
+  <!-- Hero Section with Swiper -->
+  <section class="hero-slider swiper" id="heroSwiper">
+    <div class="swiper-wrapper" id="hero-wrapper">
+      <!-- Dynamically injected -->
     </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content px-6 fade-up">
+      <p class="text-sm tracking-[0.3em] uppercase mb-6 drop-shadow-md" id="hero-subtitle">Premium Private Stay</p>
+      <h2 class="lux-heading text-5xl md:text-7xl font-medium mb-8 leading-tight drop-shadow-lg" id="hero-title">STAY</h2>
+      <p class="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto drop-shadow-md" id="hero-desc"></p>
+    </div>
+    <div class="swiper-pagination"></div>
   </section>
 
   <!-- Benefits Section -->
   <section id="about" class="py-32 bg-brand-sand">
     <div class="max-w-7xl mx-auto px-6">
-      <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <div id="benefits-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
         <!-- Dynamically injected -->
       </div>
     </div>
   </section>
 
-  <!-- Space Gallery (Magazine Style) -->
+  <!-- Space Gallery (Pure Images, Full screen variants, Lightbox integrated) -->
   <section id="gallery" class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-24 fade-up">
         <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">Space Gallery</h3>
-        <p class="text-brand-muted font-light">머무시는 동안 누릴 수 있는 특별한 공간들</p>
+        <p class="text-brand-muted font-light">사진을 클릭하시면 크게 보실 수 있습니다.</p>
       </div>
       
-      <div id="spaces-container" class="space-y-32">
-        <!-- Dynamically injected -->
+      <div id="spaces-container" class="fade-up">
+        <!-- Dynamically injected based on variant -->
       </div>
     </div>
   </section>
 
-  <!-- Reservation Section -->
+  <!-- Reservation & Calendar Section -->
   <section id="reservation" class="py-32 bg-brand-sand">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-5xl mx-auto px-6">
       <div class="text-center mb-20 fade-up">
-        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">예약 및 요금 안내</h3>
-        <p class="text-brand-muted font-light">실시간 요금을 확인하시고 편리하게 예약하세요.</p>
+        <h3 class="lux-heading text-3xl md:text-4xl font-medium mb-4">예약 및 요금 확인</h3>
+        <p class="text-brand-muted font-light">원하시는 날짜를 선택하여 실시간 견적을 확인하세요.</p>
       </div>
       
-      <div class="bg-white p-10 md:p-16 shadow-[0_20px_50px_rgba(0,0,0,0.05)] fade-up">
-        <h4 class="text-xl font-medium mb-8 border-b pb-4">기본 요금</h4>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div class="text-center p-6 bg-brand-sand/50">
-            <p class="text-sm text-brand-muted mb-2">주중 (일~목)</p>
-            <p class="text-2xl font-medium"><span id="price-weekday">200,000</span><span class="text-sm font-light">원</span></p>
+      <div class="bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] fade-up grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Calendar Left Side -->
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <button id="prev-month" class="text-2xl hover:text-brand-accent transition-colors">&lsaquo;</button>
+            <h4 class="text-xl font-medium" id="current-month">2026. 10</h4>
+            <button id="next-month" class="text-2xl hover:text-brand-accent transition-colors">&rsaquo;</button>
           </div>
-          <div class="text-center p-6 bg-brand-sand/50">
-            <p class="text-sm text-brand-muted mb-2">주말 (금,토)</p>
-            <p class="text-2xl font-medium"><span id="price-weekend">250,000</span><span class="text-sm font-light">원</span></p>
+          <div class="calendar-grid mb-2">
+            <div class="calendar-day-name text-red-500">Sun</div>
+            <div class="calendar-day-name">Mon</div>
+            <div class="calendar-day-name">Tue</div>
+            <div class="calendar-day-name">Wed</div>
+            <div class="calendar-day-name">Thu</div>
+            <div class="calendar-day-name">Fri</div>
+            <div class="calendar-day-name text-blue-500">Sat</div>
           </div>
-          <div class="text-center p-6 bg-brand-sand/50">
-            <p class="text-sm text-brand-muted mb-2">성수기</p>
-            <p class="text-2xl font-medium"><span id="price-peak">250,000</span><span class="text-sm font-light">원</span></p>
+          <div class="calendar-grid" id="calendar-days">
+            <!-- Days injected -->
           </div>
         </div>
 
-        <div class="text-center pt-8 border-t">
-          <p class="mb-6 text-brand-muted text-sm">실시간 예약 상황과 정확한 요금은 네이버 예약에서 확인 가능합니다.</p>
-          <a href="#" class="inline-block bg-brand-dark text-white px-12 py-4 tracking-widest text-sm uppercase hover:bg-black transition-colors">
-            네이버 예약하기
-          </a>
+        <!-- Rates Right Side -->
+        <div class="flex flex-col justify-center">
+          <h4 class="text-2xl font-medium mb-2" id="calc-title">기본 요금 안내</h4>
+          <p class="text-brand-muted mb-10 text-sm" id="calc-desc">달력에서 날짜를 선택하시면 해당일 요금이 계산됩니다.</p>
+          
+          <div id="price-block" class="space-y-6 mb-12">
+            <div class="flex justify-between items-center border-b pb-4">
+              <span class="text-brand-muted">주중 (일~목)</span>
+              <span class="text-xl font-medium" id="price-weekday">-</span>
+            </div>
+            <div class="flex justify-between items-center border-b pb-4">
+              <span class="text-brand-muted">주말 (금,토)</span>
+              <span class="text-xl font-medium" id="price-weekend">-</span>
+            </div>
+            <div class="flex justify-between items-center border-b pb-4">
+              <span class="text-brand-muted">성수기</span>
+              <span class="text-xl font-medium" id="price-peak">-</span>
+            </div>
+          </div>
+
+          <!-- Total Calculation Display -->
+          <div id="calc-result" class="hidden bg-brand-dark text-white p-6 mb-8 text-center">
+            <p class="text-sm uppercase tracking-widest opacity-80 mb-2">선택일자 요금</p>
+            <p class="text-3xl font-medium" id="calc-total">-</p>
+          </div>
+
+          <div class="text-center">
+            <a id="naver-link" href="#" target="_blank" class="block w-full bg-brand-dark text-white px-12 py-5 tracking-widest text-sm uppercase hover:bg-black transition-colors">
+              네이버 실시간 예약하기
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -157,6 +235,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       if(typeof STAY_CONFIG === 'undefined') return;
       const c = STAY_CONFIG;
+      const variant = c.variant || 1; // Layout variant 1 to 4
 
       // Basic Text Setup
       document.title = c.name + " | Premium Stay";
@@ -169,10 +248,35 @@
       document.getElementById('footer-brand').innerText = c.name;
       document.getElementById('footer-year').innerText = new Date().getFullYear();
       
-      // Hero Image
-      if(c.spaces && c.spaces.length > 0) {
-        document.getElementById('hero-section').style.backgroundImage = `url('${c.spaces[0].mainImage}')`;
+      if(c.naverLink) document.getElementById('naver-link').href = c.naverLink;
+      if(c.phone) {
+        const fab = document.getElementById('fab-phone');
+        fab.href = `tel:${c.phone}`;
+        fab.classList.remove('hidden');
       }
+
+      // Extract and combine all images
+      let allImages = [];
+      if(c.spaces) {
+        c.spaces.forEach(s => {
+          if(s.mainImage && !allImages.includes(s.mainImage)) allImages.push(s.mainImage);
+          if(s.images) {
+            s.images.forEach(img => { if(!allImages.includes(img)) allImages.push(img); });
+          }
+        });
+      }
+      if(allImages.length < 3) {
+        allImages = Array.from({length: 15}, (_, i) => `./img/photo_${i+1}.jpg`);
+      }
+
+      // Hero Slider Setup
+      const hWrapper = document.getElementById('hero-wrapper');
+      allImages.slice(0, 5).forEach(img => {
+        hWrapper.innerHTML += `<div class="swiper-slide"><img src="${img}" class="hero-slide-img" onerror="this.style.display='none'"></div>`;
+      });
+      new Swiper('#heroSwiper', {
+        loop: true, effect: 'fade', autoplay: { delay: 4000, disableOnInteraction: false }, speed: 1500
+      });
 
       // Benefits
       const bGrid = document.getElementById('benefits-grid');
@@ -190,39 +294,39 @@
           `;
         });
         bGrid.innerHTML = bHtml;
-      } else {
-        document.getElementById('about').style.display = 'none';
       }
 
-      // Space Gallery (Alternating Magazine Style)
+      // Space Gallery Based on Variant with Lightbox (GLightbox)
       const sCont = document.getElementById('spaces-container');
-      if(c.spaces && c.spaces.length > 0) {
-        let galleryHtml = '';
-        c.spaces.forEach((s, i) => {
-          const isReverse = i % 2 !== 0;
-          let imagesHtml = '';
-          if(s.images && s.images.length > 0) {
-             imagesHtml = s.images.slice(0, 3).map(img => `<img src="${img}" class="img-16-9 mb-4" alt="공간 이미지">`).join('');
-          }
-          galleryHtml += `
-            <div class="flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center fade-up px-6 md:px-0">
-              <div class="w-full md:w-1/2">
-                <img src="${s.mainImage}" class="img-3-4" alt="${s.title}">
-              </div>
-              <div class="w-full md:w-1/2 px-0 md:px-12 text-center ${isReverse ? 'md:text-right' : 'md:text-left'}">
-                <p class="lux-heading text-brand-accent text-xl mb-2 tracking-widest uppercase">${s.subtitle || ''}</p>
-                <h4 class="text-4xl font-medium mb-8">${s.title}</h4>
-                <div class="space-y-4">
-                  ${imagesHtml}
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        sCont.innerHTML = galleryHtml;
+      const galImages = allImages.slice(1); // Use all remaining images
+      
+      const renderImage = (img) => `<a href="${img}" class="glightbox"><img src="${img}" onerror="this.style.display='none'"></a>`;
+
+      if (variant === 1) {
+        sCont.className = 'gallery-masonry max-w-5xl mx-auto';
+        sCont.innerHTML = galImages.map(renderImage).join('');
+      } else if (variant === 2) {
+        sCont.className = 'gallery-grid max-w-5xl mx-auto';
+        sCont.innerHTML = galImages.map(renderImage).join('');
+      } else if (variant === 3) {
+        sCont.className = 'gallery-strip max-w-5xl mx-auto';
+        sCont.innerHTML = galImages.map(renderImage).join('');
       } else {
-        document.getElementById('gallery').style.display = 'none';
+        sCont.innerHTML = `
+          <div class="swiper gallery-slider" id="galSwiper">
+            <div class="swiper-wrapper">
+              ${galImages.map(img => `<div class="swiper-slide">${renderImage(img)}</div>`).join('')}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        `;
+        setTimeout(() => {
+          new Swiper('#galSwiper', { slidesPerView: 1.2, spaceBetween: 20, loop: true, breakpoints: { 768: { slidesPerView: 2.5, spaceBetween: 30 } } });
+        }, 100);
       }
+      
+      // Init Lightbox
+      GLightbox({ selector: '.glightbox' });
 
       // Facilities
       const fGrid = document.getElementById('facilities-grid');
@@ -244,24 +348,82 @@
         rList.innerHTML = ruleHtml;
       }
 
-      // Rates
+      // Rates & Calendar Logic
+      let pWd = 200000, pWe = 250000, pPk = 250000;
       if(c.rates) {
-        if(c.rates.weekday) document.getElementById('price-weekday').innerText = c.rates.weekday;
-        if(c.rates.weekend) document.getElementById('price-weekend').innerText = c.rates.weekend;
-        if(c.rates.peak) document.getElementById('price-peak').innerText = c.rates.peak;
+        pWd = parseInt((c.rates.weekday||"0").replace(/,/g,'')) || 0;
+        pWe = parseInt((c.rates.weekend||"0").replace(/,/g,'')) || 0;
+        pPk = parseInt((c.rates.peak||"0").replace(/,/g,'')) || 0;
+        
+        if(pWd > 0) document.getElementById('price-weekday').innerText = pWd.toLocaleString() + '원'; else document.getElementById('price-weekday').innerText = '실시간 확인';
+        if(pWe > 0) document.getElementById('price-weekend').innerText = pWe.toLocaleString() + '원'; else document.getElementById('price-weekend').innerText = '실시간 확인';
+        if(pPk > 0) document.getElementById('price-peak').innerText = pPk.toLocaleString() + '원'; else document.getElementById('price-peak').innerText = '실시간 확인';
       }
 
-      // Scroll Animation Observer
+      // Simple Calendar
+      const daysCont = document.getElementById('calendar-days');
+      const curMonthEl = document.getElementById('current-month');
+      let currDate = new Date();
+      currDate.setDate(1);
+
+      function renderCalendar() {
+        daysCont.innerHTML = '';
+        const year = currDate.getFullYear();
+        const month = currDate.getMonth();
+        curMonthEl.innerText = `${year}. ${month + 1}`;
+        
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        for(let i = 0; i < firstDay; i++) {
+          daysCont.innerHTML += `<div></div>`;
+        }
+        
+        const today = new Date();
+        for(let i = 1; i <= daysInMonth; i++) {
+          const dateObj = new Date(year, month, i);
+          const isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const isWeekend = dateObj.getDay() === 5 || dateObj.getDay() === 6; // Fri, Sat
+          
+          let className = 'calendar-day';
+          if(isPast) className += ' disabled';
+          else if(isWeekend) className += ' text-blue-500';
+          if(dateObj.getDay() === 0 && !isPast) className += ' text-red-500'; // Sun
+          
+          daysCont.innerHTML += `<div class="${className}" data-day="${i}" data-weekend="${isWeekend}">${i}</div>`;
+        }
+      }
+
+      renderCalendar();
+
+      document.getElementById('prev-month').addEventListener('click', () => { currDate.setMonth(currDate.getMonth() - 1); renderCalendar(); });
+      document.getElementById('next-month').addEventListener('click', () => { currDate.setMonth(currDate.getMonth() + 1); renderCalendar(); });
+
+      // Calendar Click to Calculate Price
+      daysCont.addEventListener('click', (e) => {
+        if(e.target.classList.contains('calendar-day') && !e.target.classList.contains('disabled')) {
+          document.querySelectorAll('.calendar-day').forEach(el => el.classList.remove('selected'));
+          e.target.classList.add('selected');
+          
+          if (pWd === 0) { document.getElementById('calc-title').innerText = '예상 결제 금액'; document.getElementById('calc-desc').innerText = '선택하신 날짜의 요금은 네이버 예약에서 실시간으로 확인 가능합니다.'; document.getElementById('price-block').classList.add('hidden'); document.getElementById('calc-result').classList.remove('hidden'); document.getElementById('calc-total').innerText = '실시간 요금 확인'; return; }
+          
+          const isWeekend = e.target.getAttribute('data-weekend') === 'true';
+          const price = isWeekend ? pWe : pWd;
+          
+          document.getElementById('calc-title').innerText = "예상 결제 금액";
+          document.getElementById('calc-desc').innerText = "선택하신 날짜의 1박 기준 실시간 요금입니다.";
+          document.getElementById('price-block').classList.add('hidden');
+          document.getElementById('calc-result').classList.remove('hidden');
+          document.getElementById('calc-total').innerText = price.toLocaleString() + '원';
+        }
+      });
+
+      // Observers
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
       }, { threshold: 0.1 });
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
       
-      // Header Scroll Effect
       window.addEventListener('scroll', () => {
         const header = document.getElementById('header');
         if (window.scrollY > 50) {
