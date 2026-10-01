@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>하루를품다 | 전통과 현대가 조화롭게 어우러진 한옥 풀빌라</title>
+  <meta name="description" content="서까래의 우아함과 최신식 스파의 편리함을 동시에 누리는 가장 한국적이고 럭셔리한 하루.">
+  <link rel="icon" href="data:,">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', '"Noto Serif KR"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          },
+          colors: {
+            heritage: {
+              bg: '#EBE7DF',
+              card: '#F2EFE8',
+              border: '#CDC7B9',
+              text: '#3A352F',
+              muted: '#7C756B',
+              dark: '#22201C'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #EBE7DF; color: #3A352F; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Cormorant Garamond', 'Noto Serif KR', serif; font-weight: 400; }
+    
+    /* Elegant thin borders */
+    .border-heritage { border-color: rgba(205, 199, 185, 0.7); border-width: 1px; }
+    .framed-img { padding: 0.75rem; background-color: #F2EFE8; border: 1px solid rgba(205, 199, 185, 0.7); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5); }
+    
+    /* Scroll Animations */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    
+    .zoom-in { opacity: 0; transform: scale(0.97); transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+    .zoom-in.visible { opacity: 1; transform: scale(1); }
+    
+    /* Header transition */
+    .header-scrolled { background-color: rgba(235, 231, 223, 0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(205, 199, 185, 0.6); padding-top: 1rem; padding-bottom: 1rem; }
+    #main-header { transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); padding-top: 2rem; padding-bottom: 2rem; }
+    
+    /* Button Hover */
+    .btn-elegant {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-elegant::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+    }
+    .btn-elegant:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#3A352F] selection:text-[#EBE7DF]">
+
+  <!-- Header -->
+  <header id="main-header" class="fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <nav class="hidden md:flex gap-12 text-[9px] tracking-[0.3em] uppercase font-sans font-light text-heritage-dark">
+        <a href="#about" class="hover:text-heritage-muted transition-colors duration-300 btn-elegant pb-1">Heritage</a>
+        <a href="#accommodations" class="hover:text-heritage-muted transition-colors duration-300 btn-elegant pb-1">Villas</a>
+      </nav>
+      <a href="#" class="text-2xl md:text-4xl font-serif tracking-widest text-heritage-dark uppercase flex flex-col items-center group">
+        <span class="group-hover:opacity-70 transition-opacity duration-500">Moheomdam</span>
+      </a>
+      <nav class="hidden md:flex gap-12 text-[9px] tracking-[0.3em] uppercase font-sans font-light text-heritage-dark">
+        <a href="#gallery" class="hover:text-heritage-muted transition-colors duration-300 btn-elegant pb-1">Gallery</a>
+        <a href="#contact" class="hover:text-heritage-muted transition-colors duration-300 btn-elegant pb-1">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative h-screen flex items-center justify-center pt-24 overflow-hidden">
+    <div class="absolute inset-0 m-4 md:m-8 lg:m-12 framed-img zoom-in">
+      <img src="https://images.unsplash.com/photo-1542314831-c6a4d14faaf2?auto=format&fit=crop&q=80&w=1920" alt="Moheomdam Exterior" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-heritage-dark/20 mix-blend-multiply"></div>
+    </div>
+    <div class="relative z-10 text-center text-white px-6 fade-up flex flex-col items-center">
+      <span class="text-[9px] md:text-[10px] font-sans font-light tracking-[0.5em] uppercase mb-8 block opacity-90">Jeju Private Heritage</span>
+      <h1 class="text-7xl md:text-8xl lg:text-[10rem] font-serif mb-12 tracking-wide leading-none drop-shadow-lg">Moheomdam</h1>
+      <a href="#accommodations" class="inline-block border border-white/50 text-white px-10 py-4 text-[10px] font-sans tracking-[0.3em] uppercase hover:bg-white hover:text-heritage-dark transition-all duration-500 backdrop-blur-sm">
+        Discover the Villas
+      </a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-32 md:py-48 px-6 md:px-12 relative overflow-hidden">
+    <!-- Decorative faint logo/text in background -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-serif text-heritage-border opacity-[0.15] select-none pointer-events-none whitespace-nowrap italic tracking-wider">
+      Moheomdam
+    </div>
+    
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-center relative z-10">
+      <div class="w-full md:w-5/12 fade-up">
+        <div class="aspect-[3/4] framed-img relative group overflow-hidden bg-heritage-card p-4">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=1920" alt="Heritage" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter sepia-[0.1]">
+        </div>
+      </div>
+      <div class="w-full md:w-7/12 text-center md:text-left fade-up">
+        <span class="text-[10px] font-sans tracking-[0.4em] uppercase text-heritage-muted mb-8 block">The Heritage</span>
+        <h2 class="text-4xl md:text-6xl lg:text-7xl font-serif italic mb-10 leading-[1.1] text-heritage-dark">A Sanctuary<br>of True Rest</h2>
+        <div class="w-12 h-[1px] bg-heritage-muted mb-10 mx-auto md:mx-0"></div>
+        <p class="font-serif text-heritage-dark leading-loose mb-8 text-lg md:text-xl lg:text-2xl font-light">
+          Surrounded by the serene forests and historic stone walls of Jeju, Moheomdam is a private sanctuary designed for unparalleled relaxation. Experience the warmth of our signature round fireplace and the tranquility of lush, private gardens.
+        </p>
+        <p class="font-sans font-light text-heritage-muted leading-relaxed text-xs tracking-[0.2em] uppercase mt-12">
+          Discover a place where time slows down.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accommodations -->
+  <section id="accommodations" class="py-32 md:py-48 px-6 md:px-12 bg-heritage-card border-y border-heritage">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-24 fade-up flex flex-col items-center">
+        <span class="text-[10px] font-sans tracking-[0.4em] uppercase text-heritage-muted mb-6 block">Accommodations</span>
+        <h2 class="text-4xl md:text-6xl font-serif italic text-heritage-dark mb-8">Our Private Villas</h2>
+        <div class="w-px h-16 bg-heritage-muted/50"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+        <!-- Room 1 -->
+        <div class="group cursor-pointer fade-up flex flex-col items-center text-center">
+          <div class="w-full aspect-[3/4] framed-img mb-10 overflow-hidden bg-heritage-bg p-3">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1920" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 filter contrast-[0.95]">
+          </div>
+          <h3 class="text-2xl md:text-3xl font-serif mb-4 text-heritage-dark group-hover:text-heritage-muted transition-colors duration-500">The First Villa</h3>
+          <p class="text-[9px] font-sans text-heritage-muted tracking-[0.3em] uppercase opacity-80">Garden & Kitchen</p>
+        </div>
+        <!-- Room 2 -->
+        <div class="group cursor-pointer fade-up flex flex-col items-center text-center" style="transition-delay: 150ms;">
+          <div class="w-full aspect-[3/4] framed-img mb-10 overflow-hidden bg-heritage-bg p-3">
+            <img src="./img/room2_1.jpg" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 filter contrast-[0.95]" onerror="this.src='https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=1920'">
+          </div>
+          <h3 class="text-2xl md:text-3xl font-serif mb-4 text-heritage-dark group-hover:text-heritage-muted transition-colors duration-500">The Second Villa</h3>
+          <p class="text-[9px] font-sans text-heritage-muted tracking-[0.3em] uppercase opacity-80">Fireplace Lounge</p>
+        </div>
+        <!-- Room 3 -->
+        <div class="group cursor-pointer fade-up flex flex-col items-center text-center" style="transition-delay: 300ms;">
+          <div class="w-full aspect-[3/4] framed-img mb-10 overflow-hidden bg-heritage-bg p-3">
+            <img src="./img/room3_1.jpg" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105 filter contrast-[0.95]" onerror="this.src='https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=1920'">
+          </div>
+          <h3 class="text-2xl md:text-3xl font-serif mb-4 text-heritage-dark group-hover:text-heritage-muted transition-colors duration-500">The Signature Villa</h3>
+          <p class="text-[9px] font-sans text-heritage-muted tracking-[0.3em] uppercase opacity-80">Private Pool & Jacuzzi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-32 md:py-48 px-6 md:px-12 bg-heritage-bg">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-24 fade-up">
+        <span class="text-[10px] font-sans tracking-[0.4em] uppercase text-heritage-muted mb-6 block">Visual Journey</span>
+        <h2 class="text-4xl md:text-6xl font-serif italic text-heritage-dark">Atmosphere</h2>
+      </div>
+      
+      <div class="columns-1 md:columns-2 lg:columns-3 gap-6 lg:gap-10 space-y-6 lg:space-y-10">
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1542314831-c6a4d14faaf2?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1505843513577-22bb7abd211c?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+        <div class="break-inside-avoid framed-img p-2 lg:p-3 fade-up group overflow-hidden bg-heritage-card"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=1920" class="w-full h-auto transition duration-[2s] group-hover:scale-[1.03] filter grayscale-[10%]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-heritage-dark text-[#EBE7DF] py-32 md:py-48 px-8 text-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-c6a4d14faaf2?auto=format&fit=crop&q=80&w=1920')] opacity-[0.03] mix-blend-overlay bg-cover bg-center"></div>
+    
+    <div class="max-w-2xl mx-auto fade-up relative z-10">
+      <h2 class="text-5xl md:text-7xl font-serif mb-12 tracking-widest uppercase">Moheomdam</h2>
+      <p class="font-sans font-light text-[10px] md:text-xs mb-8 tracking-[0.4em] uppercase text-heritage-border">Jeju, South Korea</p>
+      <p class="font-serif font-light text-xl md:text-2xl mb-20 opacity-90 italic">377-3, Deokhaeng-ro, Gujwa-eup, Jeju-si</p>
+      
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16 mb-24">
+        <a href="https://www.instagram.com/moheomdam" class="text-[10px] font-sans tracking-[0.3em] uppercase hover:text-white transition-colors duration-300 opacity-60 hover:opacity-100 btn-elegant pb-1">Instagram</a>
+        <div class="w-[1px] h-4 bg-white opacity-20 hidden sm:block"></div>
+        <a href="tel:0507-1347-3972" class="text-[10px] font-sans tracking-[0.3em] uppercase hover:text-white transition-colors duration-300 opacity-60 hover:opacity-100 btn-elegant pb-1">0507-1347-3972</a>
+        <div class="w-[1px] h-4 bg-white opacity-20 hidden sm:block"></div>
+        <a href="https://m.place.naver.com/accommodation/1716272359/home" class="text-[10px] font-sans tracking-[0.3em] uppercase hover:text-white transition-colors duration-300 opacity-60 hover:opacity-100 btn-elegant pb-1">Naver Booking</a>
+      </div>
+      
+      <div class="border-t border-white/10 pt-12">
+        <p class="font-sans text-[9px] tracking-[0.3em] uppercase opacity-30">&copy; 2026 Moheomdam. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts for animations and interactions -->
+  <script>
+    // Header Scroll Effect
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+
+    // Intersection Observer for Fade-up and Zoom-in Animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up, .zoom-in').forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Trigger initial animations
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.zoom-in').forEach(el => el.classList.add('visible'));
+      }, 150);
+    });
+  </script>
+</body>
+</html>
