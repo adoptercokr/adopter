@@ -1,50 +1,78 @@
-﻿import re, os
+﻿import os
+import re
 
-def fix_calendar():
-    for d in os.listdir('Customer'):
-        if not d.startswith('260930-'): continue
-        p = os.path.join('Customer', d, 'index.html')
-        if not os.path.exists(p): continue
-        
-        with open(p, 'r', encoding='utf-8') as f: html = f.read()
-        
-        # 1. Hide roomTab2 and roomTab3
-        html = html.replace('id="roomTab2"', 'id="roomTab2" style="display:none;"')
-        html = html.replace('id="roomTab3"', 'id="roomTab3" style="display:none;"')
-        
-        # 2. Fix the loop in selectRoomType to only use [1]
-        html = html.replace('[1, 2, 3].forEach(id => {', '[1].forEach(id => {')
-        
-        # 3. Fix loadRoomsConfig if it tries to load 1,2,3
-        # I will also just make sure ROOMS has 2 and 3 as fallbacks just in case
-        fallback_rooms = '''
-    const DEFAULT_ROOMS = {
-      1: {
-        name: nm,
-        badge: "독채",
-        baseGuests: 2,
-        maxGuests: 4,
-        weekdayPrice: pWd,
-        weekendPrice: pWe,
-        peakSurcharge: pPk > pWe ? (pPk - pWe) : 0,
-        extraGuestFee: 20000,
-        priceRange: pWd.toLocaleString() + "원 ~ " + pWe.toLocaleString() + "원",
-        metaRooms: "공간",
-        metaTime: "입실 15:00 · 퇴실 11:00",
-        desc: "", guide: "", config: [], amenities: []
-      },
-      2: { name: "Room 2", baseGuests: 2, weekdayPrice: 0 },
-      3: { name: "Room 3", baseGuests: 2, weekdayPrice: 0 }
-    };
-'''
-        # Replace the DEFAULT_ROOMS definition in html
-        html = re.sub(r'const DEFAULT_ROOMS = \{.*?\n    \};', fallback_rooms.strip(), html, flags=re.DOTALL)
-        
-        # 4. Remove grid-cols-3 and make it grid-cols-1 for the room tabs
-        html = html.replace('class="grid grid-cols-3 gap-2"', 'class="grid grid-cols-1 gap-2"')
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+ADOPTER_DIR = os.path.dirname(CURRENT_DIR)
 
-        with open(p, 'w', encoding='utf-8') as f:
+configs = [
+    {"id": "interview", "rooms": ["프라이빗 풀빌라"]},
+    {"id": "uretreat", "rooms": ["유리트리트 A동", "유리트리트 B동"]},
+    {"id": "stjohns", "rooms": ["이그제큐티브 스위트"]},
+    {"id": "heritage", "rooms": ["헤리티지 본채", "헤리티지 사랑채"]},
+    {"id": "ramada", "rooms": ["펜트하우스"]},
+    {"id": "surfyy", "rooms": ["서피 카바나"]},
+    {"id": "oceanview", "rooms": ["오션뷰 디럭스", "오션뷰 스위트"]},
+    {"id": "delpino", "rooms": ["로얄 스위트"]},
+    {"id": "flora", "rooms": ["플로라 독채"]},
+    {"id": "solsuite", "rooms": ["쏠비치 산토리니", "쏠비치 아쿠아"]}
+]
+
+for c in configs:
+    folder = os.path.join(ADOPTER_DIR, c['id'])
+    
+    # 1. Update index.html
+    html_path = os.path.join(folder, 'index.html')
+    if os.path.exists(html_path):
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+            
+        # Rename rooms
+        if len(c['rooms']) >= 1:
+            html = html.replace("첫번째모험담", c['rooms'][0])
+            html = html.replace("첫번째모험", c['rooms'][0])
+        if len(c['rooms']) >= 2:
+            html = html.replace("두번째모험담", c['rooms'][1])
+            html = html.replace("두번째모험", c['rooms'][1])
+            
+        # Hide unused rooms
+        hide_css = "<style>\n"
+        if len(c['rooms']) == 1:
+            hide_css += "#roomTab2, #roomTab3, #priceTab2, #priceTab3 { display: none !important; }\n"
+        elif len(c['rooms']) == 2:
+            hide_css += "#roomTab3, #priceTab3 { display: none !important; }\n"
+        hide_css += "</style>\n</head>"
+        
+        html = html.replace("</head>", hide_css)
+        
+        # General Moheomdam replace
+        html = re.sub(r'모험담(?!\.adopter)', c['rooms'][0].split()[0], html) # Replace generic 모험담 with first word of room
+        html = html.replace('MOHEOMDAM', c['rooms'][0].split()[0].upper())
+        html = html.replace('moheomdam.adopter.co.kr', f"{c['id']}.adopter.co.kr")
+        html = html.replace('instagram.com/moheomdam', f"instagram.com/{c['id']}")
+        
+        with open(html_path, 'w', encoding='utf-8') as f:
             f.write(html)
-        print(f"Fixed {d}")
+            
+    # 2. Update stay_config.js
+    cfg_path = os.path.join(folder, 'stay_config.js')
+    if os.path.exists(cfg_path):
+        with open(cfg_path, 'r', encoding='utf-8') as f:
+            cfg = f.read()
+            
+        if len(c['rooms']) >= 1:
+            cfg = cfg.replace("첫번째모험담", c['rooms'][0])
+            cfg = cfg.replace("첫번째모험", c['rooms'][0])
+        if len(c['rooms']) >= 2:
+            cfg = cfg.replace("두번째모험담", c['rooms'][1])
+            cfg = cfg.replace("두번째모험", c['rooms'][1])
+            
+        cfg = re.sub(r'모험담(?!\.adopter)', c['rooms'][0].split()[0], cfg)
+        cfg = cfg.replace('MOHEOMDAM', c['rooms'][0].split()[0].upper())
+        cfg = cfg.replace('moheomdam.adopter.co.kr', f"{c['id']}.adopter.co.kr")
+        cfg = cfg.replace('instagram.com/moheomdam', f"instagram.com/{c['id']}")
+        
+        with open(cfg_path, 'w', encoding='utf-8') as f:
+            f.write(cfg)
+            
+    print(f"Fixed {c['id']}")
 
-fix_calendar()

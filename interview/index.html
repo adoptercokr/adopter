@@ -82,6 +82,9 @@
       cursor: not-allowed;
     }
   </style>
+<style>
+#roomTab2, #roomTab3, #priceTab2, #priceTab3 { display: none !important; }
+</style>
 </head>
 <body class="antialiased selection:bg-brand-wood selection:text-white">
 
@@ -660,7 +663,7 @@
           <!-- 객실명 & 가격 & Npay+ -->
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <h3 class="font-serif-kr text-2xl font-bold text-stone-900" id="roomTitle">첫번째모험</h3>
+              <h3 class="font-serif-kr text-2xl font-bold text-stone-900" id="roomTitle">프라이빗 풀빌라</h3>
               <span class="text-stone-400 text-xs">▼</span>
             </div>
             <div class="flex items-center gap-2 mb-3">
@@ -879,7 +882,7 @@
     // 1. 객실 기본 메타데이터
     const DEFAULT_ROOMS = {
       1: {
-        name: "첫번째모험",
+        name: "프라이빗 풀빌라",
         badge: "독채 1동 · 커플&소규모",
         baseGuests: 2,
         maxGuests: 4,
