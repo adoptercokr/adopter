@@ -1,0 +1,126 @@
+{
+  "props": {
+    "pageProps": {
+      "dehydratedState": {
+        "mutations": [],
+        "queries": [
+          {
+            "dehydratedAt": 1790814884641,
+            "state": {
+              "data": {
+                "check_in": "2026-12-16",
+                "check_out": "2026-12-17"
+              },
+              "dataUpdateCount": 1,
+              "dataUpdatedAt": 1790814884591,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchFailureReason": null,
+              "fetchMeta": null,
+              "isInvalidated": false,
+              "status": "success",
+              "fetchStatus": "idle"
+            },
+            "queryKey": [
+              "config"
+            ],
+            "queryHash": "[\"config\"]"
+          },
+          {
+            "dehydratedAt": 1790814884642,
+            "state": {
+              "data": [
+                {
+                  "id": 4,
+                  "type": "search_ads",
+                  "placement": "search_top",
+                  "title": "검색 광고",
+                  "description": "우리 지역 검색 결과 최상단에 우리 스테이를 노출해요.",
+                  "locale": [
+                    "ko",
+                    "en",
+                    "ja"
+                  ],
+                  "order": 1,
+                  "status": "published",
+                  "translation": {
+                    "ko": {
+                      "title": "검색 광고",
+                      "description": "우리 지역 검색 결과 최상단에 우리 스테이를 노출해요."
+                    },
+                    "en": {
+                      "title": "검색 광고",
+                      "description": "우리 지역 검색 결과 최상단에 우리 스테이를 노출해요."
+                    },
+                    "ja": {
+                      "title": "검색 광고",
+                      "description": "우리 지역 검색 결과 최상단에 우리 스테이를 노출해요."
+                    }
+                  },
+                  "adPlaces": []
+                }
+              ],
+              "dataUpdateCount": 1,
+              "dataUpdatedAt": 1790814884641,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchFailureReason": null,
+              "fetchMeta": null,
+              "isInvalidated": false,
+              "status": "success",
+              "fetchStatus": "idle"
+            },
+            "queryKey": [
+              "ads",
+              {
+                "city": "gangwon-do",
+                "check_in": "2026-12-16",
+                "check_out": "2026-12-17",
+                "adult_cnt": 2,
+                "locale": "ko",
+                "type": "search_ads",
+                "placement": "search_top"
+              }
+            ],
+            "queryHash": "[\"ads\",{\"adult_cnt\":2,\"check_in\":\"2026-12-16\",\"check_out\":\"2026-12-17\",\"city\":\"gangwon-do\",\"locale\":\"ko\",\"placement\":\"search_top\",\"type\":\"search_ads\"}]"
+          }
+        ]
+      },
+      "_sentryTraceData": "fed086bae1bbd7ba729bf8dbc4e5e4af-1d2cf0104b287505",
+      "_sentryBaggage": "sentry-environment=production,sentry-release=1738626d2,sentry-public_key=8ac5626b6a38fc02015810641196cde6,sentry-trace_id=fed086bae1bbd7ba729bf8dbc4e5e4af,sentry-org_id=4508651693080576"
+    },
+    "__N_SSP": true
+  },
+  "page": "/findstay",
+  "query": {
+    "city": "gangwon-do"
+  },
+  "buildId": "_M9LVhlDxE0RUJxMHpaRj",
+  "isFallback": false,
+  "isExperimentalCompile": false,
+  "gssp": true,
+  "locale": "ko",
+  "locales": [
+    "ko",
+    "en",
+    "ja"
+  ],
+  "defaultLocale": "ko",
+  "domainLocales": [
+    {
+      "domain": "www.stayfolio.jp",
+      "defaultLocale": "ja"
+    }
+  ],
+  "scriptLoader": [
+    {
+      "id": "codenbutter-init",
+      "strategy": "afterInteractive",
+      "children": "\n              if (typeof window.CodenButter === \"function\") {\n                window.CodenButter(\"boot\", {\n                  siteId: \"ijqjntuwow\",\n                  auto: true,\n                  waitForSetUser: true,\n                  breakpoint: { width: 768, scope: \"EMBEDDED\" },\n                });\n              }\n            "
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모험담 (MOHEOMDAM) | Jeju Private Stay</title>
+    <meta name="description" content="모험담에서 전하는 온전하고 프라이빗한 쉼. 제주의 자연과 돌담이 어우러진 아름다운 공간.">
+    <link rel="icon" href="data:,">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#050B14',
+                            navylight: '#0A1320',
+                            gold: '#C5A880',
+                            goldlight: '#E8D5B5',
+                            white: '#F9F8F6',
+                            stone: '#242320',
+                            naver: '#03C75A'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', '"Noto Serif KR"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                        mega: '.35em'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 2.5s ease-out forwards',
+                        'fade-up': 'fadeUp 2s ease-out forwards',
+                        'slow-zoom': 'slowZoom 20s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 1s ease-out forwards'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slowZoom: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.08)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050B14; color: #E8D5B5; }
+        ::selection { background-color: #C5A880; color: #050B14; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050B14; }
+        ::-webkit-scrollbar-thumb { background: #C5A880; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E8D5B5; }
+
+        /* Navigation glass effect */
+        .glass-nav {
+            background: linear-gradient(to bottom, rgba(5, 11, 20, 0.95) 0%, rgba(5, 11, 20, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 168, 128, 0.15);
+        }
+
+        /* Hover lines */
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 50%;
+            background-color: #C5A880;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .hover-line:hover::after { width: 100%; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-500">
+        <div class="max-w-[1400px] mx-auto px-6 h-24 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="font-serif text-2xl md:text-3xl tracking-widest text-brand-gold uppercase">Moheomdam</a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-12">
+                <a href="#about" class="relative hover-line text-xs tracking-mega text-brand-goldlight/80 hover:text-brand-gold transition-colors">ABOUT</a>
+                <a href="#gallery" class="relative hover-line text-xs tracking-mega text-brand-goldlight/80 hover:text-brand-gold transition-colors">GALLERY</a>
+                <a href="#reservation" class="relative hover-line text-xs tracking-mega text-brand-goldlight/80 hover:text-brand-gold transition-colors">RESERVATION</a>
+            </nav>
+            
+            <!-- Mobile Menu Btn -->
+            <button class="md:hidden text-brand-gold">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <!-- Background Video / Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="./img/photo_1.jpg" alt="Moheomdam" class="w-full h-full object-cover opacity-50 animate-slow-zoom">
+            <div class="absolute inset-0 bg-brand-navy opacity-30 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/80 via-transparent to-brand-navy"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 flex flex-col items-center mt-20 animate-fade-up">
+            <span class="font-sans text-xs md:text-sm tracking-mega text-brand-goldlight/80 mb-8 uppercase">Jeju Private Stay</span>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-9xl tracking-[0.15em] text-brand-gold mb-12 uppercase drop-shadow-2xl font-light">Moheomdam</h1>
+            <div class="w-[1px] h-32 bg-gradient-to-b from-brand-gold to-transparent opacity-60"></div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section id="about" class="py-32 md:py-48 px-6 relative bg-brand-navy overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-brand-gold/30"></div>
+        
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="font-serif text-2xl md:text-4xl text-brand-gold mb-12 tracking-widest font-light leading-relaxed">머묾, 그 자체가<br>온전한 쉼이 되는 곳</h2>
+            <p class="font-serif text-lg md:text-xl text-brand-goldlight/70 leading-loose max-w-2xl mx-auto mb-20 font-light">
+                모험담에서 전하는 온전하고 프라이빗한 쉼.<br>
+                제주의 자연과 돌담이 어우러진 아름다운 공간.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 mt-32">
+                <div class="flex flex-col items-center">
+                    <span class="text-brand-gold/40 text-sm mb-4 font-serif italic">01</span>
+                    <div class="w-8 h-px bg-brand-gold/30 mb-6"></div>
+                    <h3 class="font-serif text-xl text-brand-gold mb-3 tracking-widest">GARDEN</h3>
+                    <p class="text-xs text-brand-goldlight/50 tracking-wider">프라이빗 정원 & 테라스</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-brand-gold/40 text-sm mb-4 font-serif italic">02</span>
+                    <div class="w-8 h-px bg-brand-gold/30 mb-6"></div>
+                    <h3 class="font-serif text-xl text-brand-gold mb-3 tracking-widest">BBQ</h3>
+                    <p class="text-xs text-brand-goldlight/50 tracking-wider">사계절 전용 바베큐</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-brand-gold/40 text-sm mb-4 font-serif italic">03</span>
+                    <div class="w-8 h-px bg-brand-gold/30 mb-6"></div>
+                    <h3 class="font-serif text-xl text-brand-gold mb-3 tracking-widest">RELAX</h3>
+                    <p class="text-xs text-brand-goldlight/50 tracking-wider">안락한 쉼과 온수</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Space Gallery Section -->
+    <section id="gallery" class="py-32 bg-brand-navylight border-t border-brand-gold/10">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+            <div class="text-center mb-24 reveal">
+                <span class="text-xs tracking-mega text-brand-goldlight/60 uppercase mb-4 block">Visual Journey</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-widest text-brand-gold font-light">SPACE GALLERY</h2>
+                <div class="w-16 h-[1px] bg-brand-gold/40 mx-auto mt-10"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 reveal">
+                <!-- Gallery Item 1 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_1.jpg" alt="Exterior" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">EXTERIOR</span>
+                    </div>
+                </div>
+                <!-- Gallery Item 2 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_2.jpg" alt="Living" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">LIVING</span>
+                    </div>
+                </div>
+                <!-- Gallery Item 3 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_3.jpg" alt="Bedroom" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">BEDROOM</span>
+                    </div>
+                </div>
+                <!-- Gallery Item 4 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_4.jpg" alt="Kitchen" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">KITCHEN</span>
+                    </div>
+                </div>
+                <!-- Gallery Item 5 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_5.jpg" alt="Outdoor" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">OUTDOOR</span>
+                    </div>
+                </div>
+                <!-- Gallery Item 6 -->
+                <div class="group relative aspect-[3/4] overflow-hidden cursor-pointer bg-brand-navy">
+                    <img src="./img/photo_6.jpg" alt="Exterior" class="w-full h-full object-cover opacity-70 transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100">
+                    <div class="absolute inset-0 border border-brand-gold/0 group-hover:border-brand-gold/20 m-4 transition-all duration-700 pointer-events-none"></div>
+                    <div class="absolute bottom-8 left-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform translate-y-4 group-hover:translate-y-0">
+                        <span class="font-serif text-brand-gold tracking-widest text-lg">GARDEN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation & Calendar Section (White/Off-white background per MJ Absolute Rule) -->
+    <section id="reservation" class="py-32 bg-brand-white text-brand-stone border-t border-[#EFECE6]">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="text-center mb-16">
+                <span class="text-xs tracking-mega text-[#8C7A6B] uppercase mb-4 block font-sans">Booking</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-widest text-[#242320] font-light">예약 및 견적 확인</h2>
+                <div class="w-16 h-[1px] bg-[#8C7A6B] mx-auto mt-10"></div>
+            </div>
+            
+            <div class="bg-white shadow-xl shadow-black/5 rounded-2xl overflow-hidden border border-[#EFECE6]">
+                <div class="flex flex-col lg:flex-row">
+                    <!-- Calendar UI (Left) -->
+                    <div class="flex-[3] p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-[#EFECE6]">
+                        <div class="flex justify-between items-center mb-10">
+                            <button class="text-[#8C7A6B] p-2 hover:bg-[#F9F8F6] rounded-full transition-colors focus:outline-none">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+                            <h3 class="font-serif text-2xl text-[#242320]">2026. 10</h3>
+                            <button class="text-[#8C7A6B] p-2 hover:bg-[#F9F8F6] rounded-full transition-colors focus:outline-none">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-7 gap-2 md:gap-4 text-center mb-4">
+                            <div class="text-xs md:text-sm text-red-500/80 font-medium">SUN</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">MON</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">TUE</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">WED</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">THU</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">FRI</div>
+                            <div class="text-xs md:text-sm text-[#8C7A6B] font-medium">SAT</div>
+                        </div>
+                        
+                        <!-- Calendar Days Grid (Mockup) -->
+                        <div class="grid grid-cols-7 gap-2 md:gap-4 text-center text-sm md:text-base">
+                            <!-- Empty slots -->
+                            <div class="py-3 md:py-4"></div><div class="py-3 md:py-4"></div><div class="py-3 md:py-4"></div><div class="py-3 md:py-4"></div>
+                            
+                            <!-- Days -->
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">1</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">2</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-red-500/80">3</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">4</div>
+                            <div class="py-3 md:py-4 line-through text-red-400 bg-red-50 rounded-lg cursor-not-allowed">5</div>
+                            <div class="py-3 md:py-4 line-through text-red-400 bg-red-50 rounded-lg cursor-not-allowed">6</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">7</div>
+                            <div class="py-3 md:py-4 bg-[#242320] text-white rounded-lg shadow-md">8</div>
+                            <div class="py-3 md:py-4 bg-[#EFECE6] text-[#242320] rounded-lg">9</div>
+                            <div class="py-3 md:py-4 bg-[#242320] text-white rounded-lg shadow-md text-red-500 font-bold">10</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">11</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">12</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">13</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">14</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">15</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">16</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-red-500/80">17</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">18</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">19</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">20</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">21</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">22</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">23</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-red-500/80">24</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">25</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">26</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">27</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">28</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">29</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-[#242320]">30</div>
+                            <div class="py-3 md:py-4 hover:bg-[#242320] hover:text-white rounded-lg cursor-pointer transition-colors text-red-500/80">31</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quote UI (Right) -->
+                    <div class="flex-[2] bg-[#F9F8F6] p-8 md:p-12 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-serif text-2xl mb-8 border-b border-[#EFECE6] pb-6 text-[#242320]">요금 산출</h4>
+                            
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[#8C7A6B] text-sm">일정</span>
+                                    <span class="font-medium text-[#242320]">10.08(목) - 10.10(토) / 2박</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[#8C7A6B] text-sm">객실 요금 (평일 1박, 주말 1박)</span>
+                                    <span class="text-[#242320]">670,000원</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[#8C7A6B] text-sm">인원 (기준 4인 / 최대 8인)</span>
+                                    <div class="flex items-center gap-4">
+                                        <button class="w-8 h-8 rounded-full border border-[#EFECE6] flex items-center justify-center hover:bg-white text-[#8C7A6B]">-</button>
+                                        <span class="font-medium text-[#242320] w-4 text-center">4</span>
+                                        <button class="w-8 h-8 rounded-full border border-[#EFECE6] flex items-center justify-center hover:bg-white text-[#8C7A6B]">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12 pt-8 border-t border-[#EFECE6]">
+                            <div class="flex justify-between items-end mb-8">
+                                <span class="font-serif text-lg text-[#242320]">총 예상 금액</span>
+                                <span class="text-3xl font-serif text-[#242320]">670,000<span class="text-lg ml-1">원</span></span>
+                            </div>
+                            
+                            <!-- Naver Booking Button per Absolute Rule -->
+                            <a href="https://m.place.naver.com/accommodation/1716272359/home" target="_blank" class="w-full py-5 bg-brand-naver hover:bg-[#02b351] text-white text-center rounded-xl font-medium transition-all shadow-lg shadow-brand-naver/20 flex items-center justify-center gap-3 text-lg">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z"/></svg>
+                                네이버 예약하기
+                            </a>
+                            <p class="text-center text-xs text-[#8C7A6B] mt-4">예약 확정은 네이버 예약을 통해 진행됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-[#03060a] py-24 border-t border-brand-gold/5 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 relative z-10 reveal">
+            <h2 class="font-serif text-3xl tracking-widest text-brand-gold mb-10 uppercase font-light">Moheomdam</h2>
+            
+            <div class="text-sm text-brand-goldlight/40 space-y-3 mb-12 font-sans font-light tracking-wide leading-relaxed">
+                <p>제주 제주시 구좌읍 덕행로 377-3</p>
+                <p>대표: 호스트 <span class="mx-2">|</span> 연락처: 0507-1347-3972 <span class="mx-2">|</span> 이메일: contact@adopter.co.kr</p>
+                <p>사업자등록번호: -</p>
+            </div>
+            
+            <div class="flex justify-center space-x-8">
+                <!-- Instagram Icon (Monochrome SVG) -->
+                <a href="https://www.instagram.com/moheomdam" target="_blank" class="text-brand-gold/60 hover:text-brand-gold transition-colors p-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                
+                <!-- Admin Login (Secret Mode Entry) -->
+                <button onclick="prompt('관리자 비밀번호를 입력하세요:');" class="text-brand-gold/60 hover:text-brand-gold transition-colors p-2" title="관리자 모드">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </button>
+            </div>
+            
+            <div class="w-12 h-px bg-brand-gold/20 mx-auto my-10"></div>
+            <p class="text-[10px] tracking-[0.2em] text-brand-goldlight/20 font-sans uppercase">© MOHEOMDAM. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Simple Scroll Reveal Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            function reveal() {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+                
+                reveals.forEach((element) => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', reveal);
+            reveal(); // trigger on load
+        });
+    </script>
+</body>
+</html>
