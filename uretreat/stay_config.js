@@ -69,22 +69,22 @@ const STAY_CONFIG = {
         "title": "유리트리트 Exterior 공간 1"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "유리트리트 Living 공간 2"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "유리트리트 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "유리트리트 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "유리트리트 Outdoor 공간 5"
     },

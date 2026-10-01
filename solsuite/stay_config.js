@@ -64,47 +64,47 @@ const STAY_CONFIG = {
   // 8. 포토 갤러리 메타데이터
   photos: [
     {
-        "src": "https://images.unsplash.com/photo-1618140052121-39fc6db33972?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "쏠비치 Exterior 공간 1"
     },
     {
-        "src": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "쏠비치 Living 공간 2"
     },
     {
-        "src": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "쏠비치 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1583847268964-b28ce8f52f36?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "쏠비치 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "쏠비치 Outdoor 공간 5"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "쏠비치 Exterior 공간 6"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "쏠비치 Living 공간 7"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1618140052121-39fc6db33972?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "쏠비치 Bedroom 공간 8"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "쏠비치 Kitchen 공간 9"
     }

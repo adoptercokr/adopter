@@ -79,32 +79,32 @@ const STAY_CONFIG = {
         "title": "헤리티지 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "헤리티지 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "헤리티지 Outdoor 공간 5"
     },
     {
-        "src": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "헤리티지 Exterior 공간 6"
     },
     {
-        "src": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "헤리티지 Living 공간 7"
     },
     {
-        "src": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "헤리티지 Bedroom 공간 8"
     },
     {
-        "src": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "헤리티지 Kitchen 공간 9"
     }

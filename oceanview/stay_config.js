@@ -64,47 +64,47 @@ const STAY_CONFIG = {
   // 8. 포토 갤러리 메타데이터
   photos: [
     {
-        "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1542314831-c6a4d14faaf2?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "오션뷰 Exterior 공간 1"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "오션뷰 Living 공간 2"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "오션뷰 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "오션뷰 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "오션뷰 Outdoor 공간 5"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "오션뷰 Exterior 공간 6"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "오션뷰 Living 공간 7"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600585154526-990dced4ea0d?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "오션뷰 Bedroom 공간 8"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1505843513577-22bb7abd211c?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "오션뷰 Kitchen 공간 9"
     }

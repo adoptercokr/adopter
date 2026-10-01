@@ -79,32 +79,32 @@ const STAY_CONFIG = {
         "title": "펜트하우스 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1583847268964-b28ce8f52f36?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "펜트하우스 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "펜트하우스 Outdoor 공간 5"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "펜트하우스 Exterior 공간 6"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "펜트하우스 Living 공간 7"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "펜트하우스 Bedroom 공간 8"
     },
     {
-        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "펜트하우스 Kitchen 공간 9"
     }

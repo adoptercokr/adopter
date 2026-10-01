@@ -69,22 +69,22 @@ const STAY_CONFIG = {
         "title": "이그제큐티브 Exterior 공간 1"
     },
     {
-        "src": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "이그제큐티브 Living 공간 2"
     },
     {
-        "src": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "이그제큐티브 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1599427301072-5e8348d61d19?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "이그제큐티브 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1583847268964-b28ce8f52f36?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "이그제큐티브 Outdoor 공간 5"
     },

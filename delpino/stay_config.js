@@ -64,47 +64,47 @@ const STAY_CONFIG = {
   // 8. 포토 갤러리 메타데이터
   photos: [
     {
-        "src": "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "로얄 Exterior 공간 1"
     },
     {
-        "src": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "로얄 Living 공간 2"
     },
     {
-        "src": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "로얄 Bedroom 공간 3"
     },
     {
-        "src": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "로얄 Kitchen 공간 4"
     },
     {
-        "src": "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1920",
         "cat": "outdoor",
         "title": "로얄 Outdoor 공간 5"
     },
     {
-        "src": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&q=80&w=1920",
         "cat": "exterior",
         "title": "로얄 Exterior 공간 6"
     },
     {
-        "src": "https://images.unsplash.com/photo-1505843513577-22bb7abd211c?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1920",
         "cat": "living",
         "title": "로얄 Living 공간 7"
     },
     {
-        "src": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=1920",
         "cat": "bedroom",
         "title": "로얄 Bedroom 공간 8"
     },
     {
-        "src": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1920",
+        "src": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=1920",
         "cat": "kitchen",
         "title": "로얄 Kitchen 공간 9"
     }
