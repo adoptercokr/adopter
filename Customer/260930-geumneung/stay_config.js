@@ -10,15 +10,15 @@ const STAY_CONFIG = {
     { id: "b2", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"></path></svg>`, title: "프리미엄 어메니티", description: "최고급 호텔 수준의 어메니티 제공", detail: "친환경 제품 사용" }
   ],
   spaces: [
-    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20250627_212%2F1750987575650ypEE6_JPEG%2FKakaoTalk_20250603_230753005_02_%25281%2529.jpg" },
-    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250627_217%2F1750986425615okVTJ_JPEG%2FKakaoTalk_20250605_111705786_03.jpg" },
-    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250627_204%2F17509864009705XjwB_JPEG%2FKakaoTalk_20250603_230753005_04.jpg" },
-    { id: "s6", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250627_205%2F1750986385119dA2Wv_JPEG%2FKakaoTalk_20250603_230753005_01_%25281%2529.jpg" },
-    { id: "s8", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNjA5MThfMTQw%2FMDAxNzg5NzMyNjMwODcw.UP2lSiEkJFQcOnhUJmToVqr0Fbz_bngNhy039gvcEOcg.Tx4Ex9983dApg5ZByAJbnjbS8887LTy1Ax5MRpRGCvQg.JPEG%2F900_20260828_164944.jpg%2F900x1200" },
-    { id: "s9", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fblogpfthumb-phinf.pstatic.net%2FMjAyNDA3MTdfMjEz%2FMDAxNzIxMTc5NzMyMjcy.rAOd4ASWEZ8ebygbyfbcCY6uXbBr9WrnqD3IPwtDh0Yg.ZkEcLeqTr5s0yZd0j4eWLiekLo0POk5mtpS5OpQGYCog.JPEG%2F%25EA%25B8%25B0%25EC%25A1%25B4%25EC%258D%25B8%25EB%2584%25A4%25EC%259D%25BC.jpg%2F%25EA%25B8%25B0%25EC%25A1%25B4%25EC%258D%25B8%25EB%2584%25A4%25EC%259D%25BC.jpg" },
-    { id: "s10", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNjA5MThfMTAz%2FMDAxNzg5NzMyNjM1NTg3.7_u5e5QzLmCqzBkL8UMJLmp3lUA7V6ewaODdF0aT6j8g.VDw8hT5isEOj9ZZ4vzvPUPjH0zyYbgxFQB3O_vjfpMwg.JPEG%2F900_20260828_175101.jpg%2F900x1200" },
-    { id: "s11", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNjA5MThfOTEg%2FMDAxNzg5NzMyNjMzNzQ1.ZqrnOU5XOgWP3VOhNiIouDViVH9qFRfrv-03ZZEu5Asg.TKhgopd0ORaquN9BDubSATZUd57Tnjw2l9Le90rQGowg.JPEG%2F900_20260829_101630.jpg%2F900x1200" },
-    { id: "s12", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNjA5MThfMjg4%2FMDAxNzg5NzMyNjMyMzI2.3VNwSRtYcXDRCOkjCnFexFMNIUCIlXfLp-LWqi_JJrMg.rL15Xwvsg2Uh149LvKlGnoWsaaVBHjoQwIL3cEJ3Lisg.JPEG%2F900_20260828_165528.jpg%2F900x1200" },
+    { id: "s1", mainImage: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s2", mainImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s5", mainImage: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s6", mainImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s8", mainImage: "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s9", mainImage: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s10", mainImage: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s11", mainImage: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s12", mainImage: "https://images.unsplash.com/photo-1598928506311-c55dd1b212f7?auto=format&fit=crop&q=80&w=1920" },
 
   ],
   facilities: [

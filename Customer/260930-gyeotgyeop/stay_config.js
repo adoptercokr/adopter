@@ -10,10 +10,10 @@ const STAY_CONFIG = {
     { id: "b2", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"></path></svg>`, title: "프리미엄 어메니티", description: "최고급 호텔 수준의 어메니티 제공", detail: "친환경 제품 사용" }
   ],
   spaces: [
-    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20241115_20%2F1731672357168CuiYz_JPEG%2Fgyeotgyeop_%25289%2529.jpg" },
-    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240512_287%2F1715477685574sbEUs_JPEG%2FKakaoTalk_20240512_103157684.jpg" },
-    { id: "s4", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240523_90%2F17164530423447TNAu_PNG%2F%25BC%25F6%25C1%25A41.PNG" },
-    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220510_240%2F1652134558808DLkum_JPEG%2FF53FA478-CD63-44FB-BD0F-3B5345180359.jpeg" },
+    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20241115_20%2F1731672357168CuiYz_JPEG%2Fgyeotgyeop_%25289%2529.jpg" },
+    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240512_287%2F1715477685574sbEUs_JPEG%2FKakaoTalk_20240512_103157684.jpg" },
+    { id: "s4", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fclip-service-phinf.pstatic.net%2FMjAyNjA5MzBfMTE1%2FMDAxNzkwNzU4NjQwMjM0.w0ICNOA27whFyzjP7_MAkIe8GprZj6z49rx4K9M6qTQg.y180Q9iJoMxPgPr2WAx0Qdzxl-C_cWL8b4tLaYgeJHIg.JPEG%2Fthumbnail-2DDCFD0C-379F-4286-A8F0-26DDC4BD3A73.jpg" },
+    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=f84_sharpen&src=https%3A%2F%2Fclip-service-phinf.pstatic.net%2FMjAyNTA4MjBfMTg2%2FMDAxNzU1Njk2OTA2ODAy.gGwFLOix_vNiXrekKixMpKYLKLerKfb04IVofLC3WD8g.DnYzsXkIPDeF93UMWF5EctOBtbsrrrwY7Wz44I-qPckg.PNG%2FprofileImage.png" },
 
   ],
   facilities: [

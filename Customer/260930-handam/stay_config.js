@@ -10,11 +10,11 @@ const STAY_CONFIG = {
     { id: "b2", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"></path></svg>`, title: "프리미엄 어메니티", description: "최고급 호텔 수준의 어메니티 제공", detail: "친환경 제품 사용" }
   ],
   spaces: [
-    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_176%2F1749174778249ujujV_JPEG%2F963A3415_copy.jpg" },
-    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_249%2F17491747793349XNQ9_JPEG%2F963A5011_copy.jpg" },
-    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_10%2F17491747789918KoAS_JPEG%2F963A2865_copy.jpg" },
-    { id: "s6", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_233%2F1749174777896Ef7Y6_JPEG%2F963A3021_copy.jpg" },
-    { id: "s7", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fvideo-phinf.pstatic.net%2F20240803_271%2F1722694739362z6ub6_JPEG%2FBfEzsDeQtn_03.jpg" },
+    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_176%2F1749174778249ujujV_JPEG%2F963A3415_copy.jpg" },
+    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_249%2F17491747793349XNQ9_JPEG%2F963A5011_copy.jpg" },
+    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fphinf.pstatic.net%2Ftvcast%2F20260806_178%2FM21RH_1785995635760oaPdy_JPEG%2Fthumbnail-4C7D2592-B2B7-464E-83B9-95BA3510A343.jpg" },
+    { id: "s6", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=f84_sharpen&src=https%3A%2F%2Fclip-service-phinf.pstatic.net%2FMjAyNjA4MjBfMTMw%2FMDAxNzg3MjAzNzM1MDA3.AzPkMKjO2UNlB_h3-jiUJ_PSkS9PJuO4aIvE8bt-G5Ig.cBty1OVgU8aapUTCYffElPqs6riepTuPIoeaMESewVkg.JPEG%2Fimage.jpg" },
+    { id: "s7", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250606_10%2F17491747789918KoAS_JPEG%2F963A2865_copy.jpg" },
 
   ],
   facilities: [

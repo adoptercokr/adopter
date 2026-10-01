@@ -10,12 +10,12 @@ const STAY_CONFIG = {
     { id: "b2", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"></path></svg>`, title: "프리미엄 어메니티", description: "최고급 호텔 수준의 어메니티 제공", detail: "친환경 제품 사용" }
   ],
   spaces: [
-    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20230805_82%2F1691233056126C5vO3_JPEG%2F230725%25BE%25D6%25BF%25F9-%25C7%25C3%25B7%25E7%25B8%25DE%25B8%25AE%25BE%25C6%25281920px%2529DSC03094.jpg" },
-    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250315_218%2F1741997796007DAdUl_JPEG%2F20220504_103325.jpg" },
-    { id: "s3", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20230805_199%2F1691233056433jz8ul_JPEG%2F230725%25BE%25D6%25BF%25F9-%25C7%25C3%25B7%25E7%25B8%25DE%25B8%25AE%25BE%25C6%25281920px%2529DSC03087.jpg" },
-    { id: "s4", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250315_73%2F1741997812286T1SFj_JPEG%2F20230725_182326.jpg" },
-    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fvideo-phinf.pstatic.net%2F20241003_125%2F1727914714622YCDeO_JPEG%2FoTuvXe0HdP_03.jpg" },
-    { id: "s11", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w800_800&src=https%3A%2F%2Fphinf.pstatic.net%2Fcontact%2F20211007_247%2F1633607039333iFGam_JPEG%2Fimage.jpg" },
+    { id: "s1", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20230805_82%2F1691233056126C5vO3_JPEG%2F230725%25BE%25D6%25BF%25F9-%25C7%25C3%25B7%25E7%25B8%25DE%25B8%25AE%25BE%25C6%25281920px%2529DSC03094.jpg" },
+    { id: "s2", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250315_218%2F1741997796007DAdUl_JPEG%2F20220504_103325.jpg" },
+    { id: "s3", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fnaverbooking-phinf.pstatic.net%2F20230805_199%2F1691233056433jz8ul_JPEG%2F230725%25BE%25D6%25BF%25F9-%25C7%25C3%25B7%25E7%25B8%25DE%25B8%25AE%25BE%25C6%25281920px%2529DSC03087.jpg" },
+    { id: "s4", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20250315_73%2F1741997812286T1SFj_JPEG%2F20230725_182326.jpg" },
+    { id: "s5", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fvideo-phinf.pstatic.net%2F20241003_125%2F1727914714622YCDeO_JPEG%2FoTuvXe0HdP_03.jpg" },
+    { id: "s11", mainImage: "https://search.pstatic.net/common/?autoRotate=true&type=w560_sharpen&src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyNjA4MjZfNzIg%2FMDAxNzg3Njk2Mzg5ODA0.cD8QKSCRU_cl5Q3Q6emkvHg-rfHh-RznVLFYBRniCf0g.6VGv7SH1XdLl0shfbaShnmIlsujXWt_BuTma1227HR8g.JPEG%2FF9ABE8B3-6D78-44ED-AF4E-CB8D79962154.jpeg" },
 
   ],
   facilities: [

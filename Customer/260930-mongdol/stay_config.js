@@ -10,11 +10,11 @@ const STAY_CONFIG = {
     { id: "b2", icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14a8 8 0 0016 0v-2H4v2zM6 19v2M18 19v2M8 7c0-2 1-3 1-3s1 1 1 3M12 6c0-2 1-3 1-3s1 1 1 3M16 7c0-2 1-3 1-3s1 1 1 3"></path></svg>`, title: "프리미엄 어메니티", description: "최고급 호텔 수준의 어메니티 제공", detail: "친환경 제품 사용" }
   ],
   spaces: [
-    { id: "s1", mainImage: "./img/photo_1.jpg" },
-    { id: "s2", mainImage: "./img/photo_2.jpg" },
-    { id: "s3", mainImage: "./img/photo_3.jpg" },
-    { id: "s4", mainImage: "./img/photo_4.jpg" },
-    { id: "s5", mainImage: "./img/photo_5.jpg" },
+    { id: "s1", mainImage: "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s2", mainImage: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s3", mainImage: "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s4", mainImage: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=1920" },
+    { id: "s5", mainImage: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1920" },
 
   ],
   facilities: [
