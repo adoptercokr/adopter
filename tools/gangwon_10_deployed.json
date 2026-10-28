@@ -1,0 +1,112 @@
+[
+  {
+    "key": "gw-namubat",
+    "slug": "namubat",
+    "name": "홍천 나무밭",
+    "addr": "강원특별자치도 홍천군 영귀미면 궁터길 14",
+    "phone": "0507-1335-9876",
+    "price": 380000,
+    "naver_link": "https://m.place.naver.com/accommodation/1159898766/home",
+    "deploy_url": "https://adopter.co.kr/namubat/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-caminode",
+    "slug": "caminode",
+    "name": "까미노데플로레스타",
+    "addr": "강원특별자치도 홍천군 북방면 도사곡길 201",
+    "phone": "0507-1484-0534",
+    "price": 450000,
+    "naver_link": "https://m.place.naver.com/accommodation/1956080428/home",
+    "deploy_url": "https://adopter.co.kr/caminode/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-narobuteo",
+    "slug": "narobuteo",
+    "name": "강릉 나로부터 풀빌라",
+    "addr": "강원특별자치도 강릉시 사천면 방동길 302",
+    "phone": "0507-1433-3558",
+    "price": 420000,
+    "naver_link": "https://m.place.naver.com/accommodation/1771698587/home",
+    "deploy_url": "https://adopter.co.kr/narobuteo/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-secretgarden",
+    "slug": "secretgarden",
+    "name": "강릉 비밀의정원 풀빌라",
+    "addr": "강원특별자치도 강릉시 사천면 해안로 1064",
+    "phone": "0507-1329-8733",
+    "price": 390000,
+    "naver_link": "https://m.place.naver.com/accommodation/1138391385/home",
+    "deploy_url": "https://adopter.co.kr/secretgarden/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-privateyangyang",
+    "slug": "privateyangyang",
+    "name": "프라이빗양양 독채 풀빌라",
+    "addr": "강원특별자치도 양양군 손양면 선사유적로 260",
+    "phone": "0507-1384-5993",
+    "price": 480000,
+    "naver_link": "https://m.place.naver.com/accommodation/1418295993/home",
+    "deploy_url": "https://adopter.co.kr/privateyangyang/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-lahenne",
+    "slug": "lahenne",
+    "name": "고성 라헨느풀빌라",
+    "addr": "강원특별자치도 고성군 죽왕면 가진해변길 217",
+    "phone": "0507-1436-1683",
+    "price": 350000,
+    "naver_link": "https://m.place.naver.com/accommodation/36651683/home",
+    "deploy_url": "https://adopter.co.kr/lahenne/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-uirim",
+    "slug": "uirim",
+    "name": "춘천 의림여관",
+    "addr": "강원특별자치도 춘천시 신동면 풍류길 46",
+    "phone": "0507-1324-5197",
+    "price": 320000,
+    "naver_link": "https://m.place.naver.com/accommodation/1676997352/home",
+    "deploy_url": "https://adopter.co.kr/uirim/",
+    "photos_count": 12
+  },
+  {
+    "key": "gw-bebridge",
+    "slug": "bebridge",
+    "name": "영월 비브릿지 풀빌라",
+    "addr": "강원특별자치도 영월군 김삿갓면 영월동로 1121",
+    "phone": "0507-1392-6555",
+    "price": 460000,
+    "naver_link": "https://m.place.naver.com/accommodation/1824311893/home",
+    "deploy_url": "https://adopter.co.kr/bebridge/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-urpoolvilla",
+    "slug": "urpoolvilla",
+    "name": "원주 유알 풀빌라",
+    "addr": "강원특별자치도 원주시 지정면 지정로 912",
+    "phone": "0507-1390-2972",
+    "price": 500000,
+    "naver_link": "https://m.place.naver.com/accommodation/1979423304/home",
+    "deploy_url": "https://adopter.co.kr/urpoolvilla/",
+    "photos_count": 10
+  },
+  {
+    "key": "gw-migallu",
+    "slug": "migallu",
+    "name": "삼척 미갈루 풀빌라",
+    "addr": "강원특별자치도 삼척시 근덕면 삼척로 2132",
+    "phone": "070-4376-6476",
+    "price": 410000,
+    "naver_link": "https://m.place.naver.com/accommodation/1202686132/home",
+    "deploy_url": "https://adopter.co.kr/migallu/",
+    "photos_count": 10
+  }
+]

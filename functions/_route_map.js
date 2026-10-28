@@ -1,4 +1,15 @@
 ﻿export const routeMap = {
+  "namubat": "gw-namubat",
+  "caminode": "gw-caminode",
+  "narobuteo": "gw-narobuteo",
+  "secretgarden": "gw-secretgarden",
+  "privateyangyang": "gw-privateyangyang",
+  "lahenne": "gw-lahenne",
+  "uirim": "gw-uirim",
+  "bebridge": "gw-bebridge",
+  "urpoolvilla": "gw-urpoolvilla",
+  "migallu": "gw-migallu",
+
   "real-1": "261001-real-1",
   "real-2": "261001-real-2",
   "real-3": "261001-real-3",
