@@ -463,7 +463,7 @@
             <button onclick="prevMonth()" class="p-2 rounded-full hover:bg-stone-100 text-stone-600 transition">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
             </button>
-            <h4 class="font-serif-kr text-base sm:text-lg font-bold text-stone-900" id="calCurrentMonth">2026년 10월</h4>
+            <h4 class="font-serif-kr text-base sm:text-lg font-bold text-stone-900" id="calCurrentMonth">2026년 11월</h4>
             <button onclick="nextMonth()" class="p-2 rounded-full hover:bg-stone-100 text-stone-600 transition">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </button>
@@ -879,7 +879,7 @@
     // 1. 객실 기본 메타데이터
     const DEFAULT_ROOMS = {
       1: {
-        name: "첫번째모험",
+        name: "첫번째 독채",
         badge: "독채 1동 · 커플&소규모",
         baseGuests: 2,
         maxGuests: 4,
@@ -891,20 +891,86 @@
         metaRooms: "침실 1개 · 침대 1개 · 욕실 1개",
         metaTime: "입실 16:00 · 퇴실 11:00",
         desc: "돌담으로 아늑하게 둘러싸인 프라이빗 잔디 정원과 감성 우드 다이닝 키친이 돋보이는 독채 공간입니다.",
-        guide: "외부의 자연을 넘나들 수 있는 개방감 있는 공간으로 반려견 동반이 가능한 객실입니다. 아늑한 돌담 정원과 사계절 푸른 제주의 자연 속에서 온전한 쉼을 경험해보세요.",
+        guide: "외부의 자연을 넘나들 수 있는 개방감 있는 공간으로 편안한 휴식을 누릴 수 있는 객실입니다.",
         config: [
           { title: "유형", value: "독채" },
           { title: "침실 1", value: "킹 1" },
           { title: "욕실", value: "욕실 1" }
         ],
         amenities: [
-          { name: "프라이빗풀" },
-          { name: "노천자쿠지" },
-          { name: "야외불멍" },
+          { name: "프라이빗정원" },
+          { name: "다이닝키친" },
+          { name: "야외휴식공간" },
           { name: "OTT" },
           { name: "욕실용품" },
           { name: "와이파이" },
           { name: "바베큐" }
+        ],
+        images: [
+          "./img/room1_1.jpg", "./img/room1_2.jpg", "./img/room1_3.jpg", "./img/room1_4.jpg", "./img/room1_5.jpg",
+          "./img/room1_6.jpg", "./img/room1_7.jpg", "./img/room1_8.jpg", "./img/room1_9.jpg", "./img/room1_10.jpg"
+        ]
+      },
+      2: {
+        name: "두번째 독채",
+        badge: "독채 2동 · 원형벽난로&거실",
+        baseGuests: 4,
+        maxGuests: 6,
+        weekdayPrice: 380000,
+        weekendPrice: 430000,
+        peakSurcharge: 50000,
+        extraGuestFee: 20000,
+        priceRange: "380,000 ~ 430,000원",
+        metaRooms: "침실 2개 · 침대 2개 · 욕실 1개",
+        metaTime: "입실 16:00 · 퇴실 11:00",
+        desc: "넓은 패밀리 리빙룸과 시그니처 원형 벽난로, 독립 테라스가 어우러져 아늑한 감성을 자아내는 패밀리 독채입니다.",
+        guide: "불멍과 함께 소중한 사람들과 도란도란 대화를 나눌 수 있는 따뜻한 쉼의 공간입니다.",
+        config: [
+          { title: "유형", value: "독채" },
+          { title: "침실", value: "퀸 2" },
+          { title: "욕실", value: "욕실 1" }
+        ],
+        amenities: [
+          { name: "원형벽난로" },
+          { name: "패밀리거실" },
+          { name: "독립테라스" },
+          { name: "OTT" },
+          { name: "욕실용품" },
+          { name: "와이파이" },
+          { name: "바베큐" }
+        ],
+        images: [
+          "./img/room2_1.jpg", "./img/room2_2.jpg", "./img/room2_3.jpg", "./img/room2_4.jpg", "./img/room2_5.jpg",
+          "./img/room2_6.jpg", "./img/room2_7.jpg", "./img/room2_8.jpg", "./img/room2_9.jpg", "./img/room2_10.jpg"
+        ]
+      },
+      3: {
+        name: "세번째 독채",
+        badge: "독채 3동 · 수영장&노천자쿠지",
+        baseGuests: 4,
+        maxGuests: 8,
+        weekdayPrice: 400000,
+        weekendPrice: 460000,
+        peakSurcharge: 50000,
+        extraGuestFee: 20000,
+        priceRange: "400,000 ~ 460,000원",
+        metaRooms: "침실 2개 · 침대 2개 · 욕실 2개",
+        metaTime: "입실 16:00 · 퇴실 11:00",
+        desc: "희스테이에서 가장 넓은 프리미엄 독채로, 대형 프라이빗 전용 수영장과 노천 자쿠지, 야외 불멍 화로대를 갖추고 있습니다.",
+        guide: "프라이빗 풀과 따스한 자쿠지에서 사계절 온전한 힐링을 누릴 수 있는 시그니처 공간입니다.",
+        config: [
+          { title: "유형", value: "독채" },
+          { title: "침실", value: "퀸 2" },
+          { title: "욕실", value: "욕실 2" }
+        ],
+        amenities: [
+          { name: "프라이빗풀" },
+          { name: "노천자쿠지" },
+          { name: "야외불멍화로" },
+          { name: "대형잔디정원" },
+          { name: "욕실용품" },
+          { name: "와이파이" },
+          { name: "독립바베큐장" }
         ],
         images: [
           "./img/room3_1.jpg", "./img/room3_2.jpg", "./img/room3_3.jpg", "./img/room3_4.jpg", "./img/room3_5.jpg",
@@ -1544,6 +1610,15 @@
 
       // 편의시설 그리드 (단색/흑백 미니멀 라인 SVG 아이콘 적용 - 조잡한 컬러 이모지 배제)
       const AMENITY_ICONS = {
+        '프라이빗정원': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8"/><path d="M12 14c-4 0-7-3-7-7 0 0 3-1 7 2 4-3 7-2 7-2 0 4-3 7-7 7Z"/></svg>`,
+        '다이닝키친': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+        '야외휴식공간': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v2"/><path d="M18 19v2"/><path d="M4 11h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/><path d="M4 11V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/></svg>`,
+        '패밀리거실': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        '독립테라스': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
+        '야외불멍화로': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+        '대형잔디정원': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-8"/><path d="M12 14c-4 0-7-3-7-7 0 0 3-1 7 2 4-3 7-2 7-2 0 4-3 7-7 7Z"/></svg>`,
+        '독립바베큐장': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10a9 9 0 0 0 18 0H3z"/><line x1="12" y1="10" x2="12" y2="21"/><line x1="7" y1="14" x2="4" y2="21"/><line x1="17" y1="14" x2="20" y2="21"/></svg>`,
+
         '풀빌라': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-1 4-1 6 0s4 1 6 0 4-1 6 0"/><path d="M2 17c2-1 4-1 6 0s4 1 6 0 4-1 6 0"/><path d="M15 5a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="m8 10 4-5 3 2"/></svg>`,
         '프라이빗풀': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-1 4-1 6 0s4 1 6 0 4-1 6 0"/><path d="M2 17c2-1 4-1 6 0s4 1 6 0 4-1 6 0"/><path d="M15 5a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="m8 10 4-5 3 2"/></svg>`,
         'OTT': `<svg class="w-5 h-5 text-stone-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
