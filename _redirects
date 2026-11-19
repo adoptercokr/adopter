@@ -1,0 +1,13 @@
+# Cloudflare Pages 301 Permanent Redirects
+/sample1.html /samples/sample1.html 301
+/sample2.html /samples/sample2.html 301
+/sample3.html /samples/sample3.html 301
+/sample4.html /samples/sample4.html 301
+/sample5.html /samples/sample5.html 301
+/sample6.html /samples/sample6.html 301
+/sample7.html /samples/sample7.html 301
+/sample8.html /samples/sample8.html 301
+/templates.html /portfolio.html 301
+/Customer/* /portfolio.html 301
+/stay / 301
+/stay/* / 301
