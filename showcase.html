@@ -10,14 +10,14 @@
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
     * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; }
     
-    /* Custom Scrollbar */
+    /* Custom Scrollbar - Clean White Style */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #080c14; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    ::-webkit-scrollbar-track { background: #f8fafc; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     
     .glass-nav {
-      background: rgba(8, 12, 20, 0.90);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
@@ -27,17 +27,17 @@
     }
     .site-card:hover {
       transform: translateY(-2px);
-      border-color: #3b82f6;
-      box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.15);
+      border-color: #2563eb;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
     }
     
     .metric-card {
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .metric-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.8), 0 0 24px -6px rgba(59, 130, 246, 0.15);
-      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(37, 99, 235, 0.06);
+      border-color: #93c5fd;
     }
 
     .modal-active {
@@ -45,23 +45,23 @@
     }
   </style>
 </head>
-<body class="bg-[#080c14] text-slate-200 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#f8fafc] text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
   <!-- TOP HEADER -->
-  <header class="glass-nav sticky top-0 z-40 border-b border-slate-800/80 px-6 py-4">
+  <header class="glass-nav sticky top-0 z-40 border-b border-slate-200/90 px-6 py-4 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shadow-sm">
+        <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
           </svg>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base font-bold text-white tracking-tight">MJ LAB &middot; NOVA WEB STUDIO</h1>
-            <span class="text-[11px] font-medium px-2 py-0.5 rounded border border-blue-500/30 bg-blue-500/10 text-blue-400">통합 포털</span>
+            <h1 class="text-base font-bold text-slate-900 tracking-tight">MJ LAB &middot; NOVA WEB STUDIO</h1>
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded border border-blue-200 bg-blue-50 text-blue-700">통합 포털</span>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">총 <span id="headerTotalCount" class="text-white font-semibold">135</span>개 프로젝트 &middot; 웹게임 16종 &middot; 5대 사이트 실시간 트래픽</p>
+          <p class="text-xs text-slate-500 mt-0.5">총 <span id="headerTotalCount" class="text-slate-900 font-semibold">135</span>개 프로젝트 &middot; 웹게임 16종 &middot; 5대 사이트 실시간 트래픽</p>
         </div>
       </div>
 
@@ -77,11 +77,11 @@
             type="text" 
             id="searchInput"
             placeholder="프로젝트, 게임, 템플릿, 키워드 검색..." 
-            class="w-full pl-9 pr-8 py-2 bg-slate-900/90 border border-slate-700/80 rounded-lg text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+            class="w-full pl-9 pr-8 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-sm transition-colors"
           />
           <button 
             id="clearSearchBtn" 
-            class="hidden absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-200"
+            class="hidden absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600"
             onclick="clearSearch()"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,34 +95,34 @@
 
   <!-- LIVE TRAFFIC & PERFORMANCE DASHBOARD -->
   <section class="max-w-7xl mx-auto px-6 pt-7 pb-3 w-full">
-    <div class="bg-gradient-to-b from-slate-900/90 via-slate-900/70 to-slate-950/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
-      <!-- Ambient Glow effects -->
-      <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-600/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-sm relative overflow-hidden">
+      <!-- Subtle ambient tint -->
+      <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-0 left-1/3 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Dashboard Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-slate-800/80 gap-3 relative z-10">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-slate-200 gap-3 relative z-10">
         <div>
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               LIVE DASHBOARD
             </span>
-            <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">MJ LAB 핵심 5대 프로젝트 실적 & 실시간 방문자 대시보드</h2>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">MJ LAB 핵심 5대 프로젝트 실적 & 실시간 방문자 대시보드</h2>
           </div>
-          <p class="text-xs text-slate-400 mt-1">
+          <p class="text-xs text-slate-500 mt-1">
             구글 서치 콘솔(GSC) 등록 5대 프로젝트 실시간 방문자수 & 최근 7일간 실적 트렌드 (색칠공부 출시 대기 슬롯 완비)
           </p>
         </div>
         
         <div class="flex items-center gap-2.5">
-          <span class="text-[11px] font-mono text-slate-400 flex items-center gap-1.5 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800">
-            <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span class="text-[11px] font-mono text-slate-600 flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
+            <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span id="updateTimeText">실시간 동기화 완료</span>
           </span>
-          <button onclick="refreshLiveStats()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1 transition-colors">
+          <button onclick="refreshLiveStats()" class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 hover:text-slate-900 text-xs font-medium flex items-center gap-1 shadow-sm transition-colors">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="refreshIcon">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
@@ -139,7 +139,7 @@
   </section>
 
   <!-- CATEGORY TABS -->
-  <section class="border-y border-slate-800 bg-slate-950/60 px-6 py-2.5 sticky top-[73px] z-30 backdrop-blur-md">
+  <section class="border-y border-slate-200 bg-white/90 px-6 py-2.5 sticky top-[73px] z-30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none" id="categoryNav">
       <!-- Generated via JS -->
     </div>
@@ -148,13 +148,13 @@
   <!-- MAIN CONTENT -->
   <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full">
     <!-- Status / Filter Summary -->
-    <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-800/80">
+    <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-200">
       <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider" id="activeCategoryTitle">전체 보기</span>
-        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700" id="resultCount">0개</span>
+        <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider" id="activeCategoryTitle">전체 보기</span>
+        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200" id="resultCount">0개</span>
       </div>
-      <div class="text-xs text-slate-400">
-        카드를 클릭하면 <span class="text-slate-200">새 탭 열기</span> 또는 <span class="text-blue-400">실시간 미리보기</span>가 가능합니다.
+      <div class="text-xs text-slate-500">
+        카드를 클릭하면 <span class="text-slate-800 font-medium">새 탭 열기</span> 또는 <span class="text-blue-600 font-medium">실시간 미리보기</span>가 가능합니다.
       </div>
     </div>
 
@@ -165,18 +165,18 @@
 
     <!-- EMPTY STATE -->
     <div id="emptyState" class="hidden py-24 text-center">
-      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-slate-800/60 border border-slate-700 flex items-center justify-center text-slate-400">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
       </div>
-      <p class="text-sm font-medium text-slate-300">일치하는 사이트를 찾을 수 없습니다.</p>
+      <p class="text-sm font-medium text-slate-700">일치하는 사이트를 찾을 수 없습니다.</p>
       <p class="text-xs text-slate-400 mt-1">검색어를 변경하거나 다른 카테고리를 선택해 보세요.</p>
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-800/80 py-6 px-6 text-center text-xs text-slate-400 bg-slate-950">
+  <footer class="border-t border-slate-200 py-6 px-6 text-center text-xs text-slate-500 bg-white">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <div>MJ LAB &middot; NOVA WEB STUDIO &middot; ADOPTER 자산 관리 포털</div>
       <div class="text-slate-400">구글 서치콘솔 5대 자산 실시간 연동 &middot; 웹 배포 및 반응형 최적화 완료</div>
@@ -184,40 +184,40 @@
   </footer>
 
   <!-- PREVIEW MODAL -->
-  <div id="previewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6 transition-all duration-200">
-    <div class="bg-slate-900 border border-slate-700 rounded-xl w-full h-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+  <div id="previewModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 sm:p-6 transition-all duration-200">
+    <div class="bg-white border border-slate-200 rounded-xl w-full h-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
       
       <!-- Modal Header -->
-      <div class="flex items-center justify-between px-5 py-3 border-b border-slate-800 bg-slate-950">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-slate-200 bg-slate-50">
         <div class="flex items-center gap-3 min-w-0">
-          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30" id="modalTag">태그</span>
-          <h3 class="text-sm font-bold text-white truncate" id="modalTitle">사이트 제목</h3>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200" id="modalTag">태그</span>
+          <h3 class="text-sm font-bold text-slate-900 truncate" id="modalTitle">사이트 제목</h3>
           <span class="text-xs text-slate-400 font-mono hidden md:inline truncate max-w-xs" id="modalPath">경로</span>
         </div>
 
         <!-- Viewport Controls & Actions -->
         <div class="flex items-center gap-2">
           <!-- Viewport Mode Buttons -->
-          <div class="hidden sm:flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5">
-            <button onclick="setModalViewport('desktop')" id="btnVpDesktop" class="px-2.5 py-1 text-xs rounded text-blue-400 bg-slate-800 font-medium transition-colors" title="데스크톱 (100%)">
+          <div class="hidden sm:flex items-center bg-white border border-slate-200 rounded-lg p-0.5 shadow-sm">
+            <button onclick="setModalViewport('desktop')" id="btnVpDesktop" class="px-2.5 py-1 text-xs rounded text-blue-600 bg-blue-50 font-medium transition-colors" title="데스크톱 (100%)">
               Desktop
             </button>
-            <button onclick="setModalViewport('tablet')" id="btnVpTablet" class="px-2.5 py-1 text-xs rounded text-slate-400 hover:text-slate-200 transition-colors" title="태블릿 (768px)">
+            <button onclick="setModalViewport('tablet')" id="btnVpTablet" class="px-2.5 py-1 text-xs rounded text-slate-500 hover:text-slate-800 transition-colors" title="태블릿 (768px)">
               Tablet
             </button>
-            <button onclick="setModalViewport('mobile')" id="btnVpMobile" class="px-2.5 py-1 text-xs rounded text-slate-400 hover:text-slate-200 transition-colors" title="모바일 (375px)">
+            <button onclick="setModalViewport('mobile')" id="btnVpMobile" class="px-2.5 py-1 text-xs rounded text-slate-500 hover:text-slate-800 transition-colors" title="모바일 (375px)">
               Mobile
             </button>
           </div>
 
-          <a id="modalExternalLink" href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1.5 transition-colors">
+          <a id="modalExternalLink" href="#" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium flex items-center gap-1.5 shadow-sm transition-colors">
             <span>새 탭 열기</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
           </a>
 
-          <button onclick="closeModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <button onclick="closeModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -226,8 +226,8 @@
       </div>
 
       <!-- Modal Iframe Container -->
-      <div class="flex-1 bg-slate-950 flex items-center justify-center overflow-hidden p-2">
-        <div id="iframeWrapper" class="w-full h-full transition-all duration-300 bg-white rounded-lg shadow-inner overflow-hidden flex items-center justify-center">
+      <div class="flex-1 bg-slate-100 flex items-center justify-center overflow-hidden p-2">
+        <div id="iframeWrapper" class="w-full h-full transition-all duration-300 bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex items-center justify-center">
           <iframe id="previewIframe" src="about:blank" class="w-full h-full border-0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
         </div>
       </div>
@@ -278,7 +278,7 @@
         id: "adopter",
         name: "어댑터 (ADOPTER)",
         url: "https://adopter.co.kr",
-        hitsBadge: "https://hits.sh/adopter.co.kr.svg?view=today-total&style=flat-square&label=실시간&color=06b6d4",
+        hitsBadge: "https://hits.sh/adopter.co.kr.svg?view=today-total&style=flat-square&label=실시간&color=0891b2",
         gsc: "도메인 속성 (adopter.co.kr)",
         category: "소상공인 웹 에이전시 & 전자계약",
         today: 3,
@@ -293,7 +293,7 @@
         id: "jejumodo",
         name: "제주모도 (JEJUMODO)",
         url: "https://jejumodo.com",
-        hitsBadge: "https://hits.sh/jejumodo.com.svg?view=today-total&style=flat-square&label=실시간&color=f59e0b",
+        hitsBadge: "https://hits.sh/jejumodo.com.svg?view=today-total&style=flat-square&label=실시간&color=d97706",
         gsc: "도메인 속성 (jejumodo.com)",
         category: "제주 한달살기 숙소 전문몰",
         today: 3,
@@ -308,7 +308,7 @@
         id: "theandante9",
         name: "더안단테9 (THE ANDANTE 9)",
         url: "https://theandante9.com",
-        hitsBadge: "https://hits.sh/theandante9.com.svg?view=today-total&style=flat-square&label=실시간&color=f43f5e",
+        hitsBadge: "https://hits.sh/theandante9.com.svg?view=today-total&style=flat-square&label=실시간&color=e11d48",
         gsc: "URL 속성 (https://theandante9.com/)",
         category: "해외직구 가방 & 일본 잡화 커머스",
         today: 3,
@@ -323,7 +323,7 @@
         id: "colorworld",
         name: "컬러월드 (ColorWorld)",
         url: "https://colorworld.io",
-        hitsBadge: "https://hits.sh/colorworld.io.svg?view=today-total&style=flat-square&label=준비중&color=6366f1",
+        hitsBadge: "https://hits.sh/colorworld.io.svg?view=today-total&style=flat-square&label=준비중&color=4f46e5",
         gsc: "배포 준비중 (Launch Ready)",
         category: "글로벌 54,000+ A4 색칠공부",
         today: "D-Day 대기",
@@ -339,18 +339,18 @@
     let currentCategory = 'all';
     let searchQuery = '';
 
-    // Generate Sparkline SVG
+    // Generate Sparkline SVG with Clean White Style
     function generateSparklineSvg(trend, colorHex, isReady = false) {
       const width = 240;
-      const height = 50;
-      const padX = 12;
-      const padY = 8;
+      const height = 48;
+      const padX = 10;
+      const padY = 6;
       
       if (isReady) {
         return `
           <svg viewBox="0 0 ${width} ${height}" class="w-full h-12 overflow-visible">
-            <line x1="${padX}" y1="${height/2}" x2="${width - padX}" y2="${height/2}" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4 4" stroke-opacity="0.6"/>
-            <text x="${width/2}" y="${height/2 - 6}" fill="#818cf8" font-size="10" text-anchor="middle" font-family="monospace">56대 Assertion Gate 통과 &middot; 배포 대기</text>
+            <line x1="${padX}" y1="${height/2}" x2="${width - padX}" y2="${height/2}" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 4" stroke-opacity="0.8"/>
+            <text x="${width/2}" y="${height/2 - 6}" fill="#4f46e5" font-size="10" font-weight="600" text-anchor="middle" font-family="monospace">56대 Assertion Gate 통과 &middot; 배포 대기</text>
           </svg>
         `;
       }
@@ -370,7 +370,7 @@
       const areaD = `${pathD} L ${points[points.length - 1].x.toFixed(1)} ${height} L ${points[0].x.toFixed(1)} ${height} Z`;
 
       const dots = points.map((p, i) => `
-        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${i === points.length - 1 ? '3.5' : '2.5'}" fill="${i === points.length - 1 ? '#ffffff' : colorHex}" stroke="${colorHex}" stroke-width="1.5">
+        <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${i === points.length - 1 ? '3.5' : '2.5'}" fill="${i === points.length - 1 ? '#ffffff' : colorHex}" stroke="${colorHex}" stroke-width="1.8">
           <title>${['D-6','D-5','D-4','D-3','D-2','D-1','오늘'][i]}: ${p.val}명</title>
         </circle>
       `).join('');
@@ -379,7 +379,7 @@
         <svg viewBox="0 0 ${width} ${height}" class="w-full h-12 overflow-visible">
           <defs>
             <linearGradient id="grad-${colorHex.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="${colorHex}" stop-opacity="0.35"/>
+              <stop offset="0%" stop-color="${colorHex}" stop-opacity="0.20"/>
               <stop offset="100%" stop-color="${colorHex}" stop-opacity="0.0"/>
             </linearGradient>
           </defs>
@@ -397,47 +397,47 @@
       
       container.innerHTML = METRICS_DATA.map(m => {
         const isReady = m.status === 'READY';
-        const colorHex = m.statusColor === 'emerald' ? '#10b981' :
-                         m.statusColor === 'blue' ? '#3b82f6' :
-                         m.statusColor === 'cyan' ? '#06b6d4' :
-                         m.statusColor === 'amber' ? '#f59e0b' :
-                         m.statusColor === 'rose' ? '#f43f5e' : '#6366f1';
+        const colorHex = m.statusColor === 'emerald' ? '#059669' :
+                         m.statusColor === 'blue' ? '#2563eb' :
+                         m.statusColor === 'cyan' ? '#0891b2' :
+                         m.statusColor === 'amber' ? '#d97706' :
+                         m.statusColor === 'rose' ? '#e11d48' : '#4f46e5';
 
         const sparklineSvg = generateSparklineSvg(m.trend, colorHex, isReady);
         const todayDisplay = typeof m.today === 'number' ? `${m.today.toLocaleString()}명` : m.today;
         const totalDisplay = typeof m.total === 'number' ? `${m.total.toLocaleString()}명` : m.total;
 
         return `
-          <div class="metric-card bg-slate-900/90 border border-slate-800 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div class="metric-card bg-white border border-slate-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between shadow-sm">
             <div>
               <!-- Top Row: Title, GSC Badge, Live indicator -->
               <div class="flex items-start justify-between gap-2 mb-3">
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2 mb-1">
                     <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${
-                      isReady ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30' :
-                      m.statusColor === 'emerald' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                      m.statusColor === 'cyan' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30' :
-                      m.statusColor === 'amber' ? 'bg-amber-500/10 text-amber-400 border-amber-500/30' :
-                      m.statusColor === 'rose' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                      'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                      isReady ? 'bg-indigo-50 text-indigo-700 border-indigo-200' :
+                      m.statusColor === 'emerald' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                      m.statusColor === 'cyan' ? 'bg-cyan-50 text-cyan-700 border-cyan-200' :
+                      m.statusColor === 'amber' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                      m.statusColor === 'rose' ? 'bg-rose-50 text-rose-700 border-rose-200' :
+                      'bg-blue-50 text-blue-700 border-blue-200'
                     }">
                       ${m.category}
                     </span>
-                    <span class="inline-flex items-center gap-1 text-[10px] font-mono font-medium ${isReady ? 'text-indigo-400' : 'text-emerald-400'}">
-                      <span class="w-1.5 h-1.5 rounded-full ${isReady ? 'bg-indigo-400' : 'bg-emerald-400 animate-pulse'}"></span>
+                    <span class="inline-flex items-center gap-1 text-[10px] font-mono font-semibold ${isReady ? 'text-indigo-600' : 'text-emerald-600'}">
+                      <span class="w-1.5 h-1.5 rounded-full ${isReady ? 'bg-indigo-500' : 'bg-emerald-500 animate-pulse'}"></span>
                       ${m.status}
                     </span>
                   </div>
-                  <h3 class="text-sm sm:text-base font-bold text-white tracking-tight truncate" title="${m.name}">
+                  <h3 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight truncate" title="${m.name}">
                     ${m.name}
                   </h3>
-                  <div class="text-[11px] font-mono text-slate-400 truncate mt-0.5" title="${m.gsc}">
+                  <div class="text-[11px] font-mono text-slate-500 truncate mt-0.5" title="${m.gsc}">
                     ${m.gsc}
                   </div>
                 </div>
 
-                <a href="${m.url}" target="_blank" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors" title="공식 사이트 열기">
+                <a href="${m.url}" target="_blank" class="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-800 border border-slate-200 shadow-sm transition-colors" title="공식 사이트 열기">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                   </svg>
@@ -445,19 +445,19 @@
               </div>
 
               <!-- Visitor Numbers Box -->
-              <div class="grid grid-cols-2 gap-2 p-3 bg-slate-950/70 border border-slate-800/80 rounded-lg mb-3">
+              <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50 border border-slate-200/80 rounded-lg mb-3">
                 <div>
-                  <div class="text-[10px] font-medium text-slate-400 flex items-center gap-1">
+                  <div class="text-[10px] font-medium text-slate-500 flex items-center gap-1">
                     <span>오늘 방문자</span>
-                    ${!isReady ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>' : ''}
+                    ${!isReady ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
                   </div>
-                  <div class="text-lg sm:text-xl font-bold font-mono text-white mt-0.5" id="metric-today-${m.id}">
+                  <div class="text-lg sm:text-xl font-bold font-mono text-slate-900 mt-0.5" id="metric-today-${m.id}">
                     ${todayDisplay}
                   </div>
                 </div>
                 <div>
-                  <div class="text-[10px] font-medium text-slate-400">누적 방문자</div>
-                  <div class="text-sm sm:text-base font-semibold font-mono text-slate-200 mt-1" id="metric-total-${m.id}">
+                  <div class="text-[10px] font-medium text-slate-500">누적 방문자</div>
+                  <div class="text-sm sm:text-base font-semibold font-mono text-slate-700 mt-1" id="metric-total-${m.id}">
                     ${totalDisplay}
                   </div>
                 </div>
@@ -465,11 +465,11 @@
 
               <!-- 7-Day Trend Chart -->
               <div class="mb-3">
-                <div class="flex items-center justify-between text-[10px] text-slate-400 mb-1 font-mono">
+                <div class="flex items-center justify-between text-[10px] text-slate-500 mb-1 font-mono">
                   <span>실적 추이 (최근 7일)</span>
                   <span>${isReady ? '준비 상태' : '일별 트래픽'}</span>
                 </div>
-                <div class="bg-slate-950/40 p-1.5 rounded-lg border border-slate-800/60">
+                <div class="bg-slate-50/70 p-2 rounded-lg border border-slate-200/70">
                   ${sparklineSvg}
                   <div class="flex justify-between text-[9px] font-mono text-slate-400 px-1 mt-1">
                     ${dayLabels.map(l => `<span>${l}</span>`).join('')}
@@ -479,11 +479,11 @@
             </div>
 
             <!-- Card Bottom: Tags & Link -->
-            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
               <div class="flex flex-wrap gap-1">
-                ${m.tags.map(t => `<span class="text-[10px] text-slate-400 bg-slate-800/70 px-1.5 py-0.5 rounded">${t}</span>`).join('')}
+                ${m.tags.map(t => `<span class="text-[10px] text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200/60">${t}</span>`).join('')}
               </div>
-              <a href="${m.url}" target="_blank" class="text-xs font-medium text-blue-400 hover:text-blue-300 flex items-center gap-1 shrink-0 transition-colors">
+              <a href="${m.url}" target="_blank" class="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 shrink-0 transition-colors">
                 <span>방문하기</span>
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -547,15 +547,15 @@
       nav.innerHTML = CATEGORIES.map(cat => {
         const isActive = cat.id === currentCategory;
         const activeClass = isActive 
-          ? 'bg-blue-600 text-white font-medium shadow-sm' 
-          : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800';
+          ? 'bg-slate-900 text-white font-medium shadow-sm' 
+          : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200';
         return `
           <button 
             onclick="selectCategory('${cat.id}')" 
             class="px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all flex items-center gap-1.5 ${activeClass}"
           >
             <span>${cat.name}</span>
-            <span class="text-[10px] ${isActive ? 'bg-blue-700/80 text-blue-100' : 'bg-slate-800 text-slate-400'} px-1.5 py-0.2 rounded-full font-mono">
+            <span class="text-[10px] ${isActive ? 'bg-slate-800 text-slate-200' : 'bg-slate-100 text-slate-500'} px-1.5 py-0.2 rounded-full font-mono">
               ${cat.count}
             </span>
           </button>
@@ -607,30 +607,30 @@
         const targetUrl = isExternal ? item.path : `./${item.path}`;
 
         return `
-          <div class="site-card bg-slate-900/80 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:bg-slate-900 transition-colors">
+          <div class="site-card bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between shadow-sm">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                   ${item.tag || '사이트'}
                 </span>
                 <span class="text-[10px] text-slate-400 font-mono truncate max-w-[150px]" title="${item.path}">
                   ${item.path}
                 </span>
               </div>
-              <h4 class="text-sm font-bold text-white mb-1.5 leading-snug line-clamp-1" title="${item.title}">
+              <h4 class="text-sm font-bold text-slate-900 mb-1.5 leading-snug line-clamp-1" title="${item.title}">
                 ${item.title}
               </h4>
-              <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 mb-4" title="${item.desc}">
+              <p class="text-xs text-slate-500 leading-relaxed line-clamp-2 mb-4" title="${item.desc}">
                 ${item.desc}
               </p>
             </div>
 
-            <div class="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+            <div class="flex items-center gap-2 pt-3 border-t border-slate-100">
               <button 
                 onclick="openPreview('${encodeURIComponent(item.path)}', '${encodeURIComponent(item.title)}', '${encodeURIComponent(item.tag || '')}')"
-                class="flex-1 py-1.5 px-3 rounded-lg bg-slate-800 hover:bg-slate-750 hover:text-white text-slate-300 text-xs font-medium border border-slate-700/80 flex items-center justify-center gap-1.5 transition-colors"
+                class="flex-1 py-1.5 px-3 rounded-lg bg-slate-50 hover:bg-slate-100 hover:text-slate-900 text-slate-700 text-xs font-medium border border-slate-200 shadow-sm flex items-center justify-center gap-1.5 transition-colors"
               >
-                <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                 </svg>
@@ -640,7 +640,7 @@
               <a 
                 href="${targetUrl}" 
                 target="_blank"
-                class="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center justify-center gap-1 transition-colors"
+                class="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-sm flex items-center justify-center gap-1 transition-colors"
                 title="새 탭에서 열기"
               >
                 <span>열기</span>
@@ -697,18 +697,18 @@
       const btnMob = document.getElementById('btnVpMobile');
 
       [btnDesk, btnTab, btnMob].forEach(b => {
-        b.className = 'px-2.5 py-1 text-xs rounded text-slate-400 hover:text-slate-200 transition-colors';
+        b.className = 'px-2.5 py-1 text-xs rounded text-slate-500 hover:text-slate-800 transition-colors';
       });
 
       if (mode === 'desktop') {
         wrapper.style.maxWidth = '100%';
-        btnDesk.className = 'px-2.5 py-1 text-xs rounded text-blue-400 bg-slate-800 font-medium transition-colors';
+        btnDesk.className = 'px-2.5 py-1 text-xs rounded text-blue-600 bg-blue-50 font-medium transition-colors';
       } else if (mode === 'tablet') {
         wrapper.style.maxWidth = '768px';
-        btnTab.className = 'px-2.5 py-1 text-xs rounded text-blue-400 bg-slate-800 font-medium transition-colors';
+        btnTab.className = 'px-2.5 py-1 text-xs rounded text-blue-600 bg-blue-50 font-medium transition-colors';
       } else if (mode === 'mobile') {
         wrapper.style.maxWidth = '375px';
-        btnMob.className = 'px-2.5 py-1 text-xs rounded text-blue-400 bg-slate-800 font-medium transition-colors';
+        btnMob.className = 'px-2.5 py-1 text-xs rounded text-blue-600 bg-blue-50 font-medium transition-colors';
       }
     }
 
