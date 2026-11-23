@@ -14,11 +14,6 @@ export async function onRequest(context) {
       return Response.redirect(`${url.origin}/portfolio.html`, 301);
     }
 
-    // 3. 구버전 stay 경로 -> 메인 301 리디렉션
-    if (url.pathname === '/stay' || url.pathname.startsWith('/stay/')) {
-      return Response.redirect(`${url.origin}/`, 301);
-    }
-
     // 4. 숙소 서브도메인 접근 시 메인 도메인으로 301 리디렉션 (5xx 크래시 원천 방지)
     const hostname = url.hostname.toLowerCase();
     if (hostname.endsWith('.adopter.co.kr') && hostname !== 'adopter.co.kr' && hostname !== 'www.adopter.co.kr') {

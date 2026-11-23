@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플루메리아 펜션 | 열대의 감성을 살린 트렌디한 인더스트리얼 스테이</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"Space Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+                        display: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        black: '#0f0f0f',
+                        white: '#f9f9f9',
+                    },
+                    borderWidth: {
+                        DEFAULT: '1px',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for luxury entrance -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --border-color: #0f0f0f;
+            --bg-color: #e5e5e5;
+            --canvas-color: #f9f9f9;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--border-color);
+            font-family: 'Space Mono', monospace;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, #d4d4d4 1px, transparent 1px),
+                linear-gradient(to bottom, #d4d4d4 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0; /* Handled by GSAP */
+        }
+
+        ::selection {
+            background-color: var(--border-color);
+            color: var(--canvas-color);
+        }
+
+        /* Loading Overlay */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--border-color);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--canvas-color);
+            flex-direction: column;
+        }
+        
+        .loader-line {
+            width: 0%;
+            height: 1px;
+            background: var(--canvas-color);
+            margin-top: 20px;
+            transition: width 1.5s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+
+        /* Architectural Grid Frame */
+        .arch-frame {
+            border: 1px solid var(--border-color);
+            background-color: var(--canvas-color);
+            position: relative;
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.04);
+            margin: 2rem auto;
+            max-width: 90rem;
+        }
+
+        .arch-row {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        @media (min-width: 768px) {
+            .arch-row { flex-direction: row; }
+        }
+        
+        .arch-col {
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .arch-col {
+                border-bottom: none;
+                border-right: 1px solid var(--border-color);
+            }
+            .arch-col:last-child {
+                border-right: none;
+            }
+        }
+
+        .arch-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Typography & Decor */
+        .meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        .display-text {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+        }
+
+        /* Registration Marks */
+        .reg-mark {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .reg-mark::before, .reg-mark::after {
+            content: '';
+            position: absolute;
+            background-color: var(--border-color);
+        }
+        .reg-mark::before { top: 7px; left: 0; width: 15px; height: 1px; }
+        .reg-mark::after { top: 0; left: 7px; width: 1px; height: 15px; }
+
+        .reg-tl { top: -7px; left: -7px; }
+        .reg-tr { top: -7px; right: -7px; }
+        .reg-bl { bottom: -7px; left: -7px; }
+        .reg-br { bottom: -7px; right: -7px; }
+
+        /* Media */
+        .img-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .img-container img {
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), filter 1s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-container:hover img {
+            transform: scale(1.04);
+            filter: grayscale(0%) contrast(1.05);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 0;
+            background: var(--border-color);
+            color: var(--canvas-color);
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Crosshairs */
+        .crosshair {
+            position: absolute;
+            background: rgba(255,255,255,0.4);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="meta text-white" id="loader-text">INITIALIZING SYSTEM... [0%]</div>
+        <div class="loader-line" id="loader-line"></div>
+    </div>
+
+    <!-- Main App -->
+    <div class="arch-frame" id="main-frame">
+        
+        <div class="reg-mark reg-tl"></div>
+        <div class="reg-mark reg-tr"></div>
+        <div class="reg-mark reg-bl"></div>
+        <div class="reg-mark reg-br"></div>
+
+        <div class="marquee-container">
+            <div class="marquee-content meta text-white px-4">
+                PROJECT 09: 플루메리아 펜션 // ARCHITECTURAL REDESIGN // STRICT GRID SYSTEM // PROJECT 09: 플루메리아 펜션 // ARCHITECTURAL REDESIGN // STRICT GRID SYSTEM // PROJECT 09: 플루메리아 펜션 // ARCHITECTURAL REDESIGN // STRICT GRID SYSTEM //
+            </div>
+        </div>
+
+        <header class="arch-row">
+            <div class="arch-col md:w-1/4 md:flex-none justify-between">
+                <div class="gsap-reveal">
+                    <h1 class="text-2xl font-bold uppercase tracking-tighter">플루메리아 펜션</h1>
+                    <p class="meta mt-4">PRJ. 09 / JEJU_KR</p>
+                    <p class="meta mt-1 opacity-50">VOL. 01</p>
+                </div>
+                <div class="mt-16 md:mt-0 meta gsap-reveal">
+                    [ EST. 2024 ]<br>REV. A
+                </div>
+            </div>
+            
+            <div class="arch-col justify-center items-center text-center">
+                <div class="meta mb-6 w-full text-left gsap-reveal">
+                    <span class="border-b border-black pb-1 inline-block">ARCHITECTURAL SPECIFICATIONS</span>
+                </div>
+                <h2 class="display-text text-5xl md:text-7xl lg:text-[7rem] uppercase leading-[0.85] mb-4 tracking-tighter gsap-reveal">Industrial<br>Chic</h2>
+            </div>
+            
+            <div class="arch-col md:w-1/4 md:flex-none justify-between items-start md:items-end text-left md:text-right">
+                <div class="meta w-full mb-8 gsap-reveal">
+                    STATUS: <span class="animate-pulse inline-block w-2 h-2 bg-black rounded-full ml-1 align-middle"></span> LIVE
+                </div>
+                <a href="#reservation" class="group relative inline-block border border-black px-8 py-4 text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors duration-500 overflow-hidden gsap-reveal">
+                    <span class="relative z-10">Access Booking</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="arch-row p-0 border-b-0">
+            <div class="w-full relative h-[60vh] md:h-[80vh] img-container bg-[#d0d0d0]">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=1920" alt="Moheomdam Exterior" class="grayscale-[0.9] opacity-90" id="hero-img" />
+                
+                <div class="absolute inset-0 border-[40px] border-white/5 mix-blend-overlay pointer-events-none"></div>
+                <div class="crosshair top-1/2 left-0 w-full h-[1px]"></div>
+                <div class="crosshair top-0 left-1/2 w-[1px] h-full"></div>
+                
+                <div class="absolute bottom-6 right-6 z-20 bg-white px-4 py-2 meta border border-black shadow-sm transform translate-y-4 opacity-0" id="hero-tag">
+                    FIG 1.0 / EXT_ELEVATION
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-row border-t border-black">
+            <div class="arch-col group hover:bg-black hover:text-white transition-colors duration-500 cursor-default">
+                <div class="flex justify-between items-start mb-16">
+                    <div class="meta group-hover:text-white">SPEC. 01<br>LOCATION</div>
+                    <div class="meta opacity-30 group-hover:opacity-100 transition-opacity">01</div>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-sm font-medium">제주 제주시 구좌읍 해맞이해안로 377-3</p>
+                    <div class="mt-8 pt-4 border-t border-black/20 group-hover:border-white/30 flex justify-between">
+                        <span class="meta group-hover:text-white">COORDS</span>
+                        <span class="meta group-hover:text-white">33.562°N, 126.772°E</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-col group hover:bg-black hover:text-white transition-colors duration-500 cursor-default">
+                <div class="flex justify-between items-start mb-16">
+                    <div class="meta group-hover:text-white">SPEC. 02<br>CAPACITY</div>
+                    <div class="meta opacity-30 group-hover:opacity-100 transition-opacity">02</div>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-sm font-medium">BASE: 4 PAX / MAX: 8 PAX</p>
+                    <div class="mt-8 pt-4 border-t border-black/20 group-hover:border-white/30 flex justify-between">
+                        <span class="meta group-hover:text-white">AREA</span>
+                        <span class="meta group-hover:text-white">120 PY / 35 PY</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-col group hover:bg-black hover:text-white transition-colors duration-500 cursor-default">
+                <div class="flex justify-between items-start mb-16">
+                    <div class="meta group-hover:text-white">SPEC. 03<br>CONTACT</div>
+                    <div class="meta opacity-30 group-hover:opacity-100 transition-opacity">03</div>
+                </div>
+                <div class="mt-auto">
+                    <p class="text-sm font-medium">T. 0507-1347-3972<br>E. contact@adopter.co.kr</p>
+                    <div class="mt-8 pt-4 border-t border-black/20 group-hover:border-white/30">
+                        <a href="http://pf.kakao.com/_HCTxiX/chat" target="_blank" class="meta group-hover:text-white flex justify-between items-center w-full">
+                            <span>KAKAO CHANNEL</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-row !border-b-0">
+            <div class="arch-col !p-0">
+                <div class="p-8 md:p-12 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-white">
+                    <div>
+                        <div class="meta mb-4">APPENDIX A.</div>
+                        <h3 class="display-text text-4xl md:text-6xl uppercase tracking-tight">Spatial Inventory</h3>
+                    </div>
+                    <div class="meta text-right max-w-sm opacity-60">
+                        VISUAL DOCUMENTATION OF INTERIOR AND EXTERIOR ZONES. GRID ALIGNMENT: STRICT.
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 border-b border-black bg-black gap-px">
+                    <div class="col-span-2 md:col-span-2 row-span-2 img-container bg-gray-100 aspect-square md:aspect-auto h-full relative">
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=1920" class="grayscale-[0.7]" alt="Living">
+                        <div class="absolute bottom-0 left-0 bg-white border-t border-r border-black px-3 py-2 meta z-20">LIVING_01</div>
+                    </div>
+                    
+                    <div class="col-span-1 img-container bg-gray-200 aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1599427301072-5e8348d61d19?auto=format&fit=crop&q=80&w=1920" class="grayscale-[0.8]" alt="Bedroom">
+                        <div class="absolute bottom-0 left-0 bg-white border-t border-r border-black px-2 py-1 meta z-20 text-[0.6rem]">BEDROOM_01</div>
+                    </div>
+                    
+                    <div class="col-span-1 img-container bg-gray-300 aspect-square relative">
+                        <img src="https://images.unsplash.com/photo-1583847268964-b28ce8f52f36?auto=format&fit=crop&q=80&w=1920" class="grayscale-[0.8]" alt="Kitchen">
+                        <div class="absolute bottom-0 left-0 bg-white border-t border-r border-black px-2 py-1 meta z-20 text-[0.6rem]">KITCHEN</div>
+                    </div>
+                    
+                    <div class="col-span-2 md:col-span-2 img-container bg-gray-100 aspect-[2/1] relative">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920" class="grayscale-[0.8]" alt="Outdoor">
+                        <div class="absolute bottom-0 left-0 bg-white border-t border-r border-black px-3 py-2 meta z-20">OUTDOOR_DECK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-row bg-[#f8f8f8]" id="reservation">
+            <div class="arch-col md:w-1/2 md:flex-none relative overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none opacity-10">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="smallGrid2" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#0a0a0a" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#smallGrid2)" />
+                    </svg>
+                </div>
+                
+                <div class="relative z-10 h-full flex flex-col justify-center">
+                    <div class="meta mb-8 border border-black px-3 py-1 inline-block w-max">FINANCIAL SCHEDULE</div>
+                    <h3 class="display-text text-4xl md:text-5xl uppercase mb-12 tracking-tight">Tariff <br>Structure</h3>
+                    
+                    <div class="space-y-6 text-sm font-medium pr-8">
+                        <div class="flex justify-between items-end border-b border-black/20 pb-3">
+                            <span class="meta">WEEKDAY (SUN-THU)</span>
+                            <span class="text-lg tracking-tight">320,000 KRW</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-black/20 pb-3">
+                            <span class="meta">WEEKEND (FRI-SAT)</span>
+                            <span class="text-lg tracking-tight">350,000 KRW</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-black/20 pb-3">
+                            <span class="meta">PEAK SURCHARGE</span>
+                            <span class="text-lg tracking-tight">+ 30,000 KRW</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-black/20 pb-3 text-gray-500">
+                            <span class="meta">EXTRA GUEST (PER PAX)</span>
+                            <span class="text-lg tracking-tight">10,000 KRW</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arch-col md:w-1/2 flex flex-col justify-center items-center py-32 text-center bg-white">
+                <div class="meta mb-8 opacity-50">SYSTEM.READY()</div>
+                <h4 class="display-text text-5xl md:text-6xl mb-16 tracking-tighter">Initiate<br>Reservation</h4>
+                
+                <a href="https://m.place.naver.com/accommodation/1716272359/home" target="_blank" class="relative group inline-flex items-center justify-center p-8 px-12 border border-black bg-white hover:bg-black hover:text-white transition-all duration-500 overflow-hidden">
+                    <span class="absolute top-0 left-0 w-2 h-2 border-t border-l border-black group-hover:border-white transition-colors z-20"></span>
+                    <span class="absolute top-0 right-0 w-2 h-2 border-t border-r border-black group-hover:border-white transition-colors z-20"></span>
+                    <span class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-black group-hover:border-white transition-colors z-20"></span>
+                    <span class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-black group-hover:border-white transition-colors z-20"></span>
+                    
+                    <span class="relative z-10 text-sm meta tracking-widest font-bold m-0 group-hover:text-white">NAVER BOOKING PORTAL</span>
+                </a>
+            </div>
+        </div>
+
+        <footer class="arch-row py-8 px-8 md:px-12 bg-black text-white flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+            <div class="meta text-[0.6rem] text-gray-400">
+                플루메리아 펜션 © 2024. ALL RIGHTS RESERVED.<br>
+                ARCHITECTURE BY ADOPTER STUDIO.
+            </div>
+            
+            <div class="flex gap-8">
+                <a href="https://www.instagram.com/moheomdam" target="_blank" class="meta hover:text-white text-gray-400 transition-colors">IG</a>
+                <a href="http://pf.kakao.com/_HCTxiX/chat" target="_blank" class="meta hover:text-white text-gray-400 transition-colors">KAKAO</a>
+            </div>
+            
+            <div class="meta text-[0.6rem] text-gray-400 text-center md:text-right">
+                VERSION 1.0.0 // RENDERED IN JEJU
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // GSAP Luxury Entrance Animation
+        window.onload = () => {
+            const tl = gsap.timeline();
+            
+            // Loader progress
+            tl.to("#loader-line", { width: "100%", duration: 1, ease: "power2.inOut" })
+              .to("#loader-text", { opacity: 0, duration: 0.3 }, "-=0.3")
+              .to("#loader", { yPercent: -100, duration: 0.8, ease: "power4.inOut" })
+              
+              // Fade in body
+              .to("body", { opacity: 1, duration: 0.1 }, "-=0.8")
+              
+              // Frame entrance
+              .from("#main-frame", { y: 100, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.4")
+              
+              // Text reveals
+              .from(".gsap-reveal", { y: 20, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" }, "-=0.5")
+              
+              // Image reveal
+              .from("#hero-img", { scale: 1.1, filter: "grayscale(100%)", duration: 1.5, ease: "power2.out" }, "-=0.8")
+              .to("#hero-tag", { y: 0, opacity: 1, duration: 0.5 }, "-=0.5");
+        };
+    </script>
+</body>
+</html>

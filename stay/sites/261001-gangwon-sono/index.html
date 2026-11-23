@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth antialiased text-stone-800 bg-stone-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wabi-Sabi Stay | A Mindful Retreat</title>
+  <meta name="description" content="A tranquil escape blending minimalist wabi-sabi aesthetics with natural earthy tones.">
+  <link rel="icon" href="data:,">
+  
+  <!-- Font Preloading for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- GSAP for Smooth Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Cinzel', serif;
+    }
+    body {
+      font-family: var(--font-body);
+      background-color: #faf9f8;
+    }
+    h1, h2, h3, h4, h5, h6, .font-display {
+      font-family: var(--font-display);
+    }
+    
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            stone: {
+              50: '#faf9f8', 100: '#f5f4f2', 200: '#e8e5e1',
+              300: '#d5cfc8', 400: '#b8afa6', 500: '#a3988d',
+              600: '#8b7e73', 700: '#73685e', 800: '#5c544d', 900: '#4c4540',
+            },
+            earth: {
+              light: '#d2c4b3', DEFAULT: '#b09e86', dark: '#8e7960'
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'float-slow': 'float 8s ease-in-out infinite reverse',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+
+    /* Custom hide scrollbar */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* Reveal Animation Classes */
+    .reveal-up { opacity: 0; transform: translateY(40px); }
+    .reveal-fade { opacity: 0; }
+  </style>
+</head>
+<body class="overflow-x-hidden selection:bg-earth-light selection:text-white">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 top-0 left-0 px-6 py-8 md:px-12 md:py-10 flex justify-between items-center transition-all duration-500 mix-blend-difference text-white" id="navbar">
+    <div class="text-xl md:text-2xl tracking-[0.3em] font-display font-light uppercase">Wabi Sabi</div>
+    <div class="hidden md:flex gap-16 text-xs tracking-[0.2em] uppercase">
+      <a href="#about" class="hover:text-stone-300 transition-colors">Philosophy</a>
+      <a href="#spaces" class="hover:text-stone-300 transition-colors">Sanctuaries</a>
+      <a href="#gallery" class="hover:text-stone-300 transition-colors">Gallery</a>
+    </div>
+    <a href="#book" class="border border-white/30 px-8 py-3 rounded-full hover:bg-white hover:text-stone-900 transition-all duration-500 text-xs tracking-[0.2em] uppercase backdrop-blur-sm">Reservation</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative w-full h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-stone-900">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?q=80&w=2574&auto=format&fit=crop" alt="Wabi Sabi Interior" class="w-full h-full object-cover object-center opacity-70 hero-bg scale-110" />
+      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/40 via-transparent to-stone-900/60"></div>
+    </div>
+    
+    <div class="relative z-10 text-center text-white max-w-5xl px-4 flex flex-col items-center hero-content">
+      <p class="text-xs tracking-[0.4em] uppercase mb-8 text-stone-200">A Mindful Retreat</p>
+      <h1 class="text-6xl md:text-8xl lg:text-9xl font-display font-light tracking-tight mb-8 leading-[1.1]">Find Stillness<br><span class="italic font-serif text-stone-300">in imperfection</span></h1>
+      <p class="text-lg md:text-xl font-light tracking-wide max-w-2xl text-stone-300 mt-6 leading-relaxed">Disconnect to reconnect. A sanctuary where raw materials meet mindful design.</p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-6 text-white/70">
+      <span class="text-[10px] tracking-[0.3em] uppercase">Discover</span>
+      <div class="w-[1px] h-20 bg-gradient-to-b from-white/70 to-transparent overflow-hidden relative">
+        <div class="w-full h-full bg-white absolute top-0 left-0 animate-[scroll-down_2s_ease-in-out_infinite]"></div>
+      </div>
+    </div>
+    <style>
+      @keyframes scroll-down { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+    </style>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" class="py-32 md:py-48 px-6 md:px-12 bg-stone-50 rounded-b-[4rem] md:rounded-b-[8rem] relative z-20 shadow-2xl">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+      <div class="order-2 lg:order-1 relative reveal-up">
+        <div class="aspect-[3/4] w-full max-w-lg mx-auto rounded-t-full rounded-b-[3rem] overflow-hidden shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?q=80&w=2664&auto=format&fit=crop" alt="Textures" class="w-full h-full object-cover parallax-img" />
+        </div>
+        <!-- Floating Element -->
+        <div class="absolute -bottom-16 -right-8 lg:-right-16 w-56 h-56 rounded-full overflow-hidden border-[12px] border-stone-50 shadow-xl hidden md:block animate-float">
+          <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2670&auto=format&fit=crop" alt="Details" class="w-full h-full object-cover" />
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 flex flex-col items-start reveal-up">
+        <span class="text-earth uppercase tracking-[0.2em] text-xs mb-6">The Philosophy</span>
+        <h2 class="text-5xl md:text-7xl font-display font-light mb-10 text-stone-800 leading-[1.1]">Embracing the <br>beauty of nature</h2>
+        <div class="w-12 h-[1px] bg-stone-400 mb-10"></div>
+        <p class="text-stone-500 font-light leading-loose mb-12 text-lg md:text-xl">
+          Rooted in the Japanese philosophy of wabi-sabi, our spaces celebrate the beauty of impermanence and imperfection. Natural textures, earthy tones, and soft curves create an environment that invites calm and introspection, blurring the line between indoors and the untamed wilderness.
+        </p>
+        <a href="#spaces" class="group flex items-center gap-6 text-stone-800 pb-3 border-b border-stone-300 hover:border-stone-800 transition-colors uppercase tracking-[0.2em] text-xs">
+          Discover our sanctuaries
+          <svg class="w-5 h-5 transform group-hover:translate-x-3 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaces Section -->
+  <section id="spaces" class="py-32 md:py-48 px-6 md:px-12 bg-stone-100 relative">
+    <!-- Background abstract floating shape -->
+    <div class="absolute top-20 right-0 w-96 h-96 bg-stone-200/50 rounded-full blur-3xl opacity-50 animate-float-slow mix-blend-multiply pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-32 gap-12 reveal-up">
+        <div>
+          <span class="text-earth uppercase tracking-[0.2em] text-xs mb-6 block">Residences</span>
+          <h2 class="text-5xl md:text-7xl font-display font-light text-stone-800">Your Sanctuary</h2>
+        </div>
+        <p class="text-stone-500 font-light max-w-md text-lg leading-relaxed pb-4">Curated spaces designed to seamlessly blend the indoors with the surrounding landscape, offering ultimate privacy and peace.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24">
+        <!-- Room 1 -->
+        <div class="group cursor-pointer reveal-up">
+          <div class="overflow-hidden rounded-[2.5rem] mb-10 relative bg-stone-200 aspect-[4/5] md:aspect-square">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2675&auto=format&fit=crop" alt="The Earth Villa" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-700"></div>
+          </div>
+          <div class="flex justify-between items-start px-2">
+            <div>
+              <h3 class="text-3xl font-display mb-3 text-stone-800">The Earth Villa</h3>
+              <p class="text-stone-500 font-light text-sm tracking-wide">2 Guests &nbsp;•&nbsp; 1 Bedroom &nbsp;•&nbsp; Private Courtyard</p>
+            </div>
+            <div class="w-14 h-14 rounded-full border border-stone-300 flex items-center justify-center group-hover:bg-stone-800 group-hover:border-stone-800 group-hover:text-white transition-all duration-500">
+              <svg class="w-5 h-5 transform -rotate-45 group-hover:rotate-0 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Room 2 -->
+        <div class="group cursor-pointer lg:mt-32 reveal-up">
+          <div class="overflow-hidden rounded-[2.5rem] mb-10 relative bg-stone-200 aspect-[4/5] md:aspect-square">
+            <img src="https://images.unsplash.com/photo-1598928506311-c55dd1b212f7?q=80&w=2670&auto=format&fit=crop" alt="The Stone Villa" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-700"></div>
+          </div>
+          <div class="flex justify-between items-start px-2">
+            <div>
+              <h3 class="text-3xl font-display mb-3 text-stone-800">The Stone Villa</h3>
+              <p class="text-stone-500 font-light text-sm tracking-wide">4 Guests &nbsp;•&nbsp; 2 Bedrooms &nbsp;•&nbsp; Open-air Bath</p>
+            </div>
+            <div class="w-14 h-14 rounded-full border border-stone-300 flex items-center justify-center group-hover:bg-stone-800 group-hover:border-stone-800 group-hover:text-white transition-all duration-500">
+              <svg class="w-5 h-5 transform -rotate-45 group-hover:rotate-0 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery & Amenities Section -->
+  <section id="gallery" class="py-32 md:py-48 px-0 bg-stone-50 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto flex flex-col items-center mb-24 px-6 md:px-12 reveal-up">
+      <span class="text-earth uppercase tracking-[0.2em] text-xs mb-6">Visual Journey</span>
+      <h2 class="text-5xl md:text-7xl font-display font-light text-stone-800 text-center">Space Gallery</h2>
+    </div>
+      
+    <!-- Horizontal Scroll Gallery -->
+    <div class="flex flex-nowrap gap-8 md:gap-16 overflow-x-auto w-full px-6 md:px-32 pb-16 snap-x snap-mandatory hide-scrollbar reveal-fade">
+      <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2574&auto=format&fit=crop" class="snap-center w-[85vw] md:w-[45vw] flex-shrink-0 aspect-[3/4] object-cover rounded-[2rem] md:rounded-[3rem] shadow-xl" alt="Gallery Image" />
+      <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2670&auto=format&fit=crop" class="snap-center w-[85vw] md:w-[45vw] flex-shrink-0 aspect-[4/3] object-cover rounded-[2rem] md:rounded-[3rem] shadow-xl self-center" alt="Gallery Image" />
+      <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2670&auto=format&fit=crop" class="snap-center w-[85vw] md:w-[45vw] flex-shrink-0 aspect-[3/4] object-cover rounded-[2rem] md:rounded-[3rem] shadow-xl" alt="Gallery Image" />
+      <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2669&auto=format&fit=crop" class="snap-center w-[85vw] md:w-[45vw] flex-shrink-0 aspect-[4/3] object-cover rounded-[2rem] md:rounded-[3rem] shadow-xl self-center" alt="Gallery Image" />
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 md:px-12 mt-32 border-t border-stone-200 pt-32 reveal-up">
+      <h3 class="text-center font-display text-3xl mb-20 text-stone-800">Thoughtful Details</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-20">
+        <!-- Amenity SVG Icons (Monochrome Outline) -->
+        <div class="flex flex-col items-center text-center gap-6 group">
+          <svg class="w-12 h-12 text-stone-300 group-hover:text-stone-800 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          <span class="text-xs tracking-[0.2em] uppercase text-stone-600">Premium Bedding</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-6 group">
+          <svg class="w-12 h-12 text-stone-300 group-hover:text-stone-800 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+          <span class="text-xs tracking-[0.2em] uppercase text-stone-600">Aesop Amenities</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-6 group">
+          <svg class="w-12 h-12 text-stone-300 group-hover:text-stone-800 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          <span class="text-xs tracking-[0.2em] uppercase text-stone-600">Beam Projector</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-6 group">
+          <svg class="w-12 h-12 text-stone-300 group-hover:text-stone-800 transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span class="text-xs tracking-[0.2em] uppercase text-stone-600">Open-air Bath</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 text-stone-400 py-32 px-6 md:px-12 rounded-t-[4rem] md:rounded-t-[8rem] relative z-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-20">
+      <div class="max-w-sm">
+        <div class="text-3xl tracking-[0.3em] font-display font-light uppercase text-white mb-8">Wabi Sabi</div>
+        <p class="font-light leading-loose text-stone-400">Finding beauty in imperfection. A quiet retreat designed to restore balance and calm to the soul.</p>
+      </div>
+      <div class="flex gap-20 md:gap-32">
+        <div class="flex flex-col gap-6">
+          <h4 class="text-white uppercase tracking-[0.2em] text-xs mb-2">Contact</h4>
+          <a href="#" class="hover:text-white transition-colors font-light text-sm">info@wabisabi-stay.com</a>
+          <a href="#" class="hover:text-white transition-colors font-light text-sm">+82 10 1234 5678</a>
+          <span class="text-stone-500 font-light text-sm mt-2">Jeju, South Korea</span>
+        </div>
+        <div class="flex flex-col gap-6">
+          <h4 class="text-white uppercase tracking-[0.2em] text-xs mb-2">Social</h4>
+          <a href="#" class="hover:text-white transition-colors font-light text-sm">Instagram</a>
+          <a href="#" class="hover:text-white transition-colors font-light text-sm">Journal</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-32 pt-12 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center gap-8 text-xs tracking-wider">
+      <p>&copy; 2026 Wabi Sabi Stay. All rights reserved.</p>
+      <div class="flex gap-12">
+        <a href="#" class="hover:text-white transition-colors uppercase tracking-widest">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors uppercase tracking-widest">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts for Animations -->
+  <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero animations
+      gsap.from(".hero-bg", { scale: 1.15, duration: 3, ease: "power2.out" });
+      gsap.from(".hero-content > *", {
+        y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power2.out", delay: 0.5
+      });
+
+      // Reveal Up Animations
+      gsap.utils.toArray('.reveal-up').forEach(element => {
+        gsap.to(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out"
+        });
+      });
+
+      // Reveal Fade Animations
+      gsap.utils.toArray('.reveal-fade').forEach(element => {
+        gsap.to(element, {
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+          },
+          opacity: 1,
+          duration: 1.5,
+          ease: "power2.out"
+        });
+      });
+
+      // Parallax Image
+      gsap.to(".parallax-img", {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".parallax-img",
+          start: "top bottom", 
+          end: "bottom top",
+          scrub: true
+        } 
+      });
+      
+      // Navbar background change on scroll
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('bg-stone-900/90', 'backdrop-blur-md');
+          navbar.classList.remove('mix-blend-difference');
+        } else {
+          navbar.classList.remove('bg-stone-900/90', 'backdrop-blur-md');
+          navbar.classList.add('mix-blend-difference');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
