@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>100% 당첨 룰렛 이벤트</title>
+    <!-- React & Tailwind -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            background-color: #1a0066;
+            color: white;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+        .font-jua { font-family: 'Jua', sans-serif; }
+        
+        @media (min-width: 1024px) {
+            .app-main-view { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+        }
+        
+        .wheel-wrap {
+            position: relative;
+            width: 320px; height: 320px;
+            margin: 40px auto;
+            flex-shrink: 0;
+        }
+        @media (min-width: 640px) {
+            .wheel-wrap { width: 460px; height: 460px; margin: 60px auto; }
+        }
+
+        .wheel-core {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 10px solid #fff;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            transition: transform 5s cubic-bezier(0.12, 0, 0.1, 1);
+            aspect-ratio: 1 / 1;
+        }
+
+        .top-pointer {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            z-index: 50;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+        }
+
+        .spin-trigger {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px; height: 90px;
+            background: #ffcc00;
+            border: 6px solid #fff;
+            border-radius: 50%;
+            z-index: 60;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.2s;
+        }
+        .spin-trigger:active { transform: translate(-50%, -50%) scale(0.9); }
+        .spin-trigger.is-busy { background: #bbb; cursor: not-allowed; opacity: 0.8; }
+
+        .led-dot {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            top: -24px;
+            left: 50%;
+            margin-left: -6px;
+            transform-origin: 50% 184px;
+            box-shadow: 0 0 8px #fff, 0 0 15px #ff0;
+            z-index: 10;
+        }
+        @media (min-width: 640px) {
+            .led-dot { transform-origin: 50% 254px; }
+        }
+        .blink-fast { animation: led-blink 0.6s infinite alternate; }
+        @keyframes led-blink { from { opacity: 0.4; } to { opacity: 1; } }
+
+        .prize-item-box {
+            position: absolute;
+            top: 8%; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 140px;
+        }
+
+        .img-slot {
+            width: 48px; height: 48px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        @media (min-width: 640px) {
+            .img-slot { width: 72px; height: 72px; }
+        }
+
+        .glass-panel {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+        }
+
+        @keyframes modal-scale { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-entry { animation: modal-scale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        const Icon = ({ name, size = 24, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    const iconName = name.replace(/-./g, x => x[1].toUpperCase());
+                    const icon = window.lucide.icons[iconName] || window.lucide.icons[name];
+                    if (icon) {
+                        const svg = icon.toSvg({ width: size, height: size, class: className });
+                        iconRef.current.innerHTML = svg;
+                    }
+                }
+            }, [name, size, className]);
+            return <span ref={iconRef} className="inline-block flex-shrink-0" />;
+        };
+
+        const INITIAL_PRIZES = [
+            { id: 1, name: "닌텐도 스위치", prob: 1, total: 1, won: 0, img: "img/nintendo.png" },
+            { id: 2, name: "비타500 100ml", prob: 30, total: 100, won: 0, img: "img/vita500.png" },
+            { id: 3, name: "싸이버거 세트", prob: 10, total: 50, won: 0, img: "img/burger.png" },
+            { id: 4, name: "스타벅스 커피", prob: 15, total: 80, won: 0, img: "img/starbucks.png" },
+            { id: 5, name: "파리바게뜨 4천원", prob: 20, total: 200, won: 0, img: "img/paris.png" },
+            { id: 6, name: "CU상품권 3천원", prob: 24, total: 300, won: 0, img: "img/cu.png" },
+        ];
+
+        const App = () => {
+            const [prizes, setPrizes] = useState([]);
+            const [isAdmin, setIsAdmin] = useState(false);
+            const [isSpinning, setIsSpinning] = useState(false);
+            const [rotation, setRotation] = useState(0);
+            const [winner, setWinner] = useState(null);
+            const [showModal, setShowModal] = useState(false);
+            const [code, setCode] = useState("");
+            const [logs, setLogs] = useState([]);
+            const [codes, setCodes] = useState([]); 
+            const [config, setConfig] = useState({
+                title: "닌텐도를 잡아라!",
+                sub: "100% 당첨 룰렛",
+                end: "2026. 12. 31 까지",
+                pw: "0000"
+            });
+
+            useEffect(() => {
+                const sp = localStorage.getItem('r_pz_v11');
+                const sc = localStorage.getItem('r_st_v11');
+                const sl = localStorage.getItem('r_lg_v11');
+                const sd = localStorage.getItem('r_cd_v11');
+                if (sp) setPrizes(JSON.parse(sp)); else setPrizes(INITIAL_PRIZES);
+                if (sc) setConfig(JSON.parse(sc));
+                if (sl) setLogs(JSON.parse(sl));
+                if (sd) setCodes(JSON.parse(sd));
+            }, []);
+
+            const sync = (p, c, l, d) => {
+                if (p) localStorage.setItem('r_pz_v11', JSON.stringify(p));
+                if (c) localStorage.setItem('r_st_v11', JSON.stringify(c));
+                if (l) localStorage.setItem('r_lg_v11', JSON.stringify(l));
+                if (d) localStorage.setItem('r_cd_v11', JSON.stringify(d));
+            };
+
+            // [수정된 핵심 로직] 룰렛 8개 슬롯에 상품 배치하기
+            // 상품이 6개일 경우: 맨 뒤 2가지(인덱스 4, 5)가 2번씩 중복 노출되며 휠에 서로 엇갈려 균형있게 배치되도록 설정
+            const slots = useMemo(() => {
+                if (prizes.length === 0) return [];
+                if (prizes.length === 6) {
+                    return [
+                        prizes[0], // 슬롯 0: 1번째 상품 (닌텐도 등)
+                        prizes[4], // 슬롯 1: 5번째 상품 (수량 많은 상품 1 - 첫 번째 노출)
+                        prizes[1], // 슬롯 2: 2번째 상품
+                        prizes[5], // 슬롯 3: 6번째 상품 (수량 많은 상품 2 - 첫 번째 노출)
+                        prizes[2], // 슬롯 4: 3번째 상품
+                        prizes[4], // 슬롯 5: 5번째 상품 (수량 많은 상품 1 - 두 번째 노출)
+                        prizes[3], // 슬롯 6: 4번째 상품
+                        prizes[5]  // 슬롯 7: 6번째 상품 (수량 많은 상품 2 - 두 번째 노출)
+                    ];
+                }
+                // 상품 개수가 6개가 아닐 경우 유연하게 8칸을 셋업 (모자를 경우 뒤쪽 상품 위주로 반복)
+                let res = [...prizes];
+                while(res.length < 8) {
+                    const pickIdx = prizes.length >= 2 ? (prizes.length - 2 + (res.length % 2)) : 0;
+                    res.push(prizes[pickIdx % prizes.length]);
+                }
+                return res.slice(0, 8);
+            }, [prizes]);
+
+            const spin = () => {
+                if (isSpinning) return;
+                
+                const targetCode = codes.find(c => c.val === code.trim().toUpperCase());
+                if (!targetCode) { alert("유효하지 않은 코드입니다."); return; }
+                if (targetCode.used) { alert("이미 사용된 코드입니다."); return; }
+
+                setIsSpinning(true);
+                const av = prizes.filter(p => (p.total - p.won) > 0);
+                if (av.length === 0) { alert("매진되었습니다."); setIsSpinning(false); return; }
+
+                let totalWeight = av.reduce((a,b)=>a+b.prob, 0);
+                let r = Math.random() * totalWeight;
+                let wonPrize = av[0];
+                for(let p of av) { if(r < p.prob) { wonPrize = p; break; } r -= p.prob; }
+
+                // [수정된 로직] 중복 배치된 상품(예: 5, 6번 상품) 당첨 시 해당 상품이 위치한 2개 슬롯 중 랜덤으로 1곳에 멈추도록 연출
+                const matchingIndices = [];
+                slots.forEach((s, idx) => { if (s && s.id === wonPrize.id) matchingIndices.push(idx); });
+                const idx = matchingIndices.length > 0
+                    ? matchingIndices[Math.floor(Math.random() * matchingIndices.length)]
+                    : 0;
+
+                const targetRotation = (idx * 45) + 22.5;
+                const finalRotation = (360 * 10) + (360 - targetRotation);
+                setRotation(prev => prev + finalRotation - (prev % 360));
+
+                setTimeout(() => {
+                    setIsSpinning(false);
+                    setWinner(wonPrize);
+                    setShowModal(true);
+                    
+                    const nextP = prizes.map(p => p.id === wonPrize.id ? {...p, won: p.won + 1} : p);
+                    const nextL = [{id: Date.now(), code: code.toUpperCase(), prize: wonPrize.name, time: new Date().toLocaleString()}, ...logs];
+                    const nextD = codes.map(c => c.val === code.toUpperCase() ? {...c, used: true} : c);
+                    
+                    setPrizes(nextP);
+                    setLogs(nextL);
+                    setCodes(nextD);
+                    sync(nextP, null, nextL, nextD);
+                }, 5200);
+            };
+
+            // 관리자 대시보드 컴포넌트
+            const AdminPanel = () => {
+                const [tp, setTp] = useState(prizes);
+                const [tc, setTc] = useState(config);
+                const [td, setTd] = useState(codes);
+                
+                const genCodes = (num) => {
+                    let newOnes = [];
+                    for(let i=0; i<num; i++){
+                        const v = Math.random().toString(36).substring(2, 8).toUpperCase();
+                        newOnes.push({val: v, used: false});
+                    }
+                    setTd([...td, ...newOnes]);
+                };
+
+                // [새로 추가된 사진 업로드 핸들러] 이미지를 로컬 스토리지에 안전하게 넣기 위해 Canvas로 250x250 이내로 자동 크기 조정 및 압축
+                const handleImageUpload = (file, index) => {
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement("canvas");
+                            const maxDim = 250;
+                            let w = img.width;
+                            let h = img.height;
+                            if (w > maxDim || h > maxDim) {
+                                if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+                                else { w = Math.round((w * maxDim) / h); h = maxDim; }
+                            }
+                            canvas.width = w;
+                            canvas.height = h;
+                            const ctx = canvas.getContext("2d");
+                            ctx.drawImage(img, 0, 0, w, h);
+                            const compressedDataUrl = canvas.toDataURL("image/png");
+                            
+                            let next = [...tp];
+                            next[index] = { ...next[index], img: compressedDataUrl };
+                            setTp(next);
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                return (
+                    <div className="fixed inset-0 z-[100] bg-slate-950/98 p-4 sm:p-6 overflow-y-auto text-white">
+                        <div className="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-[2.5rem] p-6 sm:p-12 shadow-2xl my-6">
+                            <h2 className="text-2xl font-black font-jua text-yellow-400 mb-8 border-b border-slate-800 pb-4 flex justify-between items-center">
+                                <span>관리자 대시보드 <small className="text-xs font-normal text-slate-400 ml-2">(사진 업로드 지원 버전)</small></span>
+                                <button onClick={()=>setIsAdmin(false)} className="hover:text-red-400 transition"><Icon name="x" size={28} /></button>
+                            </h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10">
+                                <div className="md:col-span-7">
+                                    <h3 className="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider flex items-center gap-1.5">
+                                        <Icon name="sliders" size={16} className="text-yellow-400" /> 기본 설정 & 경품 관리
+                                    </h3>
+                                    <div className="grid grid-cols-2 gap-3 mb-6 bg-slate-800/40 p-4 rounded-2xl border border-white/5">
+                                        <div className="col-span-2">
+                                            <label className="text-[11px] text-slate-400 block mb-1">이벤트 제목</label>
+                                            <input value={tc.title} onChange={e=>setTc({...tc, title:e.target.value})} className="w-full bg-slate-900 border border-slate-700 p-2.5 rounded-xl outline-none text-sm focus:border-yellow-400 transition" />
+                                        </div>
+                                        <div>
+                                            <label className="text-[11px] text-slate-400 block mb-1">부제</label>
+                                            <input value={tc.sub} onChange={e=>setTc({...tc, sub:e.target.value})} className="w-full bg-slate-900 border border-slate-700 p-2.5 rounded-xl outline-none text-sm focus:border-yellow-400 transition" />
+                                        </div>
+                                        <div>
+                                            <label className="text-[11px] text-slate-400 block mb-1">종료일</label>
+                                            <input value={tc.end} onChange={e=>setTc({...tc, end:e.target.value})} className="w-full bg-slate-900 border border-slate-700 p-2.5 rounded-xl outline-none text-sm focus:border-yellow-400 transition" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="mb-2 flex px-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter items-center">
+                                        <span className="w-12 text-center">사진</span>
+                                        <span className="flex-1 ml-2">상품명</span>
+                                        <span className="w-14 text-center">가중치</span>
+                                        <span className="w-14 text-center">수량</span>
+                                        <span className="w-12 text-right">당첨</span>
+                                    </div>
+                                    
+                                    <div className="space-y-2.5">
+                                        {tp.map((p, i) => (
+                                            <div key={p.id} className="flex gap-2 items-center bg-slate-800/60 p-2 rounded-xl border border-white/5 hover:border-white/10 transition">
+                                                {/* 사진 업로드 영역 */}
+                                                <label className="w-11 h-11 bg-white rounded-lg p-1 flex items-center justify-center cursor-pointer relative group overflow-hidden flex-shrink-0 shadow-inner border border-slate-700" title="클릭하여 이미지 변경">
+                                                    <img src={p.img} className="w-full h-full object-contain pointer-events-none" alt={p.name} onError={(e)=>{e.target.style.display='none'}} />
+                                                    <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition text-[10px] text-yellow-300 font-bold tracking-tighter">
+                                                        <span>변경</span>
+                                                    </div>
+                                                    <input 
+                                                        type="file" 
+                                                        accept="image/*" 
+                                                        className="hidden" 
+                                                        onChange={e => handleImageUpload(e.target.files[0], i)} 
+                                                    />
+                                                </label>
+                                                
+                                                {/* 상품명 입력 */}
+                                                <div className="flex-1 min-w-0">
+                                                    <input value={p.name} onChange={e=>{let n=[...tp]; n[i].name=e.target.value; setTp(n);}} className="w-full bg-slate-900/80 text-xs text-white px-2.5 py-2 rounded-lg border border-white/10 outline-none focus:border-yellow-400 transition font-medium" />
+                                                </div>
+                                                
+                                                {/* 당첨 가중치 */}
+                                                <input type="number" value={p.prob} onChange={e=>{let n=[...tp]; n[i].prob=parseInt(e.target.value)||0; setTp(n);}} className="w-14 bg-slate-900 border border-white/10 p-1.5 rounded-lg text-center text-xs text-yellow-400 font-bold outline-none" title="가중치 (숫자가 클수록 당첨확률 높음)" />
+                                                
+                                                {/* 전체 재고 수량 */}
+                                                <input type="number" value={p.total} onChange={e=>{let n=[...tp]; n[i].total=parseInt(e.target.value)||0; setTp(n);}} className="w-14 bg-slate-900 border border-white/10 p-1.5 rounded-lg text-center text-xs font-bold text-white outline-none" title="전체 재고 수량" />
+                                                
+                                                {/* 당첨 수량 */}
+                                                <span className="text-[11px] font-bold text-slate-400 w-12 text-right pr-1">{p.won}개</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-[11px] text-yellow-300/80 mt-3 flex items-center gap-1">
+                                        💡 상품 사진(썸네일)을 클릭하시면 기기의 이미지를 직접 업로드할 수 있습니다.
+                                    </p>
+                                </div>
+
+                                <div className="md:col-span-5 flex flex-col">
+                                    <h3 className="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider flex justify-between items-center">
+                                        <span className="flex items-center gap-1.5"><Icon name="key" size={16} className="text-yellow-400" /> 참여 코드 관리</span>
+                                        <div className="flex gap-1.5">
+                                            <button onClick={()=>genCodes(10)} className="text-xs bg-slate-800 hover:bg-slate-700 text-yellow-400 px-2.5 py-1 rounded-lg font-bold transition">+10개</button>
+                                            <button onClick={()=>genCodes(50)} className="text-xs bg-slate-800 hover:bg-slate-700 text-yellow-400 px-2.5 py-1 rounded-lg font-bold transition">+50개</button>
+                                        </div>
+                                    </h3>
+                                    <div className="bg-slate-800/40 rounded-2xl h-[380px] overflow-y-auto p-4 border border-slate-800 flex-1">
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {td.map((c,i) => (
+                                                <div key={i} className={`p-2.5 rounded-xl text-xs flex justify-between items-center border ${c.used ? 'bg-slate-900/60 border-transparent text-slate-600 line-through' : 'bg-slate-800 border-white/5 text-yellow-400 font-bold shadow'}`}>
+                                                    <span className="tracking-wider">{c.val}</span>
+                                                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${c.used ? 'bg-slate-800 text-slate-500' : 'bg-yellow-400/10 text-yellow-300'}`}>{c.used ? '사용됨' : '미사용'}</span>
+                                                </div>
+                                            ))}
+                                            {td.length === 0 && <p className="col-span-2 text-center text-slate-500 py-20 text-sm">생성된 코드가 없습니다.</p>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-3 mt-10 pt-6 border-t border-slate-800">
+                                <button onClick={()=>{setPrizes(tp); setConfig(tc); setCodes(td); sync(tp,tc,null,td); setIsAdmin(false);}} className="flex-1 bg-yellow-400 hover:bg-yellow-300 text-slate-950 py-4 rounded-2xl font-black text-base transition shadow-lg shadow-yellow-400/20 flex items-center justify-center gap-2">
+                                    변경사항 저장 후 닫기
+                                </button>
+                                <button onClick={()=>{if(confirm("모든 당첨 기록 및 데이터를 초기화합니까?")){localStorage.clear(); location.reload();}}} className="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-6 py-4 rounded-2xl font-bold text-sm transition">
+                                    전체 리셋
+                                </button>
+                                <button onClick={()=>setIsAdmin(false)} className="bg-slate-800 hover:bg-slate-700 px-8 py-4 rounded-2xl font-bold text-sm transition">
+                                    닫기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="app-main-view max-w-lg mx-auto px-6 py-8 flex flex-col items-center relative min-h-screen justify-center">
+                    
+                    <div className="text-center mb-6">
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-1 text-white tracking-tight">{config.title}</h1>
+                        <h2 className="text-4xl sm:text-5xl font-jua text-yellow-400 mb-5 drop-shadow-xl">{config.sub}</h2>
+                        <div className="inline-block bg-white/10 px-6 py-2 rounded-full border border-white/20 text-xs sm:text-sm font-bold text-white/80 shadow-inner">
+                            이벤트 기간 : {config.end}
+                        </div>
+                    </div>
+
+                    <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-8">
+                        {prizes.map(p => (
+                            <div key={p.id} className="glass-panel p-3 flex items-center gap-3 transition hover:bg-white/10">
+                                <div className="w-10 h-10 bg-white rounded-xl p-1 flex-shrink-0 shadow-lg overflow-hidden flex items-center justify-center">
+                                    <img src={p.img} className="w-full h-full object-contain" alt={p.name} onError={(e)=>{e.target.style.display='none'}} />
+                                </div>
+                                <div className="min-w-0">
+                                    <p className="text-[11px] text-white/70 font-bold truncate tracking-tight">{p.name}</p>
+                                    <p className={`text-base font-black ${ (p.total - p.won) > 0 ? 'text-yellow-400' : 'text-red-500'}`}>
+                                        {(p.total - p.won) > 0 ? `${p.total - p.won}개 남음` : '품절 됨'}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="wheel-wrap">
+                        <svg className="top-pointer" viewBox="0 0 100 120">
+                            <path d="M50 120 L5 10 L95 10 Z" fill="#ffcc00" stroke="#fff" strokeWidth="6" strokeLinejoin="round" />
+                            <circle cx="50" cy="35" r="12" fill="#fff" />
+                        </svg>
+                        
+                        <div className="wheel-core" style={{ transform: `rotate(${rotation}deg)` }}>
+                            {Array.from({length: 8}).map((_, i) => (
+                                <div key={i} className="absolute top-0 left-1/2 w-[1.5px] h-1/2 bg-slate-200/60 origin-bottom" style={{ transform: `translateX(-50%) rotate(${i * 45}deg)` }}></div>
+                            ))}
+                            
+                            {slots.map((p, i) => (
+                                <div key={i} className="absolute w-full h-full top-0 left-0" style={{ transform: `rotate(${(i * 45) + 22.5}deg)` }}>
+                                    <div className="prize-item-box">
+                                        <div className="img-slot">
+                                            <img src={p.img} className="w-full h-full object-contain" alt={p.name} onError={(e)=>{e.target.style.display='none'}} />
+                                        </div>
+                                        <p className="text-[10px] sm:text-[11px] font-extrabold text-slate-900 leading-tight px-1 tracking-tight">
+                                            {p && p.name ? p.name.split(' ').map((l,li)=><span key={li} className="block">{l}</span>) : null}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {Array.from({length: 16}).map((_, i) => (
+                            <div key={i} className={`led-dot ${i % 2 === 0 ? 'blink-fast' : ''}`} style={{ transform: `rotate(${i * 22.5}deg)` }}></div>
+                        ))}
+
+                        <div className={`spin-trigger ${isSpinning ? 'is-busy' : ''}`} onClick={spin}>START</div>
+                    </div>
+
+                    <div className="w-full max-w-[320px] mx-auto glass-panel p-5 mt-6 text-center shadow-2xl">
+                        <p className="text-yellow-400 font-jua text-base sm:text-lg mb-2 tracking-[0.1em] uppercase">참여 코드 6자리 입력</p>
+                        <input 
+                            value={code} 
+                            onChange={e => setCode(e.target.value)} 
+                            placeholder="CODE" 
+                            maxLength={6}
+                            className="w-full bg-black/40 border border-white/20 rounded-xl px-4 py-3 outline-none focus:border-yellow-400 transition font-black text-2xl tracking-[0.35em] text-center uppercase text-white placeholder:text-white/20 placeholder:text-sm placeholder:tracking-widest"
+                        />
+                        <p className="text-[10px] text-white/40 mt-2.5 font-medium tracking-wide">직원에게 조달받은 1회용 코드만 사용 가능합니다.</p>
+                    </div>
+
+                    <div className="mt-12 mb-6 text-center">
+                        <p className="text-white/30 text-[11px] font-bold tracking-widest uppercase">made by adopter.co.kr</p>
+                    </div>
+
+                    {/* 설정 / 관리자 버튼 */}
+                    <button 
+                        onClick={()=>{let p=prompt("관리자 비밀번호를 입력하세요 (기본: 0000):"); if(p===config.pw) setIsAdmin(true); else if(p !== null) alert("비밀번호가 일치하지 않습니다.");}} 
+                        className="fixed bottom-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition z-[90] shadow-xl border border-white/20 hover:scale-105"
+                        title="관리자 설정"
+                    >
+                        <Icon name="settings" size={20} />
+                    </button>
+
+                    {showModal && (
+                        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+                            <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md animate-fade-in" onClick={()=>setShowModal(false)}></div>
+                            <div className="bg-white text-slate-950 w-full max-w-sm rounded-[3rem] p-8 sm:p-10 text-center relative z-10 modal-entry shadow-2xl border-[10px] border-slate-50">
+                                <div className="w-28 h-28 mx-auto mb-6 bg-slate-50 rounded-3xl flex items-center justify-center p-5 shadow-inner border border-slate-100">
+                                    <img src={winner?.img} className="w-full h-full object-contain" alt="W" onError={(e)=>{e.target.style.display='none'}} />
+                                </div>
+                                <h2 className="text-3xl font-bold font-jua mb-2 text-blue-600 italic uppercase tracking-wider">Congrats!</h2>
+                                <div className="bg-slate-100/80 p-5 rounded-3xl mb-6 border border-slate-200/50">
+                                    <p className="text-2xl font-black text-slate-900 leading-tight">{winner?.name}</p>
+                                </div>
+                                <p className="font-bold text-[13px] text-red-500 animate-bounce mb-8">※ 당첨 화면을 캡처해서 직원에게 보여주세요!</p>
+                                <button onClick={()=>setShowModal(false)} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-4 rounded-2xl text-lg shadow-xl transition">확인</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {isAdmin && <AdminPanel />}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>추억의 뽑기판 이벤트</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        :root {
+            --paper-bg: #eaddba; 
+            --paper-dark: #d5c4a1;
+            --board-border: #8b5a2b;
+            --red-header: #d9382e;
+            --ticket-color: #fce28b;
+            --ticket-border: #c9a44b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--paper-bg);
+            background-image: 
+                radial-gradient(var(--paper-dark) 1px, transparent 1px),
+                radial-gradient(var(--paper-dark) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px 40px 10px;
+            font-family: 'Pretendard', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header h1 {
+            font-family: 'Jua', sans-serif;
+            font-size: 2.8rem;
+            color: #ffcc00;
+            text-shadow: -1px -1px 0 #8b5a2b, 1px -1px 0 #8b5a2b, -1px 1px 0 #8b5a2b, 1px 1px 0 #8b5a2b, 2px 2px 0 rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+        
+        .header p {
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 800;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            margin-top: 5px;
+            word-break: keep-all;
+        }
+
+        .panel {
+            background: #fdf5d3;
+            border: 2px solid var(--board-border);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15), inset 0 0 20px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: var(--red-header);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            border-bottom: 2px solid var(--board-border);
+            letter-spacing: 1px;
+        }
+
+        .panel-header::before, .panel-header::after {
+            content: '★'; color: #ffcc00; margin: 0 10px; text-shadow: 1px 1px 0 #000;
+        }
+
+        .panel-body { padding: 15px; }
+
+        .prize-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .prize-item {
+            background: #fff;
+            border: 1px solid #d4c098;
+            border-radius: 6px;
+            padding: 8px 4px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prize-rank { font-family: 'Jua', sans-serif; font-size: 1rem; color: #d9382e; margin-bottom: 4px; }
+        .prize-name { font-size: 0.75rem; font-weight: 700; color: #333; margin-bottom: 5px; word-break: keep-all; text-align: center; line-height: 1.2; }
+        .prize-count { 
+            background: #1e88e5; color: white; font-size: 0.75rem; font-weight: bold; 
+            padding: 2px 8px; border-radius: 10px; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .prize-item.rank-1 .prize-count { background: #d9382e; }
+        .prize-item.rank-2 .prize-count { background: #ff9800; }
+        .prize-item.rank-3 .prize-count { background: #4caf50; }
+
+        .board-body { padding: 15px 10px; background: #fdf5d3; position: relative; }
+        .grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; position: relative; }
+        .grid-bg-lines {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(transparent, transparent calc(10% - 2px), #a68a61 calc(10% - 2px), #a68a61 10%);
+            z-index: 1; pointer-events: none;
+        }
+
+        .ticket {
+            position: relative; aspect-ratio: 0.7;
+            background: linear-gradient(180deg, var(--ticket-color) 0%, #ecd070 100%);
+            border: 1px solid var(--ticket-border); border-radius: 2px;
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.2); cursor: pointer; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.1s;
+            overflow: hidden; /* 티켓 내부 텍스트로 인한 그리드 깨짐 방지 */
+            min-width: 0; min-height: 0;
+        }
+        .ticket::before {
+            content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 4px;
+            background: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .ticket-circle {
+            width: 60%; aspect-ratio: 1; border: 1px solid rgba(0,0,0,0.2); border-radius: 50%; background: transparent;
+        }
+        .ticket:active { transform: scale(0.9); }
+
+        .ticket.opened {
+            background: #fff; border-color: #ccc; box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1); cursor: default;
+        }
+        /* 동그라미 모양을 없애고 텍스트를 크게 꽉 차게 변경 */
+        .ticket.opened .ticket-circle {
+            width: 100%; height: 100%; border-radius: 0; border: none; background: transparent; box-shadow: none;
+            display: flex; align-items: center; justify-content: center; color: #777;
+            font-size: 0.8rem; font-weight: bold; font-family: 'Jua', sans-serif; text-align: center; line-height: 1;
+            letter-spacing: -1px; word-break: keep-all;
+        }
+        .ticket.opened.rank-1 .ticket-circle { color: #d9382e; font-size: 0.95rem; }
+        .ticket.opened.rank-2 .ticket-circle { color: #ff9800; font-size: 0.9rem; }
+        .ticket.opened.rank-3 .ticket-circle { color: #4caf50; font-size: 0.85rem; }
+        .ticket.opened.rank-4 .ticket-circle { color: #1e88e5; font-size: 0.85rem; }
+
+        .action-area {
+            width: 100%; max-width: 500px; background: #fff; border: 2px solid var(--board-border);
+            border-radius: 8px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .input-group { display: flex; gap: 8px; }
+        input[type="text"] {
+            flex: 1; min-width: 0; padding: 12px; border: 2px solid #ccc; border-radius: 6px;
+            font-size: 1.1rem; text-align: center; font-weight: bold; outline: none; letter-spacing: 2px;
+        }
+        input[type="text"]:focus { border-color: var(--red-header); }
+        button.primary-btn {
+            flex-shrink: 0; white-space: nowrap;
+            background: var(--red-header); color: white; border: 2px solid #a61c14; border-radius: 6px;
+            padding: 0 20px; font-size: 1.1rem; font-family: 'Jua', sans-serif; cursor: pointer;
+            box-shadow: 0 3px 0 #a61c14;
+        }
+        button.primary-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #a61c14; }
+
+        .admin-trigger {
+            position: fixed; top: 10px; right: 10px; width: 30px; height: 30px;
+            background: transparent; border: none; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; cursor: pointer; z-index: 100; box-shadow: none;
+            opacity: 0.3; transition: opacity 0.2s;
+        }
+        .admin-trigger:hover { opacity: 0.8; }
+
+        /* 모달 및 알림 */
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px;
+            font-weight: bold; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+
+        /* ================= 관리자 전체 화면 (SPA) ================= */
+        .admin-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4f6f8; z-index: 2000; overflow-y: auto; padding: 20px;
+            font-family: 'Pretendard', sans-serif; color: #333; user-select: text;
+        }
+        .admin-view h2 { font-family: 'Jua', sans-serif; color: var(--red-header); margin-bottom: 20px; text-align: center; font-size: 2rem;}
+        .admin-view .close-btn { 
+            display: block; margin: 0 auto 20px auto; padding: 10px 20px; background: #6c757d; color: white; 
+            border: none; border-radius: 6px; font-size: 1.1rem; cursor: pointer; font-weight: bold;
+        }
+        .admin-card {
+            background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #ddd;
+            max-width: 600px; margin-left: auto; margin-right: auto;
+        }
+        .admin-card h3 { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; font-size: 1.2rem; }
+        
+        .admin-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; }
+        .admin-stat-box { background: #e9ecef; padding: 15px 5px; border-radius: 6px; }
+        .admin-stat-box .num { font-size: 1.5rem; font-weight: bold; color: #d9382e; margin-top: 5px;}
+
+        table.prize-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.95rem; }
+        table.prize-table th, table.prize-table td { border: 1px solid #ccc; padding: 8px; }
+        table.prize-table th { background: #f8f9fa; }
+
+        .btn-sm { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-edit { background: #007bff; color: white; }
+        
+        .prize-edit-form { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 6px; margin-top: 15px; display: none; }
+        .prize-edit-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+        .prize-edit-row label { width: 40px; font-weight: bold; }
+        .prize-edit-row input[type="text"] { flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+        .prize-edit-row input[type="number"] { width: 70px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+
+        .code-controls { display: flex; gap: 10px; margin-bottom: 15px; }
+        .code-controls button { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; background: #4caf50; color: white; cursor: pointer;}
+        .admin-code-box { 
+            background: #f1f3f5; padding: 10px; border-radius: 6px; max-height: 200px; overflow-y: auto; 
+            font-family: monospace; font-size: 1rem; letter-spacing: 1px; border: 1px solid #ced4da; line-height: 2;
+        }
+        .admin-code-badge {
+            display: inline-block; background: white; border: 1px solid #adb5bd; border-radius: 4px;
+            padding: 2px 8px; margin: 3px; cursor: pointer;
+        }
+
+        /* 결과 모달 */
+        .result-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 3000; align-items: center; justify-content: center;
+            flex-direction: column; text-align: center; color: white; font-family: 'Jua', sans-serif;
+            padding: 20px;
+        }
+        .result-box {
+            background: #fff; color: #333; width: 100%; max-width: 350px; border-radius: 12px;
+            padding: 30px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 4px solid var(--red-header);
+            position: relative; animation: popin 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popin { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .result-rank { font-size: 2.5rem; color: var(--red-header); margin-bottom: 5px; text-shadow: 1px 1px 0px #ccc; }
+        .result-name { font-size: 1.5rem; color: #111; margin-bottom: 15px; }
+        .result-time { font-family: 'Pretendard', sans-serif; font-size: 0.9rem; color: #666; margin-bottom: 20px; background: #f4f4f4; padding: 5px; border-radius: 4px;}
+        .close-x {
+            position: absolute; top: 10px; right: 15px; font-size: 1.5rem; color: #999;
+            cursor: pointer; font-family: sans-serif; font-weight: bold;
+        }
+        .close-x:hover { color: #333; }
+
+        /* 하단 가게 정보 푸터 */
+        .store-footer {
+            margin-top: 30px; width: 100%; max-width: 500px; text-align: center;
+            border-top: 1px dashed var(--board-border); padding-top: 15px;
+            font-family: 'Pretendard', sans-serif;
+        }
+        .store-name { font-weight: 800; font-size: 1.1rem; color: #333; margin-bottom: 5px; }
+        .store-info { font-size: 0.85rem; color: #555; line-height: 1.6; }
+        .store-info a { color: #1e88e5; text-decoration: none; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="toast" id="toastMessage">메시지</div>
+
+    <!-- 메인 게임 화면 -->
+    <div id="gameView" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div class="header">
+            <h1>추억의 뽑기판</h1>
+            <p>꽝 없는 절대 딱 뽑기! 100% 당첨 행운을 잡으세요!</p>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">뽑기판 보상 현황</div>
+            <div class="panel-body">
+                <div class="prize-list" id="prize-dashboard"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">추억의 뽑기판</div>
+            <div class="board-body">
+                <div class="grid" id="ticket-grid">
+                    <div class="grid-bg-lines"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <div style="text-align:center; font-family:'Jua', sans-serif; font-size:1.1rem; color:#d9382e;">1단계: 발급받은 코드를 입력하고 확인하세요</div>
+            <div class="input-group">
+                <input type="text" id="access-code" placeholder="코드 입력" maxlength="5" style="text-transform: uppercase;">
+                <button class="primary-btn" onclick="verifyCodeBtn()">확인</button>
+            </div>
+            <div style="text-align:center; font-size:0.9rem; color:#666; margin-top:5px;">2단계: 코드가 확인되면 위의 뽑기판을 터치하세요!</div>
+        </div>
+
+        <div class="store-footer">
+            <div class="store-name">🍖 추억의 고깃집 본점</div>
+            <div class="store-info">
+                📍 서울특별시 강남구 역삼동 123-45<br>
+                <a href="https://map.naver.com/" target="_blank">🗺️ 네이버 지도에서 보기</a> | 
+                <a href="tel:02-1234-5678">📞 02-1234-5678</a>
+            </div>
+        </div>
+
+        <div class="admin-trigger" onclick="openAdmin()">⚙️</div>
+    </div>
+
+    <!-- 당첨 결과 모달 (캡처/인증용) -->
+    <div class="result-modal" id="resultModal">
+        <div class="result-box">
+            <span class="close-x" onclick="closeResultModal()">✕</span>
+            <div class="result-rank" id="resRank">🎉 1등 당첨! 🎉</div>
+            <div class="result-name" id="resName">한우 1판</div>
+            <div class="result-time" id="resTime">[발급일시] 2026.04.28 17:00:00</div>
+            <div style="margin-top:15px; font-size:1.1rem; color:#d9382e; font-weight:bold;">📸 이 화면을 캡처해서 직원에게 보여주세요!</div>
+        </div>
+    </div>
+
+    <!-- 관리자 전체 화면 -->
+    <div class="admin-view" id="adminView">
+        <button class="close-btn" onclick="closeAdmin()">⬅ 게임 화면으로 돌아가기</button>
+        <h2>⚙️ 관리자 대시보드</h2>
+
+        <div class="admin-card">
+            <h3>📊 전체 통계</h3>
+            <div class="admin-stat-grid">
+                <div class="admin-stat-box">전체 뽑기<div class="num">100</div></div>
+                <div class="admin-stat-box">사용됨<div class="num" id="statUsed">0</div></div>
+                <div class="admin-stat-box">남은 티켓<div class="num" id="statRemain" style="color:#4caf50;">100</div></div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h3>🎁 상품 관리 및 현황
+                <button class="btn-sm btn-edit" style="float:right;" onclick="toggleEditPrizes()">수정하기</button>
+            </h3>
+            <table class="prize-table">
+                <thead>
+                    <tr><th>등수</th><th>상품명</th><th>배정수량</th><th>당첨됨</th><th>남음</th></tr>
+                </thead>
+                <tbody id="adminPrizeTable"></tbody>
+            </table>
+
+            <div class="prize-edit-form" id="prizeEditForm">
+                <div style="font-weight:bold; color:#d9382e; margin-bottom:10px;">⚠️ 수정 완료 시 뽑기판이 완전 초기화됩니다!</div>
+                <div class="prize-edit-row"><label>1등</label><input type="text" id="editName1"><input type="number" id="editCount1" min="0">개</div>
+                <div class="prize-edit-row"><label>2등</label><input type="text" id="editName2"><input type="number" id="editCount2" min="0">개</div>
+                <div class="prize-edit-row"><label>3등</label><input type="text" id="editName3"><input type="number" id="editCount3" min="0">개</div>
+                <div class="prize-edit-row"><label>4등</label><input type="text" id="editName4"><input type="number" id="editCount4" min="0">개</div>
+                <div style="font-size:0.85rem; color:#555; margin-top:5px;">* 5등(꽝) 수량은 100개에서 위 수량을 뺀 나머지로 자동 배정됩니다. (상품명: <input type="text" id="editName5" style="width:100px; padding:2px;">)</div>
+                <div style="margin-top:15px; display:flex; gap:10px;">
+                    <button style="flex:1; padding:8px; background:#d9382e; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="savePrizes()">저장 및 초기화</button>
+                    <button style="flex:1; padding:8px; background:#ccc; border:none; border-radius:4px; cursor:pointer;" onclick="toggleEditPrizes()">취소</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h3>🔑 참여 코드 발급 관리</h3>
+            <div class="code-controls">
+                <button onclick="generateCode(1)">1개 발급</button>
+                <button onclick="generateCode(10)">10개 발급</button>
+                <button onclick="generateCode(50)">50개 발급</button>
+            </div>
+            
+            <h4 style="margin-bottom:5px;">사용 가능한 코드 (<span id="validCodeCount">0</span>) - <span style="font-size:0.8rem; font-weight:normal; color:#666;">클릭 시 복사</span></h4>
+            <div class="admin-code-box" id="validCodeList">없음</div>
+
+            <h4 style="margin-top:20px; margin-bottom:5px;">사용 완료된 코드 (<span id="usedCodeCount">0</span>)</h4>
+            <div class="admin-code-box" id="usedCodeList" style="background:#e9ecef; color:#6c757d;">없음</div>
+        </div>
+
+        <div class="admin-card" style="border-color:#f44336; border-width:2px;">
+            <h3 style="color:#f44336; margin-bottom:10px; border-bottom:none;">⚠️ 데이터 완전 초기화</h3>
+            <p style="font-size:0.9rem; color:#555; margin-bottom:15px;">모든 당첨 기록, 발급된 코드, 사용된 코드가 삭제되며 깨끗한 뽑기판 100개가 다시 생성됩니다.</p>
+            <button onclick="resetGame()" style="background:#f44336; color:white; width:100%; padding:15px; font-size:1.1rem; font-weight:bold; border:none; border-radius:6px; cursor:pointer;">뽑기판 리셋하기</button>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_PRIZE_CONFIG = [
+            { rank: '1등', name: '한우 1판', total: 1 },
+            { rank: '2등', name: '삼겹살', total: 3 },
+            { rank: '3등', name: '소주/맥주', total: 10 },
+            { rank: '4등', name: '음료수', total: 30 },
+            { rank: '5등', name: '다음 기회에', total: 56 }
+        ];
+
+        let state = {
+            prizeConfig: JSON.parse(JSON.stringify(DEFAULT_PRIZE_CONFIG)),
+            tickets: [],
+            validCodes: [],
+            usedCodes: []
+        };
+
+        const gridElement = document.getElementById('ticket-grid');
+        const dashboardElement = document.getElementById('prize-dashboard');
+        const accessCodeInput = document.getElementById('access-code');
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastMessage');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function initGame() {
+            // 버전 v4로 업그레이드 (구조 변경)
+            const savedState = localStorage.getItem('retroGachaState_v4');
+            if (savedState) {
+                state = JSON.parse(savedState);
+                // 혹시 prizeConfig가 없는 하위호환의 경우
+                if(!state.prizeConfig) state.prizeConfig = JSON.parse(JSON.stringify(DEFAULT_PRIZE_CONFIG));
+            } else {
+                localStorage.removeItem('retroGachaState_v3'); 
+                createNewBoard();
+            }
+            renderDashboard();
+            renderBoard();
+        }
+
+        function createNewBoard() {
+            let pool = [];
+            state.prizeConfig.forEach(p => {
+                for(let i=0; i<p.total; i++) pool.push(p.rank);
+            });
+            
+            // 만약 총합이 100이 안되거나 넘으면 강제 보정 (방어 코드)
+            if(pool.length > 100) pool = pool.slice(0, 100);
+            while(pool.length < 100) pool.push('5등');
+
+            // Shuffle
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+            
+            state.tickets = pool.map((rank, index) => ({
+                id: index,
+                rank: rank,
+                opened: false
+            }));
+
+            state.validCodes = [];
+            state.usedCodes = [];
+            
+            saveState();
+        }
+
+        function saveState() {
+            localStorage.setItem('retroGachaState_v4', JSON.stringify(state));
+        }
+
+        function getPrizeStats() {
+            let stats = {};
+            state.prizeConfig.forEach(p => {
+                stats[p.rank] = { total: p.total, opened: 0, remain: p.total };
+            });
+            let totalOpened = 0;
+            state.tickets.forEach(t => {
+                if(t.opened) {
+                    if(stats[t.rank]) {
+                        stats[t.rank].opened++;
+                        stats[t.rank].remain--;
+                    }
+                    totalOpened++;
+                }
+            });
+            return { stats, totalOpened };
+        }
+
+        function renderDashboard() {
+            dashboardElement.innerHTML = '';
+            const { stats } = getPrizeStats();
+            
+            state.prizeConfig.forEach(p => {
+                if(p.rank === '5등') return; // 5등은 메인 대시보드에서 숨김
+                
+                const item = document.createElement('div');
+                item.className = `prize-item rank-${p.rank.charAt(0)}`;
+                item.innerHTML = `
+                    <div class="prize-rank">${p.rank}</div>
+                    <div class="prize-name">${p.name}</div>
+                    <div class="prize-count">${stats[p.rank].remain}개 남음</div>
+                `;
+                dashboardElement.appendChild(item);
+            });
+        }
+
+        function renderBoard() {
+            const bgLines = document.createElement('div');
+            bgLines.className = 'grid-bg-lines';
+            gridElement.innerHTML = '';
+            gridElement.appendChild(bgLines);
+
+            state.tickets.forEach((ticketData, index) => {
+                const ticket = document.createElement('div');
+                ticket.className = `ticket ${ticketData.opened ? 'opened rank-' + ticketData.rank.charAt(0) : ''}`;
+                
+                const circle = document.createElement('div');
+                circle.className = 'ticket-circle';
+                if(ticketData.opened) {
+                    circle.innerHTML = ticketData.rank === '5등' ? '꽝' : ticketData.rank;
+                }
+                ticket.appendChild(circle);
+
+                ticket.addEventListener('click', () => handleTicketClick(index, ticketData));
+                gridElement.appendChild(ticket);
+            });
+        }
+
+        function verifyCodeBtn() {
+            const code = accessCodeInput.value.trim().toUpperCase();
+            if(!code) {
+                showToast('참여 코드를 입력해주세요!');
+                accessCodeInput.focus();
+                return;
+            }
+            if(!state.validCodes.includes(code)) {
+                showToast('유효하지 않거나 이미 사용된 코드입니다.');
+                return;
+            }
+            showToast('코드가 확인되었습니다! 원하는 뽑기 종이를 터치하세요.');
+        }
+
+        function handleTicketClick(index, ticketData) {
+            if(ticketData.opened) return;
+
+            const code = accessCodeInput.value.trim().toUpperCase();
+            if(!code) {
+                showToast('하단에 참여 코드를 먼저 입력해주세요!');
+                accessCodeInput.focus();
+                return;
+            }
+
+            if(!state.validCodes.includes(code)) {
+                showToast('유효하지 않은 코드입니다!');
+                return;
+            }
+
+            // 당첨 처리
+            state.validCodes = state.validCodes.filter(c => c !== code);
+            state.usedCodes.push(code);
+            state.tickets[index].opened = true;
+            
+            accessCodeInput.value = ''; 
+            saveState();
+            
+            renderBoard();
+            renderDashboard();
+            
+            if(ticketData.rank !== '5등') {
+                const prizeName = state.prizeConfig.find(p => p.rank === ticketData.rank).name;
+                setTimeout(() => showResultModal(ticketData.rank, prizeName), 100);
+            } else {
+                setTimeout(() => alert(`아쉽습니다. 다음 기회에...`), 100);
+            }
+        }
+
+        function showResultModal(rank, name) {
+            const modal = document.getElementById('resultModal');
+            document.getElementById('resRank').innerText = `🎉 ${rank} 당첨! 🎉`;
+            document.getElementById('resRank').style.color = 'var(--red-header)';
+            document.getElementById('resName').innerText = name;
+            
+            // 인증용 당첨 일시
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            document.getElementById('resTime').innerText = `[당첨일시] ${timeStr}`;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeResultModal() {
+            document.getElementById('resultModal').style.display = 'none';
+        }
+
+        /* ================= 관리자 기능 SPA ================= */
+        function openAdmin() {
+            const pwd = prompt("관리자 비밀번호를 입력하세요 (기본: 0000):");
+            if(pwd === "0000") {
+                document.getElementById('gameView').style.display = 'none';
+                document.getElementById('adminView').style.display = 'block';
+                renderAdmin();
+            } else if (pwd !== null) {
+                alert("비밀번호가 틀렸습니다.");
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminView').style.display = 'none';
+            document.getElementById('gameView').style.display = 'flex';
+            renderDashboard();
+            renderBoard();
+        }
+
+        function renderAdmin() {
+            const { stats, totalOpened } = getPrizeStats();
+            
+            // 1. 전체 통계
+            document.getElementById('statUsed').innerText = totalOpened;
+            document.getElementById('statRemain').innerText = 100 - totalOpened;
+
+            // 2. 상품 현황 테이블
+            const tbody = document.getElementById('adminPrizeTable');
+            tbody.innerHTML = '';
+            state.prizeConfig.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:bold; color:${p.rank==='1등'?'#d9382e':(p.rank==='5등'?'#777':'#333')}">${p.rank}</td>
+                    <td>${p.name}</td>
+                    <td>${stats[p.rank].total}</td>
+                    <td>${stats[p.rank].opened}</td>
+                    <td>${stats[p.rank].remain}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // 3. 코드 관리
+            document.getElementById('validCodeCount').innerText = state.validCodes.length;
+            const validBox = document.getElementById('validCodeList');
+            if(state.validCodes.length === 0) validBox.innerHTML = '<span style="color:#999;">없음</span>';
+            else {
+                validBox.innerHTML = state.validCodes.map(c => 
+                    `<span class="admin-code-badge" onclick="copyToClipboard('${c}')">${c}</span>`
+                ).join('');
+            }
+
+            document.getElementById('usedCodeCount').innerText = state.usedCodes.length;
+            const usedBox = document.getElementById('usedCodeList');
+            if(state.usedCodes.length === 0) usedBox.innerHTML = '<span style="color:#999;">없음</span>';
+            else {
+                usedBox.innerHTML = state.usedCodes.map(c => 
+                    `<span class="admin-code-badge" style="cursor:default; text-decoration:line-through;">${c}</span>`
+                ).join('');
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`코드 [ ${text} ] 복사 완료!`);
+            }).catch(() => {
+                alert(`코드: ${text}`);
+            });
+        }
+
+        function generateCode(count) {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; 
+            for(let j=0; j<count; j++) {
+                let code = '';
+                for(let i=0; i<4; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                state.validCodes.push(code);
+            }
+            saveState();
+            renderAdmin();
+            showToast(`${count}개 발급 완료`);
+        }
+
+        function resetGame() {
+            if(confirm("정말 뽑기판을 초기화하시겠습니까?\n모든 당첨 기록과 코드가 영구적으로 삭제됩니다!")) {
+                createNewBoard();
+                renderAdmin();
+                showToast('초기화 되었습니다.');
+            }
+        }
+
+        function toggleEditPrizes() {
+            const form = document.getElementById('prizeEditForm');
+            if(form.style.display === 'block') {
+                form.style.display = 'none';
+            } else {
+                form.style.display = 'block';
+                // 폼에 현재 데이터 채우기
+                state.prizeConfig.forEach((p, idx) => {
+                    const i = idx + 1;
+                    document.getElementById(`editName${i}`).value = p.name;
+                    if(i < 5) document.getElementById(`editCount${i}`).value = p.total;
+                });
+            }
+        }
+
+        function savePrizes() {
+            let totalTop4 = 0;
+            let newConfig = [];
+            for(let i=1; i<=4; i++) {
+                const name = document.getElementById(`editName${i}`).value.trim() || `${i}등 상품`;
+                let count = parseInt(document.getElementById(`editCount${i}`).value, 10);
+                if(isNaN(count) || count < 0) count = 0;
+                totalTop4 += count;
+                newConfig.push({ rank: `${i}등`, name: name, total: count });
+            }
+
+            if(totalTop4 > 100) {
+                alert("1~4등 수량의 합이 100개를 초과할 수 없습니다!");
+                return;
+            }
+
+            const name5 = document.getElementById(`editName5`).value.trim() || '다음 기회에';
+            newConfig.push({ rank: '5등', name: name5, total: 100 - totalTop4 });
+
+            if(confirm("상품 설정을 저장하고 뽑기판을 초기화 하시겠습니까?")) {
+                state.prizeConfig = newConfig;
+                createNewBoard(); // Save & Reset happens here
+                document.getElementById('prizeEditForm').style.display = 'none';
+                renderAdmin();
+                showToast('설정 저장 및 초기화 완료');
+            }
+        }
+
+        // 앱 시작
+        initGame();
+    </script>
+</body>
+</html>
