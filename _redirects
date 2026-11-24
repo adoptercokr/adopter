@@ -9,3 +9,13 @@
 /sample8.html /samples/sample8.html 301
 /templates.html /portfolio.html 301
 /Customer/* /portfolio.html 301
+
+# Spark Game Studio Redirects
+/02-Spark-Game-Studio/index.html https://game.adopter.co.kr 301
+/02-Spark-Game-Studio https://game.adopter.co.kr 301
+/02-Spark-Game-Studio/* https://game.adopter.co.kr/:splat 301
+
+# Adopter subpath aliases
+/adopter/samples/* /samples/:splat 301
+/adopter/portfolio.html /portfolio.html 301
+/adopter/insta_promo.html /insta_promo.html 301
