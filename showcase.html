@@ -703,40 +703,13 @@
         modalExternalLink.innerHTML = `<span>로컬 전용 프로그램</span>`;
         modalExternalLink.onclick = (e) => {
           e.preventDefault();
-          alert(`본 프로그램은 PC 로컬 환경에서 실행되는 내부 시스템입니다.\n\n경로: ${path}\n\n해당 폴더의 실행 스크립트(.bat) 또는 로컬 개발 서버(포트 3000/8000)를 구동하여 사용하실 수 있습니다.`);
-        };
-        // Show info in iframe or blank
-        iframe.srcdoc = `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="utf-8">
-            <script src="https://cdn.tailwindcss.com"></script>
-          </head>
-          <body class="bg-slate-50 flex items-center justify-center min-h-screen p-6 font-sans">
-            <div class="max-w-md w-full bg-white border border-purple-200 rounded-2xl p-6 shadow-lg text-center">
-              <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <span class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-purple-100 text-purple-800 mb-2">로컬 전용 (Local Only)</span>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">${title}</h3>
-              <p class="text-xs text-slate-500 mb-4 leading-relaxed">이 시스템은 외부 클라우드 웹서버가 아닌, 사내 PC 로컬 환경(FastAPI / Next.js 개발 포트 / 데스크톱 자동화 배치)에서 단독 실행되는 내부 전용 자산입니다.</p>
-              
-              <div class="text-left bg-slate-50 rounded-xl p-3 border border-slate-200 text-xs space-y-1 mb-5">
-                <div class="text-slate-400 font-medium">프로젝트 경로:</div>
-                <div class="font-mono text-slate-800 break-all select-all font-semibold">${path}</div>
-              </div>
+          alert(`본 프로그램은 PC 로컬 환경에서 실행되는 내부 시스템입니다.
 
-              <div class="flex gap-2">
-                <button onclick="window.parent.postMessage('close-modal', '*')" class="flex-1 py-2 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg">닫기</button>
-                <a href="http://localhost:3000" target="_blank" class="flex-1 py-2 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-lg text-center">로컬 포트 접속 (3000)</a>
-              </div>
-            </div>
-          </body>
-          </html>
-        `;
+경로: ${path}
+
+해당 폴더의 실행 스크립트(.bat) 또는 로컬 개발 서버를 구동하여 사용하실 수 있습니다.`);
+        };
+        iframe.src = 'about:blank';
       } else {
         const isExternal = path.startsWith('http');
         const targetUrl = isExternal ? path : `./${path}`;
@@ -749,7 +722,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
           </svg>
         `;
-        iframe.removeAttribute('srcdoc');
         iframe.src = targetUrl;
       }
 
