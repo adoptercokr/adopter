@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>뇌튼튼 - 매일 뇌 건강 트레이닝</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Gmarket+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF6B35;
+    --primary-light: #FF8C5A;
+    --secondary: #4ECDC4;
+    --accent: #FFE66D;
+    --purple: #A855F7;
+    --green: #22C55E;
+    --bg: #FFF8F3;
+    --card: #FFFFFF;
+    --text: #1A1A2E;
+    --text-soft: #6B7280;
+    --shadow: 0 8px 32px rgba(255,107,53,0.15);
+    --radius: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    max-width: 430px;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; min-height: 100vh; padding-bottom: 100px; }
+  .screen.active { display: block; }
+
+  /* ===== BOTTOM NAV ===== */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px;
+    background: white;
+    border-top: 1px solid #F0E8E0;
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 10px 0 20px;
+    z-index: 100;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    cursor: pointer; padding: 6px 16px; border-radius: 16px;
+    transition: all 0.2s; flex: 1;
+  }
+  .nav-item.active { background: #FFF0E8; }
+  .nav-icon { font-size: 24px; }
+  .nav-label { font-size: 11px; font-weight: 700; color: var(--text-soft); }
+  .nav-item.active .nav-label { color: var(--primary); }
+
+  /* ===== HOME SCREEN ===== */
+  .home-header {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8C5A 50%, #FFB347 100%);
+    padding: 50px 24px 40px;
+    position: relative; overflow: hidden;
+  }
+  .home-header::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+  .home-header::after {
+    content: ''; position: absolute; bottom: -60px; left: -20px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .greeting { font-size: 15px; color: rgba(255,255,255,0.85); font-weight: 500; margin-bottom: 6px; }
+  .greeting-name { font-size: 28px; color: white; font-weight: 900; letter-spacing: -0.5px; }
+  .date-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.2); border-radius: 20px;
+    padding: 6px 14px; margin-top: 12px;
+    font-size: 13px; color: white; font-weight: 500;
+  }
+  .brain-emoji { font-size: 32px; position: absolute; top: 20px; right: 24px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* Score card */
+  .score-card {
+    margin: -20px 16px 0;
+    background: white; border-radius: 24px;
+    padding: 20px; box-shadow: var(--shadow);
+    position: relative; z-index: 10;
+  }
+  .score-title { font-size: 13px; color: var(--text-soft); font-weight: 600; margin-bottom: 12px; }
+  .score-row { display: flex; align-items: center; gap: 12px; }
+  .score-circle {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: conic-gradient(var(--primary) calc(var(--pct) * 1%), #F3E8E0 0%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .score-circle::before {
+    content: ''; position: absolute;
+    width: 54px; height: 54px; border-radius: 50%; background: white;
+  }
+  .score-num { position: relative; z-index: 1; font-size: 18px; font-weight: 900; color: var(--primary); }
+  .score-info { flex: 1; }
+  .score-label { font-size: 18px; font-weight: 800; color: var(--text); }
+  .score-sub { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+  .streak-badge {
+    background: linear-gradient(135deg, #FFE66D, #FFB347);
+    border-radius: 12px; padding: 8px 12px; text-align: center;
+  }
+  .streak-num { font-size: 22px; font-weight: 900; color: #A0522D; }
+  .streak-label { font-size: 10px; color: #A0522D; font-weight: 700; }
+
+  /* Section */
+  .section { padding: 20px 16px 0; }
+  .section-title { font-size: 18px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
+  .section-title span { color: var(--primary); }
+
+  /* Game cards */
+  .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .game-card {
+    background: white; border-radius: 20px; padding: 18px 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+    border: 2px solid transparent;
+  }
+  .game-card:active { transform: scale(0.96); }
+  .game-card.completed { border-color: var(--green); }
+  .game-card.completed::after {
+    content: '✓'; position: absolute; top: 10px; right: 12px;
+    font-size: 14px; color: var(--green); font-weight: 900;
+  }
+  .game-icon { font-size: 36px; margin-bottom: 10px; }
+  .game-name { font-size: 14px; font-weight: 800; color: var(--text); }
+  .game-desc { font-size: 11px; color: var(--text-soft); margin-top: 4px; line-height: 1.4; }
+  .game-diff {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px; margin-top: 8px;
+  }
+  .diff-easy { background: #DCFCE7; color: #16A34A; }
+  .diff-med { background: #FEF3C7; color: #D97706; }
+  .diff-hard { background: #FEE2E2; color: #DC2626; }
+
+  /* Daily tip */
+  .tip-card {
+    margin: 16px; background: linear-gradient(135deg, #4ECDC4, #44B8AF);
+    border-radius: 20px; padding: 18px; color: white;
+  }
+  .tip-label { font-size: 11px; font-weight: 700; opacity: 0.8; margin-bottom: 6px; }
+  .tip-text { font-size: 15px; font-weight: 700; line-height: 1.5; }
+
+  /* ===== GAME SCREEN ===== */
+  .game-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 50px 20px 16px; background: white;
+    border-bottom: 1px solid #F0E8E0;
+  }
+  .back-btn {
+    width: 40px; height: 40px; border-radius: 12px; background: #F5F5F5;
+    border: none; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .game-title-bar { font-size: 18px; font-weight: 900; flex: 1; }
+  .game-score-badge {
+    background: var(--primary); color: white;
+    border-radius: 12px; padding: 6px 14px; font-size: 14px; font-weight: 800;
+  }
+
+  .game-area { padding: 20px 16px; }
+
+  /* Progress bar */
+  .progress-wrap { background: #F0E8E0; border-radius: 10px; height: 8px; margin-bottom: 20px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); border-radius: 10px; transition: width 0.4s; }
+
+  /* ===== MEMORY GAME ===== */
+  .memory-instruction {
+    text-align: center; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 20px; line-height: 1.6;
+  }
+  .numbers-display {
+    background: linear-gradient(135deg, #1A1A2E, #16213E);
+    border-radius: 24px; padding: 30px 20px; text-align: center; margin-bottom: 20px;
+  }
+  .numbers-text { font-size: 42px; font-weight: 900; color: var(--accent); letter-spacing: 8px; }
+  .numbers-timer { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+  .number-input-wrap { display: flex; flex-direction: column; gap: 12px; }
+  .number-input {
+    width: 100%; padding: 16px 20px; font-size: 24px; font-weight: 700;
+    border: 3px solid #E5E7EB; border-radius: 16px; text-align: center;
+    font-family: 'Noto Sans KR', sans-serif; outline: none; transition: border 0.2s;
+    letter-spacing: 6px;
+  }
+  .number-input:focus { border-color: var(--primary); }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .key-btn {
+    background: white; border: 2px solid #E5E7EB; border-radius: 16px;
+    padding: 16px; font-size: 22px; font-weight: 700; cursor: pointer;
+    transition: all 0.15s; color: var(--text); font-family: 'Noto Sans KR', sans-serif;
+  }
+  .key-btn:active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(0.94); }
+  .key-del { background: #FEF2F2; border-color: #FECACA; color: #DC2626; }
+
+  /* ===== CARD MATCH GAME (고스톱 inspired) ===== */
+  .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+  .flower-card {
+    aspect-ratio: 2/3; border-radius: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; transition: all 0.3s; position: relative;
+    border: 3px solid transparent;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform-style: preserve-3d;
+  }
+  .flower-card.face-down {
+    background: linear-gradient(135deg, #1A1A2E, #2D2D5E);
+    font-size: 20px;
+  }
+  .flower-card.face-down::after { content: '🀫'; font-size: 24px; }
+  .flower-card.flipped { transform: scale(1.05); border-color: var(--primary); }
+  .flower-card.matched { border-color: var(--green); opacity: 0.7; pointer-events: none; }
+  .flower-card.matched::before {
+    content: '✓'; position: absolute; top: 2px; right: 6px;
+    font-size: 14px; color: var(--green); font-weight: 900;
+  }
+  .card-face { font-size: 26px; }
+
+  /* ===== WORD GAME ===== */
+  .word-question {
+    background: linear-gradient(135deg, var(--purple), #7C3AED);
+    border-radius: 24px; padding: 24px; text-align: center; margin-bottom: 20px; color: white;
+  }
+  .word-q-label { font-size: 13px; opacity: 0.8; margin-bottom: 8px; }
+  .word-q-text { font-size: 24px; font-weight: 900; line-height: 1.4; }
+  .word-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .word-opt {
+    background: white; border: 3px solid #E5E7EB; border-radius: 16px;
+    padding: 16px 12px; font-size: 16px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; text-align: center; color: var(--text);
+  }
+  .word-opt:active { transform: scale(0.96); }
+  .word-opt.correct { border-color: var(--green); background: #F0FDF4; color: var(--green); }
+  .word-opt.wrong { border-color: #EF4444; background: #FEF2F2; color: #EF4444; }
+
+  /* ===== CALCULATION GAME ===== */
+  .calc-display {
+    background: linear-gradient(135deg, #1A1A2E, #0F3460);
+    border-radius: 24px; padding: 30px; text-align: center; margin-bottom: 20px;
+  }
+  .calc-problem { font-size: 36px; font-weight: 900; color: var(--accent); }
+  .calc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .calc-opt {
+    background: white; border: 3px solid #E5E7EB; border-radius: 16px;
+    padding: 20px; font-size: 24px; font-weight: 900; cursor: pointer;
+    transition: all 0.2s; text-align: center; color: var(--text);
+  }
+  .calc-opt:active { transform: scale(0.96); }
+  .calc-opt.correct { border-color: var(--green); background: #F0FDF4; color: var(--green); }
+  .calc-opt.wrong { border-color: #EF4444; background: #FEF2F2; color: #EF4444; }
+
+  /* ===== RESULT ===== */
+  .result-screen {
+    display: none; flex-direction: column; align-items: center;
+    padding: 40px 24px; text-align: center;
+  }
+  .result-screen.show { display: flex; }
+  .result-emoji { font-size: 72px; margin-bottom: 16px; animation: bounce 0.5s ease; }
+  @keyframes bounce { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
+  .result-title { font-size: 26px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+  .result-score { font-size: 56px; font-weight: 900; color: var(--primary); margin: 10px 0; }
+  .result-msg { font-size: 16px; color: var(--text-soft); line-height: 1.6; margin-bottom: 28px; }
+  .result-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white; border: none; border-radius: 18px; padding: 16px 40px;
+    font-size: 18px; font-weight: 800; cursor: pointer; width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .result-btn-outline {
+    background: white; color: var(--primary); border: 3px solid var(--primary);
+    border-radius: 18px; padding: 14px 40px;
+    font-size: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  /* ===== RECORDS SCREEN ===== */
+  .records-header {
+    background: linear-gradient(135deg, #A855F7, #7C3AED);
+    padding: 50px 24px 30px; color: white;
+  }
+  .records-title { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
+  .records-sub { font-size: 14px; opacity: 0.8; }
+
+  .week-chart { padding: 16px; background: white; border-radius: 20px; margin: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .chart-title { font-size: 15px; font-weight: 800; margin-bottom: 14px; }
+  .chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 100px; }
+  .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .chart-bar {
+    width: 100%; border-radius: 8px 8px 0 0;
+    background: linear-gradient(180deg, var(--primary), var(--primary-light));
+    transition: height 0.5s ease;
+    min-height: 4px;
+  }
+  .chart-bar.today { background: linear-gradient(180deg, var(--accent), #FFB347); }
+  .chart-day { font-size: 11px; color: var(--text-soft); font-weight: 600; }
+
+  .record-list { padding: 0 16px; }
+  .record-item {
+    background: white; border-radius: 16px; padding: 16px;
+    margin-bottom: 10px; display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .record-icon { font-size: 30px; }
+  .record-info { flex: 1; }
+  .record-name { font-size: 15px; font-weight: 800; }
+  .record-date { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+  .record-score-badge {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white; border-radius: 10px; padding: 6px 12px; font-size: 14px; font-weight: 800;
+  }
+
+  /* ===== INFO SCREEN ===== */
+  .info-header {
+    background: linear-gradient(135deg, #4ECDC4, #2EAF9F);
+    padding: 50px 24px 30px; color: white;
+  }
+  .info-title { font-size: 26px; font-weight: 900; }
+  .info-card {
+    background: white; border-radius: 20px; padding: 20px;
+    margin: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .info-card-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .info-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F5F5F5; }
+  .info-item:last-child { border-bottom: none; }
+  .info-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); margin-top: 6px; flex-shrink: 0; }
+  .info-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  /* ===== BUTTONS ===== */
+  .big-btn {
+    width: 100%; padding: 18px; border-radius: 18px; border: none;
+    font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white; transition: all 0.2s;
+  }
+  .big-btn:active { transform: scale(0.97); }
+  .big-btn.secondary { background: linear-gradient(135deg, var(--secondary), #44B8AF); }
+
+  /* Feedback */
+  .feedback-toast {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0);
+    background: rgba(0,0,0,0.85); color: white; border-radius: 20px;
+    padding: 16px 28px; font-size: 20px; font-weight: 800; z-index: 999;
+    transition: all 0.2s; pointer-events: none; text-align: center;
+  }
+  .feedback-toast.show { transform: translate(-50%,-50%) scale(1); }
+
+  /* Timer ring */
+  .timer-ring-wrap { display: flex; justify-content: center; margin-bottom: 10px; }
+  .timer-ring { width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(var(--primary) calc(var(--t) * 1%), #F0E8E0 0%); display: flex; align-items: center; justify-content: center; position: relative; }
+  .timer-ring::before { content:''; position:absolute; width:46px; height:46px; border-radius:50%; background:white; }
+  .timer-num { position:relative; z-index:1; font-size:18px; font-weight:900; color:var(--primary); }
+
+  /* Scrollable */
+  .scrollable { overflow-y: auto; }
+</style>
+</head>
+<body>
+
+<!-- ===== HOME SCREEN ===== -->
+<div class="screen active" id="screen-home">
+  <div class="home-header">
+    <div class="greeting">안녕하세요! 오늘도 뇌 건강 챙기세요 💪</div>
+    <div class="greeting-name">뇌튼튼 트레이닝</div>
+    <div class="date-badge">📅 <span id="today-date"></span></div>
+    <div class="brain-emoji">🧠</div>
+  </div>
+
+  <div class="score-card">
+    <div class="score-title">오늘의 인지 건강 점수</div>
+    <div class="score-row">
+      <div class="score-circle" style="--pct:72">
+        <span class="score-num" id="today-score">72</span>
+      </div>
+      <div class="score-info">
+        <div class="score-label" id="score-grade">양호해요 👍</div>
+        <div class="score-sub">어제보다 +8점 올랐어요!</div>
+      </div>
+      <div class="streak-badge">
+        <div class="streak-num" id="streak-count">🔥3</div>
+        <div class="streak-label">일 연속</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">오늘의 <span>뇌 운동</span></div>
+    <div class="game-grid">
+      <div class="game-card" onclick="startGame('memory')" id="card-memory">
+        <div class="game-icon">🔢</div>
+        <div class="game-name">숫자 기억</div>
+        <div class="game-desc">숫자를 기억하고 맞춰보세요</div>
+        <div class="game-diff diff-easy">쉬움</div>
+      </div>
+      <div class="game-card" onclick="startGame('gostop')" id="card-gostop">
+        <div class="game-icon">🌸</div>
+        <div class="game-name">화투 짝맞추기</div>
+        <div class="game-desc">같은 그림 카드를 찾아요</div>
+        <div class="game-diff diff-med">보통</div>
+      </div>
+      <div class="game-card" onclick="startGame('word')" id="card-word">
+        <div class="game-icon">💬</div>
+        <div class="game-name">낱말 퀴즈</div>
+        <div class="game-desc">알맞은 단어를 골라요</div>
+        <div class="game-diff diff-med">보통</div>
+      </div>
+      <div class="game-card" onclick="startGame('calc')" id="card-calc">
+        <div class="game-icon">🧮</div>
+        <div class="game-name">빠른 계산</div>
+        <div class="game-desc">간단한 계산을 해봐요</div>
+        <div class="game-diff diff-hard">어려움</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-label">💡 오늘의 뇌 건강 꿀팁</div>
+    <div class="tip-text" id="daily-tip">고스톱처럼 손을 쓰고 규칙을 기억하는 활동은 뇌의 여러 부분을 동시에 자극해 치매 예방에 효과적입니다!</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">치매 <span>자가 체크</span></div>
+    <div style="background:white;border-radius:20px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+      <div id="self-check-list"></div>
+      <button class="big-btn secondary" onclick="showSelfCheckResult()" style="margin-top:16px">자가 체크 결과 보기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GAME SCREEN ===== -->
+<div class="screen" id="screen-game">
+  <div class="game-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="game-title-bar" id="game-title-bar">게임</div>
+    <div class="game-score-badge">⭐ <span id="game-score-display">0</span></div>
+  </div>
+  <div class="game-area" id="game-area"></div>
+</div>
+
+<!-- ===== RECORDS SCREEN ===== -->
+<div class="screen" id="screen-records">
+  <div class="records-header">
+    <div class="records-title">📊 나의 기록</div>
+    <div class="records-sub">7일간 뇌 건강 트레이닝 현황</div>
+  </div>
+  <div class="week-chart">
+    <div class="chart-title">이번주 점수</div>
+    <div class="chart-bars" id="week-bars"></div>
+  </div>
+  <div class="record-list" id="record-list"></div>
+</div>
+
+<!-- ===== INFO SCREEN ===== -->
+<div class="screen" id="screen-info">
+  <div class="info-header">
+    <div class="info-title">🧠 치매 예방 정보</div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">🌸 왜 화투/고스톱이 도움될까요?</div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">복잡한 규칙을 기억하며 <b>전두엽</b>을 자극합니다</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">카드를 집고 내리며 <b>소근육 운동</b>으로 뇌를 활성화합니다</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">패턴 인식으로 <b>시각-공간 능력</b>을 키웁니다</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">사람들과 함께 하면 <b>사회적 자극</b>도 됩니다</div></div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">🛡️ 치매 예방 7가지 습관</div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">매일 30분 이상 <b>걷기 운동</b></div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text"><b>뇌 퀴즈·퍼즐</b> 매일 꾸준히 풀기</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">7~8시간 <b>규칙적인 수면</b></div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text"><b>금연·절주</b>로 뇌혈관 보호</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">사람들과 <b>대화·교류</b> 활발히</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">채소·생선 등 <b>뇌에 좋은 식단</b></div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text"><b>혈압·혈당</b> 꾸준히 관리</div></div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">⚠️ 이런 증상이 있으면 검사를</div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">방금 한 말이나 약속을 자꾸 잊어버림</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">익숙한 장소에서 길을 잃음</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">가스 불 끄는 것을 자주 깜박함</div></div>
+    <div class="info-item"><div class="info-dot"></div><div class="info-text">물건 이름이나 사람 이름이 갑자기 생각 안 남</div></div>
+  </div>
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <div class="nav-item active" onclick="switchTab('home')" id="nav-home">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-label">홈</div>
+  </div>
+  <div class="nav-item" onclick="switchTab('records')" id="nav-records">
+    <div class="nav-icon">📊</div>
+    <div class="nav-label">기록</div>
+  </div>
+  <div class="nav-item" onclick="switchTab('info')" id="nav-info">
+    <div class="nav-icon">📖</div>
+    <div class="nav-label">정보</div>
+  </div>
+</nav>
+
+<!-- Toast -->
+<div class="feedback-toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA & STATE
+// ============================================================
+const tips = [
+  "고스톱처럼 손을 쓰고 규칙을 기억하는 활동은 뇌의 여러 부분을 동시에 자극해 치매 예방에 효과적입니다!",
+  "매일 새로운 것을 배우면 뇌 신경 연결이 강화됩니다. 오늘도 트레이닝 해봐요!",
+  "숫자를 기억하는 훈련은 단기 기억력을 높여 치매 예방에 도움이 됩니다.",
+  "계산 훈련은 뇌의 전두엽을 자극하여 인지 기능을 유지하는 데 효과적입니다.",
+  "퍼즐이나 짝맞추기 게임은 시각적 처리 능력과 집중력을 높입니다.",
+];
+
+const selfCheckQ = [
+  "오늘 아침에 뭘 먹었는지 기억나나요?",
+  "오늘 날짜가 바로 생각나나요?",
+  "최근에 약속을 잊어버린 적이 있나요?",
+  "집 열쇠나 지갑을 어디 뒀는지 바로 알고 있나요?",
+  "가까운 가족의 전화번호가 기억나나요?",
+];
+
+const weekData = [45, 60, 55, 80, 72, 0, 0]; // Mon~Sun scores
+const weekDays = ['월','화','수','목','금','토','일'];
+
+let gameState = {};
+let currentGame = '';
+let gameScore = 0;
+let completedGames = JSON.parse(localStorage.getItem('completedToday') || '[]');
+let records = JSON.parse(localStorage.getItem('gameRecords') || '[]');
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  const today = new Date();
+  document.getElementById('today-date').textContent =
+    `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일 ` +
+    ['일','월','화','수','목','금','토'][today.getDay()] + '요일';
+
+  document.getElementById('daily-tip').textContent = tips[today.getDate() % tips.length];
+
+  // Self check
+  const list = document.getElementById('self-check-list');
+  selfCheckQ.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #F5F5F5;';
+    div.innerHTML = `
+      <div style="font-size:13px;flex:1;line-height:1.5;color:#374151">${i+1}. ${q}</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="checkSelf(${i},true,this)" style="padding:6px 12px;border-radius:10px;border:2px solid #E5E7EB;background:white;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">예</button>
+        <button onclick="checkSelf(${i},false,this)" style="padding:6px 12px;border-radius:10px;border:2px solid #E5E7EB;background:white;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">아니요</button>
+      </div>`;
+    list.appendChild(div);
+  });
+
+  // Update completed games
+  completedGames.forEach(g => {
+    const card = document.getElementById(`card-${g}`);
+    if (card) card.classList.add('completed');
+  });
+
+  renderWeekChart();
+  renderRecords();
+}
+
+let selfAnswers = {};
+function checkSelf(i, ans, btn) {
+  selfAnswers[i] = ans;
+  const wrap = btn.closest('div').querySelectorAll('button');
+  wrap.forEach(b => { b.style.background = 'white'; b.style.borderColor = '#E5E7EB'; b.style.color = '#374151'; });
+  btn.style.background = '#FF6B35'; btn.style.borderColor = '#FF6B35'; btn.style.color = 'white';
+}
+
+function showSelfCheckResult() {
+  const answered = Object.keys(selfAnswers).length;
+  if (answered < 3) { showToast('3개 이상 답해주세요 😊'); return; }
+  const goodAns = [true, true, false, true, true];
+  let ok = 0;
+  Object.keys(selfAnswers).forEach(i => { if (selfAnswers[i] === goodAns[i]) ok++; });
+  const pct = Math.round((ok / answered) * 100);
+  let msg = pct >= 80 ? '인지 기능이 양호합니다! 계속 트레이닝하세요 🎉' :
+            pct >= 60 ? '조금 더 뇌 운동이 필요해요. 매일 트레이닝! 💪' :
+                        '전문 의료기관 상담을 권드립니다 🏥';
+  showToast(`자가 체크: ${pct}점\n${msg}`);
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchTab(tab) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`screen-${tab}`).classList.add('active');
+  document.getElementById(`nav-${tab}`).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() { switchTab('home'); }
+
+// ============================================================
+// GAME LAUNCHER
+// ============================================================
+function startGame(type) {
+  currentGame = type;
+  gameScore = 0;
+  document.getElementById('game-score-display').textContent = 0;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-game').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  window.scrollTo(0, 0);
+
+  const titles = { memory: '🔢 숫자 기억', gostop: '🌸 화투 짝맞추기', word: '💬 낱말 퀴즈', calc: '🧮 빠른 계산' };
+  document.getElementById('game-title-bar').textContent = titles[type];
+
+  const area = document.getElementById('game-area');
+  area.innerHTML = '';
+
+  if (type === 'memory') startMemory();
+  else if (type === 'gostop') startGoStop();
+  else if (type === 'word') startWord();
+  else if (type === 'calc') startCalc();
+}
+
+// ============================================================
+// RESULT
+// ============================================================
+function showResult(score, max, msg) {
+  const pct = Math.round((score / max) * 100);
+  const emoji = pct >= 80 ? '🥇' : pct >= 60 ? '🥈' : '🥉';
+  const grade = pct >= 80 ? '훌륭해요!' : pct >= 60 ? '잘 했어요!' : '계속 도전!';
+
+  // Mark completed
+  if (!completedGames.includes(currentGame)) {
+    completedGames.push(currentGame);
+    localStorage.setItem('completedToday', JSON.stringify(completedGames));
+    const card = document.getElementById(`card-${currentGame}`);
+    if (card) card.classList.add('completed');
+  }
+
+  // Save record
+  const gameNames = { memory: '숫자 기억', gostop: '화투 짝맞추기', word: '낱말 퀴즈', calc: '빠른 계산' };
+  records.unshift({ game: currentGame, name: gameNames[currentGame], score: pct, date: new Date().toLocaleDateString('ko-KR') });
+  if (records.length > 20) records.pop();
+  localStorage.setItem('gameRecords', JSON.stringify(records));
+
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="result-screen show">
+      <div class="result-emoji">${emoji}</div>
+      <div class="result-title">${grade}</div>
+      <div class="result-score">${pct}점</div>
+      <div class="result-msg">${msg}<br><br><b>${score}</b> / ${max} 문제 정답</div>
+      <button class="result-btn" onclick="startGame('${currentGame}')">🔄 다시 도전</button>
+      <button class="result-btn-outline" onclick="goHome()">🏠 홈으로</button>
+    </div>`;
+}
+
+// ============================================================
+// GAME 1: MEMORY
+// ============================================================
+let memNumbers = [], memRound = 0, memCorrect = 0;
+function startMemory() {
+  memRound = 0; memCorrect = 0; memNumbers = [];
+  renderMemoryRound();
+}
+
+function renderMemoryRound() {
+  if (memRound >= 5) { showResult(memCorrect, 5, '숫자 기억력 훈련 완료! 단기 기억력이 좋아지고 있어요 🧠'); return; }
+  const len = 3 + memRound;
+  const nums = Array.from({length: len}, () => Math.floor(Math.random() * 9) + 1).join('');
+  memNumbers[memRound] = nums;
+
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="progress-wrap"><div class="progress-bar" style="width:${(memRound/5)*100}%"></div></div>
+    <div class="memory-instruction">아래 숫자를 <b>${3}초</b> 동안 기억하세요!</div>
+    <div class="numbers-display">
+      <div class="numbers-text" id="mem-nums">${nums}</div>
+      <div class="numbers-timer" id="mem-timer">잘 기억하세요... ⏳</div>
+    </div>
+    <div id="mem-input-area" style="display:none">
+      <div class="memory-instruction">기억한 숫자를 입력해 주세요</div>
+      <input class="number-input" id="mem-input" type="text" placeholder="숫자 입력" readonly maxlength="${len}">
+      <div class="keypad">
+        ${[1,2,3,4,5,6,7,8,9,'','0','⌫'].map(k => `<button class="key-btn${k==='⌫'?' key-del':''}" onclick="memKey('${k}')">${k}</button>`).join('')}
+      </div>
+      <button class="big-btn" onclick="checkMemory()" style="margin-top:16px">확인</button>
+    </div>`;
+
+  let t = 3;
+  const ticker = setInterval(() => {
+    t--;
+    const el = document.getElementById('mem-timer');
+    if (!el) { clearInterval(ticker); return; }
+    if (t <= 0) {
+      clearInterval(ticker);
+      document.getElementById('mem-nums').textContent = '❓❓❓';
+      document.getElementById('mem-input-area').style.display = 'block';
+    } else {
+      el.textContent = `${t}초 남았어요...`;
+    }
+  }, 1000);
+}
+
+function memKey(k) {
+  const inp = document.getElementById('mem-input');
+  if (!inp) return;
+  if (k === '⌫') inp.value = inp.value.slice(0,-1);
+  else if (k !== '') inp.value += k;
+}
+
+function checkMemory() {
+  const inp = document.getElementById('mem-input');
+  if (!inp || !inp.value) { showToast('숫자를 입력해주세요!'); return; }
+  const correct = inp.value === memNumbers[memRound];
+  if (correct) { memCorrect++; gameScore++; document.getElementById('game-score-display').textContent = gameScore; showToast('정답! 🎉'); }
+  else showToast(`아쉬워요 😢\n정답: ${memNumbers[memRound]}`);
+  memRound++;
+  setTimeout(renderMemoryRound, 1500);
+}
+
+// ============================================================
+// GAME 2: GO-STOP CARD MATCH
+// ============================================================
+const flowerCards = ['🌸','🌺','🌻','🍁','🌿','🎋','🎑','🎏'];
+let gsFlipped = [], gsMatched = [], gsCards = [], gsMoves = 0;
+
+function startGoStop() {
+  gsFlipped = []; gsMatched = []; gsMoves = 0;
+  const pairs = [...flowerCards, ...flowerCards];
+  gsCards = pairs.sort(() => Math.random() - 0.5);
+
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="progress-wrap"><div class="progress-bar" id="gs-progress" style="width:0%"></div></div>
+    <div style="text-align:center;margin-bottom:14px;font-size:14px;color:#6B7280;font-weight:600">같은 그림 카드를 찾아 짝을 맞추세요 🌸</div>
+    <div style="text-align:center;font-size:13px;color:#9CA3AF;margin-bottom:12px">시도: <b id="gs-moves">0</b>번</div>
+    <div class="card-grid" id="gs-grid"></div>`;
+
+  const grid = document.getElementById('gs-grid');
+  gsCards.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'flower-card face-down';
+    div.dataset.idx = i;
+    div.dataset.val = c;
+    div.onclick = () => gsFlip(div, i);
+    grid.appendChild(div);
+  });
+}
+
+function gsFlip(div, idx) {
+  if (gsFlipped.length === 2) return;
+  if (gsFlipped.includes(idx)) return;
+  if (gsMatched.includes(idx)) return;
+
+  div.classList.remove('face-down');
+  div.classList.add('flipped');
+  div.innerHTML = `<div class="card-face">${gsCards[idx]}</div>`;
+  gsFlipped.push(idx);
+
+  if (gsFlipped.length === 2) {
+    gsMoves++;
+    document.getElementById('gs-moves').textContent = gsMoves;
+    const [a, b] = gsFlipped;
+    if (gsCards[a] === gsCards[b]) {
+      gsMatched.push(a, b);
+      document.querySelectorAll('.flower-card')[a].classList.add('matched');
+      document.querySelectorAll('.flower-card')[b].classList.add('matched');
+      gameScore += 10; document.getElementById('game-score-display').textContent = gameScore;
+      gsFlipped = [];
+      const pct = (gsMatched.length / gsCards.length) * 100;
+      document.getElementById('gs-progress').style.width = pct + '%';
+      showToast('짝! 🎉');
+      if (gsMatched.length === gsCards.length) {
+        setTimeout(() => showResult(flowerCards.length, flowerCards.length, `${gsMoves}번 만에 모두 찾았어요! 시각 기억력이 훌륭해요 🌸`), 500);
+      }
+    } else {
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.flower-card');
+        [a, b].forEach(i => {
+          cards[i].classList.add('face-down');
+          cards[i].classList.remove('flipped');
+          cards[i].innerHTML = '';
+        });
+        gsFlipped = [];
+      }, 1000);
+    }
+  }
+}
+
+// ============================================================
+// GAME 3: WORD QUIZ
+// ============================================================
+const wordQuestions = [
+  { q: '강아지의 반대말은?', opts: ['고양이','늑대','멍멍이','냥이'], ans: 1, hint: '야생에서 사는 개과 동물' },
+  { q: '봄 다음에 오는 계절은?', opts: ['겨울','가을','여름','장마'], ans: 2, hint: '덥고 방학이 있어요' },
+  { q: '"빠르다"의 반대말은?', opts: ['크다','느리다','작다','길다'], ans: 1, hint: '거북이처럼~' },
+  { q: '물이 끓는 온도는 몇 도일까요?', opts: ['50도','80도','100도','200도'], ans: 2, hint: '라면 끓일 때 온도예요' },
+  { q: '우리나라 수도는?', opts: ['부산','대전','서울','인천'], ans: 2, hint: '청와대가 있는 도시' },
+  { q: '1년은 몇 달일까요?', opts: ['10달','11달','12달','13달'], ans: 2, hint: '달력을 세어보세요' },
+  { q: '"사랑"과 반대 뜻의 단어는?', opts: ['행복','증오','기쁨','평화'], ans: 1, hint: '미움과 비슷한 말' },
+  { q: '가장 큰 바다는?', opts: ['대서양','인도양','북극해','태평양'], ans: 3, hint: '아시아와 미주대륙 사이' },
+];
+
+let wqIdx = [], wqCurrent = 0, wqCorrect = 0;
+
+function startWord() {
+  wqIdx = wordQuestions.map((_, i) => i).sort(() => Math.random() - 0.5).slice(0, 5);
+  wqCurrent = 0; wqCorrect = 0;
+  renderWordQ();
+}
+
+function renderWordQ() {
+  if (wqCurrent >= 5) { showResult(wqCorrect, 5, '언어 인지 능력 훈련 완료! 낱말 감각이 살아있어요 💬'); return; }
+  const q = wordQuestions[wqIdx[wqCurrent]];
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="progress-wrap"><div class="progress-bar" style="width:${(wqCurrent/5)*100}%"></div></div>
+    <div style="text-align:right;font-size:13px;color:#9CA3AF;margin-bottom:10px">${wqCurrent+1}/5</div>
+    <div class="word-question">
+      <div class="word-q-label">문제 ${wqCurrent+1}</div>
+      <div class="word-q-text">${q.q}</div>
+    </div>
+    <div class="word-options">
+      ${q.opts.map((o, i) => `<div class="word-opt" id="wopt-${i}" onclick="checkWord(${i},${q.ans})">${o}</div>`).join('')}
+    </div>
+    <div style="margin-top:14px;padding:12px;background:#FFF7ED;border-radius:12px;font-size:13px;color:#92400E">
+      💡 힌트: ${q.hint}
+    </div>`;
+}
+
+function checkWord(chosen, ans) {
+  document.querySelectorAll('.word-opt').forEach(o => o.style.pointerEvents = 'none');
+  const chosenEl = document.getElementById(`wopt-${chosen}`);
+  const ansEl = document.getElementById(`wopt-${ans}`);
+  if (chosen === ans) { chosenEl.classList.add('correct'); wqCorrect++; gameScore++; document.getElementById('game-score-display').textContent = gameScore; showToast('정답! 🎉'); }
+  else { chosenEl.classList.add('wrong'); ansEl.classList.add('correct'); showToast('아쉬워요 😢'); }
+  wqCurrent++;
+  setTimeout(renderWordQ, 1500);
+}
+
+// ============================================================
+// GAME 4: CALCULATION
+// ============================================================
+let calcRound = 0, calcCorrect = 0, calcTimer, calcTimeLeft;
+
+function startCalc() {
+  calcRound = 0; calcCorrect = 0;
+  renderCalcQ();
+}
+
+function renderCalcQ() {
+  if (calcRound >= 5) { clearInterval(calcTimer); showResult(calcCorrect, 5, '암산 훈련 완료! 수리 능력이 뛰어나요 🧮'); return; }
+
+  const ops = ['+', '-', '×'];
+  const op = ops[Math.floor(Math.random() * ops.length)];
+  let a, b, ans;
+  if (op === '+') { a = Math.floor(Math.random()*30)+5; b = Math.floor(Math.random()*30)+5; ans = a+b; }
+  else if (op === '-') { a = Math.floor(Math.random()*30)+20; b = Math.floor(Math.random()*20)+1; ans = a-b; }
+  else { a = Math.floor(Math.random()*9)+2; b = Math.floor(Math.random()*9)+2; ans = a*b; }
+
+  const wrongs = new Set();
+  while (wrongs.size < 3) {
+    const w = ans + (Math.floor(Math.random()*10)-5);
+    if (w !== ans && w > 0) wrongs.add(w);
+  }
+  const opts = [ans, ...wrongs].sort(() => Math.random()-0.5);
+
+  calcTimeLeft = 10;
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="progress-wrap"><div class="progress-bar" style="width:${(calcRound/5)*100}%"></div></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;color:#9CA3AF">${calcRound+1}/5</span>
+      <div class="timer-ring" style="--t:100" id="calc-timer-ring">
+        <span class="timer-num" id="calc-timer-num">10</span>
+      </div>
+    </div>
+    <div class="calc-display">
+      <div class="calc-problem">${a} ${op} ${b} = ?</div>
+    </div>
+    <div class="calc-options">
+      ${opts.map((o, i) => `<div class="calc-opt" id="copt-${i}" onclick="checkCalc(${o},${ans})">${o}</div>`).join('')}
+    </div>`;
+
+  clearInterval(calcTimer);
+  calcTimer = setInterval(() => {
+    calcTimeLeft--;
+    const ring = document.getElementById('calc-timer-ring');
+    const num = document.getElementById('calc-timer-num');
+    if (!ring || !num) { clearInterval(calcTimer); return; }
+    ring.style.setProperty('--t', calcTimeLeft * 10);
+    num.textContent = calcTimeLeft;
+    if (calcTimeLeft <= 0) {
+      clearInterval(calcTimer);
+      showToast(`시간 초과! 정답: ${ans}`);
+      calcRound++;
+      setTimeout(renderCalcQ, 1500);
+    }
+  }, 1000);
+}
+
+function checkCalc(chosen, ans) {
+  clearInterval(calcTimer);
+  document.querySelectorAll('.calc-opt').forEach(o => o.style.pointerEvents = 'none');
+  if (chosen === ans) {
+    event.target.classList.add('correct');
+    calcCorrect++; gameScore++; document.getElementById('game-score-display').textContent = gameScore;
+    showToast('정답! 🎉');
+  } else {
+    event.target.classList.add('wrong');
+    document.querySelectorAll('.calc-opt').forEach(o => { if (parseInt(o.textContent) === ans) o.classList.add('correct'); });
+    showToast(`아쉬워요 😢\n정답: ${ans}`);
+  }
+  calcRound++;
+  setTimeout(renderCalcQ, 1500);
+}
+
+// ============================================================
+// RECORDS
+// ============================================================
+function renderWeekChart() {
+  const bars = document.getElementById('week-bars');
+  if (!bars) return;
+  const today = new Date().getDay();
+  const todayIdx = today === 0 ? 6 : today - 1;
+  bars.innerHTML = weekDays.map((d, i) => {
+    const h = weekData[i] ? Math.max(10, weekData[i]) : 0;
+    return `<div class="chart-bar-wrap">
+      <div class="chart-bar ${i === todayIdx ? 'today' : ''}" style="height:${h}px"></div>
+      <div class="chart-day">${d}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderRecords() {
+  const list = document.getElementById('record-list');
+  if (!list) return;
+  if (!records.length) {
+    list.innerHTML = '<div style="text-align:center;padding:30px;color:#9CA3AF;font-size:15px">아직 게임 기록이 없어요!<br>게임을 시작해 보세요 🎮</div>';
+    return;
+  }
+  const icons = { memory: '🔢', gostop: '🌸', word: '💬', calc: '🧮' };
+  list.innerHTML = records.slice(0, 10).map(r => `
+    <div class="record-item">
+      <div class="record-icon">${icons[r.game] || '🎮'}</div>
+      <div class="record-info">
+        <div class="record-name">${r.name}</div>
+        <div class="record-date">${r.date}</div>
+      </div>
+      <div class="record-score-badge">${r.score}점</div>
+    </div>`).join('');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
+</body>
+</html>

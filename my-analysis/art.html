@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ART FACE v5</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { background:#000; overflow:hidden; width:100vw; height:100vh; touch-action:manipulation; }
+
+/* 비디오 레이어들 */
+#vid { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; transform:scaleX(-1); opacity:0; pointer-events:none; }
+
+/* 캔버스는 오버레이 이펙트용 */
+#fx  { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; }
+
+/* 아트 레이어 — CSS filter로 GPU 처리 */
+#art-layer {
+  position:fixed; inset:0; width:100%; height:100%;
+  pointer-events:none; transition:filter .1s;
+}
+#art-layer video {
+  width:100%; height:100%; object-fit:cover;
+  transform:scaleX(-1);
+  display:block;
+}
+
+/* ── LANDING ── */
+#landing {
+  position:fixed; inset:0; z-index:50;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:#000; padding:2rem; transition:opacity .8s;
+}
+#landing h1 {
+  font-family:'Bebas Neue',cursive;
+  font-size:clamp(3rem,14vw,6.5rem);
+  line-height:.82; letter-spacing:.06em; text-align:center; color:#fff; opacity:.9;
+  animation:breathe 3s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{opacity:.7}50%{opacity:1} }
+#landing .sub { font-size:.68rem; letter-spacing:.3em; color:rgba(255,255,255,.22); text-align:center; margin-top:.7rem; }
+#landing .ver { font-size:.52rem; letter-spacing:.25em; color:rgba(255,255,255,.12); margin-top:.3rem; }
+#start-btn {
+  margin-top:2rem; padding:1rem clamp(2rem,8vw,3.5rem);
+  font-family:'Bebas Neue',cursive; font-size:1.1rem; letter-spacing:.22em;
+  color:#fff; background:transparent; border:1px solid rgba(255,255,255,.45);
+  cursor:pointer; position:relative; overflow:hidden; transition:color .22s;
+}
+#start-btn::before { content:''; position:absolute; inset:0; background:#fff; transform:translateX(-101%); transition:transform .22s; z-index:-1; }
+#start-btn:hover::before,#start-btn:active::before { transform:translateX(0); }
+#start-btn:hover,#start-btn:active { color:#000; }
+#start-btn:disabled { opacity:.3; pointer-events:none; }
+
+/* ── ERROR ── */
+#err { display:none; position:fixed; inset:0; z-index:90; background:#080808; flex-direction:column; align-items:center; justify-content:center; gap:.7rem; padding:1.5rem; text-align:center; overflow-y:auto; }
+#err.on { display:flex; }
+#err h2 { font-family:'Bebas Neue',cursive; font-size:1.6rem; letter-spacing:.08em; color:#ff5555; }
+.ec { font-size:.68rem; color:rgba(255,90,90,.7); background:rgba(255,0,0,.07); border:1px solid rgba(255,0,0,.14); padding:.35rem .9rem; border-radius:4px; font-family:monospace; max-width:90vw; word-break:break-all; }
+.ecard { width:100%; max-width:390px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:.9rem 1.1rem; text-align:left; }
+.ecard h3 { font-size:.63rem; letter-spacing:.18em; color:rgba(255,255,255,.3); margin-bottom:.5rem; }
+.ecard li { font-size:.74rem; color:rgba(255,255,255,.48); line-height:2.1; list-style:none; }
+.ecard li::before { content:'→ '; color:rgba(255,255,255,.18); }
+.ecard li strong { color:rgba(255,255,255,.82); }
+.ebtns { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; }
+.ebtn { padding:.7rem 1.3rem; font-family:'Bebas Neue',cursive; font-size:.88rem; letter-spacing:.12em; border:1px solid rgba(255,255,255,.18); color:rgba(255,255,255,.45); background:transparent; cursor:pointer; border-radius:2px; transition:all .2s; }
+.ebtn:hover,.ebtn:active { border-color:#fff; color:#fff; }
+.ebtn.p { border-color:rgba(255,255,255,.45); color:rgba(255,255,255,.8); }
+
+/* ── APP UI ── */
+#ui { display:none; position:fixed; inset:0; z-index:20; pointer-events:none; }
+#ui.on { display:block; }
+#topbar {
+  position:absolute; top:0; left:0; right:0;
+  padding:max(1rem,env(safe-area-inset-top,0px)) 1.3rem .9rem;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent);
+}
+.logo { font-family:'Bebas Neue',cursive; font-size:1rem; letter-spacing:.18em; color:rgba(255,255,255,.4); }
+.logo small { display:block; font-size:.35em; letter-spacing:.3em; color:rgba(255,255,255,.16); margin-top:.18em; }
+#mname { font-family:'Bebas Neue',cursive; font-size:.92rem; letter-spacing:.2em; color:rgba(255,255,255,.45); text-align:right; }
+#msub  { font-size:.46rem; letter-spacing:.15em; color:rgba(255,255,255,.18); margin-top:.12em; text-align:right; }
+
+/* intensity dot */
+#idot { position:absolute; top:max(1.1rem,env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.1); transition:all .2s; }
+#idot.on { background:rgba(255,255,255,.7); box-shadow:0 0 8px rgba(255,255,255,.5); }
+
+#controls {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:.85rem .85rem calc(.85rem + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(to top,rgba(0,0,0,.6),transparent);
+  pointer-events:all;
+  display:flex; justify-content:center; gap:.4rem; flex-wrap:nowrap;
+}
+.fbtn {
+  flex:1; min-width:0;
+  padding:.7rem .2rem;
+  font-family:'Bebas Neue',cursive; font-size:clamp(.58rem,2.3vw,.8rem);
+  letter-spacing:.07em; border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.28); background:transparent;
+  cursor:pointer; transition:all .18s; border-radius:1px; white-space:nowrap;
+}
+.fbtn:active,.fbtn.on { color:#fff; border-color:rgba(255,255,255,.7); background:rgba(255,255,255,.08); }
+</style>
+</head>
+<body>
+            <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:9999;">
+                <a href="index.html" style="font-size:13px; font-weight:700; color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    &larr; 분석 센터 홈
+                </a>
+                <a href="../showcase.html" style="font-size:12px; font-weight:600; color:#64748b; text-decoration:none;">
+                    ADOPTER 쇼케이스 &rarr;
+                </a>
+            </div>
+            
+
+<!-- 아트 레이어 (CSS filter 적용) -->
+<div id="art-layer">
+  <video id="art-vid" autoplay muted playsinline webkit-playsinline></video>
+</div>
+
+<!-- FX 오버레이 캔버스 -->
+<canvas id="fx"></canvas>
+
+<!-- 히든 비디오 (모션 감지용) -->
+<video id="vid" autoplay muted playsinline webkit-playsinline></video>
+
+<!-- LANDING -->
+<div id="landing">
+  <h1>ART<br>FACE</h1>
+  <p class="sub">얼굴을 예술로 변환합니다</p>
+  <p class="ver">v5 · GPU Accelerated</p>
+  <button id="start-btn" onclick="startCam()">카메라 켜기 →</button>
+</div>
+
+<!-- ERROR -->
+<div id="err">
+  <h2 id="et">카메라 오류</h2>
+  <div class="ec" id="ec"></div>
+  <div class="ecard"><h3>해결 방법</h3><ul id="es"></ul></div>
+  <div class="ebtns">
+    <button class="ebtn p" onclick="retry()">↩ 다시 시도</button>
+    <button class="ebtn" onclick="copyUrl()">🔗 주소 복사</button>
+  </div>
+</div>
+
+<!-- UI -->
+<div id="ui">
+  <div id="topbar">
+    <div class="logo">ART FACE<small>v5 · LIVE</small></div>
+    <div><div id="mname">ANIME</div><div id="msub">애니메이션 셀화</div></div>
+  </div>
+  <div id="idot"></div>
+  <div id="controls">
+    <button class="fbtn on" onclick="setMode(0,this)">ANIME</button>
+    <button class="fbtn"    onclick="setMode(1,this)">PAINT</button>
+    <button class="fbtn"    onclick="setMode(2,this)">WATER</button>
+    <button class="fbtn"    onclick="setMode(3,this)">NEON</button>
+    <button class="fbtn"    onclick="setMode(4,this)">DREAM</button>
+    <button class="fbtn"    onclick="setMode(5,this)">SKETCH</button>
+  </div>
+</div>
+
+<script>
+// ════ 에러 핸들링 ══════════════════════════════════════
+const EM = {
+  NotAllowedError:  { t:'카메라 권한 차단됨',    s:['주소창 왼쪽 <strong>🔒 → 카메라 → 허용</strong>','크롬 주소창에 <strong>chrome://settings/content/camera</strong> 입력','차단 목록에서 이 사이트 삭제 후 새로고침'] },
+  NotFoundError:    { t:'카메라를 찾을 수 없음',  s:['Zoom·Teams 등 <strong>카메라 앱 모두 종료</strong>','카메라 연결 상태 확인'] },
+  NotReadableError: { t:'카메라가 이미 사용 중',  s:['<strong>다른 앱 모두 종료</strong> 후 크롬 재시작','그래도 안 되면 PC 재시작'] },
+  SecurityError:    { t:'HTTPS 보안 오류',        s:['주소가 <strong>https://</strong>로 시작하는지 확인','카카오톡 인앱 브라우저 말고 <strong>크롬/사파리</strong>로 접속'] },
+  AbortError:       { t:'카메라 연결 중단',        s:['페이지 새로고침 후 다시 시도'] },
+};
+function showErr(e) {
+  const n=e.name||'UnknownError', inf=EM[n]||{t:'오류: '+n, s:['새로고침 후 재시도','크롬/사파리로 접속']};
+  document.getElementById('et').textContent=inf.t;
+  document.getElementById('ec').textContent=n+': '+(e.message||'메시지 없음');
+  document.getElementById('es').innerHTML=inf.s.map(s=>`<li>${s}</li>`).join('');
+  document.getElementById('landing').style.display='none';
+  document.getElementById('err').classList.add('on');
+  console.error('[ART FACE v5] Camera Error:', n, e.message, e);
+}
+function retry() {
+  document.getElementById('err').classList.remove('on');
+  const l=document.getElementById('landing'); l.style.cssText='display:flex;opacity:1';
+  document.getElementById('start-btn').disabled=false;
+  document.getElementById('start-btn').textContent='카메라 켜기 →';
+}
+function copyUrl() {
+  navigator.clipboard.writeText(location.href)
+    .then(()=>alert('복사됨!\nSafari/Chrome 주소창에 붙여넣기 하세요.'))
+    .catch(()=>prompt('주소를 복사해서 Safari/Chrome에 붙여넣으세요:', location.href));
+}
+
+// ════ 변수 ═════════════════════════════════════════════
+const artVid = document.getElementById('art-vid');
+const motVid = document.getElementById('vid');
+const artLayer = document.getElementById('art-layer');
+const fxCanvas = document.getElementById('fx');
+const fxCtx = fxCanvas.getContext('2d');
+
+// 모션 감지용 소형 캔버스
+const mc = document.createElement('canvas');
+const mx = mc.getContext('2d', {willReadFrequently:true});
+mc.width=96; mc.height=72;
+
+let W,H,T=0,mode=0,running=false;
+let prevPx=null, motionLevel=0;
+let stream=null;
+
+function resize() {
+  W=fxCanvas.width=window.innerWidth;
+  H=fxCanvas.height=window.innerHeight;
+}
+resize(); window.addEventListener('resize',resize);
+
+// ════ 카메라 시작 ══════════════════════════════════════
+async function startCam() {
+  const btn=document.getElementById('start-btn');
+  btn.textContent='연결 중...'; btn.disabled=true;
+
+  if (!navigator.mediaDevices?.getUserMedia) {
+    showErr({name:'SecurityError', message:'이 브라우저는 카메라를 지원하지 않습니다. 크롬/사파리를 사용해 주세요.'});
+    return;
+  }
+
+  // 여러 constraint 순차 시도
+  const tries = [
+    {video:{facingMode:'user', width:{ideal:1280}, height:{ideal:720}}},
+    {video:{facingMode:'user', width:{ideal:640},  height:{ideal:480}}},
+    {video:{facingMode:'user'}},
+    {video:true},
+  ];
+
+  let lastErr=null;
+  for (const cfg of tries) {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(cfg);
+      break;
+    } catch(e) {
+      lastErr=e;
+      if (e.name==='NotAllowedError'||e.name==='SecurityError'||e.name==='NotFoundError') break;
+    }
+  }
+  if (!stream) { showErr(lastErr); return; }
+
+  // 같은 스트림을 두 비디오에 연결
+  artVid.srcObject = stream;
+  motVid.srcObject = stream;
+
+  try {
+    await Promise.all([artVid.play(), motVid.play()]);
+  } catch(e) { showErr(e); return; }
+
+  // 랜딩 페이드
+  const land=document.getElementById('landing');
+  land.style.opacity='0'; setTimeout(()=>land.style.display='none', 700);
+  document.getElementById('ui').classList.add('on');
+
+  // 초기 필터 적용
+  applyFilter(0);
+
+  if (!running) { running=true; requestAnimationFrame(loop); }
+}
+
+// ════ CSS FILTER 정의 ══════════════════════════════════
+// GPU가 직접 처리 — JS 픽셀루프 없음 → PC/모바일 모두 빠름
+const FILTERS = [
+  // 0 ANIME — 선명한 대비 + 채도 폭발 + 약간 흐림으로 셀화
+  `contrast(2.2) saturate(3.5) brightness(1.05)`,
+
+  // 1 PAINT — 따뜻한 유화 색감
+  `contrast(1.6) saturate(2.2) brightness(1.1) sepia(0.3) hue-rotate(5deg)`,
+
+  // 2 WATER — 밝고 부드러운 수채화
+  `contrast(0.85) saturate(1.4) brightness(1.35) blur(1.2px)`,
+
+  // 3 NEON — 어둡고 채도 극대화
+  `contrast(3.5) saturate(6) brightness(0.5) invert(0)`,
+
+  // 4 DREAM — 색상 회전 + 채도 강화
+  `contrast(1.3) saturate(2.8) brightness(1.1) hue-rotate(${0}deg) blur(0.5px)`,
+
+  // 5 SKETCH — 흑백 고대비
+  `grayscale(1) contrast(2.8) brightness(1.2)`,
+];
+
+const MINFO = [
+  {n:'ANIME',  s:'애니메이션 셀화'},
+  {n:'PAINT',  s:'유화 붓터치'},
+  {n:'WATER',  s:'수채화 번짐'},
+  {n:'NEON',   s:'네온 사이버'},
+  {n:'DREAM',  s:'드림 사이키델릭'},
+  {n:'SKETCH', s:'연필 스케치'},
+];
+
+function applyFilter(m) {
+  artLayer.style.filter = FILTERS[m];
+  // NEON은 mix-blend-mode로 글로우 추가
+  if (m===3) artLayer.style.mixBlendMode='screen';
+  else artLayer.style.mixBlendMode='normal';
+}
+
+function setMode(m, btn) {
+  mode=m;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('mname').textContent=MINFO[m].n;
+  document.getElementById('msub').textContent=MINFO[m].s;
+  applyFilter(m);
+  fxCtx.clearRect(0,0,W,H);
+}
+
+// ════ 모션 감지 ════════════════════════════════════════
+function detectMotion() {
+  if (motVid.readyState < 2) return;
+  mx.save(); mx.translate(96,0); mx.scale(-1,1);
+  mx.drawImage(motVid,0,0,96,72); mx.restore();
+  const cur=mx.getImageData(0,0,96,72).data;
+  if (!prevPx) { prevPx=new Uint8ClampedArray(cur); return; }
+  let total=0;
+  for (let i=0;i<96*72;i++) {
+    const p=i*4;
+    total+=Math.abs(cur[p]-prevPx[p])+Math.abs(cur[p+1]-prevPx[p+1])+Math.abs(cur[p+2]-prevPx[p+2]);
+  }
+  prevPx.set(cur);
+  motionLevel=Math.min(1,total/(96*72*255*0.25));
+  document.getElementById('idot').classList.toggle('on',motionLevel>0.01);
+}
+
+// ════ FX 오버레이 (각 모드별 추가 이펙트) ═════════════
+function drawFX() {
+  fxCtx.clearRect(0,0,W,H);
+
+  if (mode===0) drawAnimeFX();
+  else if (mode===1) drawPaintFX();
+  else if (mode===2) drawWaterFX();
+  else if (mode===3) drawNeonFX();
+  else if (mode===4) drawDreamFX();
+  else if (mode===5) drawSketchFX();
+}
+
+// ANIME FX — 윤곽선 효과 (캔버스에 직접 그리기)
+function drawAnimeFX() {
+  if (motionLevel > 0.02) {
+    fxCtx.save();
+    fxCtx.globalCompositeOperation='screen';
+    fxCtx.globalAlpha=motionLevel*0.15;
+    fxCtx.fillStyle=`hsl(${T*2%360},100%,70%)`;
+    fxCtx.fillRect(0,0,W,H);
+    fxCtx.restore();
+  }
+}
+
+// PAINT FX — 붓질 파티클
+let brushPts=[];
+function drawPaintFX() {
+  if (motionLevel>0.02 && Math.random()<0.4) {
+    brushPts.push({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*3, vy:(Math.random()-.5)*3,
+      life:1, decay:0.015+Math.random()*0.02,
+      w:2+Math.random()*8, len:15+Math.random()*40,
+      ang:(Math.random()-.5)*Math.PI,
+      hue:(T*0.5)%360,
+    });
+  }
+  fxCtx.save(); fxCtx.globalCompositeOperation='overlay';
+  brushPts=brushPts.filter(p=>{
+    p.life-=p.decay; if(p.life<=0) return false;
+    p.x+=p.vx; p.y+=p.vy;
+    fxCtx.globalAlpha=p.life*0.35;
+    fxCtx.strokeStyle=`hsla(${p.hue},60%,50%,1)`;
+    fxCtx.lineWidth=p.w*p.life; fxCtx.lineCap='round';
+    fxCtx.beginPath();
+    fxCtx.moveTo(p.x,p.y);
+    fxCtx.lineTo(p.x+Math.cos(p.ang)*p.len,p.y+Math.sin(p.ang)*p.len);
+    fxCtx.stroke();
+    return true;
+  });
+  fxCtx.restore();
+}
+
+// WATER FX — 물결 파문
+let ripples=[];
+function drawWaterFX() {
+  if (motionLevel>0.03 && Math.random()<0.3+motionLevel) {
+    ripples.push({x:Math.random()*W, y:Math.random()*H, r:5, life:1, decay:0.008, hue:(T*0.4)%360});
+  }
+  fxCtx.save();
+  ripples=ripples.filter(r=>{
+    r.life-=r.decay; r.r+=3+motionLevel*4; if(r.life<=0) return false;
+    fxCtx.globalAlpha=r.life*0.3;
+    fxCtx.strokeStyle=`hsla(${r.hue},70%,80%,1)`;
+    fxCtx.lineWidth=1.5*r.life;
+    fxCtx.beginPath(); fxCtx.arc(r.x,r.y,r.r,0,Math.PI*2); fxCtx.stroke();
+    return true;
+  });
+  fxCtx.restore();
+}
+
+// NEON FX — 네온 글로우 파티클
+let neonPts=[];
+function drawNeonFX() {
+  if (motionLevel>0.01) {
+    for(let i=0;i<Math.ceil(motionLevel*5);i++) {
+      neonPts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*5, vy:(Math.random()-.5)*5,
+        life:1, decay:0.02+Math.random()*0.03,
+        hue:(T*3)%360, trail:[],
+      });
+    }
+  }
+  fxCtx.save();
+  neonPts=neonPts.filter(p=>{
+    p.trail.push({x:p.x,y:p.y}); if(p.trail.length>10) p.trail.shift();
+    p.x+=p.vx; p.y+=p.vy; p.vx*=0.94; p.vy*=0.94; p.life-=p.decay;
+    if(p.life<=0) return false;
+    if(p.trail.length<2) return true;
+    fxCtx.shadowBlur=12; fxCtx.shadowColor=`hsla(${p.hue},100%,70%,1)`;
+    fxCtx.strokeStyle=`hsla(${p.hue},100%,80%,${p.life*0.9})`;
+    fxCtx.lineWidth=2*p.life; fxCtx.lineCap='round';
+    fxCtx.beginPath(); fxCtx.moveTo(p.trail[0].x,p.trail[0].y);
+    p.trail.forEach(pt=>fxCtx.lineTo(pt.x,pt.y)); fxCtx.stroke();
+    fxCtx.shadowBlur=0;
+    return true;
+  });
+  fxCtx.restore();
+  if(neonPts.length>500) neonPts.splice(0,100);
+}
+
+// DREAM FX — 컬러 파동
+function drawDreamFX() {
+  // hue-rotate 애니메이션 (CSS 변수 동적 변경)
+  artLayer.style.filter=`contrast(1.3) saturate(2.8) brightness(1.1) hue-rotate(${T*0.8%360}deg) blur(0.5px)`;
+
+  if (motionLevel>0.02) {
+    fxCtx.save();
+    fxCtx.globalCompositeOperation='screen';
+    fxCtx.globalAlpha=motionLevel*0.1;
+    const grad=fxCtx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.7);
+    grad.addColorStop(0,`hsla(${T*2%360},100%,70%,0.5)`);
+    grad.addColorStop(0.5,`hsla(${(T*2+120)%360},100%,60%,0.2)`);
+    grad.addColorStop(1,'rgba(0,0,0,0)');
+    fxCtx.fillStyle=grad; fxCtx.fillRect(0,0,W,H);
+    fxCtx.restore();
+  }
+}
+
+// SKETCH FX — 연필 해칭 라인
+function drawSketchFX() {
+  if (motionLevel>0.03 && Math.random()<0.5) {
+    fxCtx.save(); fxCtx.globalAlpha=0.06;
+    fxCtx.strokeStyle='rgba(30,20,10,0.8)';
+    fxCtx.lineWidth=0.5; fxCtx.lineCap='round';
+    for(let i=0;i<8;i++) {
+      const x=Math.random()*W, y=Math.random()*H;
+      const len=5+Math.random()*25;
+      const ang=Math.PI*0.15+(Math.random()-.5)*0.3;
+      fxCtx.beginPath(); fxCtx.moveTo(x,y); fxCtx.lineTo(x+Math.cos(ang)*len,y+Math.sin(ang)*len); fxCtx.stroke();
+    }
+    fxCtx.restore();
+  }
+}
+
+// ════ 메인 루프 ════════════════════════════════════════
+function loop() {
+  T++;
+  detectMotion();
+  drawFX();
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

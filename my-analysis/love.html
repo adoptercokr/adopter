@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>심쿵! 우리 궁합 테스트 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --main-pink: #ff8fa3; --sub-pink: #fff0f3; --text-gray: #4a4a4a; }
+        body { background: var(--sub-pink); font-family: 'Gaegu', cursive; color: var(--text-gray); margin: 0; padding: 0; }
+        .container { max-width: 450px; margin: 0 auto; padding: 20px; box-sizing: border-box; }
+        .header { text-align: center; padding: 30px 0; }
+        .header h1 { font-size: 38px; color: var(--main-pink); margin: 0; text-shadow: 2px 2px #fff; }
+        .card { background: #fff; border-radius: 30px; padding: 25px; box-shadow: 0 10px 20px rgba(255,143,163,0.1); margin-bottom: 20px; }
+        .card-title { font-size: 22px; font-weight: bold; color: var(--main-pink); margin-bottom: 15px; }
+        label { display: block; margin: 10px 0 5px; font-size: 16px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; border: 2px solid var(--sub-pink); border-radius: 15px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none; }
+        .btn-submit { background: var(--main-pink); color: #fff; border: none; width: 100%; padding: 15px; border-radius: 20px; font-size: 22px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 0 #e67e91; }
+        #result-view { display: none; text-align: center; animation: fadeIn 0.5s; }
+        .score-circle { width: 110px; height: 110px; border-radius: 50%; border: 5px solid var(--main-pink); display: flex; align-items: center; justify-content: center; margin: 15px auto; font-size: 35px; font-weight: bold; color: var(--main-pink); background: #fff; }
+        .progress-bar { width: 100%; height: 18px; background: #eee; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .progress-fill { height: 100%; background: var(--main-pink); width: 0%; transition: 1s ease-out; }
+        .result-text { font-size: 17px; line-height: 1.6; padding: 15px; background: #fffafb; border-radius: 15px; margin-top: 10px; text-align: left; }
+        #loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 99; flex-direction: column; align-items: center; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+            <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:9999;">
+                <a href="index.html" style="font-size:13px; font-weight:700; color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    &larr; 분석 센터 홈
+                </a>
+                <a href="../showcase.html" style="font-size:12px; font-weight:600; color:#64748b; text-decoration:none;">
+                    ADOPTER 쇼케이스 &rarr;
+                </a>
+            </div>
+            
+
+<div id="loading"><div style="font-size:50px;">💖</div><p>두 분의 인연을 분석 중...</p></div>
+
+<div class="container">
+    <div id="input-view">
+        <div class="header"><h1>심쿵! 궁합 테스트</h1><p>우리.. 결혼까지 갈 수 있을까? 💍</p></div>
+        <div class="card">
+            <div class="card-title">🙋‍♀️ 나</div>
+            <label>이름</label><input type="text" id="my-name" placeholder="이름 입력">
+            <label>생년월일 (8자리)</label><input type="number" id="my-birth" placeholder="예: 19980512">
+            <label>성별</label><select id="my-gender"><option value="F">여자</option><option value="M">남자</option></select>
+        </div>
+        <div class="card">
+            <div class="card-title">🙋‍♂️ 상대방</div>
+            <label>이름</label><input type="text" id="your-name" placeholder="상대방 이름">
+            <label>생년월일 (8자리)</label><input type="number" id="your-birth" placeholder="예: 19961125">
+        </div>
+        <button class="btn-submit" onclick="calcMatch()">결과 확인하기!</button>
+    </div>
+
+    <div id="result-view">
+        <div class="card">
+            <h2 id="res-title"></h2>
+            <div class="score-circle" id="total-score">0점</div>
+            <p>💘 우리의 궁합 점수</p>
+            <div style="margin-top:20px;">
+                <label>💍 결혼 가능성: <span id="marry-percent">0%</span></label>
+                <div class="progress-bar"><div class="progress-fill" id="marry-bar"></div></div>
+            </div>
+            <div class="result-text" id="relation-desc"></div>
+            <div class="result-text" id="final-desc" style="color:var(--main-pink); font-weight:bold;"></div>
+            <button class="btn-submit" style="background:#666; box-shadow: 0 5px 0 #444;" onclick="location.reload()">다시 하기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const DB = {
+    relation: [
+        "서로의 부족한 오행을 채워주는 찰떡궁합! 물과 나무처럼 서로를 성장시키는 관계입니다.",
+        "가끔 티격태격하지만 돌아서면 보고 싶은 '비화' 관계! 닮은 점이 많아 금방 화해해요.",
+        "말하지 않아도 눈빛만으로 통하는 소울메이트! 전생부터 이어진 깊은 인연이 느껴집니다.",
+        "뜨거운 열정을 차분히 받아주는 배려 깊은 관계입니다. 한쪽이 불이라면 한쪽은 포근한 흙이네요.",
+        "시간이 지날수록 진가를 알아가는 은근한 매력의 궁합! 숙성된 와인 같은 사랑을 하겠어요.",
+        "서로의 자존심을 조금만 내려놓는다면 세상 어디에도 없는 최강의 커플이 될 기운입니다.",
+        "상대방이 나의 운을 끌어올려 주는 '상생'의 표본! 함께 있으면 모든 일이 술술 풀립니다.",
+        "차가운 마음을 따뜻한 온기로 녹여주는 관계입니다. 서로의 상처를 치유해줄 유일한 사람입니다.",
+        "서로에게 영감을 주는 창의적 조합! 함께 무언가를 만들거나 계획할 때 시너지가 폭발합니다.",
+        "친구처럼 편안하면서도 결정적일 땐 누구보다 신뢰하는 단단한 유대감이 돋보이는 궁합입니다.",
+        "꽃과 나비처럼 떼려야 뗄 수 없는 운명적 이끌림! 서로에 대한 호기심이 끊이지 않네요.",
+        "서로의 존재 자체가 행운의 마스코트! 만난 뒤로 소소한 행운이 따르는 것을 느끼실 거예요.",
+        "무심한 듯 서로를 챙기는 츤데레 매력 커플! 겉보다 속이 훨씬 깊고 끈끈한 인연입니다.",
+        "안정감이 느껴지는 흙과 같은 관계입니다. 화려하진 않아도 평생을 함께할 신뢰가 있습니다.",
+        "대화가 끊이지 않는 즐거운 커플! 유머 코드가 잘 맞아 함께 있으면 시간 가는 줄 모릅니다.",
+        "역경이 올수록 사랑이 더 견고해지는 스타일! 비 온 뒤 땅이 굳어지는 단단한 궁합입니다.",
+        "서로의 개성을 존중하면서도 조화롭게 융화되는 물감 같은 인연! 아주 세련된 연애를 하겠네요.",
+        "상대방의 행복이 곧 나의 기쁨이 되는 기적 같은 흐름입니다. 이타적인 사랑의 정석이군요.",
+        "서로가 서로의 수호천사! 위기의 순간마다 가장 먼저 서로의 손을 잡아줄 든든한 사람입니다.",
+        "한 배를 탄 항해사처럼 믿음직한 궁합! 어떤 풍랑 속에서도 서로를 믿고 길을 찾아냅니다.",
+        "태양과 달처럼 서로 다른 매력을 가졌지만 하나의 하늘 아래 공존하는 완벽한 대칭입니다.",
+        "대화할수록 서로의 깊은 내면에 매료되는 반전 매력 궁합! 알면 알수록 더 멋진 사람입니다.",
+        "언어 습관이 잘 맞아 사소한 오해가 없는 신사적인 관계입니다. 예의 바르고 예쁜 사랑이네요.",
+        "목소리 톤만 들어도 기분을 알아차리는 감각적 소통 커플! 말 안 해도 다 아는 사이군요.",
+        "서로의 성장을 돕는 가장 든든한 조력자! 각자의 꿈을 응원하며 함께 성공할 운명입니다.",
+        "어떤 비밀도 공유할 수 있는 깊은 정서적 유대감! 두 분 사이엔 벽이 전혀 느껴지지 않아요.",
+        "마치 거울을 보는 듯한 느낌! 닮은 점이 많아 서로를 이해하는 속도가 누구보다 빠릅니다.",
+        "서로를 향한 설렘이 마르지 않는 샘물 같습니다. 평생 연애하는 기분으로 살 수 있겠어요.",
+        "부족함을 탓하기보다 채워주려는 고결한 마음씨를 가진 인연! 하늘이 도울 예쁜 커플입니다.",
+        "세상의 소음이 사라지고 오직 두 사람만 있는 듯한 몰입감! 집중도 높은 사랑을 하는군요.",
+        "서로의 직관이 일치하여 결정이 빠른 커플입니다. 미래 계획을 세우는 속도가 엄청나네요.",
+        "서로의 단점을 장점으로 바꿔주는 마법 같은 관계입니다. 함께 있으면 더 좋은 사람이 됩니다.",
+        "서로의 감정을 섬세하게 살피는 다정한 궁합입니다. 마음의 온도가 항상 일정하네요.",
+        "한쪽의 카리스마를 다른 쪽의 유연함이 보좌하는 완벽한 팀워크! 사회적으로도 성공할 커플입니다.",
+        "전생의 약속이 현생에서 이루어진 듯한 필연적 만남! 거부할 수 없는 이끌림이 있습니다.",
+        "서로의 가치관이 톱니바퀴처럼 딱 들어맞습니다. 인생의 방향 설정에 다툼이 없겠어요.",
+        "함께 있으면 마음이 차분해지는 안식처 같은 관계입니다. 힐링이 필요 없을 정도네요.",
+        "서로를 향한 존경심이 바탕이 된 건강한 궁합입니다. 시간이 흐를수록 더 멋진 커플이 됩니다.",
+        "사소한 일상도 특별한 이벤트로 만드는 긍정 에너지 커플! 웃음소리가 담장을 넘겠네요.",
+        "서로의 취향을 공유하며 삶의 질을 높이는 세련된 동반자입니다. 세상을 보는 눈이 닮았어요.",
+        "어려운 고민도 두 분이 머리를 맞대면 금방 해결책이 나옵니다. 최고의 지혜를 나누는 사이군요.",
+        "서로의 자유를 존중하면서도 마음의 거리는 0cm! 가장 성숙한 형태의 사랑을 하고 있습니다.",
+        "작은 선물 하나에도 진심으로 감동하는 순수한 마음을 가진 커플! 예쁜 추억이 차곡차곡 쌓이겠네요.",
+        "한 번 잡은 손은 절대 놓지 않을 끈기가 느껴지는 궁합! 의리가 연인 그 이상입니다.",
+        "서로의 건강과 안녕을 가장 먼저 기도해주는 지극정성 커플! 건강운도 함께 상승합니다.",
+        "주변 사람들에게 긍정적인 영향력을 주는 워너비 커플! 두 분을 보면 결혼하고 싶어집니다.",
+        "서로의 말투와 몸짓까지 닮아가는 일심동체 궁합! 운명 공동체라는 말이 딱 어울립니다.",
+        "가끔은 라이벌처럼 서로를 자극해 발전시키는 건강한 관계입니다. 정체되지 않는 사랑이네요.",
+        "서로의 아픔을 묻지 않아도 보듬어주는 깊은 자애로움이 있습니다. 보살핌이 가득한 인연입니다.",
+        "하늘이 맺어준 인연이니 어떤 풍파도 두 분의 사랑을 꺾을 수 없습니다. 영원히 행복하세요!"
+    ],
+    scoreDesc: [
+        "전생에 나라를 구한 100점 만점 궁합! 더 이상 완벽할 순 없습니다.",
+        "함께 있는 것만으로 에너지가 솟구치는 환상의 콤비! 최고의 행운아들이네요.",
+        "안정적이고 편안한 연애의 정석! 큰 굴곡 없는 꽃길만 걷게 될 것입니다.",
+        "서로를 향한 신뢰도가 매우 높습니다. 어떤 오해도 두 분을 갈라놓을 수 없어요.",
+        "시간이 지날수록 점수가 올라가는 대기만성형 궁합! 갈수록 더 깊어질 거예요.",
+        "서로가 서로에게 최고의 보석입니다. 닦을수록 영롱한 빛을 내는 소중한 사이네요.",
+        "운명이라는 단어로도 부족한 결과! 서로를 절대 놓치지 말라고 하늘이 말하네요.",
+        "소소한 행복이 모여 거대한 기쁨을 만드는 아주 예쁜 점수 구간입니다.",
+        "주변의 시샘을 받을 만큼 완벽한 조화! 닭살 커플이라는 소리 좀 듣겠는데요?",
+        "서로의 단점마저 사랑스럽게 보이는 마법의 구간입니다. 콩깍지가 단단하네요!",
+        "서로의 꿈을 가장 크게 응원하는 최고의 서포터즈! 함께 성공할 확률 200%입니다.",
+        "마음의 온도가 딱 맞는 커플입니다. 너무 뜨겁지도 차갑지도 않은 완벽한 사랑이네요.",
+        "서로의 가치관이 일치하여 싸울 일이 없는 평화로운 관계입니다. 부처님 궁합이에요.",
+        "한 번의 고비만 넘기면 평생의 반려자가 될 수 있는 아주 끈끈한 인연 점수입니다.",
+        "함께 여행을 떠나보세요. 여행지에서 두 분의 궁합은 우주를 뚫고 나갈 거예요!",
+        "서로의 눈빛만 봐도 힐링되는 치유형 커플입니다. 존재 자체가 비타민이네요.",
+        "감정 표현을 아끼지 마세요. 표현할수록 점수는 계속해서 상승할 여지가 큽니다.",
+        "잘 짜인 교향곡 같은 조화로운 점수입니다. 불협화음도 예술로 승화시키네요.",
+        "서로를 향한 열망이 대단한 껌딱지 커플! 1분 1초도 아까운 뜨거운 사이입니다.",
+        "서로의 성격을 보완해주는 테트리스 같은 궁합! 빈틈없이 완벽하게 맞물립니다.",
+        "말투만 조금 더 예쁘게 하면 200점도 가능! 서로 존중하는 마음이 예쁜 점수네요.",
+        "첫사랑 같은 순수함을 평생 간직할 수 있는 아주 귀하고 맑은 궁합 점수입니다.",
+        "한쪽의 리더십과 한쪽의 팔로워십이 황금비율을 이루는 안정적인 상태입니다.",
+        "진심이 통하는 높은 수치입니다. 거짓 없는 사랑이 두 분을 지탱해주고 있네요.",
+        "서로에게 자극제가 되는 건강한 관계! 함께 있으면 지루할 틈이 없는 점수입니다.",
+        "서로의 자유를 존중하면서도 결속력은 최강! 쿨하면서도 뜨거운 이상적 궁합입니다.",
+        "함께 있으면 웃음이 끊이지 않는 엔도르핀 커플! 행복 지수가 가장 높은 구간입니다.",
+        "서로의 아픔을 감싸주는 포용력이 돋보이는 점수! 깊은 성숙함이 느껴지는 사랑입니다.",
+        "경제적 관념이 비슷해 함께 부자가 될 확률이 높은 실속 만점 궁합 점수입니다.",
+        "하늘이 점지한 인연임을 확신해도 좋습니다. 두 분의 미래는 밝게 빛나고 있어요.",
+        "서로의 대화 기술이 뛰어난 소통 끝판왕 점수! 오해 없는 맑은 연애가 가능합니다.",
+        "서로의 부모님께도 사랑받을 프리패스 인상! 가문이 화합할 아주 좋은 수치입니다.",
+        "서로의 예술적 감수성이 닮아 아름다운 삶을 일굴 수 있는 로맨틱한 점수입니다.",
+        "위기에 강한 커플! 힘든 일이 생길수록 점수가 더 빛을 발하는 강인한 인연입니다.",
+        "서로의 건강을 챙겨주는 장수 궁합 점수! 오랫동안 건강하고 행복하게 사랑할 상입니다.",
+        "서로에게 정직한 것이 최고의 무기! 신뢰의 탑이 아주 견고하게 쌓여 있습니다.",
+        "서로의 장점을 극대화해주는 시너지 점수! 함께 있으면 더 멋진 사람이 됩니다.",
+        "사소한 배려가 쌓여 큰 사랑을 만드는 감동적인 궁합입니다. 마음이 참 따뜻하네요.",
+        "운명의 수레바퀴가 두 분을 중심으로 돌고 있습니다. 필연적인 만남의 점수입니다.",
+        "서로가 서로의 인생 스승이자 제자가 되는 배움 가득한 성숙한 인연 점수입니다.",
+        "함께 있으면 어떤 걱정도 사라지는 무한 긍정의 힘을 가진 커플 점수입니다.",
+        "서로의 첫인상보다 끝인상이 더 좋을 진국 같은 궁합! 갈수록 매력적입니다.",
+        "서로의 라이프스타일이 일치하여 피로도가 전혀 없는 편안한 만남 점수입니다.",
+        "서로의 자존감을 높여주는 칭찬 머신 커플! 만날수록 자신감이 생기는 궁합입니다.",
+        "서로를 위한 희생마저 즐거움이 되는 진정한 사랑의 구간! 숭고함이 느껴지네요.",
+        "함께 미래를 설계할 때 가장 행복한 커플! 설계도대로 완벽히 이루어질 점수입니다.",
+        "서로의 감각이 예민하게 반응하여 설렘 지수가 가장 높은 로맨스 영화 같은 점수입니다.",
+        "서로를 놓치는 것은 인생의 큰 손실! 하늘이 준 기회를 꼭 잡으라는 수치입니다.",
+        "서로의 성장에 밑거름이 되어주는 영양가 높은 인연! 함께 성공 가도를 달리겠네요.",
+        "두 분의 궁합은 우주의 기운이 도운 결과입니다. 영원한 사랑의 증표를 받으셨네요!"
+    ],
+    marryDesc: [
+        "양가 부모님이 먼저 반기실 프리패스 궁합! 결혼하면 재물운이 폭발합니다.",
+        "함께 가정을 꾸리면 웃음이 끊이지 않을 거예요. 아이 복도 많은 다복한 사주네요.",
+        "결혼은 현실! 하지만 두 분은 그 현실을 지혜롭게 이겨낼 단단한 의리가 있습니다.",
+        "지금처럼만 아낀다면 내년에 웨딩마치를 울려도 어색하지 않을 예비 부부입니다.",
+        "결혼 준비 과정이 매우 순조로운 궁합! 의견 차이 없이 일사천리로 진행되겠네요.",
+        "한 집에 살면 시너지가 2배! 경제적 풍요와 정서적 안정을 동시에 거머쥘 상입니다.",
+        "서로의 가풍이 잘 어우러지는 기운입니다. 결혼 후 양가 모두 번창할 길조네요.",
+        "검은 머리 파뿌리 될 때까지 손을 놓지 않을 굳건한 약속이 이미 보입니다.",
+        "결혼 후에 인생의 황금기가 시작됩니다. 배우자의 덕을 크게 보며 성공할 운명입니다.",
+        "미래 설계를 함께할 때 가장 즐거운 커플! 어떤 고난도 두 분을 멈출 수 없겠네요.",
+        "서로가 최고의 보험이자 안식처! 노후까지 걱정 없는 완벽한 동반자 관계입니다.",
+        "결혼은 새로운 축복의 시작! 두 분의 앞날은 화려한 불꽃처럼 빛날 것입니다.",
+        "라이프스타일이 닮아 신혼 생활의 갈등이 전혀 없을 행복 만점 궁합입니다.",
+        "함께라면 어떤 시련도 웃으며 넘기는 '무적 부부'가 될 기운이 아주 강합니다.",
+        "결혼을 통해 각자의 운세가 안정권에 접어듭니다. 서로가 개운의 귀인이네요.",
+        "자녀 교육관이나 경제관념이 비슷하여 다툼 없는 평화로운 가정을 일굴 상입니다.",
+        "서로를 존경하는 마음이 기본! 시간이 흐를수록 사랑의 깊이가 깊어지는 부부입니다.",
+        "택일만 잘하면 완벽! 결혼식 이후 모든 운의 흐름이 대길하게 바뀔 운명입니다.",
+        "집이 세상에서 가장 편한 안식처가 되는 관계. 퇴근길이 기다려지는 삶이겠네요.",
+        "두 분의 결합은 두 운명이 하나로 완성되는 숭고한 과정! 하늘이 돕고 있습니다.",
+        "결혼 후 재물이 마르지 않는다는 '부귀영화' 궁합! 돈 걱정 없이 행복할 상입니다.",
+        "서로의 부족함을 귀신같이 메워주는 환상의 복식조! 최고의 파트너 부부입니다.",
+        "결혼 후에도 연애처럼 달콤함을 유지하는 깨볶는 부부가 될 기운이 충만합니다.",
+        "어려운 일이 생겨도 '우리 둘이면 돼'라는 믿음이 기적을 만드는 가정을 이룹니다.",
+        "서로의 부모님께 효도하며 주변의 칭찬을 한 몸에 받는 모범 부부의 표본입니다.",
+        "함께 있으면 마음이 차분해지는 관계라 정서적 안정이 보장된 결혼 생활입니다.",
+        "서로의 취미를 평생 함께 즐길 수 있는 최고의 친구 같은 부부 궁합입니다.",
+        "결혼 후에 명예운이 크게 상승합니다. 배우자 덕분에 사회적 지위가 올라갈 상!",
+        "서로에게 정직한 것이 결혼 생활의 가장 큰 무기! 신뢰 속에 번영하는 가정입니다.",
+        "망설이지 말고 미래를 약속하세요. 두 분의 결혼은 이미 하늘에 기록되어 있습니다.",
+        "함께 집을 꾸미고 가꾸는 일에서 큰 기쁨을 느끼는 아기자기한 부부가 되겠네요.",
+        "결혼 후 배우자의 내조/외조로 인해 본인의 역량이 200% 발휘될 운명입니다.",
+        "건강운이 상호 보완되어 서로의 건강을 지켜주는 백년해로 궁합입니다.",
+        "결혼과 동시에 문서운이 들어와 내 집 마련의 꿈을 빨리 이룰 수 있는 사주입니다.",
+        "서로의 말투가 닮아가며 부부 금슬이 날로 좋아지는 다정한 연리지 궁합입니다.",
+        "어떤 유혹에도 흔들리지 않는 굳건한 가정의 울타리를 만들 현명한 부부입니다.",
+        "결혼 후에 자녀들이 총명하고 효심이 깊어 말년이 매우 풍요로울 상입니다.",
+        "서로의 부족한 오행을 자녀가 채워주어 완벽한 가정을 이루는 축복받은 인연입니다.",
+        "결혼 기념일마다 더 큰 행복을 누리는, 기념일이 기다려지는 로맨틱 부부입니다.",
+        "함께 봉사하거나 공덕을 쌓으면 가문의 운이 수직 상승하는 덕망 있는 부부 상입니다.",
+        "서로의 사적인 공간을 존중하면서도 심리적 거리는 가장 가까운 현대적 부부입니다.",
+        "결혼 후 해외 이동수가 있어 넓은 세상에서 큰 부를 쌓을 가능성이 높은 궁합입니다.",
+        "음식 취향까지 잘 맞아 먹는 즐거움이 가득한 행복한 식탁을 공유할 부부입니다.",
+        "서로의 화난 마음을 눈빛만으로 녹여주는 화해의 기술이 뛰어난 평화 부부입니다.",
+        "결혼 후에 뜻밖의 조력자들이 나타나 가문을 돕는 인복 많은 부부 운세입니다.",
+        "서로의 꿈을 현실로 만들어주는 '꿈의 조력자' 부부! 함께 성장하는 기쁨이 큽니다.",
+        "결혼 생활의 지루함이 전혀 없는, 매일이 새로운 이벤트 같은 역동적 궁합입니다.",
+        "서로를 세상에서 가장 예쁘고 멋진 사람으로 여기는 콩깍지 부부의 정석입니다.",
+        "결혼이라는 항해에서 최고의 선장과 선원이 될 분들입니다. 목적지는 행복입니다.",
+        "이보다 더 좋을 순 없다! 두 분의 결혼은 우주의 축복 그 자체입니다. 행복하세요!"
+    ]
+};
+
+function calcMatch() {
+    const myName = document.getElementById('my-name').value;
+    const myBirth = document.getElementById('my-birth').value;
+    const yourName = document.getElementById('your-name').value;
+    const yourBirth = document.getElementById('your-birth').value;
+
+    if(!myName || myBirth.length !== 8 || !yourName || yourBirth.length !== 8) {
+        alert("이름과 8자리 생년월일을 정확히 입력해주세요! 💖");
+        return;
+    }
+
+    document.getElementById('loading').style.display = 'flex';
+
+    setTimeout(() => {
+        let combinedVal = 0;
+        for(let i=0; i<myName.length; i++) combinedVal += myName.charCodeAt(i);
+        for(let i=0; i<yourName.length; i++) combinedVal += yourName.charCodeAt(i);
+        const seed = combinedVal + parseInt(myBirth.substring(4)) + parseInt(yourBirth.substring(4));
+
+        const totalScore = (seed % 41) + 60; 
+        const marryPercent = (seed % 51) + 45; 
+
+        const relText = DB.relation[seed % DB.relation.length];
+        const scoreText = DB.scoreDesc[seed % DB.scoreDesc.length];
+        const marryText = DB.marryDesc[seed % DB.marryDesc.length];
+
+        document.getElementById('res-title').innerText = `${myName} 💖 ${yourName}`;
+        document.getElementById('total-score').innerText = totalScore + "점";
+        document.getElementById('marry-percent').innerText = marryPercent + "%";
+        document.getElementById('marry-bar').style.width = marryPercent + "%";
+        document.getElementById('relation-desc').innerHTML = `<b>인연 분석:</b><br>${relText}`;
+        document.getElementById('final-desc').innerHTML = `💬 ${scoreText}<br>💍 ${marryText}`;
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('input-view').style.display = 'none';
+        document.getElementById('result-view').style.display = 'block';
+        window.scrollTo(0, 0);
+    }, 1500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div id="result-view" style="display:none;">
+    <h2>✨ 당신의 정체는! ✨</h2>
+    <div id="result-img"></div>
+    <div id="result-title"></div>
+    
+    <div class="ad-container" style="margin: 20px 0;">
+        <p style="font-size:12px; color:#aaa;">AD: 당신에게 어울리는 디저트 추천</p>
+        <div id="ad-slot-1"></div> 
+    </div>
+
+    <div id="result-desc"></div>
+
+    <div class="ad-container" style="margin: 20px 0;">
+        <div id="ad-slot-2"></div>
+    </div>
+
+    <button class="btn" onclick="location.reload()">다시 해보기</button>
+</div>
+
+    <title>초정밀 디저트 성격 테스트</title>
+    <style>
+        body { background-color: #fdf2f8; font-family: 'Nanum Gothic', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        #container { background: white; padding: 30px; border-radius: 40px; box-shadow: 0 15px 35px rgba(255,182,193,0.3); text-align: center; width: 100%; max-width: 400px; border: 5px solid #fbcfe8; }
+        h1 { color: #db2777; font-size: 24px; margin-bottom: 20px; }
+        .progress-bar { background: #f3f4f6; height: 10px; border-radius: 5px; margin-bottom: 25px; overflow: hidden; }
+        .inner-bar { background: #f472b6; height: 100%; width: 0%; transition: 0.4s; }
+        .question { font-size: 19px; font-weight: bold; color: #374151; margin-bottom: 25px; line-height: 1.5; }
+        .btn { background-color: #fff1f2; border: 2px solid #fbcfe8; color: #be185d; padding: 16px; margin: 10px 0; border-radius: 20px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; transition: 0.2s; box-shadow: 0 4px 0 #f9a8d4; }
+        .btn:hover { background-color: #fbcfe8; transform: translateY(-2px); }
+        .btn:active { transform: translateY(2px); box-shadow: none; }
+        #result-img { font-size: 70px; margin: 20px 0; }
+        #result-title { font-size: 24px; color: #be185d; font-weight: bold; margin-bottom: 15px; }
+        #result-desc { color: #4b5563; font-size: 15px; line-height: 1.7; background: #fff5f7; padding: 20px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+            <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:9999;">
+                <a href="index.html" style="font-size:13px; font-weight:700; color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    &larr; 분석 센터 홈
+                </a>
+                <a href="../showcase.html" style="font-size:12px; font-weight:600; color:#64748b; text-decoration:none;">
+                    ADOPTER 쇼케이스 &rarr;
+                </a>
+            </div>
+            
+    <div id="container">
+        <div id="start-view">
+            <div style="font-size: 60px;">🍩</div>
+            <h1>나의 디저트 정체성</h1>
+            <p style="color:#9d174d;">10가지 질문으로 알아보는<br>나의 달콤한 성격!</p>
+            <button class="btn" onclick="start()">테스트 시작하기</button>
+        </div>
+        
+        <div id="test-view" style="display:none;">
+            <div class="progress-bar"><div id="bar" class="inner-bar"></div></div>
+            <div id="q-text" class="question"></div>
+            <button class="btn" id="btn1" onclick="next(1)"></button>
+            <button class="btn" id="btn2" onclick="next(0)"></button>
+        </div>
+
+        <div id="result-view" style="display:none;">
+            <h2>✨ 당신의 정체는! ✨</h2>
+            <div id="result-img"></div>
+            <div id="result-title"></div>
+            <div id="result-desc"></div>
+            <button class="btn" style="margin-top:20px;" onclick="location.reload()">다시 해보기</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "모르는 사람이 많은 파티에 초대받았다면?", a1: "오히려 좋아! 친구 사귀러 감", a2: "구석에서 아는 사람 옆에 붙어 있음", s: 1 },
+            { q: "갑자기 1억이 생긴다면?", a1: "당장 사고 싶던 걸 리스트업 한다", a2: "일단 미래를 위해 통장에 넣는다", s: 1 },
+            { q: "친구가 주식을 샀다며 자랑할 때 내 반응은?", a1: "오 축하해! 대박 나자!", a2: "무슨 종목이야? 수익률은?", s: 1 },
+            { q: "여행 갈 때 짐 싸는 스타일은?", a1: "출발 직전에 눈에 띄는 거 다 넣음", a2: "필요한 걸 미리 체크리스트로 작성함", s: 1 },
+            { q: "길을 가다 예쁜 카페를 발견하면?", a1: "홀린 듯이 일단 들어간다", a2: "다음에 올 곳으로 지도에 저장만 함", s: 1 },
+            { q: "누가 나를 칭찬해주면?", a1: "기분 좋아서 하루 종일 싱글벙글", a2: "왜 칭찬하지? 의도를 분석함", s: 1 },
+            { q: "슬픈 영화를 볼 때 나는?", a1: "주인공에 빙의해서 오열함", a2: "연출이 좋네... 생각하며 감상함", s: 1 },
+            { q: "내 방 책상 상태는?", a1: "무질서 속의 질서가 있음", a2: "칼각으로 정리되어 있음", s: 1 },
+            { q: "약속 시간이 30분 남았다면?", a1: "느긋하게 준비해서 나감", a2: "이미 도착해서 기다리는 중", s: 1 },
+            { q: "배가 고플 때 메뉴 결정은?", a1: "그때그때 먹고 싶은 걸로!", a2: "미리 맛집 검색해둔 곳으로!", s: 1 }
+        ];
+
+        const results = [
+            { t: "순수 결정체 솜사탕", i: "☁️", d: "당신은 세상에서 가장 순수한 마음을 가졌군요! 남을 잘 배려하고 몽글몽글한 성격이에요.", min: 0, max: 1 },
+            { t: "말랑말랑 우유 푸딩", i: "🍮", d: "어디서나 잘 어울리는 부드러운 성격의 소유자! 유연한 사고방식으로 주변을 편안하게 해요.", min: 2, max: 2 },
+            { t: "속 깊은 티라미수", i: "☕", d: "겉은 차분해 보이지만 속은 아주 깊고 따뜻한 사람이에요. 분석적이면서도 감수성이 풍부하죠.", min: 3, max: 3 },
+            { t: "겉바속촉 크로플", i: "🥐", d: "첫인상은 강렬하지만 알면 알수록 다정한 반전 매력! 자기 주관이 뚜렷하면서도 정도 많아요.", min: 4, max: 4 },
+            { t: "독보적인 민트 초코", i: "🌿", d: "호불호는 갈려도 나만의 색깔이 확실한 멋쟁이! 남의 시선보다 내 주관을 믿는 타입이에요.", min: 5, max: 5 },
+            { t: "상큼 발랄 딸기 타르트", i: "🍓", d: "당신은 이 구역의 비타민! 밝은 에너지로 주변 사람들을 웃게 만드는 재주가 있어요.", min: 6, max: 6 },
+            { t: "달콤 쌉싸름 다크 초코", i: "🍫", d: "지적이고 시크한 매력! 논리적이고 현실적이지만 목표를 향한 열정은 누구보다 뜨거워요.", min: 7, max: 7 },
+            { t: "화려한 무지개 마카롱", i: "🌈", d: "통통 튀는 아이디어 뱅크! 다재다능하고 화려한 성격으로 어디서나 주목받는 주인공이에요.", min: 8, max: 8 },
+            { t: "정열의 탕후루", i: "🍭", d: "화끈하고 확실한 성격! 솔직하고 당당한 모습이 매력적이며 유행에 아주 민감한 트렌드세터예요.", min: 9, max: 9 },
+            { t: "완벽주의 레몬 케이크", i: "🍋", d: "상큼하면서도 똑 부러지는 성격! 모든 일을 완벽하게 해내려 노력하는 열정적인 리더 타입입니다.", min: 10, max: 10 }
+        ];
+
+        let idx = 0, total = 0;
+
+        function start() {
+            document.getElementById('start-view').style.display = 'none';
+            document.getElementById('test-view').style.display = 'block';
+            update();
+        }
+
+        function update() {
+            if(idx < questions.length) {
+                document.getElementById('q-text').innerText = questions[idx].q;
+                document.getElementById('btn1').innerText = questions[idx].a1;
+                document.getElementById('btn2').innerText = questions[idx].a2;
+                document.getElementById('bar').style.width = (idx/questions.length)*100 + "%";
+            } else {
+                showResult();
+            }
+        }
+
+        function next(point) {
+            total += point;
+            idx++;
+            update();
+        }
+
+        function showResult() {
+            document.getElementById('test-view').style.display = 'none';
+            document.getElementById('result-view').style.display = 'block';
+            const final = results.find(r => total >= r.min && total <= r.max) || results[5];
+            document.getElementById('result-img').innerText = final.i;
+            document.getElementById('result-title').innerText = final.t;
+            document.getElementById('result-desc').innerText = final.d;
+        }
+    </script>
+</body>
+</html>

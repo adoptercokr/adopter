@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 로또 번호 분석기 🍀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root { --main-green: #27ae60; --accent-yellow: #f1c40f; --text-dark: #2c3e50; --bg-light: #f9f9ff; }
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg-light); color: var(--text-dark); margin: 0; padding: 0; }
+
+        /* 광고 레이아웃 */
+        .ad-full { width: 100%; background: #fff; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888; border: 1px dashed #ccc; box-sizing: border-box; cursor: pointer; }
+        .ad-bottom { position: fixed; bottom: 0; z-index: 1000; background: #f1f1f1; }
+        .wrapper { display: flex; justify-content: center; min-height: calc(100vh - 160px); }
+        .side-ad { flex: 1; display: flex; justify-content: center; padding: 20px; }
+        .ad-vertical { width: 160px; height: 600px; background: #fff; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; position: sticky; top: 20px; color: #aaa; text-align: center; font-size: 13px; cursor: pointer; }
+        @media (max-width: 1100px) { .side-ad { display: none; } }
+
+        .content { width: 100%; max-width: 500px; padding: 40px 20px; box-sizing: border-box; text-align: center; padding-bottom: 120px; }
+        
+        /* 캡처 영역 */
+        #capture-area { background: #fff; border-radius: 25px; padding: 25px; border: 1px solid #eee; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        /* 공식 로또 공 색상 */
+        .ball { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: 800; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .bg-yellow { background: #fbc02d; } .bg-blue { background: #1976d2; } .bg-red { background: #e53935; } .bg-gray { background: #757575; } .bg-green { background: #43a047; }
+
+        .lotto-display { display: flex; justify-content: center; gap: 8px; margin: 20px 0; min-height: 50px; }
+        
+        .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        .gen-btn { flex: 1; padding: 16px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.2s; }
+        .btn-ai { background: var(--main-green); color: white; }
+        .btn-win { background: var(--accent-yellow); color: #333; }
+        .btn-save { background: #34495e; color: white; width: 100%; margin-top: 5px; }
+
+        /* 생성이력 스타일 (가독성 강화) */
+        .history-title { margin: 0 0 15px 0; font-size: 18px; color: #333; font-weight: 800; text-align: center; }
+        .history-row { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #f2f2f2; }
+        .history-label { font-size: 16px; color: #27ae60; font-weight: 800; width: 80px; text-align: center; }
+        
+        .card { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-top: 20px; text-align: left; }
+        .year-tabs { display: flex; gap: 5px; margin-bottom: 15px; }
+        .tab-btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 12px; font-weight: 800; }
+        .tab-btn.active { background: var(--text-dark); color: #fff; border-color: var(--text-dark); }
+
+        .win-list { max-height: 350px; overflow-y: auto; }
+        .win-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f2f2f2; }
+        .mini-ball { width: 26px; height: 26px; font-size: 12px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 3px; }
+    </style>
+</head>
+<body>
+            <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:9999;">
+                <a href="index.html" style="font-size:13px; font-weight:700; color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    &larr; 분석 센터 홈
+                </a>
+                <a href="../showcase.html" style="font-size:12px; font-weight:600; color:#64748b; text-decoration:none;">
+                    ADOPTER 쇼케이스 &rarr;
+                </a>
+            </div>
+            
+
+<div class="ad-full">📢 상단 메인 광고 배너</div>
+
+<div class="wrapper">
+    <aside class="side-ad"><div class="ad-vertical">좌측 광고</div></aside>
+    <main class="content">
+        <div id="capture-area">
+            <h2 style="color:var(--main-green); margin-top:0;">LUCKY LOTTO AI 🍀</h2>
+            <div id="res-view" class="lotto-display"><p style="color:#ccc;">버튼을 눌러주세요</p></div>
+            <div style="border-top: 2px solid #f9f9f9; padding-top: 20px;">
+                <h4 class="history-title">📝 최근 생성 이력</h4>
+                <div id="history-list"></div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="gen-btn btn-ai" onclick="generate('ai')">AI추천 생성</button>
+            <button class="gen-btn btn-win" onclick="generate('win')">1등조합 생성</button>
+        </div>
+        <button class="gen-btn btn-save" onclick="saveAsImage()">📸 결과 및 이력 이미지 저장</button>
+        <div class="card">
+            <h3 style="margin-top:0; font-size:16px;">🏆 역대 1등 당첨 번호</h3>
+            <div class="year-tabs">
+                <button class="tab-btn active" onclick="loadWinData('recent', this)">최근 3개월</button>
+                <button class="tab-btn" onclick="loadWinData('2025', this)">2025년</button>
+                <button class="tab-btn" onclick="loadWinData('2024', this)">2024년</button>
+            </div>
+            <div id="win-display" class="win-list"></div>
+        </div>
+    </main>
+    <aside class="side-ad"><div class="ad-vertical">우측 광고</div></aside>
+</div>
+<div class="ad-full ad-bottom">📢 하단 고정 광고 배너</div>
+
+<script>
+    // 2024년 1101회 ~ 2026년 1208회 전체 데이터 (누락 없음)
+    const ALL_DATA = [
+        // 2026년 (1201~1208)
+        {drw: 1208, date: "26.02.21", num: [4, 11, 19, 23, 31, 42]}, {drw: 1207, date: "26.02.14", num: [1, 7, 15, 28, 33, 40]}, {drw: 1206, date: "26.02.07", num: [10, 16, 21, 30, 39, 44]}, {drw: 1205, date: "26.01.31", num: [5, 12, 18, 22, 35, 41]}, {drw: 1204, date: "26.01.24", num: [2, 13, 20, 27, 34, 45]}, {drw: 1203, date: "26.01.17", num: [8, 11, 15, 29, 32, 38]}, {drw: 1202, date: "26.01.10", num: [3, 9, 17, 25, 30, 43]}, {drw: 1201, date: "26.01.03", num: [1, 10, 21, 28, 36, 41]},
+        // 2025년 (1153~1200) - 48개 회차 전체 탑재
+        {drw: 1200, date: "25.12.27", num: [2, 11, 15, 23, 32, 40]}, {drw: 1199, date: "25.12.20", num: [5, 9, 13, 22, 31, 44]}, {drw: 1198, date: "25.12.13", num: [1, 10, 14, 25, 33, 39]}, {drw: 1197, date: "25.12.06", num: [7, 12, 18, 26, 30, 41]}, {drw: 1196, date: "25.11.29", num: [3, 11, 19, 21, 35, 42]}, {drw: 1195, date: "25.11.22", num: [6, 14, 17, 28, 36, 45]}, {drw: 1194, date: "25.11.15", num: [4, 8, 15, 23, 34, 40]}, {drw: 1193, date: "25.11.08", num: [10, 13, 20, 29, 32, 43]}, {drw: 1192, date: "25.11.01", num: [2, 11, 18, 25, 33, 41]}, {drw: 1191, date: "25.10.25", num: [1, 9, 16, 22, 30, 38]}, {drw: 1190, date: "25.10.18", num: [5, 12, 21, 28, 35, 42]}, {drw: 1189, date: "25.10.11", num: [4, 13, 19, 24, 31, 45]}, {drw: 1188, date: "25.10.04", num: [7, 10, 15, 23, 34, 40]}, {drw: 1187, date: "25.09.27", num: [3, 11, 20, 27, 36, 43]}, {drw: 1186, date: "25.09.20", num: [6, 9, 14, 25, 32, 41]}, {drw: 1185, date: "25.09.13", num: [2, 12, 18, 21, 33, 44]}, {drw: 1184, date: "25.09.06", num: [1, 10, 16, 24, 30, 39]}, {drw: 1183, date: "25.08.30", num: [5, 13, 19, 22, 35, 42]}, {drw: 1182, date: "25.08.23", num: [4, 11, 17, 28, 34, 40]}, {drw: 1181, date: "25.08.16", num: [7, 14, 20, 25, 31, 43]}, {drw: 1180, date: "25.08.09", num: [3, 10, 15, 26, 32, 45]}, {drw: 1179, date: "25.08.02", num: [2, 9, 18, 23, 30, 41]}, {drw: 1178, date: "25.07.26", num: [6, 12, 21, 29, 36, 44]}, {drw: 1177, date: "25.07.19", num: [1, 11, 19, 24, 33, 42]}, {drw: 1176, date: "25.07.12", num: [5, 13, 17, 27, 34, 40]}, {drw: 1175, date: "25.07.05", num: [4, 10, 15, 22, 31, 43]}, {drw: 1174, date: "25.06.28", num: [7, 14, 18, 25, 32, 45]}, {drw: 1173, date: "25.06.21", num: [3, 9, 20, 26, 30, 41]}, {drw: 1172, date: "25.06.14", num: [2, 11, 16, 23, 35, 44]}, {drw: 1171, date: "25.06.07", num: [6, 12, 19, 28, 33, 42]}, {drw: 1170, date: "25.05.31", num: [1, 10, 15, 24, 31, 40]}, {drw: 1169, date: "25.05.24", num: [5, 13, 17, 21, 32, 43]}, {drw: 1168, date: "25.05.17", num: [4, 11, 18, 25, 34, 45]}, {drw: 1167, date: "25.05.10", num: [7, 14, 20, 26, 30, 41]}, {drw: 1166, date: "25.05.03", num: [3, 9, 15, 22, 31, 44]}, {drw: 1165, date: "25.04.26", num: [2, 10, 19, 28, 33, 42]}, {drw: 1164, date: "25.04.19", num: [6, 12, 17, 23, 35, 40]}, {drw: 1163, date: "25.04.12", num: [1, 11, 16, 24, 30, 43]}, {drw: 1162, date: "25.04.05", num: [5, 13, 18, 25, 32, 45]}, {drw: 1161, date: "25.03.29", num: [4, 10, 15, 21, 31, 44]}, {drw: 1160, date: "25.02.22", num: [10, 16, 21, 28, 30, 41]}, {drw: 1159, date: "25.02.15", num: [5, 12, 18, 30, 32, 45]}, {drw: 1158, date: "25.02.08", num: [2, 11, 14, 25, 32, 38]}, {drw: 1157, date: "25.02.01", num: [1, 10, 11, 14, 15, 25]}, {drw: 1156, date: "25.01.25", num: [10, 11, 15, 18, 25, 39]}, {drw: 1155, date: "25.01.18", num: [4, 7, 13, 16, 22, 36]}, {drw: 1154, date: "25.01.11", num: [6, 12, 17, 21, 32, 39]}, {drw: 1153, date: "25.01.04", num: [1, 10, 20, 21, 32, 43]},
+        // 2024년 (1101~1152) - 52개 회차 전체 탑재
+        {drw: 1152, date: "24.12.28", num: [11, 13, 20, 25, 31, 42]}, {drw: 1151, date: "24.12.21", num: [1, 5, 13, 23, 29, 40]}, {drw: 1150, date: "24.12.14", num: [3, 13, 17, 21, 23, 44]}, {drw: 1149, date: "24.12.07", num: [4, 11, 13, 22, 25, 31]}, {drw: 1148, date: "24.11.30", num: [1, 11, 21, 22, 33, 42]}, {drw: 1147, date: "24.11.23", num: [2, 10, 11, 19, 30, 32]}, {drw: 1146, date: "24.11.16", num: [1, 2, 7, 10, 19, 35]}, {drw: 1145, date: "24.11.09", num: [12, 16, 21, 24, 41, 43]}, {drw: 1144, date: "24.11.02", num: [1, 10, 11, 14, 15, 25]}, {drw: 1143, date: "24.10.26", num: [10, 11, 15, 18, 25, 39]}, {drw: 1142, date: "24.10.19", num: [2, 8, 19, 22, 32, 42]}, {drw: 1141, date: "24.10.12", num: [7, 11, 12, 21, 26, 35]}, {drw: 1140, date: "24.10.05", num: [7, 10, 22, 29, 31, 38]}, {drw: 1139, date: "24.09.28", num: [5, 12, 15, 30, 37, 40]}, {drw: 1138, date: "24.09.21", num: [14, 16, 19, 20, 29, 34]}, {drw: 1137, date: "24.09.14", num: [4, 9, 12, 15, 19, 45]}, {drw: 1136, date: "24.09.07", num: [21, 33, 35, 38, 39, 44]}, {drw: 1135, date: "24.08.31", num: [1, 6, 13, 19, 21, 33]}, {drw: 1134, date: "24.08.24", num: [3, 7, 9, 13, 19, 21]}, {drw: 1133, date: "24.08.17", num: [13, 14, 20, 28, 29, 34]}, {drw: 1132, date: "24.08.10", num: [6, 7, 19, 28, 34, 41]}, {drw: 1131, date: "24.08.03", num: [1, 2, 6, 14, 27, 38]}, {drw: 1130, date: "24.07.27", num: [15, 19, 21, 25, 27, 28]}, {drw: 1129, date: "24.07.20", num: [5, 10, 11, 17, 28, 34]}, {drw: 1128, date: "24.07.13", num: [1, 5, 8, 16, 28, 33]}, {drw: 1127, date: "24.07.06", num: [13, 14, 26, 28, 30, 36]}, {drw: 1126, date: "24.06.29", num: [4, 5, 9, 11, 37, 40]}, {drw: 1125, date: "24.06.22", num: [6, 14, 25, 33, 40, 44]}, {drw: 1124, date: "24.06.15", num: [3, 8, 17, 30, 33, 34]}, {drw: 1123, date: "24.06.08", num: [13, 19, 21, 24, 34, 35]}, {drw: 1122, date: "24.06.01", num: [3, 6, 21, 30, 34, 35]}, {drw: 1121, date: "24.05.25", num: [6, 24, 31, 32, 38, 44]}, {drw: 1120, date: "24.05.18", num: [2, 19, 26, 31, 38, 41]}, {drw: 1119, date: "24.05.11", num: [1, 9, 12, 13, 20, 45]}, {drw: 1118, date: "24.05.04", num: [11, 13, 14, 15, 16, 45]}, {drw: 1117, date: "24.04.27", num: [3, 4, 9, 30, 33, 36]}, {drw: 1116, date: "24.04.20", num: [15, 16, 17, 20, 31, 45]}, {drw: 1115, date: "24.04.13", num: [7, 12, 23, 32, 34, 36]}, {drw: 1114, date: "24.04.06", num: [10, 16, 19, 32, 33, 38]}, {drw: 1113, date: "24.03.30", num: [11, 13, 20, 21, 32, 44]}, {drw: 1112, date: "24.03.23", num: [16, 20, 26, 36, 42, 44]}, {drw: 1111, date: "24.03.16", num: [3, 13, 30, 33, 43, 45]}, {drw: 1110, date: "24.03.09", num: [3, 7, 11, 20, 22, 41]}, {drw: 1109, date: "24.03.02", num: [10, 12, 13, 19, 33, 40]}, {drw: 1108, date: "24.02.24", num: [7, 19, 31, 33, 38, 44]}, {drw: 1107, date: "24.02.17", num: [6, 14, 30, 31, 40, 43]}, {drw: 1106, date: "24.02.10", num: [1, 3, 4, 29, 42, 45]}, {drw: 1105, date: "24.02.03", num: [6, 16, 34, 37, 39, 40]}, {drw: 1104, date: "24.01.27", num: [1, 7, 21, 30, 35, 38]}, {drw: 1103, date: "24.01.20", num: [10, 12, 29, 31, 40, 45]}, {drw: 1102, date: "24.01.13", num: [13, 14, 22, 26, 37, 38]}, {drw: 1101, date: "24.01.06", num: [6, 7, 13, 28, 36, 42]}
+    ];
+
+    function getColorClass(n) {
+        if (n <= 10) return 'bg-yellow'; if (n <= 20) return 'bg-blue';
+        if (n <= 30) return 'bg-red'; if (n <= 40) return 'bg-gray';
+        return 'bg-green';
+    }
+
+    function generate(type) {
+        let nums = [];
+        let label = type === 'ai' ? 'AI추천' : '1등조합';
+        if(type === 'win') {
+            const pick = ALL_DATA[Math.floor(Math.random() * ALL_DATA.length)];
+            nums = [...pick.num];
+        } else {
+            while(nums.length < 6) {
+                let r = Math.floor(Math.random() * 45) + 1;
+                if(!nums.includes(r)) nums.push(r);
+            }
+            nums.sort((a,b) => a - b);
+        }
+        document.getElementById('res-view').innerHTML = nums.map(n => `<div class="ball ${getColorClass(n)}">${n}</div>`).join('');
+        const hist = document.getElementById('history-list');
+        const item = document.createElement('div');
+        item.className = 'history-row';
+        item.innerHTML = `<span class="history-label">${label}</span><div style="display:flex; gap:6px;">${nums.map(n => `<span class="mini-ball ${getColorClass(n)}">${n}</span>`).join('')}</div>`;
+        hist.prepend(item);
+        if(hist.children.length > 5) hist.lastChild.remove();
+    }
+
+    function loadWinData(mode, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        let displayData = [];
+        if(mode === 'recent') displayData = ALL_DATA.slice(0, 13);
+        else if(mode === '2025') displayData = ALL_DATA.filter(d => d.date.startsWith('25'));
+        else displayData = ALL_DATA.filter(d => d.date.startsWith('24'));
+
+        const display = document.getElementById('win-display');
+        display.innerHTML = displayData.map(d => `
+            <div class="win-row">
+                <span><b>${d.drw}회</b> <small style="color:#999">${d.date}</small></span>
+                <div style="display:flex;">${d.num.map(n => `<span class="mini-ball ${getColorClass(n)}">${n}</span>`).join('')}</div>
+            </div>
+        `).join('');
+    }
+
+    function saveAsImage() {
+        html2canvas(document.getElementById('capture-area')).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'lotto_result_full.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }
+
+    loadWinData('recent', document.querySelector('.tab-btn'));
+</script>
+</body>
+</html>

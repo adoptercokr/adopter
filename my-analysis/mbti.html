@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초정밀 MBTI+: 160가지 페르소나 분석 🧬</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --main-blue: #4834d4; --sub-blue: #f0f3ff; --accent: #eb4d4b; --text: #2d3436; }
+        body { background: var(--sub-blue); font-family: 'Pretendard', sans-serif; color: var(--text); margin: 0; padding: 0; line-height: 1.6; word-break: keep-all; }
+        
+        /* 광고 배너 */
+        .ad-banner { width: 100%; max-width: 500px; background: #fff; margin: 10px auto; display: flex; align-items: center; justify-content: center; border: 1px dashed #ccc; min-height: 80px; font-size: 13px; color: #999; border-radius: 12px; }
+        .ad-side { position: fixed; top: 50%; transform: translateY(-50%); width: 120px; height: 500px; background: #fff; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; z-index: 10; font-size: 13px; color: #999; border-radius: 12px; }
+        .ad-left { left: 15px; } .ad-right { right: 15px; }
+        @media (max-width: 900px) { .ad-side { display: none; } }
+
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; box-sizing: border-box; }
+        .card { background: #fff; border-radius: 24px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        
+        .header { text-align: center; padding: 30px 0; }
+        .header h1 { font-size: 28px; color: var(--main-blue); margin: 0; }
+        
+        .question-box { min-height: 150px; display: flex; flex-direction: column; justify-content: center; }
+        .q-num { color: var(--main-blue); font-weight: bold; font-size: 16px; margin-bottom: 10px; }
+        .q-text { font-size: 20px; font-weight: 700; margin-bottom: 25px; }
+
+        .ans-btn { background: #fff; border: 2px solid #edf2f7; width: 100%; padding: 18px; border-radius: 16px; font-size: 17px; cursor: pointer; margin-bottom: 12px; transition: 0.2s; text-align: left; font-family: inherit; }
+        .ans-btn:hover { background: var(--sub-blue); border-color: var(--main-blue); }
+
+        #result-view { display: none; text-align: center; }
+        .res-mbti { background: var(--main-blue); color: #fff; display: inline-block; padding: 4px 16px; border-radius: 8px; font-size: 24px; font-weight: bold; }
+        .res-subtype { font-size: 24px; color: var(--accent); font-weight: 800; margin: 15px 0; }
+        .res-desc { text-align: left; font-size: 16px; background: #f8f9fa; padding: 20px; border-radius: 16px; margin: 20px 0; border-left: 4px solid var(--main-blue); }
+
+        .cog-stat { text-align: left; margin-bottom: 20px; }
+        .bar-wrap { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin: 5px 0 15px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--main-blue); width: 0%; transition: 1s ease-out; }
+
+        .loading { display: none; text-align: center; padding: 100px 0; }
+        .hide { display: none; }
+    </style>
+</head>
+<body>
+            <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:9999;">
+                <a href="index.html" style="font-size:13px; font-weight:700; color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    &larr; 분석 센터 홈
+                </a>
+                <a href="../showcase.html" style="font-size:12px; font-weight:600; color:#64748b; text-decoration:none;">
+                    ADOPTER 쇼케이스 &rarr;
+                </a>
+            </div>
+            
+
+<div class="ad-side ad-left">AD (좌)</div>
+<div class="ad-side ad-right">AD (우)</div>
+
+<div class="container">
+    <div class="ad-banner">상단 광고 배너</div>
+
+    <div id="start-view">
+        <div class="header">
+            <h1>🧬 MBTI+ 초정밀 분석</h1>
+            <p>16유형 속 숨겨진 160가지 페르소나 <br>내향사고, 외향감정, 내향감각,외향직관<br>E/I, S/N, T/F, J/P 및 인지기능 분석</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <p style="font-size:18px;">당신은 <b>소심한 E</b>인가요?<br>혹은 <b>외향적인 I</b>인가요?<br><br>30가지 인지 기능 문항으로<br>당신의 진짜 유형을 도출합니다.</p>
+            <button class="ans-btn" style="text-align:center; background:var(--main-blue); color:#fff;" onclick="startQuiz()">분석 시작하기</button>
+        </div>
+    </div>
+
+    <div id="quiz-view" class="hide">
+        <div class="card question-box">
+            <div id="q-num" class="q-num"></div>
+            <div id="q-text" class="q-text"></div>
+            <div id="ans-wrap"></div>
+        </div>
+    </div>
+
+    <div id="loading-view" class="loading">
+        <div style="font-size:40px;">🧪</div>
+        <p>인지 기능 데이터를 조합 중입니다...</p>
+    </div>
+
+    <div id="result-view">
+        <div class="card">
+            <div class="res-mbti" id="res-mbti"></div>
+            <div class="res-subtype" id="res-subtype"></div>
+            <div class="res-desc" id="res-desc"></div>
+            
+            <div class="cog-stat">
+                <label>내향 사고 (Ti) - 분석 역량</label>
+                <div class="bar-wrap"><div class="bar-fill" id="bar-ti"></div></div>
+                <label>외향 감정 (Fe) - 공감/사회성</label>
+                <div class="bar-wrap"><div class="bar-fill" id="bar-fe"></div></div>
+                <label>내향 감각 (Si) - 디테일/기억</label>
+                <div class="bar-wrap"><div class="bar-fill" id="bar-si"></div></div>
+                <label>외향 직관 (Ne) - 창의/확장</label>
+                <div class="bar-wrap"><div class="bar-fill" id="bar-ne"></div></div>
+            </div>
+            
+            <button class="ans-btn" style="text-align:center; background:#444; color:#fff;" onclick="location.reload()">다시 측정하기</button>
+        </div>
+    </div>
+
+    <div class="ad-banner">하단 광고 배너</div>
+</div>
+
+<script>
+// 1. 신뢰도 높은 30가지 정밀 문항 (E/I 경계 및 인지기능 기반)
+const questions = [
+    { q: "여러 사람과 대화한 후, 혼자만의 시간이 반드시 필요하다.", type: "EI", weight: -2 },
+    { q: "처음 본 사람에게 말을 거는 것이 전혀 부담스럽지 않다.", type: "EI", weight: 2 },
+    { q: "나는 외부 활동보다 내면의 생각에 잠기는 시간이 더 길다.", type: "EI", weight: -2 },
+    { q: "단체 모임에서 분위기를 주도하는 편인가요?", type: "EI", weight: 2 },
+    { q: "결정을 내릴 때 타인의 감정보다 논리적 타당성이 우선이다.", type: "TF", weight: 2 },
+    { q: "상대방의 기분이 안 좋아 보이면 나도 모르게 긴장하게 된다.", type: "FE", weight: 2 },
+    { q: "새로운 아이디어를 떠올리고 확장하는 과정이 즐겁다.", type: "NE", weight: 2 },
+    { q: "과거의 세부사항이나 규칙을 정확하게 지키는 것이 편하다.", type: "SI", weight: 2 },
+    { q: "기계나 시스템의 작동 원리를 파악하는 것에 흥미가 있다.", type: "TI", weight: 2 },
+    { q: "주변 정리가 안 되어 있으면 일에 집중하기 힘들다.", type: "JP", weight: 2 },
+    { q: "사실적인 데이터보다 직관적인 느낌을 더 믿는 편이다.", type: "SN", weight: -2 },
+    { q: "사회적 관계를 위해 본래의 성격보다 더 밝게 행동한다.", type: "EI_SUB", weight: 1 },
+    { q: "사람들은 나를 외향적이라 생각하지만, 사실 나는 매우 내성적이다.", type: "EI_SUB", weight: -1 },
+    { q: "어떤 일을 시작할 때 마감 기한이 임박해야 몰입이 된다.", type: "JP", weight: -2 },
+    { q: "친구의 슬픈 이야기를 들으면 해결책보다 위로가 먼저 나간다.", type: "TF", weight: -2 },
+    { q: "나만의 확실한 원칙이 있고 이를 굽히는 것이 싫다.", type: "TI", weight: 1 },
+    { q: "주변 환경이 조금만 바뀌어도 금방 알아차리는 편이다.", type: "SI", weight: 1 },
+    { q: "예술 작품을 볼 때 작가의 의도나 비유를 상상하게 된다.", type: "SN", weight: -2 },
+    { q: "복잡한 문제일수록 단순하게 정의하는 것을 좋아한다.", type: "TI", weight: 1 },
+    { q: "갈등 상황에서 내 주장을 하기보다 양보하는 편이다.", type: "FE", weight: 1 },
+    { q: "반복되는 일상 업무에 금방 지루함을 느끼나요?", type: "SN", weight: -1 },
+    { q: "여행을 갈 때 분 단위로 꼼꼼하게 계획을 세우나요?", type: "JP", weight: 2 },
+    { q: "나는 혼자 있을 때 가장 창의적인 아이디어가 나온다.", type: "NE", weight: -1 },
+    { q: "사람들이 많은 곳에 가면 기가 빨린다는 느낌을 자주 받는다.", type: "EI", weight: -2 },
+    { q: "토론할 때 상대의 논리적 허점을 찾는 것이 빠르다.", type: "TF", weight: 2 },
+    { q: "나는 타인에게 민폐를 끼치는 것을 극도로 꺼린다.", type: "FE", weight: 1 },
+    { q: "직관적으로 '이건 된다'라는 느낌이 올 때가 많다.", type: "SN", weight: -2 },
+    { q: "물건을 제자리에 두지 않으면 마음이 불편하다.", type: "JP", weight: 1 },
+    { q: "사회적인 역할을 수행할 때는 아주 외향적으로 변한다.", type: "EI_SUB", weight: 2 },
+    { q: "나는 생각보다 훨씬 더 계획적이고 꼼꼼한 사람이다.", type: "JP", weight: 1 }
+];
+
+// 2. 160가지 세부 페르소나 데이터셋
+const subData = {
+    "ISTJ": [
+        "소심한 E성향이 있는 관리자", "철저한 계획 기반의 완벽주의자", "사회적 가면을 쓴 외향적 ISTJ", "아이디어가 넘치는 창의적 ISTJ", "감정 표현에 서툰 츤데레 관리자",
+        "변화를 꿈꾸는 보수주의자", "데이터에 미친 분석 전문가", "책임감에 짓눌린 성실한 리더", "조용한 카리스마의 소유자", "원칙을 지키는 내면의 예술가"
+    ],
+    "ISFJ": [
+        "사회적 사교성이 발달한 ISFJ", "내면의 열정이 가득한 수호자", "거절 못 하는 천사표 관리자", "꼼꼼함의 끝판왕 기록가", "예술적 감수성이 풍부한 ISFJ",
+        "주변을 챙기는 엄마 같은 리더", "상처를 잘 받는 섬세한 영혼", "조용히 뒤에서 돕는 조력자", "변화를 두려워하는 안정 지향형", "자기 주관이 뚜렷한 외유내강형"
+    ],
+    "INFJ": [
+        "외향적 성격이 깃든 예언자", "통찰력이 깊은 신비주의자", "사람을 꿰뚫어 보는 상담가", "세상을 바꾸고 싶은 혁명가", "가장 이성적인 감성주의자",
+        "조용한 야심가이자 전략가", "완벽을 꿈꾸는 예술가", "고독을 즐기는 따뜻한 영혼", "사회적 정의를 외치는 지식인", "자신만의 세계가 뚜렷한 철학자"
+    ],
+    "INTJ": [
+        "사교 기술을 습득한 INTJ", "치밀한 계획의 설계자", "가장 독립적인 천재 분석가", "독설을 삼키는 완벽주의자", "비전을 제시하는 조용한 리더",
+        "호기심이 넘치는 과학자형", "냉철한 판단력의 전략가", "감정에 서툰 이성적 동반자", "사회적 성공을 꿈꾸는 야심가", "자신만의 원칙이 확고한 장인"
+    ],
+    "ISTP": [
+        "활동적인 외향적 ISTP", "손재주가 뛰어난 장인", "위험을 즐기는 스릴 추구자", "가장 효율적인 게으름쟁이", "냉철한 관찰력을 지닌 탐정",
+        "자유를 갈망하는 고독한 늑대", "기술적 분석이 탁월한 기술자", "감정 기복이 적은 포커페이스", "필요할 때만 움직이는 전략가", "모험을 꿈꾸는 현실주의자"
+    ],
+    "ISFP": [
+        "무대 체질인 외향적 ISFP", "감수성이 풍부한 예술가", "자유로운 영혼의 방랑자", "갈등을 피하는 평화주의자", "미적 감각이 뛰어난 디자이너",
+        "다정한 내면의 소유자", "현재를 즐기는 욜로(YOLO)족", "동물과 자연을 사랑하는 영혼", "겸손함이 매력인 조력자", "감각적인 순간을 기록하는 사람"
+    ],
+    "INFP": [
+        "사회생활 만렙 외향적 INFP", "이상적인 세상을 꿈꾸는 시인", "공감 능력이 폭발하는 힐러", "자기 성찰이 깊은 몽상가", "가장 따뜻한 내면의 소유자",
+        "창의적 표현이 뛰어난 작가", "조용히 세상을 관찰하는 눈", "가치관이 확고한 평화 수호자", "가끔은 엉뚱한 매력의 소유자", "순수한 마음을 간직한 어른아이"
+    ],
+    "INTP": [
+        "말을 잘하는 외향적 INTP", "논리적인 게으른 천재", "호기심 가득한 철학자", "시스템을 해체하는 분석가", "사회적 관습을 거부하는 반항아",
+        "아이디어 뱅크이자 전략가", "객관적인 진리를 찾는 탐구자", "감정보다 지식을 사랑하는 사람", "복잡한 문제를 즐기는 수학자", "자신만의 세계를 구축한 은둔자"
+    ],
+    "ESTP": [
+        "조금은 내성적인 신중한 ESTP", "행동력이 앞서는 모험가", "분위기를 주도하는 해결사", "가장 현실적인 승부사", "재치 넘치는 입담의 소유자",
+        "적응력이 뛰어난 실용주의자", "스릴을 즐기는 에너자이저", "관찰력이 날카로운 분석가", "직설적이지만 매력적인 리더", "경험을 통해 배우는 현장가"
+    ],
+    "ESFP": [
+        "생각이 깊은 신중한 ESFP", "인생이 축제인 엔터테이너", "사람을 끌어당기는 매력 덩어리", "낙천적이고 긍정적인 에너지", "스타일이 좋은 트렌드세터",
+        "즉흥적인 즐거움을 찾는 사람", "정이 많고 눈물도 많은 영혼", "어디서든 적응하는 적응력 갑", "함께 있으면 즐거운 비타민", "현실적인 도움을 주는 친구"
+    ],
+    "ENFP": [
+        "집순이 기질이 있는 ENFP", "아이디어가 폭발하는 활동가", "사람을 좋아하는 댕댕이형", "열정적인 꿈을 꾸는 자유인", "분위기 메이커인 핵인싸",
+        "금방 달궈지고 식는 양은냄비", "호기심 많은 어린아이 같은 영혼", "공감과 위로를 잘하는 상담가", "창의적 해결책을 내는 천재", "구속을 싫어하는 구름 같은 사람"
+    ],
+    "ENTP": [
+        "철학적인 내향형 ENTP", "논리적인 말싸움 천재", "변화를 주도하는 혁신가", "가장 똑똑한 게으름쟁이", "고정관념을 깨는 반항아",
+        "토론을 즐기는 브레인", "다재다능한 팔방미인", "위트를 겸비한 전략가", "새로운 도전을 멈추지 않는 자", "지적 호기심이 끝없는 탐구자"
+    ],
+    "ESTJ": [
+        "부드러운 카리스마의 ESTJ", "효율을 극대화하는 관리자", "책임감 강한 추진력의 리더", "원칙을 지키는 현실주의자", "조직을 이끄는 완벽한 설계자",
+        "결단력 있는 승부사", "데이터 기반의 냉철한 판단", "말보다 행동이 앞서는 실행가", "주변을 정리하는 해결사", "성공을 향해 달려가는 워커홀릭"
+    ],
+    "ESFJ": [
+        "독립적인 성향의 ESFJ", "주변을 챙기는 다정한 외교관", "사회적 관계의 중심점", "예의 바르고 성실한 조력자", "조화와 평화를 사랑하는 사람",
+        "리액션이 좋은 공감 요정", "조직의 화합을 이끄는 리더", "칭찬을 먹고 사는 에너자이저", "전통과 관습을 존중하는 관리자", "남의 불행을 못 보는 따뜻한 영혼"
+    ],
+    "ENFJ": [
+        "혼자만의 시간이 필요한 ENFJ", "사람을 이끄는 따뜻한 리더", "이상을 현실로 만드는 선도자", "타인의 성장을 돕는 멘토", "감수성 풍부한 정의의 사도",
+        "말 한마디로 천 냥 빚 갚는 달변가", "사회 문제를 해결하고 싶은 혁신가", "사랑이 넘치는 로맨티스트", "조직의 분위기를 살리는 활력소", "강한 신념을 가진 행동주의자"
+    ],
+    "ENTJ": [
+        "감성 한 스푼 얹은 ENTJ", "거침없는 추진력의 지도자", "미래를 설계하는 전략가", "승부욕이 강한 야심가", "가장 효율적인 목표 달성가",
+        "논리적 카리스마의 소유자", "변화를 두려워하지 않는 혁신가", "냉철하지만 공정한 리더", "지적 도전을 즐기는 분석가", "불가능을 가능케 하는 개척자"
+    ]
+};
+
+let currentIdx = 0;
+let results = { EI: 0, SN: 0, TF: 0, JP: 0, TI: 0, FE: 0, SI: 0, NE: 0, EI_SUB: 0 };
+
+function startQuiz() {
+    document.getElementById('start-view').classList.add('hide');
+    document.getElementById('quiz-view').classList.remove('hide');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    if (currentIdx >= questions.length) {
+        showLoading();
+        return;
+    }
+    const q = questions[currentIdx];
+    document.getElementById('q-num').innerText = `문항 ${currentIdx + 1} / ${questions.length}`;
+    document.getElementById('q-text').innerText = q.q;
+    
+    const wrap = document.getElementById('ans-wrap');
+    wrap.innerHTML = "";
+    
+    const options = [
+        { t: "매우 그렇다", v: 2 },
+        { t: "그렇다", v: 1 },
+        { t: "그렇지 않다", v: -1 },
+        { t: "전혀 아니다", v: -2 }
+    ];
+
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "ans-btn";
+        btn.innerText = opt.t;
+        btn.onclick = () => {
+            results[q.type] += (opt.v * (q.weight || 1));
+            currentIdx++;
+            renderQuestion();
+        };
+        wrap.appendChild(btn);
+    });
+}
+
+function showLoading() {
+    document.getElementById('quiz-view').classList.add('hide');
+    document.getElementById('loading-view').style.display = 'block';
+    setTimeout(calculateResult, 2000);
+}
+
+function calculateResult() {
+    let mbti = "";
+    mbti += results.EI >= 0 ? "E" : "I";
+    mbti += results.SN <= 0 ? "N" : "S";
+    mbti += results.TF >= 0 ? "T" : "F";
+    mbti += results.JP >= 0 ? "J" : "P";
+
+    // 세부 인덱스 결정 (EI_SUB 값과 인지기능 점수 조합)
+    let subIdx = Math.abs(results.EI_SUB % 10);
+    if (Math.abs(results.EI) < 3) subIdx = 0; // 경계에 있는 경우 '소심한 E' 등 첫 번째 옵션
+
+    const finalType = subData[mbti][subIdx];
+
+    document.getElementById('loading-view').style.display = 'none';
+    document.getElementById('result-view').style.display = 'block';
+    
+    document.getElementById('res-mbti').innerText = mbti;
+    document.getElementById('res-subtype').innerText = finalType;
+    document.getElementById('res-desc').innerText = `당신은 전형적인 ${mbti}의 틀을 깨고 자신만의 독특한 인지 기능을 발달시킨 유형입니다. ${finalType}로서의 면모는 당신이 사회적 상황과 개인적 공간에서 어떻게 에너지를 사용하는지를 잘 보여줍니다.`;
+
+    // 인지기능 바 수치화
+    const setBar = (id, val) => {
+        const p = Math.min(Math.max((val + 10) * 5, 5), 95);
+        document.getElementById(id).style.width = p + "%";
+    };
+    setBar('bar-ti', results.TI);
+    setBar('bar-fe', results.FE);
+    setBar('bar-si', results.SI);
+    setBar('bar-ne', results.NE);
+    
+    window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
