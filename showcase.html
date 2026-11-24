@@ -438,54 +438,36 @@
     async function fetchLiveStats() {
       const timeSpan = document.getElementById('updateTimeText');
       try {
-        let proxyDone = false;
-        try {
-          const proxyRes = await fetch('/api/stats', { cache: 'no-store' });
-          if (proxyRes.ok) {
-            const json = await proxyRes.json();
-            if (json.animap && json.animap.today) {
-              const pvToday = document.getElementById('metric-today-pv-animap');
-              const pvTotal = document.getElementById('metric-total-pv-animap');
-              if (pvToday) pvToday.innerText = `${json.animap.today.toLocaleString()}회`;
-              if (pvTotal) pvTotal.innerText = `${json.animap.total.toLocaleString()}회`;
-            }
-            if (json.wezip && json.wezip.today) {
-              const pvToday = document.getElementById('metric-today-pv-wezip');
-              const pvTotal = document.getElementById('metric-total-pv-wezip');
-              if (pvToday) pvToday.innerText = `${json.wezip.today.toLocaleString()}회`;
-              if (pvTotal) pvTotal.innerText = `${json.wezip.total.toLocaleString()}회`;
-            }
-            proxyDone = true;
-          }
-        } catch (e) {
-          // proxy fallback
-        }
+        const proxyRes = await fetch('/api/stats', { cache: 'no-store' });
+        if (proxyRes.ok) {
+          const json = await proxyRes.json();
+          const domainMap = [
+            { key: 'animap', id: 'animap' },
+            { key: 'lotto', id: 'lotto' },
+            { key: 'colorbob', id: 'colorbob' },
+            { key: 'wezip', id: 'wezip' },
+            { key: 'adopter', id: 'adopter' },
+            { key: 'game', id: 'game' },
+            { key: 'jejumodo', id: 'jejumodo' },
+            { key: 'theandante9', id: 'theandante9' }
+          ];
 
-        if (!proxyDone) {
-          const [animapRes, wezipRes] = await Promise.allSettled([
-            fetch('https://animap.co.kr/api/visitors', { cache: 'no-store' }),
-            fetch('https://wezip.co.kr/api/counter', { cache: 'no-store' })
-          ]);
+          domainMap.forEach(({ key, id }) => {
+            const item = json[key];
+            if (item && typeof item.today !== 'undefined') {
+              // Update PV elements
+              const pvToday = document.getElementById(`metric-today-pv-${id}`);
+              const pvTotal = document.getElementById(`metric-total-pv-${id}`);
+              if (pvToday) pvToday.innerText = `${item.today.toLocaleString()}회`;
+              if (pvTotal) pvTotal.innerText = `${item.total.toLocaleString()}회`;
 
-          if (animapRes.status === 'fulfilled' && animapRes.value.ok) {
-            const data = await animapRes.value.json().catch(() => null);
-            if (data && data.today) {
-              const pvToday = document.getElementById('metric-today-pv-animap');
-              const pvTotal = document.getElementById('metric-total-pv-animap');
-              if (pvToday) pvToday.innerText = `${data.today.toLocaleString()}회`;
-              if (pvTotal) pvTotal.innerText = `${data.total.toLocaleString()}회`;
+              // Update UV elements
+              const uvToday = document.getElementById(`metric-today-${id}`);
+              const uvTotal = document.getElementById(`metric-total-${id}`);
+              if (uvToday) uvToday.innerText = `${item.today.toLocaleString()}명`;
+              if (uvTotal) uvTotal.innerText = `${item.total.toLocaleString()}명`;
             }
-          }
-
-          if (wezipRes.status === 'fulfilled' && wezipRes.value.ok) {
-            const data = await wezipRes.value.json().catch(() => null);
-            if (data && data.today) {
-              const pvToday = document.getElementById('metric-today-pv-wezip');
-              const pvTotal = document.getElementById('metric-total-pv-wezip');
-              if (pvToday) pvToday.innerText = `${data.today.toLocaleString()}회`;
-              if (pvTotal) pvTotal.innerText = `${data.total.toLocaleString()}회`;
-            }
-          }
+          });
         }
 
         const now = new Date();
@@ -496,7 +478,7 @@
       }
     }
 
-        function refreshLiveStats() {
+    function refreshLiveStats() {
       const icon = document.getElementById('refreshIcon');
       if (icon) icon.classList.add('animate-spin');
       fetchLiveStats().finally(() => {
