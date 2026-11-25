@@ -54,67 +54,70 @@
 </head>
 <body class="bg-[#f8fafc] text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- TOP HEADER -->
+  <!-- TOP HEADER (통일된 3컬럼 헤더: 좌측 로고, 중앙 정렬 탭, 우측 검색창) -->
   <header class="glass-nav sticky top-0 z-40 border-b border-slate-200/90 px-6 py-3.5 shadow-sm">
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-      <div class="flex items-center justify-between">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 items-center gap-4">
+      <!-- Col 1: Left Brand Logo -->
+      <div class="flex items-center justify-start">
         <a href="showcase.html" class="flex items-center gap-3 text-inherit no-underline hover:opacity-90 transition-opacity">
-          <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm flex-shrink-0">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
             </svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-base font-bold text-slate-900 tracking-tight">MJ LAB &middot; NOVA WEB STUDIO</h1>
+              <h1 class="text-base font-bold text-slate-900 tracking-tight leading-none" style="margin:0;font-size:16px;">MJ LAB &middot; NOVA WEB STUDIO</h1>
               <span class="text-[11px] font-medium px-2 py-0.5 rounded border border-blue-200 bg-blue-50 text-blue-700">통합 포털</span>
             </div>
-            <p class="text-xs text-slate-500 mt-0.5">총 <span id="headerTotalCount" class="text-slate-900 font-semibold">137</span>개 프로젝트 &middot; 웹게임 16종 &middot; 실시간 30일 트래픽</p>
+            <p class="text-xs text-slate-500 mt-1" style="margin:0;font-size:12px;">총 <span id="headerTotalCount" class="text-slate-900 font-semibold">137</span>개 프로젝트 &middot; 웹게임 16종 &middot; 실시간 30일 트래픽</p>
           </div>
         </a>
       </div>
 
-      <!-- MAIN NAVIGATION TABS (쇼케이스 / 인프라 / 수익형 사이트) -->
-      <nav class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 self-start lg:self-auto overflow-x-auto max-w-full">
-        <button 
-          id="tabBtnProjects" 
-          onclick="switchMainTab('projects')" 
-          class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition-all flex items-center gap-1.5 whitespace-nowrap"
-        >
-          <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-          </svg>
-          <span>프로젝트 쇼케이스</span>
-        </button>
+      <!-- Col 2: Center Navigation Tabs (Strictly Centered Always!) -->
+      <div class="flex items-center justify-center">
+        <nav class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto max-w-full">
+          <button 
+            id="tabBtnProjects" 
+            onclick="switchMainTab('projects')" 
+            class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition-all flex items-center gap-1.5 whitespace-nowrap"
+          >
+            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+            </svg>
+            <span>프로젝트 쇼케이스</span>
+          </button>
 
-        <button 
-          id="tabBtnInfra" 
-          onclick="switchMainTab('infra')" 
-          class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5 whitespace-nowrap"
-        >
-          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-          </svg>
-          <span>인프라 &amp; 기술 스택</span>
-          <span class="text-[10px] bg-blue-100 text-blue-800 px-1 py-0.2 rounded font-mono font-bold">MAP</span>
-        </button>
+          <button 
+            id="tabBtnInfra" 
+            onclick="switchMainTab('infra')" 
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5 whitespace-nowrap"
+          >
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+            <span>인프라 &amp; 기술 스택</span>
+            <span class="text-[10px] bg-blue-100 text-blue-800 px-1 py-0.2 rounded font-mono font-bold">MAP</span>
+          </button>
 
-        <button 
-          id="tabBtnRevenue" 
-          onclick="switchMainTab('revenue')" 
-          class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5 whitespace-nowrap"
-        >
-          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>수익형 사이트 마스터보드</span>
-          <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded font-mono font-bold">100선</span>
-        </button>
-      </nav>
+          <button 
+            id="tabBtnRevenue" 
+            onclick="switchMainTab('revenue')" 
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5 whitespace-nowrap"
+          >
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>수익형 사이트 마스터보드</span>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded font-mono font-bold">100선</span>
+          </button>
+        </nav>
+      </div>
 
-      <!-- SEARCH BAR -->
-      <div class="flex items-center gap-2.5 w-full lg:w-auto" id="searchBarContainer">
-        <div class="relative flex-1 lg:w-64">
+      <!-- Col 3: Right Search Bar (Strictly Right-Aligned Always!) -->
+      <div class="flex items-center justify-end" id="searchBarContainer">
+        <div class="relative w-full max-w-[260px]">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -123,7 +126,7 @@
           <input 
             type="text" 
             id="searchInput"
-            placeholder="프로젝트, 게임, 키워드 검색..." 
+            placeholder="프로젝트, 기술스택 검색..." 
             class="w-full pl-9 pr-8 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-sm transition-colors"
           />
           <button 
@@ -133,6 +136,12 @@
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
             </svg>
           </button>
         </div>
@@ -1001,6 +1010,7 @@
       searchQuery = '';
       document.getElementById('clearSearchBtn').classList.add('hidden');
       filterAndRenderCards();
+      renderInfraInpageTable();
     }
 
     // In-page Infrastructure Data
@@ -1022,7 +1032,10 @@
     function renderInfraInpageTable() {
       const tbody = document.getElementById('infraInpageTableBody');
       if (!tbody) return;
-      tbody.innerHTML = INFRA_INPAGE_DATA.map(item => `
+      const data = searchQuery 
+        ? INFRA_INPAGE_DATA.filter(it => it.name.toLowerCase().includes(searchQuery) || it.url.toLowerCase().includes(searchQuery) || it.repo.toLowerCase().includes(searchQuery) || it.hosting.toLowerCase().includes(searchQuery))
+        : INFRA_INPAGE_DATA;
+      tbody.innerHTML = data.map(item => `
         <tr class="hover:bg-slate-50/80 transition-colors">
           <td class="py-3 px-3.5 font-bold text-slate-900">${item.name}</td>
           <td class="py-3 px-3.5 font-mono">
@@ -1080,7 +1093,6 @@
       const btnProjects = document.getElementById('tabBtnProjects');
       const btnInfra = document.getElementById('tabBtnInfra');
       const btnRevenue = document.getElementById('tabBtnRevenue');
-      const searchContainer = document.getElementById('searchBarContainer');
 
       const defaultBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white/60 transition-all flex items-center gap-1.5 whitespace-nowrap';
       const activeBtnClass = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition-all flex items-center gap-1.5 whitespace-nowrap';
@@ -1091,18 +1103,15 @@
       if (tabName === 'infra') {
         if (btnInfra) btnInfra.className = activeBtnClass;
         if (vInfra) vInfra.classList.remove('hidden');
-        if (searchContainer) searchContainer.classList.add('hidden');
         window.history.replaceState(null, '', '#infra');
         renderInfraInpageTable();
       } else if (tabName === 'revenue') {
         if (btnRevenue) btnRevenue.className = activeBtnClass;
         if (vRevenue) vRevenue.classList.remove('hidden');
-        if (searchContainer) searchContainer.classList.add('hidden');
         window.history.replaceState(null, '', '#revenue');
       } else {
         if (btnProjects) btnProjects.className = activeBtnClass;
         if (vProjects) vProjects.classList.remove('hidden');
-        if (searchContainer) searchContainer.classList.remove('hidden');
         window.history.replaceState(null, '', '#projects');
       }
     }
@@ -1143,6 +1152,7 @@
           clearBtn.classList.add('hidden');
         }
         filterAndRenderCards();
+        renderInfraInpageTable();
       });
 
       document.addEventListener('keydown', (e) => {
