@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniMap(애니맵) 테마 맵 비즈니스 전략 대시보드</title>
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+      --text-main: #111827;
+      --text-sub: #4B5563;
+      --text-muted: #9CA3AF;
+      --border: #E5E7EB;
+      --border-dark: #D1D5DB;
+      --accent: #18181B; /* 매트 블랙 포인트 */
+      --accent-soft: #F4F4F5;
+      --tag-bg: #F3F4F6;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", "Apple SD Gothic Neo", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 헤더 영역 */
+    header {
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .header-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      max-width: 800px;
+      margin-top: 6px;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    /* 컨트롤 바 (검색 + 카테고리 탭) */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 14px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      outline: none;
+      background: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .btn {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--border-dark);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #27272A;
+    }
+
+    /* 탭 필터 */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      font-size: 13px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--border-dark);
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* 테이블 영역 */
+    .table-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #F9FAFB;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-sub);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: #FAFAFA;
+    }
+
+    .col-id {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      width: 48px;
+    }
+
+    .col-title {
+      font-weight: 600;
+      color: var(--text-main);
+      width: 220px;
+    }
+
+    .col-title .sub-name {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text-sub);
+      margin-right: 4px;
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    .tag-accent {
+      background: #F4F4F5;
+      border-color: #D4D4D8;
+      color: #18181B;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .status-hot {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #FEE2E2;
+    }
+
+    .status-b2b {
+      background: #F0FDF4;
+      color: #166534;
+      border: 1px solid #DCFCE7;
+    }
+
+    .status-viral {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #DBEAFE;
+    }
+
+    /* 알림창 토스트 */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #18181B;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
+      body { padding: 20px 12px; }
+      .search-bar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <a href="../index.html" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#2563eb; text-decoration:none; background:#eff6ff; padding:7px 14px; border-radius:6px; border:1px solid #dbeafe;">
+        &larr; 마스터보드 100선 목록
+      </a>
+      <a href="../../showcase.html" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#18181b; text-decoration:none; background:#f4f4f5; padding:7px 14px; border-radius:6px; border:1px solid #e4e4e7;">
+        통합 쇼케이스 포털 &rarr;
+      </a>
+    </div>
+    <!-- 헤더 -->
+    <header>
+      <div class="header-top">
+        <div>
+          <h1>AniMap(애니맵) 테마 맵 비즈니스 전략 대시보드</h1>
+          <p class="header-desc">
+            보유 도메인(<code>animap.co.kr</code>, <code>wezip.co.kr</code>)의 초경량 지도 엔진을 재활용하여, 0.05초 로딩 속도와 고단가 구글 애드센스 수익을 창출하는 테마 맵 종합 대백과입니다.
+          </p>
+        </div>
+      </div>
+      <div class="meta-badges">
+        <span class="badge">총 30개 테마 수록</span>
+        <span class="badge">공공데이터 100% 연동</span>
+        <span class="badge">서버 트래픽 비용 0원</span>
+        <span class="badge">원클릭 노션 복사 지원</span>
+      </div>
+    </header>
+
+    <!-- 컨트롤 -->
+    <div class="controls">
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="키워드 검색 (예: 제주, 바이크, 골프, 공장, 쓰레기, 로또...)">
+        <button class="btn btn-primary" onclick="copyNotionMarkdown()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          노션 복사용 마크다운 복사
+        </button>
+      </div>
+
+      <div class="tabs" id="tabContainer">
+        <button class="tab-btn active" data-category="ALL">전체 보기 (30)</button>
+        <button class="tab-btn" data-category="BOSS">대표님 제안 (3)</button>
+        <button class="tab-btn" data-category="FRESH">기발한 신규 발굴 (5)</button>
+        <button class="tab-btn" data-category="VIRAL">2030 라이프스타일 (6)</button>
+        <button class="tab-btn" data-category="B2B">돈 되는 B2B/실무자 (3)</button>
+        <button class="tab-btn" data-category="PUBLIC">대중 킬러 공공데이터 (9)</button>
+        <button class="tab-btn" data-category="GLOBAL">외국인 관광객 (4)</button>
+      </div>
+    </div>
+
+    <!-- 테이블 -->
+    <div class="table-wrapper">
+      <table id="mapTable">
+        <thead>
+          <tr>
+            <th class="col-id">No</th>
+            <th class="col-title">테마 맵 명칭</th>
+            <th>분류</th>
+            <th>타겟 유저 & 핵심 수요</th>
+            <th>데이터 소스 (공공/API)</th>
+            <th>킬러 기능 & 수익화 포인트</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- JS로 동적 렌더링 -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">노션 복사용 마크다운 표가 클립보드에 복사되었습니다!</div>
+
+  <script>
+    const MAP_DATA = [
+      // 1. 대표님 직관 반영
+      {
+        id: "01",
+        title: "제주 클린하우스 & 재활용도움센터",
+        sub: "제주 쓰레기 요일제 무관 배출처",
+        category: "BOSS",
+        categoryName: "대표님 제안",
+        status: "status-hot",
+        statusText: "제주 1위",
+        target: "요일제 배출 놓쳐 멘붕 온 제주도민, 한달살기러, 펜션/차박 여행객",
+        source: "제주데이터허브 (클린하우스 및 재활용도움센터 DB)",
+        feature: "요일 상관없이 24시간 언제든 버릴 수 있는 '재활용도움센터'만 원클릭 필터링. 제주 렌터카/숙박 배너 매칭."
+      },
+      {
+        id: "02",
+        title: "전국 시제품 & 제조공장 B2B 지도",
+        sub: "CNC/금형/사출/아크릴 가공 네트워크",
+        category: "BOSS",
+        categoryName: "대표님 제안",
+        status: "status-b2b",
+        statusText: "B2B 고단가",
+        target: "소량 시제품 가공처 찾는 스타트업 대표, 기계 설계자, 쇼핑몰 셀러",
+        source: "한국산업단지공단 팩토리온(FactoryOn) 10만 등록 공장 DB",
+        feature: "가공 종류별(CNC/사출/레이저) 필터 및 '소량 샘플 제작 가능' 태그. 건당 견적 의뢰 수수료 모델."
+      },
+      {
+        id: "03",
+        title: "전국 바이크(이륜차) 전용 라이더 맵",
+        sub: "합법 주차 & 전용도로 우회 지도",
+        category: "BOSS",
+        categoryName: "대표님 제안",
+        status: "status-viral",
+        statusText: "라이더 필수",
+        target: "주차 딱지와 전용도로 벌금(30만) 피하려는 전국 200만 바이크 라이더",
+        source: "지자체 이륜차 공영주차구역 DB + 전국 라이더 카페 목록",
+        feature: "바이크 주차 가능 구역, 자동차전용도로 우회 경계선, 바이크 진입 가능 24시 셀프세차장. 바이크 보험/용품 광고."
+      },
+
+      // 2. 기발한 신규 발굴 5선
+      {
+        id: "04",
+        title: "노캐디 2인 플레이 & 파3(Par3) 골프장",
+        sub: "캐디피 없는 가성비 숏게임 성지",
+        category: "FRESH",
+        categoryName: "기발한 신규",
+        status: "status-hot",
+        statusText: "골프 잭팟",
+        target: "1인 30만원 넘는 캐디피 부담 없이 둘이서 치거나 혼자 연습하려는 골퍼",
+        source: "전국 대중골프장 현황 DB + 골프협회 파3 등록 리스트",
+        feature: "캐디피 0원 노캐디 운영, 2인 라운딩 가능 요일, 혼자 숏게임 어프로치 연습 가능한 파3장 매핑. 골프용품 고단가 광고."
+      },
+      {
+        id: "05",
+        title: "합법 동물장례식장 & 펫 메모리얼 파크",
+        sub: "농식품부 인증 정식 허가 장례식장",
+        category: "FRESH",
+        categoryName: "기발한 신규",
+        status: "status-b2b",
+        statusText: "애니맵 직결",
+        target: "아이가 무지개다리 건넜을 때 불법 화장터 피하고 정식 허가처 찾는 반려인",
+        source: "농림축산식품부 동물장묘업 정식 등록 인허가 DB",
+        feature: "불법 업체 90% 속에서 100% 농식품부 인증 합법 화장터/수목장만 엄선. 건당 수십~수백만 원 고부가가치 제휴."
+      },
+      {
+        id: "06",
+        title: "폐교·폐공장·양곡창고 개조 복합문화공간",
+        sub: "초대형 레트로 핫플레이스 도감",
+        category: "FRESH",
+        categoryName: "기발한 신규",
+        status: "status-viral",
+        statusText: "SNS 바이럴",
+        target: "뻔한 카페 말고 주말에 감성 터지는 이색 공간/데이트 코스 찾는 2040",
+        source: "지자체 폐교/유휴시설 재생 인허가 데이터 + SNS 핫플 크롤링",
+        feature: "방직공장(조양방직 등), 양곡창고, 폐교를 개조한 대형 갤러리/카페만 모아둔 지도. 인스타/스레드 주말 공유 1위."
+      },
+      {
+        id: "07",
+        title: "인테리어 자재 & 조명·타일·도기 도매거리",
+        sub: "을지로/논현/일산 자재거리 도감",
+        category: "FRESH",
+        categoryName: "기발한 신규",
+        status: "status-b2b",
+        statusText: "창업/인테리어",
+        target: "셀프 리모델링 족, 카페/상가 창업자, 인테리어 실장",
+        source: "소상공인시장진흥공단 상권정보 (자재/조명/타일 업종)",
+        feature: "일반 소매점이 아닌 을지로/논현/용인 도매 창고형 상점만 매핑. 인테리어 시공/가구/조명 광고 연계."
+      },
+      {
+        id: "08",
+        title: "전국 합법 '임도(산길) & 4륜 오프로드' 맵",
+        sub: "4WD 차주를 위한 자연 투어링 코스",
+        category: "FRESH",
+        categoryName: "기발한 신규",
+        status: "status-viral",
+        statusText: "SUV 매니아",
+        target: "주말마다 비포장 산길, 강변 자갈밭 달리고 싶은 SUV/픽업/4륜 차주",
+        source: "산림청 레포츠 임도 지정 현황 공공데이터",
+        feature: "불법 훼손 지역이 아닌 산림청이 허가한 차랑 통행 가능 합법 임도 코스 안내. SUV 튜닝/타이어/아웃도어 광고."
+      },
+
+      // 3. 2030 라이프스타일
+      {
+        id: "09",
+        title: "전국 야장(野場) & 노상 포차 지도",
+        sub: "플라스틱 의자의 계절",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-viral",
+        statusText: "봄/가을 1위",
+        target: "선선한 날씨에 길거리 야외 테이블에서 고기/맥주 먹고 싶은 2030",
+        source: "식품위생 인허가 (옥외영업 허가구역) + 소셜 위치 태그",
+        feature: "네이버 지도에 없는 '야외 노상 테이블' 보유 여부 단색 뱃지 표기. 인스타 릴스 바이럴 폭발."
+      },
+      {
+        id: "10",
+        title: "아파트 층간소음 구조 (기둥식 vs 벽식)",
+        sub: "라멘 구조 아파트 찾기",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-b2b",
+        statusText: "부동산 초고단가",
+        target: "전월세/매매 구할 때 층간소음 극도로 피하고 싶은 신혼부부, 영유아 부모",
+        source: "국토교통부 건축물대장 표제부 (구조 분류 코드)",
+        feature: "아파트 단지별 기둥식(라멘)/벽식/무량판 구조 색상 매핑. 청약/주택대출/이사업체 최고가 광고 도배."
+      },
+      {
+        id: "11",
+        title: "새벽 드라이브 & 심야 대형카페 지도",
+        sub: "Midnight Drive Korea",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-viral",
+        statusText: "커플 필수",
+        target: "밤 10시 넘어 차 끌고 어디론가 드라이브 가고 싶은 커플 및 야간 드라이버",
+        source: "심야 영업(02시~24시) 카페 + 지자체 야경 명소 DB",
+        feature: "서울 근교(남양주/양평/영종도/북악) 주차 편한 24시 대형 베이커리 카페 큐레이션."
+      },
+      {
+        id: "12",
+        title: "카공족 '콘센트 천국 & 노눈치' 카페",
+        sub: "자리마다 콘센트 있는 대형 매장",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-viral",
+        statusText: "대학생/직장인",
+        target: "노트북 작업/공부하는데 사장님 눈치 안 보이고 콘센트 많은 매장 찾는 사람",
+        source: "프랜차이즈 매장 규모 DB + 좌석 인프라 정보",
+        feature: "2층 이상 대형 규모, 테이블당 콘센트 비율, 24시간 운영 여부 필터."
+      },
+      {
+        id: "13",
+        title: "전국 캡슐토이(가챠) & 키덜트 굿즈샵",
+        sub: "산리오/치이카와/짱구 뽑기 성지",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-viral",
+        statusText: "애니맵 최적",
+        target: "뽑기 기계(가챠) 돌리러 원정 다니는 1030 키덜트 팬덤",
+        source: "소상공인 인허가 데이터 (완구/자판기 업종)",
+        feature: "기계 10대 이상 보유 전문점 매핑. animap 도메인과 완벽한 싱크로율."
+      },
+      {
+        id: "14",
+        title: "고속도로 휴게소 1등 맛집 (EX-FOOD)",
+        sub: "도로공사 공인 시그니처 음식",
+        category: "VIRAL",
+        categoryName: "2030 바이럴",
+        status: "status-viral",
+        statusText: "명절/주말 1위",
+        target: "휴가철/명절 귀성길에 맛없는 우동 대신 휴게소 1등 명물 먹고 싶은 운전자",
+        source: "한국도로공사 공공데이터 (인증 EX-FOOD & 유가정보)",
+        feature: "휴게소별 시그니처 메뉴, 수유실 유무, 최저가 알뜰주유소 실시간 가격 표기."
+      },
+
+      // 4. B2B / 실무자
+      {
+        id: "15",
+        title: "전국 3PL 물류창고 & 풀필먼트 지도",
+        sub: "소량 보관 가능한 이커머스 창고",
+        category: "B2B",
+        categoryName: "B2B 실무자",
+        status: "status-b2b",
+        statusText: "유통 필수",
+        target: "스마트스토어/쿠팡 셀러 중 소량 위탁 보관 가능한 근교 창고 찾는 온라인 유통업자",
+        source: "국토교통부 물류창고업 등록 현황 DB",
+        feature: "상온/냉장/냉동 창고 구분, 도판/도크 보유 여부, 최소 보관 파레트 단위 안내. 고단가 B2B 광고 매칭."
+      },
+      {
+        id: "16",
+        title: "상가 공실 & 권리금·임대료 시세 지도",
+        sub: "자영업 창업 전 가성비 상권 분석",
+        category: "B2B",
+        categoryName: "B2B 실무자",
+        status: "status-b2b",
+        statusText: "창업 고단가",
+        target: "자영업 창업 전 유동인구 대비 평당 임대료 가성비 분석하려는 예비 점주",
+        source: "소상공인 상권정보 API + 상업용부동산 임대동향",
+        feature: "층별 평균 임대료 시세, 최근 3년 개·폐업률 추이 텍스트 요약. 인테리어/포스/세무 고단가 배너."
+      },
+      {
+        id: "17",
+        title: "전국 폐자원 & 고철/파지 매입소 지도",
+        sub: "철거/인테리어 고철 돈 받고 파는 곳",
+        category: "B2B",
+        categoryName: "B2B 실무자",
+        status: "status-b2b",
+        statusText: "실무자용",
+        target: "철거 현장, 인테리어 시공업자, 이사 폐기물 고철을 돈 받고 팔려는 실무자",
+        source: "환경부 폐기물처리업체 인허가 DB",
+        feature: "비철(구리/알루미늄), 파지, 고철 등 취급 품목별 검색 및 대형 트럭(1톤/5톤) 계근대 보유 여부."
+      },
+
+      // 5. 대중 킬러 공공데이터
+      {
+        id: "18",
+        title: "전국 로또 1·2등 명당 지도",
+        sub: "1등 다수 배출점 실시간 랭킹",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-hot",
+        statusText: "트래픽 1위",
+        target: "금요일 퇴근길, 토요일 낮에 내 주변 역대 1등 다수 배출점 찾는 직장인",
+        source: "동행복권 1·2등 당첨 판매점 공공데이터",
+        feature: "GPS 기반 내 주변 3km 최다 당첨점 순 정렬. 로또 추첨일 트래픽 폭증."
+      },
+      {
+        id: "19",
+        title: "전국 무료 노지 차박 & 캠핑장 지도",
+        sub: "화장실 있는 공짜 노지 명당",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "캠핑족 필수",
+        target: "주말에 예약 실패하고 화장실 있는 공짜 노지 캠핑/차박지 찾는 캠핑족",
+        source: "한국관광공사 고캠핑(GoCamping) 공공데이터",
+        feature: "화장실 유무, 개수대 유무, 차량 진입 가능 여부 텍스트 뱃지 안내."
+      },
+      {
+        id: "20",
+        title: "전국 주말 무료 개방 공영주차장 지도",
+        sub: "주말 주차비 0원 꿀팁",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-hot",
+        statusText: "생활비 절약",
+        target: "핫플레이스(홍대/강남/성수 등) 방문 시 시간당 8천 원 주차비 아끼려는 운전자",
+        source: "전국 주차장 표준데이터",
+        feature: "주말 무료 개방, 야간 무료, 전기차 충전기 유무 원클릭 필터."
+      },
+      {
+        id: "21",
+        title: "전국 24시 무인 프린트/출력 지도",
+        sub: "야간/주말 급한 서류 출력",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "절박함 1위",
+        target: "새벽이나 주말에 급하게 이력서, 계약서, 등본 출력해야 하는 사람",
+        source: "소상공인 상가데이터 (인쇄/복사 업종)",
+        feature: "24시 무인 매장 여부, 복사/컬러출력 가능 여부. 극강의 다급함으로 이탈률 0%."
+      },
+      {
+        id: "22",
+        title: "전국 착한가격업소 지도",
+        sub: "5천원 칼국수, 6천원 백반",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-hot",
+        statusText: "고물가 1위",
+        target: "고물가 시대에 5천 원 칼국수, 6천 원 백반 등 가성비 식당 찾는 직장인/학생",
+        source: "행정안전부 착한가격업소 표준데이터",
+        feature: "착한메뉴 가격 및 업종별(한식/중식/미용실) 필터. 뉴스 보도 시 트래픽 폭발."
+      },
+      {
+        id: "23",
+        title: "전국 공중/개방화장실 지도",
+        sub: "비상벨 & 기저귀교환대 완비",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "생리현상 해결",
+        target: "급한 생리현상 해결하려는 택시기사, 배달 라이더, 러너, 유아 동반 부모",
+        source: "전국 공중화장실 표준데이터",
+        feature: "비상벨 설치 여부, 남녀분리, 기저귀교환대, 개방시간 상세 안내."
+      },
+      {
+        id: "24",
+        title: "전국 무료 물놀이터 & 바닥분수 지도",
+        sub: "여름철 아이들 돈 안 드는 워터파크",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "여름 맘카페 1위",
+        target: "여름철 아이 데리고 돈 안 드는 동네 물놀이 시설 찾는 부모",
+        source: "행안부 어린이놀이시설 (물놀이형)",
+        feature: "6~8월 가동 시간표, 수심, 탈의실 유무. 맘카페 입소문 1순위."
+      },
+      {
+        id: "25",
+        title: "전국 전통 5일장 & 장날 캘린더 지도",
+        sub: "오늘 열리는 시골 장터 나들이",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "4060 효도",
+        target: "오늘 열리는 시골 장터 나들이 가려는 4060 세대 및 여행객",
+        source: "전국 전통시장 및 상점가 표준데이터",
+        feature: "오늘/내일 장날 날짜(끝자리 2·7일 등) 자동 계산 필터."
+      },
+      {
+        id: "26",
+        title: "전국 무료 낚시 포인트 & 낚금 지도",
+        sub: "손맛 볼 수 있는 안전한 포인트",
+        category: "PUBLIC",
+        categoryName: "공공데이터 킬러",
+        status: "status-viral",
+        statusText: "낚시인 1천만",
+        target: "낚시 금지구역 피해 안전하게 손맛 볼 수 있는 포인트 찾는 1,000만 낚시인",
+        source: "해양수산부 낚시통제구역 DB + 낚시터 공공데이터",
+        feature: "민물/바다 포인트 구분, 화장실 유무, 낚시 금지구역 경계선 표시."
+      },
+
+      // 6. 외국인 관광객
+      {
+        id: "27",
+        title: "Seoul Street Trash Can Map",
+        sub: "Where to throw coffee cups",
+        category: "GLOBAL",
+        categoryName: "외국인 관광객",
+        status: "status-hot",
+        statusText: "글로벌 RPM",
+        target: "길거리에서 테이크아웃 컵 버릴 곳을 못 찾아 고통받는 외국인 관광객",
+        source: "서울 열린데이터광장 (가로 쓰레기통 설치 현황)",
+        feature: "레딧/틱톡 1위 불만 해결. 내 주변 가장 가까운 쓰레기통 도보 안내."
+      },
+      {
+        id: "28",
+        title: "Subway Luggage & Coin Locker Map",
+        sub: "Heavy suitcase storage finder",
+        category: "GLOBAL",
+        categoryName: "외국인 관광객",
+        status: "status-viral",
+        statusText: "여행객 필수",
+        target: "호텔 체크아웃 후 비행기 시간까지 캐리어 맡길 대형 락커 찾는 여행객",
+        source: "서울교통공사 T-Locker 역사별 물품보관함 DB",
+        feature: "역 출구 번호, 대형 캐리어 보관함 잔여 현황, 짐 배송 서비스 제휴 링크."
+      },
+      {
+        id: "29",
+        title: "Official Smoking Zone Finder",
+        sub: "Avoid 100,000 KRW fines",
+        category: "GLOBAL",
+        categoryName: "외국인 관광객",
+        status: "status-viral",
+        statusText: "벌금 회피",
+        target: "길빵 단속 벌금(10만 원) 안 내고 합법적으로 흡연하려는 외국인 관광객",
+        source: "지자체별 금연구역 및 공식 흡연부스 DB",
+        feature: "공식 개방형/밀폐형 흡연부스 위치만 깔끔하게 영문 매핑."
+      },
+      {
+        id: "30",
+        title: "WOWPASS & Money Exchange Map",
+        sub: "Zero fee currency exchange",
+        category: "GLOBAL",
+        categoryName: "외국인 관광객",
+        status: "status-b2b",
+        statusText: "환전 키오스크",
+        target: "수수료 없이 카드 발급/충전하고 외화 환전하려는 필수 여행객",
+        source: "와우패스 키오스크 및 무인 환전기 지점 데이터",
+        feature: "지하철역/호텔 로비 키오스크 위치 및 운영시간 안내."
+      }
+    ];
+
+    let currentCategory = "ALL";
+    let searchQuery = "";
+
+    function renderTable() {
+      const tbody = document.getElementById("tableBody");
+      tbody.innerHTML = "";
+
+      const filtered = MAP_DATA.filter(item => {
+        const matchesCategory = (currentCategory === "ALL" || item.category === currentCategory);
+        const matchesSearch = searchQuery === "" || 
+          item.title.toLowerCase().includes(searchQuery) ||
+          item.sub.toLowerCase().includes(searchQuery) ||
+          item.target.toLowerCase().includes(searchQuery) ||
+          item.feature.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">검색 결과가 없습니다.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="col-id">${item.id}</td>
+          <td class="col-title">
+            ${item.title}
+            <span class="sub-name">${item.sub}</span>
+          </td>
+          <td>
+            <span class="status-badge ${item.status}">${item.statusText}</span>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">${item.categoryName}</div>
+          </td>
+          <td>${item.target}</td>
+          <td style="font-size: 12px; color: var(--text-sub);">${item.source}</td>
+          <td>${item.feature}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 탭 클릭 이벤트
+    document.getElementById("tabContainer").addEventListener("click", (e) => {
+      if (e.target.classList.contains("tab-btn")) {
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        e.target.classList.add("active");
+        currentCategory = e.target.getAttribute("data-category");
+        renderTable();
+      }
+    });
+
+    // 검색 입력 이벤트
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      renderTable();
+    });
+
+    // 노션 마크다운 복사 기능
+    function copyNotionMarkdown() {
+      let md = `| 번호 | 테마 맵 명칭 | 분류 | 타겟 유저 & 핵심 수요 | 데이터 소스 | 킬러 기능 & 수익화 포인트 |\n| :---: | :--- | :---: | :--- | :--- | :--- |\n`;
+      MAP_DATA.forEach(item => {
+        md += `| **${item.id}** | **${item.title}**<br>${item.sub} | ${item.categoryName} | ${item.target} | ${item.source} | ${item.feature} |\n`;
+      });
+
+      navigator.clipboard.writeText(md).then(() => {
+        const toast = document.getElementById("toast");
+        toast.style.display = "block";
+        setTimeout(() => { toast.style.display = "none"; }, 2500);
+      });
+    }
+
+    // 초기 렌더링
+    renderTable();
+  </script>
+</body>
+</html>

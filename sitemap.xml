@@ -111,4 +111,17 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- 수익형 사이트 마스터보드 -->
+  <url>
+    <loc>https://adopter.co.kr/revenue-sites/index.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://adopter.co.kr/revenue-sites/map/index.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

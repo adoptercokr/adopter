@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MJ 공작실 수익형 사이트 마스터 보드 (객관적 시장 평가 기준)</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{--bg:#FAFAFA;--card:#FFF;--text:#111827;--sub:#4B5563;--muted:#9CA3AF;--border:#E5E7EB;--border2:#D1D5DB;--accent:#18181B;--soft:#F4F4F5;--r:8px}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI","Apple SD Gothic Neo",sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding:40px 24px}
+  .wrap{max-width:1380px;margin:0 auto}
+  header{border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:24px}
+  h1{font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .desc{font-size:14px;color:var(--sub);margin-top:6px;max-width:980px}
+  .stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .stat{padding:4px 10px;border:1px solid var(--border);background:var(--soft);border-radius:999px;font-size:12px;font-weight:500}
+  h2{font-size:16px;font-weight:700;margin:28px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
+  .card h3{font-size:14px;font-weight:700;margin-bottom:6px}
+  .card p,.card li{font-size:12.5px;color:var(--sub)}
+  .card ul{padding-left:16px}
+  .controls{display:flex;flex-direction:column;gap:12px;margin:28px 0 16px}
+  .bar{display:flex;gap:12px;align-items:center}
+  .search{flex:1;padding:10px 16px;font-size:14px;border:1px solid var(--border2);border-radius:var(--r);outline:none}
+  .search:focus{border-color:var(--accent)}
+  .sort-select{padding:10px 14px;font-size:13px;font-weight:600;border:1px solid var(--border2);border-radius:var(--r);background:#fff;color:var(--text);outline:none;cursor:pointer}
+  .btn{padding:10px 16px;font-size:13px;font-weight:600;border-radius:var(--r);border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px}
+  .tab{padding:7px 13px;font-size:13px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--sub);cursor:pointer}
+  .tab:hover{border-color:var(--border2);color:var(--text)}
+  .tab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .tab.boss-tab{border-color:#18181B;font-weight:600}
+  .tw{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#F9FAFB;padding:12px 14px;text-align:left;font-weight:600;color:var(--sub);border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:14px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:hover td{background:#FAFAFA}
+  .rank-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:11px;font-weight:700;background:var(--soft);color:var(--text);border:1px solid var(--border2)}
+  .rank-top{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .id{font-family:monospace;font-size:11.5px;color:var(--muted);width:44px}
+  .tt{font-weight:700;min-width:210px}
+  .tt span{display:block;font-size:11.5px;font-weight:400;color:var(--muted);margin-top:2px}
+  .tag-badge{font-size:11px;font-weight:600;padding:3px 7px;border-radius:4px;white-space:nowrap;display:inline-block}
+  .badge-core{background:#EFF6FF;color:#1E40AF;border:1px solid #DBEAFE}
+  .badge-boss{background:#FEF2F2;color:#991B1B;border:1px solid #FEE2E2}
+  .badge-silver{background:#F0FDF4;color:#166534;border:1px solid #DCFCE7}
+  .badge-ai{background:#F3F4F6;color:#374151;border:1px solid #E5E7EB}
+  .cat-badge{font-size:11px;font-weight:500;color:var(--sub);background:var(--soft);padding:2px 6px;border-radius:4px;border:1px solid var(--border);display:inline-block;white-space:nowrap}
+  .pct-badge{display:inline-block;padding:3px 8px;border-radius:4px;font-weight:700;font-size:12.5px;font-family:monospace;text-align:center;background:var(--soft);border:1px solid var(--border2);color:var(--text)}
+  .pct-high{background:#18181B;color:#FFF;border-color:#18181B}
+  .bm{font-size:12px;font-weight:600}
+  .small{font-size:12px;color:var(--sub)}
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;display:none}
+  footer{margin-top:28px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+  <a href="../showcase.html" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#2563eb; text-decoration:none; background:#eff6ff; padding:7px 14px; border-radius:6px; border:1px solid #dbeafe;">
+    &larr; 통합 쇼케이스로 돌아가기
+  </a>
+  <a href="map/index.html" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#18181b; text-decoration:none; background:#f4f4f5; padding:7px 14px; border-radius:6px; border:1px solid #e4e4e7;">
+    킬러 아이템 TOP 5 기획 지도 &rarr;
+  </a>
+</div>
+
+<header>
+  <h1>MJ 공작실 수익형 사이트 마스터 보드 (객관적 시장 평가 기준)</h1>
+  <p class="desc">
+    <strong>"기존에 이미 만들었는가"를 평가 기준에서 100% 배제</strong>하고, 순수하게 <strong>[시장 수요의 절박함(40%) + 1인 무인 자동화 지속성(30%) + 실제 건당 수익 단가(30%)]</strong>만을 객관적으로 냉정하게 재산정한 추천도 % 랭킹입니다.
+  </p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<h2>객관적 추천도 산정 기준 (개발 완료 여부 가산점 0점)</h2>
+<div class="grid">
+  <div class="card">
+    <h3>1. 수요의 절박함 & 검색 강도 (40%)</h3>
+    <p>정보가 없으면 벌금을 내거나, 손해를 보거나, 지금 당장 발을 동동 구르는 '극심한 페인포인트'인가? (로또 당첨금, 장기요양 시설, 제주 쓰레기 배출, 폐업 지원금 등)</p>
+  </div>
+  <div class="card">
+    <h3>2. 1인 무인 자동화 가능성 (30%)</h3>
+    <p>사람 손(영업, 상담, CS, 수동 등록)을 타지 않고, 공공데이터 API나 크론 스크립트만으로 365일 무인 가동될 수 있는가? (양면 플랫폼 마케팅 지옥 배제)</p>
+  </div>
+  <div class="card">
+    <h3>3. 실질 객단가 & 수익 전환율 (30%)</h3>
+    <p>단순 배너 푼돈(클릭당 10원)이 아닌, 금융/의료/시공/렌탈 고단가 광고나 건당 수만 원의 리드 수수료, 1초 소액결제가 일어나는 구조인가?</p>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="bar">
+    <input id="q" class="search" placeholder="검색 (예: 보유, 대표님, 실버, 요양, 위집, 색칠, 제주, 바이크, 로또, 철거...)">
+    <select id="sortSel" class="sort-select" onchange="changeSort(this.value)">
+      <option value="DESC">추천도 높은순 (98% → 45%)</option>
+      <option value="ASC">추천도 낮은순 (45% → 98%)</option>
+      <option value="ID">아이템 ID 순</option>
+    </select>
+    <button class="btn" onclick="copyMd()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      노션용 복사 (현재 탭)
+    </button>
+  </div>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="tw">
+  <table>
+    <thead><tr><th style="width:48px">순위</th><th class="id">No</th><th>항목</th><th style="width:110px">출처/구분</th><th style="width:90px">세부 분류</th><th style="width:90px">추천도</th><th>수익 모델</th><th>타겟 / 수요</th><th>객관적 시장 평가 사유</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table>
+</div>
+
+<footer>최종 업데이트 2026-11-19 · 객관적 시장 평가 적용</footer>
+</div>
+<div class="toast" id="toast">노션용 마크다운 표를 복사했습니다</div>
+
+<script>
+// [id, origin, catKey, title, sub, scorePct(0-100), bm, target, action]
+// origin: 'CORE'(보유 플랫폼), 'BOSS'(대표님 제안), 'SILVER'(실버 사업), 'AI'(AI 발굴)
+const ORIGIN_LABELS = {
+  CORE: { text: "보유 플랫폼", cls: "badge-core" },
+  BOSS: { text: "대표님 제안", cls: "badge-boss" },
+  SILVER: { text: "실버 사업", cls: "badge-silver" },
+  AI: { text: "신규 발굴", cls: "badge-ai" }
+};
+
+const CAT_LABELS = {
+  FINANCE: "금융/계산기", PRINT: "프린터블", MAP: "지도 서비스",
+  SAAS: "B2B/SaaS", FORTUNE: "사주/운세", GAME: "웹게임",
+  JOB: "일손/구인", WELFARE: "복지/시니어", LIFE: "생활/짠테크"
+};
+
+const D = [
+ // ── 객관적 시장 평가 재산정 데이터 (총 56종)
+ // [1] 객관적 95% 이상 최상위권: 수요 극심 + 100% 무인 + 초고단가
+ ["S01","SILVER","WELFARE","요양원·주간보호센터 등급 비교 지도","건강보험공단 장기요양기관 평가등급 DB",98,"상담 신청 리드 판매 (건당 3~5만 원) + 광고","부모님 요양 시설 알아보는 40~50대 자녀","[시장성 1위] 부모님 시설 입소는 가족의 최대 고민. 건보공단 공공데이터 100% 무인 갱신 가능하며, 시설 매칭 시 건당 수만 원 수수료 발생."],
+ ["C01","CORE","FINANCE","위집 (wezip.co.kr)","money-calc · 계산기 12종 + 칼럼 215개",97,"애드센스 (금융 초고단가)","실수령액·DSR·퇴직금·양도세 계산 직장인/사업자","[단가 1위] AI 챗봇이 틀리는 숫자를 1원 단위 수식으로 검증. 금융/대출 광고 단가는 클릭당 수천 원으로 전 웹사이트 분야 중 압도적 최고가."],
+ ["M18","AI","MAP","전국 로또 1·2등 명당 지도","매주 토요일 자동 갱신",96,"로또/운세/대출 광고","내 주변 역대 1등 다수 배출점 찾는 직장인","[트래픽 1위] 금·토 전 국민 수백만 검색 폭증. 동행복권 API로 100% 무인 업데이트되며, 0.05초 초경량 렌더링으로 광고 노출 극대화."],
+ ["B02","BOSS","MAP","제주 클린하우스 & 재활용도움센터","대표님 제안 · 제주 요일제 무관 배출처",96,"제주 렌터카·숙박 광고 + 애드센스","요일제 배출 놓친 제주도민, 한달살기, 펜션 여행객","[바이럴 1위] 제주도 고유의 극심한 생활 고통(요일제)을 1초 만에 해결. 제주데이터허브 공공데이터로 완전 무인 운영 가능."],
+ ["S02","SILVER","WELFARE","복지용구 국가지원 85~100% 대여 계산기","전동침대·휠체어·욕창매트 국비지원 한도",95,"복지용구 사업소 리드 판매 (건당 2~3만)","장기요양등급(1~5등급) 부모님 둔 자녀","[실거래 1위] 연간 160만 원 국비 지원(자부담 0~15%) 계산 후 지역 대여소로 바로 연결. 자녀들의 절박함과 복지용구 업체의 유료 결제 의사 일치."],
+ ["C02","CORE","PRINT","글로벌 색칠공부 (ColorWorld)","global-coloring · 도안 55,000+",95,"글로벌 애드센스 + PDF 번들","영미권 부모·유치원교사·홈스쿨링","[글로벌 1위] A4 종이 출력물은 AI가 화면 밖으로 못 뽑아줌. 핀터레스트 봇 연동 시 100% 무인 영미권 고단가(RPM 3~5배) 유입."],
+
+ // [2] 객관적 90%~94% 상위권: 높은 수요 + 고단가 (단, 약간의 데이터 정제나 전환 필요)
+ ["M04","AI","MAP","합법 동물장례식장 지도","애니맵 본진 직결 킬러 맵",94,"장례업체 직접 제휴 수수료","무지개다리 건넜을 때 불법 무허가 소각장 피하려는 반려인","반려인 1,500만 시대. 불법 소각장이 90%인 현실에서 농식품부 100% 정식 허가 장례식장 필터링은 대체 불가한 가치. 건당 고부가가치."],
+ ["N01","AI","LIFE","소상공인 폐업 철거지원금(최대 400만) 진단기","희망리턴패키지 철거비 + 원상복구 비교",93,"철거/원상복구 업체 매칭 수수료 (건당 3~5만)","폐업 앞두고 원상복구 비용 부담되는 소상공인","고물가 시대 폐업 소상공인 급증. 정부 지원금(최대 400만) 자격 진단 후 철거업체로 유료 DB 연결. 객단가 매우 높음."],
+ ["M09","AI","MAP","아파트 층간소음 구조 지도","기둥식(라멘) vs 벽식",92,"부동산·대출 초고단가 광고","층간소음 극도로 피하고 싶은 신혼부부, 육아 가정","건축물대장 표제부 공공데이터 100% 자동 매핑. 전월세 이사철마다 부동산 커뮤니티(맘카페/블라인드) 자발적 공유 폭발."],
+ ["M19","AI","MAP","무료 노지 차박 & 캠핑장","화장실·개수대 여부",91,"캠핑용품·SUV 렌트 광고","예약 실패하고 화장실 있는 공짜 노지 찾는 캠핑족","주말마다 500만 캠핑족이 찾는 화장실 딸린 공짜 노지. 한국관광공사 고캠핑 데이터 기반 100% 무인 갱신."],
+ ["S04","SILVER","LIFE","시니어 알뜰폰 & 통신비 감면(12,100원) 계산기","기초연금 수급자 통신할인 + 5천원대 요금제",91,"알뜰폰 개통 제휴 수수료 (건당 2~4만 원)","통신비 부담 큰 어르신, 요금 줄여주려는 자녀","기초연금 수급자 월 12,100원 감면 자격 조회 + 5천원대 어르신 전용 알뜰폰 개통 연결. 개통 1건당 2~4만원 현금 리베이트."],
+ ["B04","BOSS","MAP","바이크(이륜차) 라이더 맵","대표님 제안 · 합법 주차·전용도로 우회",90,"이륜차 보험·용품·리스 광고","주차 거부와 전용도로 벌금(30만) 피하려는 라이더","200만 라이더의 벌금 30만원 공포와 주차 스트레스 해결. 라이더 동호회(바튜매) 내 충성도 및 바이럴 파워 극상."],
+ ["M20","AI","MAP","주말 무료 공영주차장","핫플 주차비 절약",90,"자동차·주차앱 광고","핫플 방문 시 시간당 8천 원 주차비 아끼려는 운전자","주말 서울 핫플레이스 시간당 8천원 주차비 아끼려는 운전자 필수 북마크. 전국 주차장 표준데이터 기반 무인 운영."],
+
+ // [3] 객관적 85%~89% 중상위권: 수익성/수요 좋으나 타겟이 한정되거나 1초 결제 필요
+ ["N02","AI","LIFE","원룸 가전·가구 '렌탈 vs 중고 vs 새제품' 계산기","1~2년 자취생 실지출 비용 비교",89,"가전 렌탈 제휴 수수료 (설치 건당 5~15만 원)","단기 거주 대학생, 사회초년생, 원룸 자취생","단기 거주 청년층 실지출 비교. 렌탈 설치 1건당 5~15만원 대박 리베이트 수수료 발생."],
+ ["M05","AI","MAP","노캐디 2인 & 파3 골프장","캐디피 없는 가성비 골프",89,"골프용품·부킹 최고가 광고","1인 30만 원 캐디피 부담 없이 둘이 치려는 골퍼","골프 인구 급증 속 캐디피 부담 해소. 2인 플레이/파3 연습장 큐레이션으로 골프 최고단가 광고 유치."],
+ ["S05","SILVER","FINANCE","부모님 혜택 한 번에 조회 계산기","wezip /silver 하위 경로",89,"애드센스 (보험·요양·상조)","자녀가 대신 확인: 기초연금, 장기요양, 교통/통신 감면","복잡한 복지 혜택을 5개 질문으로 1초 진단. 4050 자녀들의 유입이 많아 상조/보험 고단가 광고 매칭."],
+ ["C05","CORE","FORTUNE","AI 사주·운세 서비스","money-calc/saju · 시니어사이트",88,"소액결제 2,900~9,900원","2030 연애운/속마음, 5060 신년운","광고 클릭이 아닌 카카오페이/토스 직접 결제 모델. 연애/재물운 바이럴 타면 현금 즉시 입금."],
+ ["N04","AI","LIFE","자동차세 연납 할인 & 마일리지 환급 모의 계산기","1월/3월 자동차세 4.5% 할인 + 보험 환급금",88,"다이렉트 자동차보험 비교 리베이트 (건당 3만)","자동차세 절세 및 보험료 환급 원하는 차주","1월/3월 세금 납부 시즌 트래픽 폭증. 다이렉트 자동차보험 비교 가입 연결 시 건당 3만원 수수료."],
+ ["M10","AI","MAP","야장·노상 포차 지도","플라스틱 의자의 계절",88,"숙취해소·대리운전 광고","봄가을 야외 길거리에서 맥주/고기 먹고 싶은 2030","인스타/스레드 릴스 공유 폭발 아이템. 봄가을 계절성은 타지만 2030 유입 폭발력 최상위."],
+ ["M27","AI","MAP","Seoul Trash Can Map","길거리 쓰레기통",87,"글로벌 애드센스 (고단가 RPM)","테이크아웃 컵 버릴 곳 찾는 외국인 관광객","외국인 관광객 틱톡/레딧 1위 불만 해결. 단순 지도지만 영미권 트래픽으로 애드센스 RPM 극대화."],
+ ["B03","BOSS","MAP","시제품·제조공장 B2B 지도","대표님 제안 · CNC·금형·사출·아크릴",86,"견적 중개 수수료 + 산업 B2B 광고","금형/사출/CNC 소량 가공처 찾는 스타트업, 설계자","스타트업/발명가의 발품 고통 해결. 다만 공장 공공데이터 중 폐업 업체를 걸러내는 주기적 정제 작업 필요."],
+ ["N03","AI","LIFE","입주청소·도배 견적 계산기","wezip 하위 경로 연계",86,"업체 리드 판매 (건당 1.5~2.5만)","이사 앞두고 적정 시공비 알고 싶은 세입자","평수 입력 시 1초 견적. 시공업체로 DB 연결 시 건당 수수료 짭짤하나 이사철 집중."],
+ ["S06","SILVER","SAAS","안심 상속·유언장 & 효도계약서 생성기","부양 조건부 증여 계약서 표준 양식",85,"상속 전문 변호사/세무사 제휴 + 유료 서식","재산 증여 후 부양 안 할까 봐 불안한 부모님","사후 분쟁 예방 효도계약서 서식 자동화. 고령화 사회 필수 툴이나 타겟이 60대 이상으로 제한."],
+
+ // [4] 객관적 75%~84% 중위권: 특정 타겟 킬러 콘텐츠 or 초기 영업/공급 필요
+ ["M28","AI","MAP","Subway Coin Locker Map","캐리어 보관함",84,"짐배송 제휴 + 글로벌 광고","체크아웃 후 비행기 시간까지 짐 맡길 락커 찾는 여행객","호텔 체크아웃 후 짐 맡길 곳 찾는 외국인 필수. 서울교통공사 데이터 연동."],
+ ["M15","AI","MAP","상가 임대료·폐업률 지도","창업 전 상권 체크",84,"인테리어·POS·세무 광고","유동인구 대비 임대료 가성비 분석하려는 예비 점주","예비 창업자 상권 분석 툴. 소진공 상권정보 기반 무인 운영."],
+ ["C04","CORE","SAAS","어답터 숙박 웹빌더","adopter · stay · jejuheestay",83,"월 구독 3~5만 / 제작비 50~100만","펜션·풀빌라 호스트","[영업 필요] 호스트 1명당 월 3~5만원의 안정적 구독료가 나오지만, 초기에 호스트를 직접 발굴/영업해야 하는 수고 발생."],
+ ["C06","CORE","MAP","애니맵 (animap.co.kr)","animap · 반려동물 지도 엔진",83,"애드센스 + 동물병원·장례 제휴","반려인 (동반 장소, 24시 응급병원)","[다이어트 필수] 반려인 충성도는 높으나, 기존 무거운 이미지를 걷어내고 초경량 텍스트/좌표 맵으로 전환해야 생존."],
+ ["N05","AI","SAAS","표준 계약서·서식 자동 작성기","근로계약서, 내용증명, 차용증",83,"B2B 광고 + 전자서명 유료 전환","급하게 서식 필요한 자영업자·프리랜서","자영업자 필수 서식 무료 생성. 전자서명 유료 과금 전환 모델."],
+ ["S07","SILVER","LIFE","키오스크·스마트폰 연습장","햄버거 주문, KTX 예매, 병원 접수 모의 화면",82,"복지관·지자체 B2G 라이선스 + 광고","키오스크 앞에서 당황하는 어르신, 교육 강사","어르신 디지털 소외 해결. 복지관/노인대학 B2G 납품 시 쏠쏠하나 개별 유저는 결제 안 함."],
+ ["M21","AI","MAP","착한가격업소 지도","5천 원 칼국수",82,"애드센스","고물가 시대 가성비 식당 찾는 직장인/학생","고물가 시대 뉴스 언급 시 트래픽 폭증. 행안부 공공데이터 연동."],
+ ["M22","AI","MAP","전통 5일장 장날 지도","오늘 열리는 장 자동 계산",82,"애드센스","오늘 열리는 시골 장터 나들이 4060 세대","장날(끝자리 2·7일 등) 자동 계산. 4060 나들이 수요 꾸준."],
+ ["N06","AI","PRINT","유아 한글·치매예방 워크시트","색칠공부 파이프라인 확장",81,"애드센스 + 100장 PDF 9,900원 판매","유치원 교사, 요양보호사","색칠공부 인프라 재활용. 무료 다운로드(애드센스) + 고화질 묶음 판매."],
+ ["M11","AI","MAP","휴게소 대표 메뉴(EX-FOOD)","명절·휴가철 필수",81,"애드센스","휴게소 1등 명물 음식 먹고 싶은 운전자","명절/휴가철 네이버 실검 장악. 한국도로공사 데이터 기반."],
+ ["M23","AI","MAP","공중·개방화장실 지도","비상벨·기저귀교환대",80,"애드센스","생리현상 해결하려는 라이더, 택시기사, 육아 부모","생리현상 해결 킬러 맵. 트래픽은 많으나 체류시간이 짧아 광고 클릭률 보통."],
+ ["M29","AI","MAP","WOWPASS & Exchange Map","무인 환전·충전",80,"글로벌 애드센스","수수료 없이 카드 발급/충전하려는 관광객","관광객 필수 핀. 위치 데이터 연동."],
+ ["S08","SILVER","PRINT","매일 두뇌운동 큰 글씨 퀴즈","시니어사이트 brain.html 확장",80,"애드센스 + 인지활동지 PDF 판매","치매 예방 관심 어르신, 주간보호센터","치매 예방 데일리 퀴즈. 카톡 공유 유도."],
+ ["M16","AI","MAP","3PL 물류창고 지도","소량 보관 가능 창고",79,"B2B 물류 광고","소량 위탁 보관 창고 찾는 스마트스토어/쿠팡 셀러","스마트스토어 셀러 필수. 물류창고업 등록 DB 연동."],
+ ["M24","AI","MAP","무료 낚시 포인트·낚시금지 구역","1,000만 낚시인",79,"낚시용품 광고","낚시 금지구역 피해 손맛 보려는 낚시인","1,000만 낚시인 필수. 해수부 데이터 연동."],
+ ["M06","AI","MAP","폐공장·양곡창고 개조 공간","레트로 대형 카페·갤러리",78,"애드센스 (카페/여행)","주말 이색 나들이 찾는 2040","주말 나들이 2040 타겟 핫플레이스 큐레이션."],
+ ["M07","AI","MAP","인테리어 자재 도매거리","을지로 조명, 논현 타일",78,"시공·가구 광고","셀프 인테리어족, 창업자, 인테리어 실장","을지로/논현 도매상점 매핑. 인테리어 고단가 광고."],
+ ["M08","AI","MAP","합법 임도·4륜 오프로드 맵","SUV 투어링 코스",77,"타이어·튜닝·아웃도어 광고","주말마다 비포장 산길 달리고 싶은 4WD 차주","산림청 합법 개방 임도 안내. SUV 타겟."],
+ ["M25","AI","MAP","24시 무인 프린트 지도","야간 급한 출력",77,"애드센스","새벽이나 주말에 급하게 이력서/등본 출력하는 사람","새벽 급한 출력. 절박함은 크나 1회성 방문."],
+ ["M30","AI","MAP","Smoking Zone Finder","공식 흡연구역",77,"글로벌 애드센스","길빵 벌금 10만 원 안 내고 흡연하려는 관광객","공식 흡연부스 위치. 벌금 회피."],
+ ["S09","SILVER","FORTUNE","큰 글씨 사주·토정비결","시니어사이트 saju.html 재활용",76,"소액결제 + 광고","신년운·토정비결 보는 5070","신년운세 시즌성 집중 운영."],
+ ["M12","AI","MAP","새벽 드라이브 & 심야 카페","서울 근교 야간 코스",76,"애드센스","밤 10시 넘어 드라이브 가는 커플","심야 드라이버 큐레이션."],
+ ["M26","AI","MAP","무료 물놀이터·바닥분수","여름 한정",75,"애드센스","여름철 돈 안 드는 동네 물놀이 시설 찾는 부모","여름 한정 트래픽."],
+ ["C07","CORE","SAAS","단기임대 전자계약","단기임대계약시스템-제미나이",75,"계약 체결 건당 1,500~3,000원","한달살기·단기임대 직거래 임대인","직거래 임대인 필수 툴이나 단독 유입 확보가 어려워 숙박 솔루션과 묶어서 팔아야 함."],
+ ["S10","SILVER","MAP","경로당·복지관 무료 프로그램 지도","지자체 노인복지시설 공공데이터",74,"애드센스","동네 노래교실·스마트폰 교실 찾는 어르신","동네 복지 프로그램 안내."],
+ ["M13","AI","MAP","카공족 콘센트 카페","대형 매장·24시",74,"애드센스","눈치 안 보고 공부하려는 학생·프리랜서","카공족 타겟."],
+ ["S11","SILVER","MAP","무장애 효도 여행 지도","한국관광공사 열린관광지 API",73,"숙박·여행 제휴","휠체어·보행 불편 부모님 모시고 여행 가는 자녀","효도 관광 휠체어 코스."],
+ ["M17","AI","MAP","고철·파지 매입소 지도","폐자원 돈 받고 팔기",72,"애드센스","철거·인테리어 고철 팔려는 실무자","폐자원 실무자 타겟."],
+ ["M14","AI","MAP","캡슐토이(가챠) 전문점","키덜트 굿즈 성지",71,"애드센스","산리오/짱구 뽑기 원정 다니는 1030","키덜트 굿즈 성지."],
+
+ // [5] 객관적 40%~70% 하위권 (냉정한 감점 요인 존재)
+ // 마이크로잡: 양면 플랫폼(일자리도 모아야 하고 구직자도 모아야 함)의 극심한 마케팅 난이도
+ ["B01","BOSS","JOB","마이크로잡 어르신 큰 글씨 모드","대표님 아이디어 · microjob 안에 쉬운화면 탑재",68,"마이크로잡 공고비 + 지자체 제휴","당근·알바몬이 어려운 어르신 (집수리, 간병, 반찬, 텃밭 일손)","[마케팅 난이도 극상] 아이디어는 훌륭하나 공고 올릴 사장님과 어르신 양쪽을 1인이 모으는 '양면 시장'의 벽이 매우 높음. 공공 일자리 자동 크롤링이 선행되어야 함."],
+ ["S03","SILVER","JOB","어르신 공공 일자리 자동 수집","마이크로잡 쉬운 탭으로 편입",68,"애드센스 + 교육기관 제휴","일하고 싶은 60~75세, 자녀","B01의 공고 부족을 메우기 위한 보조 수단. 공공 API 수집 필수."],
+ ["C03","CORE","JOB","마이크로잡 (동네 단기 일자리)","microjob · 지도/목록/대시보드 거의 완성",65,"구인 등록비 + 상단노출 + 광고","오늘 몇 시간 일할 사람 구하는 사장님, 단기 일 찾는 동네 주민","[플랫폼의 덫] 코드가 다 짜여있더라도 당근/알바몬과 싸워 초기에 일자리를 채우지 못하면 1인 운영이 가장 힘든 모델."],
+ ["C08","CORE","GAME","웹 미니게임 15종","02-Spark-Game-Studio",45,"게임오버 전면광고","킬링타임 1020","[수익성 최하위] AI로 게임이 매일 수천 개 쏟아지는 시대. 체류시간은 길지만 배너를 아무도 안 눌러 품 대비 수익률 최하위."]
+];
+
+const TABS = [
+  ["ALL","전체 보기"],
+  ["TOP","추천도 90% 이상 (최상위)"],
+  ["CORE","[보유] 플랫폼 8종"],
+  ["BOSS","[대표님 제안] 4종"],
+  ["SILVER","[실버 사업] 11종"],
+  ["AI","[신규 발굴] 33종"]
+];
+
+let cur="ALL", q="", sortOrder="DESC";
+
+function match(r,k,s){
+  const okCat = k==="ALL" || r[1]===k || (k==="TOP"&&r[5]>=90);
+  return okCat && (!s || r.join(" ").toLowerCase().includes(s));
+}
+
+function getSortedRows(){
+  let rows = D.filter(r=>match(r,cur,q));
+  if(sortOrder==="DESC") {
+    rows.sort((a,b) => b[5] - a[5]);
+  } else if(sortOrder==="ASC") {
+    rows.sort((a,b) => a[5] - b[5]);
+  } else if(sortOrder==="ID") {
+    rows.sort((a,b) => a[0].localeCompare(b[0]));
+  }
+  return rows;
+}
+
+function render(){
+  document.getElementById("tabs").innerHTML = TABS.map(([k,l])=>{
+    const c = D.filter(r=>match(r,k,"")).length;
+    return `<button class="tab ${k===cur?'on':''} ${k==='BOSS'?'boss-tab':''}" data-k="${k}">${l} (${c})</button>`;
+  }).join("");
+
+  const R = getSortedRows();
+  document.getElementById("tb").innerHTML = R.length ? R.map((r, idx)=>{
+    const rank = idx + 1;
+    const isTop = rank <= 3 && sortOrder === "DESC";
+    const origin = ORIGIN_LABELS[r[1]];
+    const cat = CAT_LABELS[r[2]] || r[2];
+    const isHigh = r[5] >= 90;
+    return `<tr>
+      <td><span class="rank-badge ${isTop?'rank-top':''}">${rank}</span></td>
+      <td class="id">${r[0]}</td>
+      <td class="tt">${r[3]}<span>${r[4]}</span></td>
+      <td><span class="tag-badge ${origin.cls}">${origin.text}</span></td>
+      <td><span class="cat-badge">${cat}</span></td>
+      <td><span class="pct-badge ${isHigh?'pct-high':''}">${r[5]}%</span></td>
+      <td class="bm">${r[6]}</td>
+      <td class="small">${r[7]}</td>
+      <td class="small">${r[8]}</td></tr>`;
+  }).join("")
+  : `<tr><td colspan="9" style="text-align:center;padding:40px;color:#9CA3AF">결과가 없습니다</td></tr>`;
+}
+
+function changeSort(val){
+  sortOrder = val;
+  render();
+}
+
+document.getElementById("stats").innerHTML = [
+  `전체 ${D.length}개`,
+  `객관적 90% 이상 ${D.filter(r=>r[5]>=90).length}개`,
+  `보유 플랫폼 ${D.filter(r=>r[1]==='CORE').length}개`,
+  `대표님 제안 ${D.filter(r=>r[1]==='BOSS').length}개`,
+  `실버 사업 ${D.filter(r=>r[1]==='SILVER').length}개`,
+  `신규 발굴 ${D.filter(r=>r[1]==='AI').length}개`
+].map(t=>`<span class="stat">${t}</span>`).join("");
+
+document.getElementById("tabs").addEventListener("click",e=>{ if(e.target.dataset.k){cur=e.target.dataset.k;render();} });
+document.getElementById("q").addEventListener("input",e=>{ q=e.target.value.toLowerCase().trim(); render(); });
+
+function copyMd(){
+  const esc = s => String(s).replace(/\|/g,"/");
+  let md = "| 순위 | No | 항목 | 출처/구분 | 세부 분류 | 추천도(%) | 수익 모델 | 타겟 / 수요 | 객관적 시장 평가 사유 |\n| :---: | :---: | :--- | :---: | :---: | :---: | :--- | :--- | :--- |\n";
+  getSortedRows().forEach((r, idx)=>{
+    const origin = ORIGIN_LABELS[r[1]].text;
+    const cat = CAT_LABELS[r[2]] || r[2];
+    md += `| ${idx+1} | ${r[0]} | **${esc(r[3])}** (${esc(r[4])}) | ${origin} | ${cat} | **${r[5]}%** | ${esc(r[6])} | ${esc(r[7])} | ${esc(r[8])} |\n`;
+  });
+  navigator.clipboard.writeText(md).then(()=>{
+    const t=document.getElementById("toast");
+    t.style.display="block";
+    setTimeout(()=>t.style.display="none",2200);
+  });
+}
+
+render();
+</script>
+</body>
+</html>

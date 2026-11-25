@@ -515,7 +515,7 @@
         hostingType: "Vercel (Next.js)",
         db: "VWorld 지도 API &middot; 공공데이터",
         google: "GA4 (G-GYXBJK8ZHZ) &middot; 애드센스",
-        status: "LIVE"
+        status: "진행중"
       },
       {
         name: "케어맵 (care.animap)",
@@ -526,6 +526,17 @@
         hostingType: "Vercel (Next.js)",
         db: "심평원·건보공단 요양기관 API",
         google: "GA4 (G-GYXBJK8ZHZ) &middot; 애드센스",
+        status: "진행중"
+      },
+      {
+        name: "수익형 사이트 마스터보드",
+        url: "https://adopter.co.kr/revenue-sites/index.html",
+        repo: "adoptercokr/adopter",
+        repoUrl: "https://github.com/adoptercokr/adopter/tree/main/revenue-sites",
+        hosting: "Cloudflare Pages",
+        hostingType: "CF Pages (정적)",
+        db: "100선 시장성 DB / Markdown",
+        google: "GA4 (G-2N5V6S642H)",
         status: "LIVE"
       },
       {
@@ -649,10 +660,17 @@
             ${item.google}
           </td>
           <td class="py-3 px-3.5 text-center">
-            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              ${item.status}
-            </span>
+            ${item.status === '진행중' ? `
+              <span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                진행중
+              </span>
+            ` : `
+              <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                ${item.status}
+              </span>
+            `}
           </td>
         </tr>
       `).join('');
