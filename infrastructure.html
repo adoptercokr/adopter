@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MJ LAB | 인프라 & 기술 스택 대시보드 (Infrastructure & Architecture Map)</title>
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- GA4: mj-site wezip & adopter property -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N5V6S642H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2N5V6S642H');
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f8fafc; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .infra-card {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .infra-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(37, 99, 235, 0.06);
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- TOP HEADER -->
+  <header class="glass-nav sticky top-0 z-40 border-b border-slate-200/90 px-6 py-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-white shadow-sm">
+          <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold text-slate-900 tracking-tight">MJ LAB &middot; INFRASTRUCTURE &amp; TECH STACK</h1>
+            <span class="text-[11px] font-medium px-2 py-0.5 rounded border border-emerald-200 bg-emerald-50 text-emerald-700 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              ALL SYSTEMS LIVE
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">GitHub 16+ 저장소 &middot; Vercel &middot; Cloudflare &middot; Supabase &middot; Google 생태계 통합 인벤토리</p>
+        </div>
+      </div>
+
+      <!-- NAVIGATION ACTIONS -->
+      <div class="flex items-center gap-2.5">
+        <a 
+          href="showcase.html" 
+          class="px-3.5 py-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span>쇼케이스 포털로 이동</span>
+        </a>
+
+        <a 
+          href="index.html" 
+          class="px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-medium flex items-center gap-1.5 shadow-sm transition-colors"
+        >
+          <span>어댑터 공식 메인</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="max-w-7xl mx-auto px-6 pt-8 pb-4 w-full">
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
+      <!-- Ambient light effect -->
+      <div class="absolute -top-20 -right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-mono font-medium mb-3">
+          <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+          MJ LAB GLOBAL TECH ARCHITECTURE
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+          클라우드 호스팅 &middot; 배포 파이프라인 &middot; 인프라 아키텍처 현황
+        </h2>
+        <p class="text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+          대표님께서 운영 중이신 <strong>11대 핵심 웹 서비스와 게임 포털, 이커머스</strong>는 
+          GitHub 푸시 1번으로 Vercel과 Cloudflare에 자동 배포되며, 
+          Cloudflare의 글로벌 에지 DNS와 Supabase의 백엔드, 구글의 GA4·GTM·애드센스 분석망으로 유기적으로 연결되어 있습니다.
+        </p>
+
+        <!-- 6 Summary Stats Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6 pt-6 border-t border-slate-100">
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">GitHub Organization</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">adoptercokr</div>
+            <div class="text-[10px] text-blue-600 font-mono mt-0.5">16+ 저장소 관리</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">서버리스 호스팅</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">Vercel</div>
+            <div class="text-[10px] text-emerald-600 font-mono mt-0.5">Next.js 자동 빌드</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">DNS &amp; 스토리지</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">Cloudflare</div>
+            <div class="text-[10px] text-cyan-600 font-mono mt-0.5">R2 5.4만장 &middot; Pages</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">데이터베이스</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">Supabase</div>
+            <div class="text-[10px] text-emerald-600 font-mono mt-0.5">PostgreSQL &middot; 전자서명</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">트래픽 분석 &amp; 수익</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">Google GA4 / Ad</div>
+            <div class="text-[10px] text-amber-600 font-mono mt-0.5">3대 속성 &middot; 애드센스</div>
+          </div>
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5">
+            <div class="text-[11px] font-medium text-slate-500">이커머스 쇼핑몰</div>
+            <div class="text-base font-bold text-slate-900 mt-0.5">Cafe24</div>
+            <div class="text-[10px] text-rose-600 font-mono mt-0.5">제주모도 &middot; 안단테9</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTO DEPLOY PIPELINE DIAGRAM SECTION -->
+  <section class="max-w-7xl mx-auto px-6 py-4 w-full">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+        <div>
+          <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">CI / CD AUTOMATION</span>
+          <h3 class="text-base font-bold text-slate-900 mt-1">원클릭 GitHub Push ➔ 글로벌 클라우드 자동 배포 파이프라인</h3>
+        </div>
+        <span class="text-xs font-mono text-slate-500 hidden sm:inline">ZERO-CLI DEPLOYMENT</span>
+      </div>
+
+      <!-- Flow Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
+        <!-- Step 1 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono font-bold text-slate-400 mb-1">STEP 01</div>
+            <div class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>로컬 코드 개발</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Antigravity AI 스튜디오에서 실시간 기능 추가 및 검수</p>
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-slate-600 bg-white px-2 py-1 rounded border border-slate-200 truncate">
+            Windows Workspace
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono font-bold text-blue-500 mb-1">STEP 02</div>
+            <div class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>GitHub 원격 Push</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1"><code>main</code> 브랜치에 안전하게 커밋 &amp; 푸시</p>
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200 truncate">
+            github.com/adoptercokr
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono font-bold text-emerald-500 mb-1">STEP 03</div>
+            <div class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>클라우드 자동 빌드</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Vercel &middot; Cloudflare가 푸시 감지 후 1분 내 자동 빌드</p>
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded border border-emerald-200 truncate">
+            Vercel &middot; CF Pages
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono font-bold text-cyan-500 mb-1">STEP 04</div>
+            <div class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>DNS &amp; SSL 보안 보호</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">Cloudflare 에지 네트워크를 통한 DDoS 방어 &amp; 빠른 서빙</p>
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-cyan-700 bg-cyan-50 px-2 py-1 rounded border border-cyan-200 truncate">
+            Cloudflare DNS &amp; CDN
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-mono font-bold text-amber-500 mb-1">STEP 05</div>
+            <div class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+              <span>데이터 분석 &amp; 수익화</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">구글 GA4 실시간 순방문자 추적 &amp; 애드센스 광고 수익</p>
+          </div>
+          <div class="mt-3 text-[11px] font-mono text-amber-700 bg-amber-50 px-2 py-1 rounded border border-amber-200 truncate">
+            GA4 &middot; GTM &middot; AdSense
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN INFRASTRUCTURE MATRIX TABLE -->
+  <main class="max-w-7xl mx-auto px-6 py-6 flex-1 w-full">
+    
+    <!-- Table Header & Filter -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-slate-200 gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-900 text-white">MASTER INVENTORY</span>
+            <h3 class="text-lg font-bold text-slate-900 tracking-tight">전체 프로젝트 인프라 매트릭스 (11대 서비스)</h3>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">각 서비스의 도메인, GitHub 소스코드 저장소, 호스팅 엔진, 데이터베이스, 구글 연동 상태 총괄</p>
+        </div>
+
+        <!-- Search in table -->
+        <div class="relative w-full sm:w-72">
+          <input 
+            type="text" 
+            id="infraSearchInput"
+            placeholder="사이트명, 도메인, 리포지토리 검색..."
+            oninput="filterInfraTable()"
+            class="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
+          />
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold">
+              <th class="py-3 px-3.5 rounded-l-lg">서비스 / 사이트명</th>
+              <th class="py-3 px-3.5">공식 도메인 (URL)</th>
+              <th class="py-3 px-3.5">GitHub 저장소</th>
+              <th class="py-3 px-3.5">클라우드 호스팅</th>
+              <th class="py-3 px-3.5">데이터베이스 / 백엔드</th>
+              <th class="py-3 px-3.5">구글 연동 (GA4 / 광고)</th>
+              <th class="py-3 px-3.5 rounded-r-lg text-center">상태</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="infraTableBody">
+            <!-- Dynamic Rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DETAILED INFRASTRUCTURE PROVIDERS SECTION -->
+    <div class="mb-4">
+      <h3 class="text-base font-bold text-slate-900 mb-1">인프라 및 플랫폼 공급자별 세부 아키텍처</h3>
+      <p class="text-xs text-slate-500 mb-4">현재 운영 중인 6대 클라우드 및 서드파티 서비스의 핵심 역할과 기술 스펙입니다.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      
+      <!-- Card 1: GitHub -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold text-xs">
+                GH
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">GitHub Organization</h4>
+                <div class="text-[11px] font-mono text-slate-500">github.com/adoptercokr</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">형상 관리</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            대표님의 모든 프로젝트가 <code>adoptercokr</code> 조직 아래 통합 관리됩니다. main 브랜치 Push 시 Vercel 및 Cloudflare Pages로 즉각 자동 배포됩니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">주요 Repo:</strong> animap, lotto, care-map, colorbob, wezip, contract, games, adopter</li>
+            <li>&bull; <strong class="text-slate-700">배포 방식:</strong> GitHub Webhook ➔ Cloud Auto Deploy</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <a href="https://github.com/adoptercokr" target="_blank" class="text-xs text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+            GitHub Organization 바로가기 &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Vercel -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center text-white font-bold text-xs">
+                ▲
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Vercel Cloud</h4>
+                <div class="text-[11px] font-mono text-slate-500">vercel.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">호스팅 &amp; SSR</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            Next.js App Router 및 SSR/정적 웹앱을 가장 빠르고 안정적으로 실행하는 메인 서버리스 클라우드입니다. 1~2분 만에 전 세계 CDN으로 전파됩니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">배포 사이트:</strong> animap, lotto, care-map, colorbob, wezip, contract, heestay</li>
+            <li>&bull; <strong class="text-slate-700">특징:</strong> 글로벌 Edge 캐싱, 자동 SSL, 환경변수 격리</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <a href="https://vercel.com" target="_blank" class="text-xs text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+            Vercel 대시보드 바로가기 &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Cloudflare -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-white font-bold text-xs">
+                CF
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Cloudflare</h4>
+                <div class="text-[11px] font-mono text-slate-500">cloudflare.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-700">DNS &middot; R2 &middot; Pages</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            모든 도메인의 DNS와 글로벌 DDoS 방어를 담당하며, <code>adopter.co.kr</code> 쇼케이스 호스팅 및 컬러밥의 5.4만 장 대용량 이미지를 R2에 보관합니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">Pages:</strong> adopter.co.kr &middot; game.adopter.co.kr 리다이렉트</li>
+            <li>&bull; <strong class="text-slate-700">R2 버킷:</strong> 컬러밥 5.4만장 고화질 도안 (전송료 무료)</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <a href="https://dash.cloudflare.com" target="_blank" class="text-xs text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+            Cloudflare Dash 바로가기 &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 4: Supabase -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-xs">
+                SB
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Supabase (BaaS)</h4>
+                <div class="text-[11px] font-mono text-slate-500">supabase.com</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">DB &amp; PDF 스토리지</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            단기임대 전자계약 솔루션(<code>contract.adopter.co.kr</code>)의 핵심 백엔드입니다. 호스트 계약서 데이터, 자필 전자서명, 암호화 PDF 파일이 안전하게 보관됩니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">DB 엔진:</strong> PostgreSQL &middot; 행 레벨 보안(RLS)</li>
+            <li>&bull; <strong class="text-slate-700">스토리지:</strong> 전자계약서 원본 PDF 영구 보관</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <a href="https://supabase.com" target="_blank" class="text-xs text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+            Supabase 콘솔 바로가기 &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 5: Google 생태계 -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
+                G
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Google 생태계</h4>
+                <div class="text-[11px] font-mono text-slate-500">analytics &middot; adsense</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700">분석 &amp; 수익화</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            실시간 방문자 수집(GA4), 정밀 태그 추적(GTM), 검색 색인 등록(GSC), 그리고 wezip/애니맵의 공식 광고 수익화(애드센스)를 총괄합니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">GA4 속성:</strong> animap(GYXBJK8ZHZ), wezip(2N5V6S642H), colorbob(RRFPS8JG1J)</li>
+            <li>&bull; <strong class="text-slate-700">수익화:</strong> 애드센스 (ca-pub-5717882145510454)</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <a href="https://analytics.google.com" target="_blank" class="text-xs text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+            Google Analytics 열기 &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 6: Cafe24 & 외부 API -->
+      <div class="infra-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-rose-600 flex items-center justify-center text-white font-bold text-xs">
+                API
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Cafe24 &amp; 공공 API</h4>
+                <div class="text-[11px] font-mono text-slate-500">cafe24 &middot; data.go.kr</div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-700">이커머스 &middot; 지도</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed mb-3">
+            제주모도와 디안단테9의 쇼핑몰 호스팅 및 카카오맵, 국토교통부 VWorld 배경지도, 건보공단/심평원/동행복권 공공데이터를 실시간 연동합니다.
+          </p>
+          <ul class="text-[11px] space-y-1 text-slate-500 border-t border-slate-100 pt-3 font-mono">
+            <li>&bull; <strong class="text-slate-700">커머스:</strong> jejumodo.com, theandante9.com + 타오바오 자동화</li>
+            <li>&bull; <strong class="text-slate-700">공공데이터:</strong> 전국 3.1만 요양시설, 로또 4,735곳 명당 DB</li>
+          </ul>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-100">
+          <span class="text-xs text-slate-400 font-mono">
+            정부 공공데이터포털 &middot; 카카오 개발자 센터 연동
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 py-6 px-6 text-center text-xs text-slate-500 bg-white mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>MJ LAB &middot; NOVA WEB STUDIO &middot; ADOPTER 인프라 아키텍처</div>
+      <div class="text-slate-400">
+        GitHub Organization <code>adoptercokr</code> &middot; Cloudflare Pages &middot; Vercel Serverless
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    const INFRA_DATA = [
+      {
+        name: "어댑터 메인 쇼케이스",
+        url: "https://adopter.co.kr",
+        repo: "adoptercokr/adopter",
+        repoUrl: "https://github.com/adoptercokr/adopter",
+        hosting: "Cloudflare Pages",
+        hostingType: "CF Pages (Edge)",
+        db: "Cloudflare Functions",
+        google: "GA4 (G-2N5V6S642H)",
+        status: "LIVE"
+      },
+      {
+        name: "애니맵 (Animap)",
+        url: "https://animap.co.kr",
+        repo: "adoptercokr/animap",
+        repoUrl: "https://github.com/adoptercokr/animap",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "Supabase / JSON",
+        google: "GA4 (G-GYXBJK8ZHZ) &middot; 애드센스",
+        status: "LIVE"
+      },
+      {
+        name: "로또명당 (lotto.animap)",
+        url: "https://lotto.animap.co.kr",
+        repo: "adoptercokr/animap-lotto",
+        repoUrl: "https://github.com/adoptercokr/animap-lotto",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "VWorld 지도 API &middot; 공공데이터",
+        google: "GA4 (G-GYXBJK8ZHZ) &middot; 애드센스",
+        status: "LIVE"
+      },
+      {
+        name: "케어맵 (care.animap)",
+        url: "https://care.animap.co.kr",
+        repo: "adoptercokr/care-map",
+        repoUrl: "https://github.com/adoptercokr/care-map",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "심평원·건보공단 요양기관 API",
+        google: "GA4 (G-GYXBJK8ZHZ) &middot; 애드센스",
+        status: "LIVE"
+      },
+      {
+        name: "컬러밥 (ColorBob)",
+        url: "https://colorbob.com",
+        repo: "adoptercokr/colorbob",
+        repoUrl: "https://github.com/adoptercokr/colorbob",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "Cloudflare R2 스토리지 (5.4만장)",
+        google: "GA4 (G-RRFPS8JG1J) + GTM",
+        status: "LIVE"
+      },
+      {
+        name: "위집 (WE ZIP 계산기)",
+        url: "https://wezip.co.kr",
+        repo: "adoptercokr/wezip",
+        repoUrl: "https://github.com/adoptercokr/wezip",
+        hosting: "Vercel",
+        hostingType: "Vercel (정적 배포)",
+        db: "금융·세무 알고리즘 JSON",
+        google: "GA4 (G-2N5V6S642H) &middot; 애드센스",
+        status: "LIVE"
+      },
+      {
+        name: "단기임대 전자계약 솔루션",
+        url: "https://contract.adopter.co.kr",
+        repo: "adoptercokr/contract",
+        repoUrl: "https://github.com/adoptercokr/contract",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "Supabase (PostgreSQL &middot; PDF저장)",
+        google: "GA4 (G-2N5V6S642H)",
+        status: "LIVE"
+      },
+      {
+        name: "어댑터 웹게임 놀이터",
+        url: "https://game.adopter.co.kr",
+        repo: "adoptercokr/games",
+        repoUrl: "https://github.com/adoptercokr/games",
+        hosting: "GitHub Pages &middot; CF CNAME",
+        hostingType: "GitHub Pages (HTML5)",
+        db: "브라우저 로컬스토리지",
+        google: "GA4 (G-2N5V6S642H)",
+        status: "LIVE"
+      },
+      {
+        name: "제주 희스테이 (HEESTAY)",
+        url: "https://jejuheestay.co.kr",
+        repo: "adoptercokr/jejuheestay",
+        repoUrl: "https://github.com/adoptercokr/jejuheestay",
+        hosting: "Vercel",
+        hostingType: "Vercel (Next.js)",
+        db: "네이버 스마트플레이스 연동",
+        google: "서치어드바이저 &middot; 네이버",
+        status: "LIVE"
+      },
+      {
+        name: "제주모도 (JEJUMODO)",
+        url: "https://jejumodo.com",
+        repo: "로컬 데스크톱 프로그램",
+        repoUrl: "#",
+        hosting: "Cafe24 쇼핑몰",
+        hostingType: "Cafe24 커머스",
+        db: "Cafe24 호스팅 DB",
+        google: "스마트스토어 &middot; GSC",
+        status: "LIVE"
+      },
+      {
+        name: "디안단테9 (THE ANDANTE 9)",
+        url: "https://theandante9.com",
+        repo: "로컬 데스크톱 프로그램",
+        repoUrl: "#",
+        hosting: "Cafe24 쇼핑몰",
+        hostingType: "Cafe24 커머스",
+        db: "Cafe24 호스팅 DB",
+        google: "스마트스토어 &middot; GSC",
+        status: "LIVE"
+      }
+    ];
+
+    function renderInfraTable(items) {
+      const tbody = document.getElementById('infraTableBody');
+      tbody.innerHTML = items.map(item => `
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="py-3 px-3.5 font-bold text-slate-900">
+            ${item.name}
+          </td>
+          <td class="py-3 px-3.5 font-mono">
+            <a href="${item.url}" target="_blank" class="text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1">
+              <span>${item.url.replace('https://', '')}</span>
+              <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </td>
+          <td class="py-3 px-3.5 font-mono">
+            ${item.repoUrl !== '#' ? `
+              <a href="${item.repoUrl}" target="_blank" class="text-slate-700 hover:text-slate-900 font-semibold hover:underline flex items-center gap-1">
+                <span>${item.repo}</span>
+                <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            ` : `<span class="text-slate-500">${item.repo}</span>`}
+          </td>
+          <td class="py-3 px-3.5">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono font-medium ${
+              item.hosting.includes('Vercel') ? 'bg-black text-white' :
+              item.hosting.includes('Cloudflare') ? 'bg-amber-50 text-amber-800 border border-amber-200' :
+              item.hosting.includes('Cafe24') ? 'bg-rose-50 text-rose-800 border border-rose-200' :
+              'bg-slate-100 text-slate-800'
+            }">
+              ${item.hostingType}
+            </span>
+          </td>
+          <td class="py-3 px-3.5 text-slate-600">
+            ${item.db}
+          </td>
+          <td class="py-3 px-3.5 font-mono text-[11px] text-slate-600">
+            ${item.google}
+          </td>
+          <td class="py-3 px-3.5 text-center">
+            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              ${item.status}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterInfraTable() {
+      const q = document.getElementById('infraSearchInput').value.toLowerCase().trim();
+      if (!q) {
+        renderInfraTable(INFRA_DATA);
+        return;
+      }
+      const filtered = INFRA_DATA.filter(it => 
+        it.name.toLowerCase().includes(q) ||
+        it.url.toLowerCase().includes(q) ||
+        it.repo.toLowerCase().includes(q) ||
+        it.hosting.toLowerCase().includes(q) ||
+        it.db.toLowerCase().includes(q) ||
+        it.google.toLowerCase().includes(q)
+      );
+      renderInfraTable(filtered);
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      renderInfraTable(INFRA_DATA);
+    });
+  </script>
+</body>
+</html>
