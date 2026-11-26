@@ -3,26 +3,52 @@ export async function onRequest(context) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Cache-Control': 'no-store'
+    'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
   };
 
   if (context.request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers });
   }
 
-  // Pure honest real status - Never fabricate fake numbers
-  const stats = {
-    timestamp: new Date().toISOString(),
-    animap: { note: "실시간 Supabase DB 카운터 연동", hasApi: true, apiUrl: "https://animap.co.kr/api/visitors" },
-    wezip: { note: "실시간 DB 카운터 연동", hasApi: true, apiUrl: "https://wezip.co.kr/api/counter" },
-    lotto: { note: "오픈 전 개발 진행 중 (BETA)", hasApi: false },
-    care: { note: "오픈 전 데이터 검증 중 (BETA)", hasApi: false },
-    colorbob: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
-    adopter: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
-    game: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
-    jejumodo: { note: "Cafe24 쇼핑몰 관리자 확인", hasApi: false },
-    theandante9: { note: "Cafe24 쇼핑몰 관리자 확인", hasApi: false }
+  const targets = [
+    { key: 'animap', hitUrl: 'https://hits.sh/animap.co.kr.svg?view=today-total' },
+    { key: 'wezip', hitUrl: 'https://hits.sh/wezip.co.kr.svg?view=today-total' },
+    { key: 'colorbob', hitUrl: 'https://hits.sh/colorbob.com.svg?view=today-total' },
+    { key: 'adopter', hitUrl: 'https://hits.sh/adopter.co.kr.svg?view=today-total' },
+    { key: 'game', hitUrl: 'https://hits.sh/game.adopter.co.kr.svg?view=today-total' },
+    { key: 'jejumodo', hitUrl: 'https://hits.sh/jejumodo.com.svg?view=today-total' },
+    { key: 'theandante9', hitUrl: 'https://hits.sh/theandante9.com.svg?view=today-total' },
+    { key: 'lotto', hitUrl: 'https://hits.sh/lotto.animap.co.kr.svg?view=today-total' },
+    { key: 'care', hitUrl: 'https://hits.sh/care.animap.co.kr.svg?view=today-total' },
+  ];
+
+  const results = {
+    timestamp: new Date().toISOString()
   };
 
-  return new Response(JSON.stringify(stats), { status: 200, headers });
+  await Promise.all(
+    targets.map(async ({ key, hitUrl }) => {
+      try {
+        const resp = await fetch(`${hitUrl}&_t=${Date.now()}`, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (AdopterShowcase/1.0)' },
+          cf: { cacheTtl: 0 }
+        });
+        if (resp.ok) {
+          const svg = await resp.text();
+          const match = svg.match(/hits:\s*([0-9,]+)\s*\/\s*([0-9,]+)/i);
+          if (match) {
+            const today = parseInt(match[1].replace(/,/g, ''), 10) || 0;
+            const total = parseInt(match[2].replace(/,/g, ''), 10) || 0;
+            results[key] = { pvToday: today, pvTotal: total };
+            return;
+          }
+        }
+      } catch (e) {
+        // fetch error fallback
+      }
+      results[key] = { pvToday: null, pvTotal: null };
+    })
+  );
+
+  return new Response(JSON.stringify(results), { status: 200, headers });
 }
