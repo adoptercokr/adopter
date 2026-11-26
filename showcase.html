@@ -845,32 +845,32 @@
       return null;
     }
 
-    // Real-time Fetch Stats from Live APIs directly
+    // Real-time Fetch Stats from Cloudflare API Proxy & Live DB APIs
     async function fetchLiveStats() {
       const timeSpan = document.getElementById('updateTimeText');
       try {
-        // 1. Fetch real hits.sh PV stats for all 9 domains
-        const hitDomains = [
-          { id: 'animap', domain: 'animap.co.kr' },
-          { id: 'wezip', domain: 'wezip.co.kr' },
-          { id: 'lotto', domain: 'lotto.animap.co.kr' },
-          { id: 'care', domain: 'care.animap.co.kr' },
-          { id: 'colorbob', domain: 'colorbob.com' },
-          { id: 'adopter', domain: 'adopter.co.kr' },
-          { id: 'game', domain: 'game.adopter.co.kr' },
-          { id: 'jejumodo', domain: 'jejumodo.com' },
-          { id: 'theandante9', domain: 'theandante9.com' }
-        ];
-
-        await Promise.all(hitDomains.map(async ({ id, domain }) => {
-          const data = await fetchHitsShStats(domain);
-          if (data) {
-            const todayPvEl = document.getElementById(`metric-today-pv-${id}`);
-            const totalPvEl = document.getElementById(`metric-total-pv-${id}`);
-            if (todayPvEl) todayPvEl.innerText = `${data.today.toLocaleString()}회`;
-            if (totalPvEl) totalPvEl.innerText = `${data.total.toLocaleString()}회`;
+        // 1. Fetch real hits.sh PV stats via our Cloudflare serverless proxy /api/stats (No CORS issue!)
+        try {
+          const proxyRes = await fetch('/api/stats', { cache: 'no-store' });
+          if (proxyRes.ok) {
+            const pvData = await proxyRes.json();
+            const keys = ['animap', 'wezip', 'lotto', 'care', 'colorbob', 'adopter', 'game', 'jejumodo', 'theandante9'];
+            keys.forEach(k => {
+              if (pvData[k]) {
+                const todayPvEl = document.getElementById(`metric-today-pv-${k}`);
+                const totalPvEl = document.getElementById(`metric-total-pv-${k}`);
+                if (todayPvEl && typeof pvData[k].pvToday === 'number') {
+                  todayPvEl.innerText = `${pvData[k].pvToday.toLocaleString()}회`;
+                }
+                if (totalPvEl && typeof pvData[k].pvTotal === 'number') {
+                  totalPvEl.innerText = `${pvData[k].pvTotal.toLocaleString()}회`;
+                }
+              }
+            });
           }
-        }));
+        } catch (pvErr) {
+          console.warn('Proxy /api/stats fetch error:', pvErr);
+        }
 
         // 2. Fetch animap live DB UV counter
         try {
