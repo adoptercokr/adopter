@@ -3,25 +3,25 @@ export async function onRequest(context) {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Cache-Control': 'public, max-age=300, stale-while-revalidate=600'
+    'Cache-Control': 'no-store'
   };
 
   if (context.request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers });
   }
 
-  // 100% accurate, launch-honest stats reflecting actual testing and launch dates
+  // Pure honest real status - Never fabricate fake numbers
   const stats = {
     timestamp: new Date().toISOString(),
-    animap: { uvToday: 78, uvTotal: 1840, pvToday: 235, pvTotal: 4210 },
-    lotto: { uvToday: 1, uvTotal: 1, pvToday: 6, pvTotal: 6 },
-    care: { uvToday: 1, uvTotal: 1, pvToday: 5, pvTotal: 5 },
-    colorbob: { uvToday: 1, uvTotal: 1, pvToday: 4, pvTotal: 4 },
-    wezip: { uvToday: 42, uvTotal: 1120, pvToday: 126, pvTotal: 2450 },
-    adopter: { uvToday: 1, uvTotal: 2, pvToday: 3, pvTotal: 6 },
-    game: { uvToday: 1, uvTotal: 1, pvToday: 5, pvTotal: 5 },
-    jejumodo: { uvToday: 1, uvTotal: 2, pvToday: 3, pvTotal: 6 },
-    theandante9: { uvToday: 1, uvTotal: 2, pvToday: 3, pvTotal: 6 }
+    animap: { note: "실시간 Supabase DB 카운터 연동", hasApi: true, apiUrl: "https://animap.co.kr/api/visitors" },
+    wezip: { note: "실시간 DB 카운터 연동", hasApi: true, apiUrl: "https://wezip.co.kr/api/counter" },
+    lotto: { note: "오픈 전 개발 진행 중 (BETA)", hasApi: false },
+    care: { note: "오픈 전 데이터 검증 중 (BETA)", hasApi: false },
+    colorbob: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
+    adopter: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
+    game: { note: "Google GA4 속성 측정 중 (자체 카운터 미연동)", hasApi: false },
+    jejumodo: { note: "Cafe24 쇼핑몰 관리자 확인", hasApi: false },
+    theandante9: { note: "Cafe24 쇼핑몰 관리자 확인", hasApi: false }
   };
 
   return new Response(JSON.stringify(stats), { status: 200, headers });
