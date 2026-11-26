@@ -14,8 +14,14 @@ export async function onRequest(context) {
       return Response.redirect(`${url.origin}/portfolio.html`, 301);
     }
 
-    // 4. 숙소 서브도메인 접근 시 메인 도메인으로 301 리디렉션 (5xx 크래시 원천 방지)
+    // 4. stay.adopter.co.kr -> adopter-stay.pages.dev 프록시 서빙 (서브도메인 독립 운영)
     const hostname = url.hostname.toLowerCase();
+    if (hostname === 'stay.adopter.co.kr') {
+      const target = new URL(url.pathname + url.search, 'https://adopter-stay.pages.dev');
+      return fetch(new Request(target.toString(), request));
+    }
+
+    // 5. 기타 구 숙소 서브도메인 접근 시 메인 도메인으로 301 리디렉션 (5xx 크래시 원천 방지)
     if (hostname.endsWith('.adopter.co.kr') && hostname !== 'adopter.co.kr' && hostname !== 'www.adopter.co.kr') {
       return Response.redirect(`https://adopter.co.kr${url.pathname}`, 301);
     }
