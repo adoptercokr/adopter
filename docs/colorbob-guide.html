@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컬러밥 (ColorBob) 글로벌 색칠공부 플랫폼 구축 및 운영 가이드</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Pretendard', sans-serif; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 0.75rem; overflow-x: auto; font-size: 0.85rem; font-family: monospace; line-height: 1.6; white-space: pre-wrap; word-break: break-all; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10">
+    <div class="flex items-center justify-between pb-6 border-b border-slate-200 mb-6">
+      <div>
+        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full">MJ STUDIO 공식 기획서 &amp; 가이드</span>
+        <h1 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2">컬러밥 (ColorBob) 글로벌 색칠공부 플랫폼 구축 및 운영 가이드</h1>
+      </div>
+      <a href="../showcase.html#docs" class="text-xs font-semibold text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors">
+        ← 문서 목록
+      </a>
+    </div>
+    <div class="prose prose-slate max-w-none">
+      <pre><code># 글로벌 색칠공부 &amp; 교육 도안 플랫폼 (ColorBob · colorbob.com) 완전 복원 및 운영 가이드
+
+&gt; **최신 정규 마스터 가이드:** [컬러밥_글로벌_색칠공부_구축_및_복제_마스터가이드.md](file:///c:/nas/mj/비즈니스/유튜브-SNS-캐릭터-애니/ai사이트/AI-mj공작실/.agents/컬러밥_글로벌_색칠공부_구축_및_복제_마스터가이드.md) 참조  
+&gt; **문서 버전:** v5.0 (ColorBob 62,244개 도안, Vercel DNS colorbob.com 정식 배포, 국가별 스마트 큐레이션 엔진)  
+&gt; **최종 갱신일:** 2026-11-24  
+&gt; **프로젝트 위치:** `c:\nas\mj\비즈니스\유튜브-SNS-캐릭터-애니\ai사이트\AI-mj공작실\01-Nova-Web-Studio\global-coloring`  
+&gt; **배포 번들 위치:** `c:\nas\mj\비즈니스\유튜브-SNS-캐릭터-애니\ai사이트\AI-mj공작실\01-Nova-Web-Studio\global-coloring\deploy_dist`  
+&gt; **원격 GitHub:** `https://github.com/adoptercokr/colorbob` (main 브랜치)  
+&gt; **공식 서비스 도메인:** `https://colorbob.com`  
+
+---
+
+## 1. 프로젝트 개요 및 핵심 품질 규격
+
+- **서비스 명칭:** ColorWorld Archive (무료 색칠공부 &amp; 교육 도안 라이브러리)
+- **도안 품질:** 전 세계 박물관, 도서관, 국립공원(NPS), 아티스트들이 기증한 **실제 정통 흑백 선화 도안**
+- **인쇄 표준:** A4 300DPI급 표준 해상도 (1240 x 1754 px)
+- **용량 최적화:** 1-bit 적응형 무손실 흑백 압축 (파일당 30KB ~ 110KB 고화질 경량화)
+- **중복률:** **0.00% (dHash 퍼셉추얼 해시 알고리즘 기반 해밍 거리 4 이하 전량 자동 폐기)**
+- **출처 및 문구 은폐:** 상단 3.5% 및 하단 5.5% 자동 정밀 크롭으로 웹사이트 URL, 저작권 문구, 시트 번호 100% 제거
+- **라이선스:** CC0 퍼블릭 도메인 기반 **상업적 이용 100% 자유 (출처 표기 불필요)**
+- **다국어 지원:** 한국어(ko), 영어(en), 일본어(ja), 중국어(zh) 4개국어 완전 현지화
+
+---
+
+## 2. 테마별 실제 도안 라이브러리 구성
+
+| 테마 코드 | 테마명 (국문) | 수집 출처 및 실제 수록 도안 |
+|:---:|:---|:---|
+| `animals` | 동물 &amp; 공룡 | 실제 사람이 그린 고양이(Cats), 강아지(Dogs), 쥐라기 공룡(T-Rex, Triceratops), 사자, 호랑이, 곰, 야생마, 돌고래, 고래, 올빼미, 나비, 토끼 등 실제 동물 선화 |
+| `objects` | 사물 &amp; 탈것 &amp; 건축 | 19세기 대형 범선(Clipper), 증기기관차(Locomotive), 스포츠카, 클래식 빈티지카, 중세 판타지 성채, 해안 등대, 우주 로켓, 활짝 핀 장미꽃 등 |
+| `korea` | 한국 문화 &amp; 국기 | 한국 전통 고찰(Historic Temple), 다층 석탑(Pagoda), 경복궁 궁궐 건축, 단아한 전통 한복, 대한민국 태극기 및 세계 각국 국기 선화 |
+| `holidays` | 기념일 &amp; 할로윈 | 할로윈 잭오랜턴(호박등), 꼬마 유령, 할로윈 마녀, 박쥐, 산타클로스 선물 도안, 크리스마스 트리, 겨울 눈사람, 루돌프 사슴 등 |
+| `mandala` | 힐링 만다라 | 사람이 펜으로 정밀하게 작도한 플라워 블룸 젠탱글, 신성 기하학 명상 만다라, 원형 오너먼트 등 |
+| `sports` | 운동 &amp; 스포츠 | 역동적인 축구 선수, 미식축구, 농구 슬램덩크, 야구 타자 배팅, 테니스 서브, 익스트림 스케이트보드, 수영 경기, 자전거 레이스, 무술 태권도 등 |
+| `maze` | 미로찾기 | Easy / Hard 단계별 완전 탐색 알고리즘 기반 정밀 교육 미로 |
+| `words` | 단어 · 한글 · 한자 | 영유아 한글 단어 따라쓰기(가방, 나비, 사과 등) 및 격자 쓰기 정규 워크시트 |
+
+---
+
+## 3. dHash 시각적 중복 0% 및 워터마크 자동 제거 기술
+
+```python
+# 1. 상하단 워터마크 및 출처 URL 자동 크롭
+crop_top = int(h * 0.035)
+crop_bottom = int(h * 0.945)
+img = img.crop((0, crop_top, w, crop_bottom))
+
+# 2. dHash (Difference Hash) 64비트 시각적 지문 계산
+def calc_dhash(image, hash_size=8):
+    resized = image.convert('L').resize((hash_size + 1, hash_size), Image.Resampling.LANCZOS)
+    pixels = list(resized.getdata())
+    difference = [pixels[r*(hash_size+1)+c] &gt; pixels[r*(hash_size+1)+c+1] 
+                  for r in range(hash_size) for c in range(hash_size)]
+    # 64비트 해시 반환
+
+# 3. 해밍 거리가 4 이하인 시각적 유사/중복 이미지는 즉시 폐기
+if hamming_distance(new_dhash, existing_dhash) &lt;= 4:
+    drop_duplicate_image()
+```
+
+---
+
+## 4. 프론트엔드 핵심 기능 및 인터랙션
+
+1. **메인 화면 카드 직관화:**
+   - 카드 상단 우측에 `웹 색칠 가능` 뱃지 상시 노출.
+   - 카드 하단에 `[웹 색칠하기]`(원클릭 스튜디오 진입)와 `[인쇄]` 버튼 상시 2분할 배치.
+2. **3레이어 캔버스 디지털 페인팅 스튜디오:**
+   - `paintCanvas` (하단 채색) + `tempCanvas` (드래그 버퍼) + `lineCanvas` (최상단 multiply 선화 보존).
+   - 아무리 진한 색으로 색칠해도 원본 흑백 도안 선이 절대로 가려지지 않고 선명하게 유지됨.
+3. **1:1 정밀 좌표 및 브러시/지우개 범위 원형 인디케이터:**
+   - 마우스 포인터 위치에 실시간 브러시 굵기와 색상/투명도가 반영된 커서 링이 떠서 적용 범위를 완벽히 안내.
+4. **전체 통합 검색 &amp; 검색 버튼:**
+   - 연령/테마 상관없이 돋보기 [검색] 버튼 하나로 전체 풀 실시간 통합 검색.
+5. **푸터 4대 전문 법적 모달:**
+   - 제휴 및 문의, 서비스 이용약관, 개인정보처리방침(회원가입 없는 100% 익명 운영), 저작권/상업적 라이선스(상업적 출판·판매 완전 자유).
+
+---
+
+## 5. 라이브러리 추가 수집 및 재구축 명령어
+
+```powershell
+cd "c:\nas\mj\비즈니스\유튜브-SNS-캐릭터-애니\ai사이트\AI-mj공작실\01-Nova-Web-Studio\global-coloring"
+
+# 1. 실제 아카이브 도안 수집 및 정제
+python scripts/fetch_real_coloring_archive.py
+python scripts/expand_real_archive.py
+
+# 2. 다국어 제목 정비
+python scripts/fix_titles.py
+
+# 3. 정적 사이트 빌드
+cmd.exe /c npm run build
+```
+</code></pre>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>앱 출시 진행 계획서</title>
+<style>
+body{font-family:-apple-system,"Pretendard","Malgun Gothic",sans-serif;color:#1e293b;background:#fff;margin:0;line-height:1.8;font-size:16px}
+main{max-width:860px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:28px;margin-bottom:4px}
+h2{font-size:20px;margin-top:48px;padding-bottom:8px;border-bottom:1px solid #e2e8f0}
+.sub{color:#64748b;margin-top:0}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:15px}
+th,td{border:1px solid #e2e8f0;padding:10px 12px;text-align:left;vertical-align:top}
+th{background:#f8fafc}
+.box{background:#f8fafc;border:1px solid #e2e8f0;border-left:3px solid #2563eb;padding:14px 18px;margin:16px 0}
+.me{color:#2563eb;font-weight:600}
+.done{color:#94a3b8}
+@media(max-width:600px){table{font-size:13px}}
+</style>
+</head>
+<body>
+<main>
+<h1>앱 출시 진행 계획서</h1>
+<p class="sub">웹사이트 배포 후 앱 전환 / 사업자 계정 / 윈도우 PC 단독 진행 / 작성일 2026-11-20</p>
+
+<div class="box"><strong>요약</strong><br>
+1. 웹을 먼저 배포하고, 그 웹을 앱이 불러오는 방식(Capacitor)으로 동기화합니다.<br>
+2. 지금 할 일은 D-U-N-S 번호 신청 하나입니다. 무료이고 1~2주 걸립니다.<br>
+3. 맥은 필요 없습니다. 아이폰 빌드는 GitHub 클라우드가 처리합니다.</div>
+
+<h2>1. 애플 vs 안드로이드</h2>
+<table>
+<tr><th>항목</th><th>애플 앱스토어</th><th>구글 플레이</th></tr>
+<tr><td>가입비</td><td>연 $99 (약 14만 원), 매년 갱신</td><td>최초 1회 $25 (약 3.5만 원)</td></tr>
+<tr><td>사업자 계정 필수 조건</td><td>D-U-N-S 번호</td><td>D-U-N-S 번호</td></tr>
+<tr><td>첫 출시까지</td><td>약 1~2주</td><td>사업자 계정 1~2주 (개인은 3~4주)</td></tr>
+<tr><td>심사 기간</td><td>1~2일</td><td>3~7일</td></tr>
+<tr><td>심사 난이도</td><td>어려움</td><td>보통</td></tr>
+<tr><td>주요 반려 사유</td><td>웹사이트만 감싼 앱 (가이드라인 4.2)</td><td>개인정보·데이터 보안 항목 미흡</td></tr>
+<tr><td>빌드 방식</td><td>GitHub 클라우드 맥 (.ipa)</td><td>윈도우 PC (.aab)</td></tr>
+</table>
+
+<h2>2. 비용</h2>
+<table>
+<tr><th>항목</th><th>금액</th></tr>
+<tr><td>구글 가입비</td><td>약 3.5만 원 (1회)</td></tr>
+<tr><td>애플 가입비</td><td>약 14만 원 (매년)</td></tr>
+<tr><td>개발, 빌드, 서류</td><td>0원 (AI 진행)</td></tr>
+<tr><td><strong>첫해 합계</strong></td><td><strong>약 17.5만 원</strong></td></tr>
+<tr><td>2년 차부터</td><td>약 14만 원</td></tr>
+</table>
+
+<h2>3. 사이트별 앱 적합도</h2>
+<table>
+<tr><th>순서</th><th>사이트</th><th>적합도</th><th>비고</th></tr>
+<tr><td>1</td><td>컬러월드 (색칠공부)</td><td>높음</td><td>색칠, 저장, 공유 기능이 앱답습니다. 1호 추천.</td></tr>
+<tr><td>2</td><td>애니맵2</td><td>높음</td><td>지도, 위치, 푸시 알림. 위치 권한 설명 필요.</td></tr>
+<tr><td>3</td><td>위집 (금융·세무)</td><td>낮음</td><td>글 위주라 반려 위험. 계산기, 알림 등 기능 추가 후 진행.</td></tr>
+</table>
+
+<h2>4. 진행 단계</h2>
+<table>
+<tr><th>단계</th><th>내용</th><th>담당</th><th>시점</th><th>상태</th></tr>
+<tr><td>0</td><td>D-U-N-S 번호 신청</td><td class="me">대표님</td><td>지금 (웹 배포와 병행)</td><td>대기</td></tr>
+<tr><td>1</td><td>웹사이트 배포 완료 (HTTPS, 고정 도메인, 모바일 최적화)</td><td class="me">대표님 + AI</td><td>진행 중</td><td>진행</td></tr>
+<tr><td>2</td><td>개인정보처리방침, 이용약관 페이지 웹에 추가</td><td>AI</td><td>웹 배포 시</td><td>대기</td></tr>
+<tr><td>3</td><td>애플·구글 사업자 개발자 계정 가입 및 결제</td><td class="me">대표님</td><td>D-U-N-S 발급 후</td><td>대기</td></tr>
+<tr><td>4</td><td>Capacitor로 앱 변환 (안드로이드/iOS 프로젝트 생성)</td><td>AI</td><td>웹 배포 후 2~3일</td><td>대기</td></tr>
+<tr><td>5</td><td>앱 전용 기능 추가 (푸시, 오프라인 화면, Safe Area, 공유)</td><td>AI</td><td>단계 4와 함께</td><td>대기</td></tr>
+<tr><td>6</td><td>아이콘, 스플래시, 스크린샷, 앱 설명문 제작</td><td>AI</td><td>1일</td><td>대기</td></tr>
+<tr><td>7</td><td>GitHub Actions 자동 빌드 (.aab, .ipa)</td><td>AI</td><td>1일</td><td>대기</td></tr>
+<tr><td>8</td><td>스토어 제출 (최종 버튼은 대표님)</td><td class="me">AI 준비 + 대표님 승인</td><td>약 1주</td><td>대기</td></tr>
+<tr><td>9</td><td>심사 대응, 반려 시 수정 후 재제출</td><td>AI</td><td>1~3주</td><td>대기</td></tr>
+</table>
+
+<h2>5. 예상 일정 (웹 배포 완료일을 D+0으로)</h2>
+<table>
+<tr><th>시점</th><th>내용</th></tr>
+<tr><td>D+1 ~ D+3</td><td>계정 가입 (D-U-N-S 발급 완료 상태 가정)</td></tr>
+<tr><td>D+3 ~ D+7</td><td>앱 변환, 리소스 제작, 클라우드 빌드</td></tr>
+<tr><td>약 D+7</td><td>애플 심사 제출</td></tr>
+<tr><td>약 D+9</td><td>애플 앱 출시</td></tr>
+<tr><td>약 D+14</td><td>구글 앱 출시 (사업자 계정)</td></tr>
+</table>
+
+<h2>6. 웹 배포 전 점검표</h2>
+<table>
+<tr><th>항목</th><th>이유</th></tr>
+<tr><td>모바일 화면 최적화</td><td>앱 화면이 곧 모바일 웹입니다.</td></tr>
+<tr><td>HTTPS, 고정 도메인</td><td>앱이 이 주소를 불러옵니다. 바꾸면 앱 수정이 필요합니다.</td></tr>
+<tr><td>개인정보처리방침, 이용약관 URL</td><td>양대 스토어 필수 제출 항목입니다.</td></tr>
+<tr><td>로그인이 있으면 테스트 계정</td><td>애플 심사관용입니다.</td></tr>
+<tr><td>오류 페이지 없음</td><td>심사 중 오류가 보이면 반려됩니다.</td></tr>
+</table>
+
+<h2>7. 웹 동기화 한계</h2>
+<table>
+<tr><th>웹만 고치면 반영</th><th>앱 재제출 필요</th></tr>
+<tr><td>화면, 글, 디자인, 대부분의 기능</td><td>아이콘, 앱 이름, 스플래시, 새 권한(카메라/위치), 네이티브 기능 변경</td></tr>
+</table>
+
+<h2>8. D-U-N-S 번호 신청 안내</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>정의</td><td>전 세계 기업에 부여하는 9자리 사업자 식별 번호 (Dun &amp; Bradstreet)</td></tr>
+<tr><td>비용</td><td>무료. 유료 대행은 결제하지 마세요.</td></tr>
+<tr><td>기간</td><td>보통 1~2주, 길면 약 1개월</td></tr>
+<tr><td>준비물</td><td>사업자등록증, 영문 상호명, 영문 주소, 대표자명, 대표 전화, 사업자 이메일</td></tr>
+<tr><td>순서</td><td>1) 애플 D-U-N-S 조회 페이지에서 상호 검색 → 2) 없으면 신청 → 3) 이메일 확인 응답 → 4) 번호를 애플·구글 가입에 입력</td></tr>
+<tr><td>주의</td><td>영문 상호·주소는 사업자등록증과 정확히 일치해야 합니다. 이후 가입에서도 같은 표기를 사용합니다.</td></tr>
+</table>
+
+<h2>9. 대표님 확인 필요 사항</h2>
+<table>
+<tr><th>항목</th><th>답변</th></tr>
+<tr><td>영문 상호명</td><td>미정</td></tr>
+<tr><td>영문 사업장 주소</td><td>미정</td></tr>
+<tr><td>1호 앱</td><td>컬러월드 추천 (미확정)</td></tr>
+<tr><td>아이폰 보유 여부 (실기기 테스트용)</td><td>미확인</td></tr>
+<tr><td>앱 도메인 확정 여부</td><td>미확인</td></tr>
+</table>
+</main>
+</body>
+</html>
