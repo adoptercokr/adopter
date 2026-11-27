@@ -659,7 +659,7 @@
   </footer>
 
     <!-- MEMO MODAL (심플 & 간결 메모장) -->
-  <div id="memoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 sm:p-6 transition-all duration-150">
+  <div id="memoModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 sm:p-6 transition-all duration-150">
     <div class="bg-white border border-slate-200 rounded-xl w-full max-w-lg max-h-[85vh] flex flex-col shadow-xl overflow-hidden">
       
       <!-- Modal Header (Simple Minimalist) -->
@@ -1342,19 +1342,55 @@
 
         return `
           <div class="site-card group bg-white border ${borderClass} rounded-2xl overflow-hidden shadow-sm hover:border-slate-400 transition-all flex flex-col">
-            <div onclick="openPreview('${encodeURIComponent(item.path)}', '${encodeURIComponent(item.title)}', '${encodeURIComponent(item.tag || '')}', ${isLocal})" class="thumb-box border-b border-slate-100 cursor-pointer">
-              ${isLocal ? `
-                <div class="w-full h-full bg-slate-900 text-white p-4 flex flex-col justify-between">
-                  <span class="text-[10px] font-mono text-purple-300 uppercase tracking-wider">Local Desktop App</span>
-                  <div>
-                    <p class="text-sm font-bold truncate">${item.title}</p>
-                    <p class="text-[11px] text-slate-300 mt-1 truncate">${item.localNote || '로컬 실행 전용'}</p>
-                  </div>
+            <div onclick="openPreview('${encodeURIComponent(item.path)}', '${encodeURIComponent(item.title)}', '${encodeURIComponent(item.tag || '')}', ${isLocal})" class="thumb-box border-b border-slate-100 cursor-pointer select-none">
+              <div class="w-full h-full p-4 flex flex-col justify-between transition-transform duration-200 group-hover:scale-[1.01] ${
+                isLocal ? 'bg-slate-900 text-white' :
+                item.category === 'core_platform' ? 'bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-900 text-white' :
+                item.category === 'spark_games' ? 'bg-gradient-to-br from-amber-950 via-slate-900 to-slate-900 text-white' :
+                item.category === 'admin_automation' ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white' :
+                'bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800'
+              }">
+                <!-- Top Badge & Status -->
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                    isLocal ? 'bg-purple-500/20 text-purple-300 border border-purple-400/30' :
+                    (item.category === 'core_platform' || item.category === 'spark_games' || item.category === 'admin_automation') ?
+                    'bg-white/10 text-slate-200 border border-white/20' :
+                    'bg-slate-200 text-slate-700 border border-slate-300'
+                  }">
+                    ${item.tag || 'PLATFORM'}
+                  </span>
+                  <span class="text-[10px] font-mono flex items-center gap-1 ${
+                    (isLocal || item.category === 'core_platform' || item.category === 'spark_games' || item.category === 'admin_automation') ?
+                    'text-emerald-400' : 'text-emerald-600 font-semibold'
+                  }">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    ${item.badge || 'LIVE'}
+                  </span>
                 </div>
-              ` : `
-                <iframe data-src="${targetUrl}" class="thumb-frame" tabindex="-1" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
-              `}
-              <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors"></div>
+
+                <!-- Center App Title & Desc -->
+                <div class="my-auto py-1">
+                  <h5 class="text-sm sm:text-base font-extrabold tracking-tight line-clamp-1 ${
+                    (isLocal || item.category === 'core_platform' || item.category === 'spark_games' || item.category === 'admin_automation') ? 'text-white' : 'text-slate-900'
+                  }">${item.title}</h5>
+                  <p class="text-[11px] mt-1 line-clamp-2 leading-relaxed ${
+                    (isLocal || item.category === 'core_platform' || item.category === 'spark_games' || item.category === 'admin_automation') ? 'text-slate-300' : 'text-slate-500'
+                  }">${item.desc || item.localNote || '클릭 시 인터랙티브 미리보기가 실행됩니다.'}</p>
+                </div>
+
+                <!-- Bottom URL & Click Hint -->
+                <div class="flex items-center justify-between text-[10px] font-mono pt-2 border-t ${
+                  (isLocal || item.category === 'core_platform' || item.category === 'spark_games' || item.category === 'admin_automation') ?
+                  'border-white/10 text-slate-400' : 'border-slate-200 text-slate-400'
+                }">
+                  <span class="truncate max-w-[170px]">${item.path.replace(/^https?:\/\//, '')}</span>
+                  <span class="text-blue-400 font-sans font-medium flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+                    <span>미리보기</span>
+                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div class="px-4 py-3 flex items-center justify-between gap-2">
@@ -1391,30 +1427,7 @@
           </div>
         `;
       }).join('');
-      scaleShowcaseFrames();
-      setupShowcaseObserver();
-    }
-
-    let showcaseObserver = null;
-    function scaleShowcaseFrames() {
-      document.querySelectorAll('.thumb-box').forEach(box => {
-        const frame = box.querySelector('.thumb-frame');
-        if (frame) frame.style.transform = `scale(${box.clientWidth / 1280})`;
-      });
-    }
-    window.addEventListener('resize', scaleShowcaseFrames);
-    function setupShowcaseObserver() {
-      if (showcaseObserver) showcaseObserver.disconnect();
-      showcaseObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const frame = entry.target.querySelector('iframe[data-src]');
-          if (entry.isIntersecting && frame && !frame.getAttribute('src')) {
-            frame.src = frame.getAttribute('data-src');
-            scaleShowcaseFrames();
-          }
-        });
-      }, { rootMargin: '250px' });
-      document.querySelectorAll('.site-card').forEach(el => showcaseObserver.observe(el));
+      // Clean and ultra-lightweight: No background iframe overload!
     }
 
     // Modal logic
