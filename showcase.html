@@ -1382,7 +1382,10 @@
                   미리보기
                 </button>
                 ${isLocal ? `
-                  <a href="${item.localUrl || '#'}" target="_blank" rel="noopener noreferrer" onclick="if('${item.localUrl || ''}' === '') { alert('로컬 데스크톱 프로그램입니다. (${item.localNote || ''})'); return false; }" class="px-2.5 py-1 rounded-md bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-semibold transition-colors">실행</a>
+                  <button
+                    type="button"
+                    onclick="copyLocalPath('${encodeURIComponent(item.localUrl || item.path.replace(/^local:/, ''))}', '${encodeURIComponent(item.title)}')"
+                    class="px-2.5 py-1 rounded-md bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-semibold transition-colors">주소 복사</button>
                 ` : `
                   <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-semibold transition-colors">새 탭</a>
                 `}
@@ -1577,6 +1580,20 @@
 
     // Save context in openPreview
     
+    function copyLocalPath(encodedTarget, encodedTitle) {
+      const target = decodeURIComponent(encodedTarget);
+      const title = decodeURIComponent(encodedTitle);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(target).then(() => {
+          alert(`[${title}] 로컬 주소가 복사되었습니다.\n\n${target}\n\n새 탭 주소창이나 파일 탐색기에 붙여넣기(Ctrl+V)하여 실행하세요.`);
+        }).catch(() => {
+          prompt('아래 로컬 주소를 복사(Ctrl+C)하여 주소창에 붙여넣기 하세요:', target);
+        });
+      } else {
+        prompt('아래 로컬 주소를 복사(Ctrl+C)하여 주소창에 붙여넣기 하세요:', target);
+      }
+    }
+
     function openPreview(encodedPath, encodedTitle, encodedTag, isLocal = false) {
       const path = decodeURIComponent(encodedPath);
       const title = decodeURIComponent(encodedTitle);
